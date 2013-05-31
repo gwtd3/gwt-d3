@@ -3,8 +3,8 @@ package com.github.gwtd3.demo.client.testcases;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -17,10 +17,10 @@ public class AbstractSeleniumTest {
 
     private static final String RUN_SELENIUM_LOCALHOST = "selenium.localhost";
     private static final String WEBAPP_URL = "selenium.webapp.url";
-    protected static WebDriver driver;
+    protected WebDriver driver;
 
-    @BeforeClass
-    public static void setup() throws MalformedURLException {
+    @Before
+    public void setup() throws MalformedURLException {
         String webAppUrl = System.getProperty(WEBAPP_URL);
         System.setProperty("SELENIUM_STARTING_URL", "http://127.0.0.1:8888/D3Demo.html?gwt.codesvr=127.0.0.1:9997");
 
@@ -94,8 +94,8 @@ public class AbstractSeleniumTest {
         driver.get(webAppUrl);
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         driver.quit();
         driver = null;
     }
