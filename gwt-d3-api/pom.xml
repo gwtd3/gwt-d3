@@ -117,9 +117,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.mbostock.d3</groupId>
-			<artifactId>gwt-d3js</artifactId>
-			<version>3.1.10</version>
+			<groupId>com.github.gwtd3</groupId>
+			<artifactId>gwt-d3-js</artifactId>
+			<version>3.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>

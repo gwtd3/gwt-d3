@@ -73,22 +73,22 @@
 	<!-- Deploy releases and snapshots to the CloudBees maven repositories -->
 	<distributionManagement>
 		<repository>
-			<id>cloudbees-private-release-repository</id>
-			<url>dav:https://repository-anthonime.forge.cloudbees.com/release/</url>
+			<id>gwt-d3-cloudbees-release-repository</id>
+			<url>dav:https://repository-gwt-d3.forge.cloudbees.com/release/</url>
 		</repository>
 	</distributionManagement>
 	
 	<repositories>
 		<repository>
-			<id>cloudbees-ericcitaire-release</id>
+			<id>gwt-d3-cloudbees-release-repository-repo</id>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-			<name>CloudBees Release Repository (for gwt-d3js)</name>
-			<url>http://repository-ericcitaire.forge.cloudbees.com/release/</url>
+			<name>CloudBees Release Repository (for gwt-d3)</name>
+			<url>http://repository-gwt-d3.forge.cloudbees.com/release/</url>
 		</repository>
 	</repositories>
 </project>
