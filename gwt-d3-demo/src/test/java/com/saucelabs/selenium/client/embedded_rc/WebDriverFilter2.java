@@ -25,10 +25,10 @@ import org.openqa.selenium.WebElement;
  * @author Ross Rowe
  * 
  */
-public class WebDriverFilter implements WebDriver, HasInputDevices {
+public class WebDriverFilter2 implements WebDriver, HasInputDevices {
     private WebDriver base;
 
-    public WebDriverFilter(final WebDriver base) {
+    public WebDriverFilter2(final WebDriver base) {
         this.base = base;
     }
 
