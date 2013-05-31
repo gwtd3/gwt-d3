@@ -1,15 +1,17 @@
 package com.github.gwtd3.demo.client.testcases;
 
 import java.net.MalformedURLException;
+import java.net.URL;
 
-import com.github.gwtd3.demo.client.assertions.ColorAssert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.Color;
 
-import com.saucelabs.selenium.client.factory.SeleniumFactory;
+import com.github.gwtd3.demo.client.assertions.ColorAssert;
 
 public class AbstractSeleniumTest {
 
@@ -45,7 +47,25 @@ public class AbstractSeleniumTest {
         // accessKey + "@localhost:4445/wd/hub"),
         // capabilities);
         else {
-            driver = SeleniumFactory.createWebDriver();
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability("version", readPropertyOrEnv("SELENIUM_VERSION", "4"));
+            capabilities.setCapability("platform", readPropertyOrEnv("SELENIUM_PLATFORM", "XP"));
+            capabilities.setCapability("browserName", readPropertyOrEnv("SELENIUM_BROWSER", "firefox"));
+            String username = readPropertyOrEnv("SAUCE_USER_NAME", "");
+            String accessKey = readPropertyOrEnv("SAUCE_API_KEY", "");
+            System.out.println("SELENIUM_VERSION:" + readPropertyOrEnv("SELENIUM_VERSION", "unknown"));
+            System.out.println("SELENIUM_PLATFORM:" + readPropertyOrEnv("SELENIUM_PLATFORM", "unknown"));
+            System.out.println("SELENIUM_BROWSER:" + readPropertyOrEnv("SELENIUM_BROWSER", "unknown"));
+            System.out.println("SAUCE_USER_NAME:" + readPropertyOrEnv("SAUCE_USER_NAME", "unknown"));
+            System.out.println("SAUCE_API_KEY:" + readPropertyOrEnv("SAUCE_API_KEY", "unknown"));
+            driver = new RemoteWebDriver(
+                    new URL("http://" + username + ":" + accessKey + "@ondemand.saucelabs.com:80/wd/hub"),
+                    capabilities);
+
+            String sessionId = ((RemoteWebDriver) driver).getSessionId().toString();
+            System.out.println("SauceOnDemandSessionID=" + sessionId);
+
+            // driver = SeleniumFactory.createWebDriver();
             // cloudbees/saucelabs config
             // DesiredCapabilities capabillities = DesiredCapabilities.firefox();
             // // bug on Actions.moveToElement ==>
@@ -82,5 +102,16 @@ public class AbstractSeleniumTest {
 
     protected ColorAssert assertThat(final Color color) {
         return new ColorAssert(color, ColorAssert.class);
+    }
+
+    public static String readPropertyOrEnv(final String key, final String defaultValue) {
+        String v = System.getProperty(key);
+        if (v == null) {
+            v = System.getenv(key);
+        }
+        if (v == null) {
+            v = defaultValue;
+        }
+        return v;
     }
 }
