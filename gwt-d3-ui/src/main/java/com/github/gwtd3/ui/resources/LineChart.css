@@ -1,0 +1,45 @@
+@external .major, .minor, .tick;
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x path {
+  display: none;
+}
+.y path {
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.label{
+	
+}
+
+.svg{
+	
+}
+
+.major{
+}
+
+.minor{
+}
+
+.tick{
+	
+}
+
+.serie{
+
+}
+
+.namedRange{
+	stroke-width: 4px;
+}

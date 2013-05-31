@@ -1,0 +1,39 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+
+		.container{
+			margin-top: 2px;
+			margin-bottom: 3px;
+
+		}
+		.icon {
+			font-weight: bold;
+			width: 36px;
+			height: 36px;
+			background-color: gray;
+		}
+		.testName{
+			font-weight: bold;
+			width: 100%;
+		}
+		.status{
+			width: 100%;
+		}
+		
+		.details{
+			width: 100%;
+		}
+	</ui:style>
+	<g:HTMLPanel addStyleNames="{style.container}">
+		<g:HorizontalPanel>
+			<g:FlowPanel addStyleNames="{style.icon}" ui:field="iconField"></g:FlowPanel>
+			<g:VerticalPanel>
+				<g:Label ui:field="testNameField" addStyleNames="{style.testName}">test name</g:Label>
+				<g:Anchor ui:field="statusField" addStyleNames="{style.status}">status</g:Anchor>
+			</g:VerticalPanel>
+		</g:HorizontalPanel>
+		<g:TextArea ui:field="detailsField" addStyleNames="{style.details}" visible="false" visibleLines="6">details here...</g:TextArea>
+	</g:HTMLPanel>
+</ui:UiBinder> 

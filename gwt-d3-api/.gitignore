@@ -1,0 +1,11 @@
+/.gwt
+/.settings
+/target
+/pom.xml.releaseBackup
+/.classpath
+/.project
+/pom.xml.next
+/pom.xml.tag
+/release.properties
+/gwt-unitCache
+/war

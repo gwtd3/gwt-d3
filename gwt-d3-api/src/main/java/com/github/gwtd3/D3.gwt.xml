@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- When updating your version of GWT, you should also update this DTD reference, 
+	so that your app can take advantage of the latest GWT module capabilities. -->
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.0//EN"
+  "http://google-web-toolkit.googlecode.com/svn/tags/2.5.0/distro-source/core/src/gwt-module.dtd">
+<module rename-to='D3'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+
+	<inherits name='com.google.gwt.json.JSON' />
+	<inherits name="javax.validation.Validation" />
+<!-- 	<inherits name="com.github.mbostock.d3.MinifiedJavascriptSource" /> -->
+	<inherits name="com.github.mbostock.d3.PrettyJavascriptSource" />
+	<!-- Specify the paths for translatable code -->
+	<source path='api' />
+
+</module>

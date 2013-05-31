@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+text {
+  font: bold 48px monospace;
+}
+
+.enter {
+  fill: green;
+}
+
+.update {
+  fill: #333;
+}
