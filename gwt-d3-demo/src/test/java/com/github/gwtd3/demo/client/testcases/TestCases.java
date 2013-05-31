@@ -2,7 +2,6 @@ package com.github.gwtd3.demo.client.testcases;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 import com.github.gwtd3.demo.client.pageobjects.DemoApplication;
 import com.github.gwtd3.demo.client.pageobjects.TestSuiteScreen;
@@ -17,8 +16,6 @@ public class TestCases extends AbstractSeleniumTest {
 
     @Test
     public void testCasesPass() {
-        driver.findElement(By.xpath("div . mybutton")).click();
-
         DemoApplication application = DemoApplication.getInstance(driver);
 
         TestSuiteScreen testSuite = application.testCaseButton().click();
