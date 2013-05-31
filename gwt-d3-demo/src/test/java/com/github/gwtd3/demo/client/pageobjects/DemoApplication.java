@@ -13,40 +13,41 @@ import org.openqa.selenium.WebElement;
  */
 public class DemoApplication extends PageObject<DemoApplication> {
 
-	static DemoApplication INSTANCE;
+    private static DemoApplication INSTANCE;
 
-	private DemoApplication(WebDriver driver) {
-		super(driver);
-	}
+    private DemoApplication(final WebDriver driver) {
+        super(driver);
+    }
 
-	/**
-	 * @param driver
-	 * @return the instance
-	 */
-	public static DemoApplication getInstance(WebDriver driver) {
-		if (INSTANCE == null) {
-			INSTANCE = new DemoApplication(driver);
-		}
-		return INSTANCE;
-	}
+    /**
+     * @param driver
+     * @return the instance
+     */
+    public static DemoApplication getInstance(final WebDriver driver) {
+        if (INSTANCE == null) {
+            INSTANCE = new DemoApplication(driver);
+        }
+        DemoApplication.INSTANCE.driver = driver;
+        return INSTANCE;
+    }
 
-	/**
-	 * @return the button "Test cases"
-	 */
-	public TestCaseButton testCaseButton() {
-		return new TestCaseButton(this);
-	}
+    /**
+     * @return the button "Test cases"
+     */
+    public TestCaseButton testCaseButton() {
+        return new TestCaseButton(this);
+    }
 
-	public DemoDragMultiple revealDemoDragMultiple() {
-		return new DemoDragMultiple(driver, this).reveal();
-	}
+    public DemoDragMultiple revealDemoDragMultiple() {
+        return new DemoDragMultiple(driver, this).reveal();
+    }
 
-	public WebElement getDemoContainer() {
-		return findById("demoContainer");
-	}
+    public WebElement getDemoContainer() {
+        return findById("demoContainer");
+    }
 
-	public WebElement getCurrentDemo() {
-		return getDemoContainer().findElement(By.cssSelector(":first-child"));
-	}
+    public WebElement getCurrentDemo() {
+        return getDemoContainer().findElement(By.cssSelector(":first-child"));
+    }
 
 }
