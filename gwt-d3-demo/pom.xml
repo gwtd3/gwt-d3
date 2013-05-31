@@ -251,14 +251,6 @@
 
 	<profiles>
 		<profile>
-			<!-- we do not want the package to get the version number since cloudbees 
-				is shit, see the GoogleAppEngine cloudbees GUI for more details ! -->
-			<id>cloudbees-appengine-deploy</id>
-			<build>
-				<finalName>${project.artifactId}</finalName>
-			</build>
-		</profile>
-		<profile>
 			<!-- here we create a specific profile to execute the selenium tests ! -->
 			<id>selenium</id>
 			<build>
