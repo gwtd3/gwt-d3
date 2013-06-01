@@ -23,9 +23,9 @@
 
 <!-- this is for the release plugin -->
 	<scm>
-		<url>http://github.com/anthonime/gwt-d3</url>
-		<connection>scm:git:ssh://github.com/anthonime/gwt-d3.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/anthonime/gwt-d3.git</developerConnection>
+		<url>http://github.com/gwtd3/gwt-d3</url>
+		<connection>scm:git:ssh://github.com/gwtd3/gwt-d3.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/gwtd3/gwt-d3.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
