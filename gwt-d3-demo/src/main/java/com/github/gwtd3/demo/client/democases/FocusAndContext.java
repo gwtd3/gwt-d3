@@ -21,7 +21,7 @@ import com.github.gwtd3.api.svg.Axis;
 import com.github.gwtd3.api.svg.Axis.Orientation;
 import com.github.gwtd3.api.svg.Brush;
 import com.github.gwtd3.api.svg.Brush.BrushEvent;
-import com.github.gwtd3.api.time.Format;
+import com.github.gwtd3.api.time.TimeFormat;
 import com.github.gwtd3.api.time.TimeScale;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
@@ -66,7 +66,7 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
 		final int height = 500 - margin.top - margin.bottom;
 		final int height2 = 500 - margin2.top - margin2.bottom;
 
-		final Format dateFormat = D3.time().format("%b %Y");
+		final TimeFormat dateFormat = D3.time().format("%b %Y");
 
 		final TimeScale x = D3.time().scale()
 				.range(JsArrays.asJsArray(0, width));

@@ -18,7 +18,7 @@ import com.github.gwtd3.api.svg.Area;
 import com.github.gwtd3.api.svg.Axis;
 import com.github.gwtd3.api.svg.Axis.Orientation;
 import com.github.gwtd3.api.svg.Line;
-import com.github.gwtd3.api.time.Format;
+import com.github.gwtd3.api.time.TimeFormat;
 import com.github.gwtd3.api.time.TimeScale;
 import com.github.gwtd3.api.xhr.XmlHttpRequest;
 import com.github.gwtd3.demo.client.DemoCase;
@@ -74,7 +74,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 		final int[] m = new int[] { 80, 80, 80, 80 };
 		final int w = 960 - m[1] - m[3];
 		final int h = 500 - m[0] - m[2];
-		final Format format = D3.time().format("%b %Y");
+		final TimeFormat format = D3.time().format("%b %Y");
 
 		// Scales and axes. Note the inverted domain for the y-scale: bigger is
 		// up!
