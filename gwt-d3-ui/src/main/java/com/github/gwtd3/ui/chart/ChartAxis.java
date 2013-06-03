@@ -173,10 +173,12 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
 		// update the range of the scale to fit new size if necessary
 		OMSVGRect bBox = getGElement().getBBox();
 		if (tickOrientation.isHorizontalAxis()) {
-			model.scale().range(0, (int) bBox.getWidth());
+			// model.scale().range(0, (int) bBox.getWidth());
+			model.scale().range(0, 500);
 		}
 		else {
-			model.scale().range(0, (int) bBox.getHeight());
+			// model.scale().range(0, (int) bBox.getHeight());
+			model.scale().range(0, 500);
 		}
 		// apply the generator on the axis
 		select().call(generator);

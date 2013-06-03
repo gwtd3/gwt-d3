@@ -9,7 +9,7 @@
 		}
 	</ui:style>
 	<g:HTMLPanel>
-		<s:SVGCanvas>
+		<s:SVGCanvas width="900" height="500">
 			<c:ChartAxis ui:field="axis" />
 		</s:SVGCanvas>
 	</g:HTMLPanel>
