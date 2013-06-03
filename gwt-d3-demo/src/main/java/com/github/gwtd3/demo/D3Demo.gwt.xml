@@ -9,10 +9,12 @@
 	<inherits name='com.github.gwtd3.D3' />
 	<inherits name='com.github.gwtd3.D3UI' />
 	<inherits name='com.google.gwt.junit.JUnit3' />
-	
-	<inherits name="javax.validation.Validation"/>
-	
-	<inherits name="com.google.gwt.debug.Debug"/>
+
+	<inherits name="javax.validation.Validation" />
+
+	<inherits name="com.google.gwt.debug.Debug" />
+
+	<inherits name="com.github.gwtbootstrap.Bootstrap" />
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->
@@ -29,7 +31,7 @@
 
 	<!-- Specify the paths for translatable code -->
 	<source path='client' />
-	
-<!-- 	<set-property name="user.agent" value="ie9" /> -->
+
+	<!-- <set-property name="user.agent" value="ie9" /> -->
 
 </module>

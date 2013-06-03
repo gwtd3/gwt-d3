@@ -11,8 +11,14 @@ package com.github.gwtd3.ui;
  */
 public interface Drawable {
 
-	/**
-	 * Update the drawing with the current data.
-	 */
-	public void redraw();
+    /**
+     * Update the drawing with the current data.
+     */
+    public void redraw();
+
+    /**
+     * Schedule a redraw once the GWT user code
+     * has finished executed.
+     */
+    public void scheduleRedraw();
 }

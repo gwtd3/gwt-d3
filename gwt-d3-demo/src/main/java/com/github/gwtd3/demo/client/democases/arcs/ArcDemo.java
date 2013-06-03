@@ -9,7 +9,7 @@ import com.github.gwtd3.api.svg.Arc;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
 import com.github.gwtd3.ui.Slider;
-import com.github.gwtd3.ui.svg.SVGCanvas;
+import com.github.gwtd3.ui.svg.SVGDocument;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -30,7 +30,7 @@ public class ArcDemo extends Composite implements DemoCase {
 	}
 
 	@UiField
-	SVGCanvas svgWidget;
+	SVGDocument svgWidget;
 
 	Selection svg;
 

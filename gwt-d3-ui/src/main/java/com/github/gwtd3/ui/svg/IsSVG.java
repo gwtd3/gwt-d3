@@ -11,4 +11,13 @@ import com.google.gwt.user.client.ui.IsWidget;
  */
 public interface IsSVG extends IsWidget {
 
+    /**
+     * @return the SVG document this widget belongs to.
+     */
+    SVGDocument getDocument();
+
+    /**
+     * @return the root SVG document this widget belongs to.
+     */
+    SVGDocument getRootDocument();
 }

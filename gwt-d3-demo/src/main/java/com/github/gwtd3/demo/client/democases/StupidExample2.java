@@ -9,7 +9,7 @@ import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
-import com.github.gwtd3.ui.svg.SVGCanvas;
+import com.github.gwtd3.ui.svg.SVGDocument;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -19,13 +19,13 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class StupidExample2 implements DemoCase {
 
-	private final SVGCanvas widget;
+	private final SVGDocument widget;
 
 	/**
 	 * 
 	 */
 	public StupidExample2() {
-		widget = new SVGCanvas();
+		widget = new SVGDocument();
 		widget.setSize("900", "400");
 	}
 

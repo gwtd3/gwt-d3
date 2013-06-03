@@ -1,0 +1,18 @@
+/*
+ * Default style sheet for ChartAxis
+ * When overriding the default, consider using the same structure,
+ * and keep the same @external declarations.
+ */
+@external .domain, .tick, .major, .minor;
+
+.axis text{
+	fill: #999999;
+}
+
+.axis path.domain, .axis .tick line{
+	fill: none;
+	stroke: #999999;
+	shape-rendering: crispedges;
+}
+
+
