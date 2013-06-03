@@ -1,6 +1,6 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:d="urn:import:com.github.gwtd3.demo.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:d="urn:import:com.github.gwtd3.ui" xmlns:s="urn:import:com.github.gwtd3.ui.svg">
 	<ui:style>
 		/* Add CSS here. See the GWT docs on UI Binder for more details */
 		.inline {
@@ -16,6 +16,6 @@
 			startAngle:<d:Slider 	ui:field="startAngle" 	min="0.0" 	max="6.30" 	value="0.0" />
 			endAngle:<d:Slider 		ui:field="endAngle"  	min="0.0" 	max="6.30" 	value="3.14"/>
 		</g:HTMLPanel>
-		<d:SVGD3Widget ui:field="svgWidget" width="960" height="800" addStyleNames="{style.inline}"/>
+		<s:SVGCanvas ui:field="svgWidget" width="960" height="800" addStyleNames="{style.inline}"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 

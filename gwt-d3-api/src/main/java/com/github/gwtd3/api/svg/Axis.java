@@ -28,7 +28,15 @@ import com.google.gwt.core.client.JavaScriptObject;
 public class Axis extends JavaScriptObject implements IsFunction {
 
 	public static enum Orientation {
-		TOP, BOTTOM, LEFT, RIGHT
+		TOP, BOTTOM, LEFT, RIGHT;
+		
+		public boolean isVerticalAxis(){
+			return (this==LEFT)||(this==RIGHT); 
+		}
+		
+		public boolean isHorizontalAxis(){
+			return (this==TOP)||(this==BOTTOM); 
+		}
 	}
 
 	protected Axis() {

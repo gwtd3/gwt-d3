@@ -6,8 +6,10 @@
 <module rename-to='D3UI'>
 	<!-- Inherit the core Web Toolkit stuff. -->
 	<inherits name='com.github.gwtd3.D3' />
-	
-	<inherits name='com.google.collect.Collect' />
+
+	<inherits name='com.google.common.collect.Collect' />
+
+	<inherits name="org.vectomatic.libgwtsvg" />
 
 	<source path='ui' />
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.gwtd3.demo.client.ui.colors;
+package com.github.gwtd3.ui.svg;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Color;
@@ -10,15 +10,12 @@ import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.UpdateSelection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.Scale;
-import com.github.gwtd3.demo.client.ui.SVGD3Widget;
-
 import com.google.gwt.dom.client.Element;
 
 /**
  * Creates a parameterized SVG gradient.
  * <p>
- * Gradient works as a number of colors (the steps), each color can be converted
- * into a color at a given offset (in percentage).
+ * Gradient works as a number of colors (the steps), each color can be converted into a color at a given offset (in percentage).
  * 
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
@@ -26,7 +23,7 @@ import com.google.gwt.dom.client.Element;
  */
 public class GradientBuilder {
 
-	private final SVGD3Widget widget;
+	private final SVGCanvas widget;
 	private Selection gradientSelection;
 	private int steps = 2;
 	private final Scale<?> offsetScale = createOffsetScaleFromSteps();
@@ -76,12 +73,12 @@ public class GradientBuilder {
 	// TODO: gradientUnits
 	// TODO: xlink:href (inherit from another gradient)
 
-	private GradientBuilder(final SVGD3Widget widget) {
+	private GradientBuilder(final SVGCanvas widget) {
 		super();
 		this.widget = widget;
 	}
 
-	public static GradientBuilder createHorizontalLinearGradient(final SVGD3Widget widget, final String gradientId) {
+	public static GradientBuilder createHorizontalLinearGradient(final SVGCanvas widget, final String gradientId) {
 		GradientBuilder builder = new GradientBuilder(widget);
 		widget.defs().select("#" + gradientId).remove();
 		builder.gradientSelection = widget.defs().append("linearGradient")
@@ -110,7 +107,7 @@ public class GradientBuilder {
 		return this;
 	}
 
-	public static GradientBuilder createVerticalLinearGradient(final SVGD3Widget widget, final String gradientId) {
+	public static GradientBuilder createVerticalLinearGradient(final SVGCanvas widget, final String gradientId) {
 		GradientBuilder builder = new GradientBuilder(widget);
 		widget.defs().select("#" + gradientId).remove();
 		builder.gradientSelection = widget.defs()
@@ -140,7 +137,7 @@ public class GradientBuilder {
 		return this;
 	}
 
-	public static GradientBuilder createLinearGradient(final SVGD3Widget widget, final String gradientId) {
+	public static GradientBuilder createLinearGradient(final SVGCanvas widget, final String gradientId) {
 		GradientBuilder builder = new GradientBuilder(widget);
 		widget.defs().select("#" + gradientId).remove();
 		builder.gradientSelection = widget.defs().append("linearGradient")

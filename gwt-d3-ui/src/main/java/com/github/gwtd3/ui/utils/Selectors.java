@@ -1,12 +1,14 @@
 /**
  * 
  */
-package com.github.gwtd3.demo.client.ui;
+package com.github.gwtd3.ui.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * EXPERIMENTAL
+ * 
  * Convenient methods to create valid CSS3 selectors.
  * <p>
  * According to official specs, all selectors are case-insensitive;

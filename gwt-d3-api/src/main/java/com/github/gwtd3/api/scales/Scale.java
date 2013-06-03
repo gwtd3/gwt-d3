@@ -1,7 +1,6 @@
 package com.github.gwtd3.api.scales;
 
 import com.github.gwtd3.api.core.Value;
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayInteger;
 
@@ -9,18 +8,6 @@ public class Scale<S extends Scale<S>> extends JavaScriptObject {
 
 	protected Scale() {
 	};
-
-	public final native LinearScale linear()/*-{
-		return this.linear();
-	}-*/;
-
-	public final native OrdinalScale ordinal()/*-{
-		return this.ordinal();
-	}-*/;
-
-	public final native ThresholdScale threshold()/*-{
-		return this.threshold();
-	}-*/;
 
 	// ========= Domain functions ===============
 
@@ -59,45 +46,16 @@ public class Scale<S extends Scale<S>> extends JavaScriptObject {
 		return this.domain(a, b);
 	}-*/;
 
-	/**
-	 * Extends the domain so that it starts and ends on nice round values.
-	 * <p>
-	 * This method typically modifies the scale's domain, and may only extend
-	 * the bounds to the nearest round value.
-	 * <p>
-	 * The precision of the round value is dependent on the extent of the domain
-	 * dx according to the following formula: exp(round(log(*dx*)) - 1).
-	 * <p>
-	 * Nicing is useful if the domain is computed from data and may be
-	 * irregular.
-	 * <p>
-	 * For example, for a domain of [0.20147987687960267, 0.996679553296417],
-	 * the nice domain is [0.2, 1]. If the domain has more than two values,
-	 * nicing the domain only affects the first and last value.
-	 * <p>
-	 * 
-	 * @return the current scale
-	 */
-	public native final S nice()/*-{
-		return this.nice();
-	}-*/;
-
 	// ========= Range functions ===============
 
 	/**
 	 * Set the scale's output range.
 	 * <p>
-	 * <<<<<<< HEAD Sets the scale's output range to the specified array of
-	 * values. The array must contain two or more values, to match the
-	 * cardinality of the input domain. The elements in the given array need not
-	 * be numbers; any value that is supported by the underlying interpolator
-	 * will work. However, numeric ranges are required for the invert operator.
-	 * ======= Sets the scale's output range to the specified array of values.
-	 * The array must contain two or more values, to match the cardinality of
-	 * the input domain. The elements in the given array need not be numbers;
-	 * any value that is supported by the underlying interpolator will work.
-	 * However, numeric ranges are required for the invert operator. >>>>>>>
-	 * colorpalette
+	 * <<<<<<< HEAD Sets the scale's output range to the specified array of values. The array must contain two or more values, to match the cardinality of the input domain. The
+	 * elements in the given array need not be numbers; any value that is supported by the underlying interpolator will work. However, numeric ranges are required for the invert
+	 * operator. ======= Sets the scale's output range to the specified array of values. The array must contain two or more values, to match the cardinality of the input domain.
+	 * The elements in the given array need not be numbers; any value that is supported by the underlying interpolator will work. However, numeric ranges are required for the
+	 * invert operator. >>>>>>> colorpalette
 	 * 
 	 * @param values
 	 *            the array of values.
@@ -120,6 +78,8 @@ public class Scale<S extends Scale<S>> extends JavaScriptObject {
 		return this.range([ a, b ]);
 	}-*/;
 
+	// ========= Copy functions ===============
+
 	/**
 	 * Returns an exact copy of this scale.
 	 * <p>
@@ -131,32 +91,7 @@ public class Scale<S extends Scale<S>> extends JavaScriptObject {
 		return this.copy();
 	}-*/;
 
-	/**
-	 * TODO todo totest; tocomment
-	 * 
-	 * @return
-	 */
-	public native final S ticks(int count)/*-{
-		return this.ticks(count);
-	}-*/;
-
-	/**
-	 * TODO todo totest; tocomment
-	 * 
-	 * @return
-	 */
-	public native final S tickFormat(int count)/*-{
-		return this.ticks(count);
-	}-*/;
-
-	/**
-	 * TODO todo totest; tocomment
-	 * 
-	 * @return
-	 */
-	public native final S tickFormat(int count, String formatSpecifier)/*-{
-		return this.ticks(count);
-	}-*/;
+	// ========= Apply functions ===============
 
 	/**
 	 * Given a value x in the input domain, returns the corresponding value in

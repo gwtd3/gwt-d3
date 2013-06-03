@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.gwtd3.demo.client.ui.colors;
+package com.github.gwtd3.ui.colors;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.behaviour.Drag;
@@ -12,8 +12,8 @@ import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Symbol;
 import com.github.gwtd3.api.svg.Symbol.Type;
-import com.github.gwtd3.demo.client.ui.SVGD3Widget;
-
+import com.github.gwtd3.ui.svg.GradientBuilder;
+import com.github.gwtd3.ui.svg.SVGCanvas;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Display;
@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.HasValue;
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public abstract class ComponentSelector extends SVGD3Widget implements HasValue<Double> {
+public abstract class ComponentSelector extends SVGCanvas implements HasValue<Double> {
 
 	/**
 	 * 
@@ -56,14 +56,14 @@ public abstract class ComponentSelector extends SVGD3Widget implements HasValue<
 		getElement().getStyle().setProperty("userSelect", "none");
 		getElement().getStyle().setProperty("webkitUserSelect", "none");
 		setPixelSize(60, 300);
-		translate(0, 10);
+		// FIXMEtransform().translate(0, 10);
 		init();
 	}
 
 	private void init() {
 		symbol = D3.svg().symbol().type(Type.TRIANGLE_UP);
 
-		rectangleSelector = g().append("rect")
+		rectangleSelector = select().append("rect")
 				.attr("x", 0)
 				.attr("y", 0)
 				.attr("width", ComponentSelector.rectangeWidth)
@@ -73,7 +73,7 @@ public abstract class ComponentSelector extends SVGD3Widget implements HasValue<
 		rectangleSelector.node().getStyle().setProperty("userSelect", "none");
 		rectangleSelector.node().getStyle().setProperty("webkitUserSelect", "none");
 
-		componentSymbol = g().append("path")
+		componentSymbol = select().append("path")
 				.attr("fill", "blue")
 				.attr("transform", "translate(" + (Integer.parseInt(rectangleSelector.attr("width")) + 4) + "," + 0 + ") rotate(-90)")
 				.attr("d", symbol);

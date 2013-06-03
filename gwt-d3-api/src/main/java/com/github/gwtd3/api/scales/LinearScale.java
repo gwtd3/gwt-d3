@@ -12,7 +12,7 @@ package com.github.gwtd3.api.scales;
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class LinearScale extends QuantitativeScale<LinearScale> {
+public class LinearScale extends ContinuousQuantitativeScale<LinearScale> {
 
 	protected LinearScale() {
 	}

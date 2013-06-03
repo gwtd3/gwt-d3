@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.gwtd3.demo.client.ui;
+package com.github.gwtd3.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;

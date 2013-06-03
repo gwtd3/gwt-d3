@@ -96,7 +96,7 @@ public class Transition extends Selection {
 		});
     }-*/;
 
-    public static JavaScriptObject trampolineInterpolator(final Interpolator<?> interpolator) {
+    private static JavaScriptObject trampolineInterpolator(final Interpolator<?> interpolator) {
         return interpolator.asJSOFunction();
     }
     /**
