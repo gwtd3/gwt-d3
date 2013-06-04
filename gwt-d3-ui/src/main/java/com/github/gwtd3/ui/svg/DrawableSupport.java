@@ -13,32 +13,50 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
  */
 public class DrawableSupport {
 
-    private Drawable delegate;
-    private boolean redrawScheduled;
+	/**
+	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+	 * 
+	 */
+	private final class MayCallRedraw implements ScheduledCommand {
+		@Override
+		public void execute() {
+			if (delegate.asWidget().isAttached()) {
+				redrawScheduled = false;
+				delegate.redraw();
+			}
+			else {
+				scheduleRedrawCall();
+			}
+		}
+	}
 
-    public DrawableSupport(final Drawable delegate) {
-        super();
-        this.delegate = delegate;
-    }
+	private final Drawable delegate;
+	private boolean redrawScheduled;
 
-    public void scheduleRedraw() {
-        // if already scheduled, return
-        if (redrawScheduled) {
-            return;
-        }
-        else {
-            // scheduling means registering a scheduler command
-            // to be executed once after all events listeners
-            // has been executed
-            redrawScheduled = true;
-            Scheduler.get().scheduleFinally(new ScheduledCommand() {
-                @Override
-                public void execute() {
-                    redrawScheduled = false;
-                    delegate.redraw();
-                }
-            });
-        }
-    }
+	public DrawableSupport(final Drawable delegate) {
+		super();
+		this.delegate = delegate;
+	}
+
+	public void scheduleRedraw() {
+		// if already scheduled, return
+		if (redrawScheduled) {
+			return;
+		}
+		else {
+			// scheduling means registering a scheduler command
+			// to be executed once after all events listeners
+			// has been executed
+			redrawScheduled = true;
+			scheduleRedrawCall();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void scheduleRedrawCall() {
+		Scheduler.get().scheduleFinally(new MayCallRedraw());
+	}
 
 }

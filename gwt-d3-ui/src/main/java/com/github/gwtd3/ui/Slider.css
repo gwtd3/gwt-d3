@@ -1,0 +1,25 @@
+.rule{
+	stroke: #999;
+	fill: none;
+	cursor: pointer;
+}
+
+.cursor{
+	stroke: #999;
+	fill: white;
+	cursor: pointer;
+}
+
+.cursor:hover{
+	stroke: #555;
+	fill: #ddd;
+}
+
+.label{
+	fill: #999;
+	font: 10px sans-serif normal; 
+}
+
+.cursor.disabled{
+	stroke: #ccc;
+}

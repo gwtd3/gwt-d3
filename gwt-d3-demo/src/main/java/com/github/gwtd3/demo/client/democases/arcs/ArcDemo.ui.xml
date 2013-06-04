@@ -16,6 +16,6 @@
 			startAngle:<d:Slider 	ui:field="startAngle" 	min="0.0" 	max="6.30" 	value="0.0" />
 			endAngle:<d:Slider 		ui:field="endAngle"  	min="0.0" 	max="6.30" 	value="3.14"/>
 		</g:HTMLPanel>
-		<s:SVGDocument ui:field="svgWidget" width="960" height="800" addStyleNames="{style.inline}"/>
+		<s:SVGDocumentContainer ui:field="svgWidget" width="960" height="800" addStyleNames="{style.inline}"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 

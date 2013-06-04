@@ -28,11 +28,11 @@
 			<hr/>
 			title:<b:TextBox ui:field="title"></b:TextBox>
 		</g:HTMLPanel>
-		<s:SVGDocument width="700" height="500" addStyleNames="{style.inline}">
+		<s:SVGDocumentContainer width="700" height="500" addStyleNames="{style.inline}">
 			<c:ChartAxis ui:field="vAxis" transform="translate(100,50)" length="300"/>
 			<c:ChartAxis ui:field="vAxis2" transform="translate(150,50)" length="300"/>
 			<c:ChartAxis ui:field="hAxis" transform="translate(200,50)" length="300"/>
 			<c:ChartAxis ui:field="hAxis2" transform="translate(200,100)" length="300"/>
-		</s:SVGDocument>
+		</s:SVGDocumentContainer>
 	</g:HTMLPanel>
 </ui:UiBinder> 

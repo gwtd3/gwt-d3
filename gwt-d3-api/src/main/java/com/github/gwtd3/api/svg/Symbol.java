@@ -3,13 +3,14 @@
  */
 package com.github.gwtd3.api.svg;
 
+import com.github.gwtd3.api.behaviour.Drag.DragEventType;
 import com.github.gwtd3.api.functions.DatumFunction;
 
 /**
  * A {@link PathDataGenerator} generating symbols shapes.
  * <p>
  * While the default accessors generate static symbols, it is common to set one or more of the accessors using a function, such as setting the size proportional to a dimension of
- * data for a scatterplot. The returned function generates path data for various symbols (see {@link DragEventType} for all the symbols).
+ * data for a scatterplot. The returned function generates path data for various symbols (see {@link Type} for all the symbols).
  * <p>
  * Note that the symbol does not include accessors for x and y. Instead, you can use the path element's transform attribute to position the symbols, as in:
  * 
@@ -104,7 +105,8 @@ public class Symbol extends PathDataGenerator {
 	 * @return
 	 */
 	public native final Symbol type(Type type)/*-{
-		return this.type(type.@com.github.gwtd3.api.svg.Symbol.Type::getValue()());
+		return this
+				.type(type.@com.github.gwtd3.api.svg.Symbol.Type::getValue()());
 	}-*/;
 
 	/**

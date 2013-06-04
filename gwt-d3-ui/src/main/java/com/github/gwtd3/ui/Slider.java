@@ -3,250 +3,477 @@
  */
 package com.github.gwtd3.ui;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Style.BorderStyle;
-import com.google.gwt.dom.client.Style.Cursor;
-import com.google.gwt.dom.client.Style.Overflow;
-import com.google.gwt.dom.client.Style.Position;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DragStartEvent;
-import com.google.gwt.event.dom.client.DragStartHandler;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseEvent;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelEvent;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.github.gwtd3.api.D3;
+import com.github.gwtd3.api.behaviour.Drag;
+import com.github.gwtd3.api.behaviour.Drag.DragEventType;
+import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.functions.DatumFunction;
+import com.github.gwtd3.api.scales.LinearScale;
+import com.github.gwtd3.api.svg.Symbol;
+import com.github.gwtd3.api.svg.Symbol.Type;
+import com.github.gwtd3.ui.svg.ISVGDocument;
+import com.github.gwtd3.ui.svg.SVGDocumentWidget;
+import com.google.common.base.Objects;
+import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.BrowserEvents;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.touch.client.Point;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.FocusWidget;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.uibinder.client.UiConstructor;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * A component that allows the user to change a numeric value using the mouse.
+ * <p>
+ * The slider is composed of a rule (a rigid line) and a cursor (a button-like shape). To change the value, the user can drag the cursor along the rule, use the mouse wheel (TODO),
+ * or directly click on the rule. The current value may be shown to the user (TODO) or not.
+ * <p>
+ * This component can be disabled using the {@link #setEnabled(boolean)} method.
+ * <p>
+ * This component fires {@link ValueChangeEvent} to external listeners when the value is changed by the user in any mean.
+ * <p>
+ * Styling may be customized by providing you own instance of {@link Resources} (TODO).
+ * <p>
+ * 
+ * TODO: show a label + allow show/hide label<br>
+ * TODO: support for mouse wheel<br>
+ * TODO: set some fixed increment (to round value to integers, for instance...) <br>
+ * TODO: custom styling<br>
+ * 
+ * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class Slider extends FocusWidget implements HasValue<Double>, HasValueChangeHandlers<Double> {
+public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasValueChangeHandlers<Double>, HasEnabled, ISVGDocument {
 
 	/**
+	 * 
+	 */
+	private static final int SMALL_SIZE = 3;
+
+	/**
+	 * The click handler for the rule
+	 */
+	private class ClickOnRuleListener implements DatumFunction<Void> {
+		@Override
+		public Void apply(final Element context, final Datum d, final int index) {
+			updateValueFromMouseCoords();
+			return null;
+		}
+
+	}
+
+	/**
+	 * The drag handler for the cursor.
+	 * 
 	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
 	 * 
 	 */
+	private class DragListener implements DatumFunction<Void> {
+		@Override
+		public Void apply(final Element context, final Datum d, final int index) {
+			updateValueFromMouseCoords();
+			return null;
+		}
+
+	}
+
+	/**
+	 * The orientation of the slider,
+	 * which is horizontal or vertical.
+	 * 
+	 */
 	public enum Orientation {
+		/**
+		 * horizontal slider
+		 */
 		HORIZONTAL,
+		/**
+		 * vertical slider
+		 */
 		VERTICAL;
 	}
+
+	/**
+	 * the resources of the slider
+	 */
+	public static interface Resources extends ClientBundle {
+		/**
+		 * @return the stylesheet
+		 */
+		@Source("Slider.css")
+		Styles styles();
+	}
+
+	/**
+	 * Styles for the {@link Slider} component.
+	 * 
+	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+	 * 
+	 */
+	public static interface Styles extends CssResource {
+
+		/**
+		 * The class name for the rule.
+		 * 
+		 * @return the class name
+		 */
+		String rule();
+
+		/**
+		 * The class name for the cursor.
+		 * 
+		 * @return the class name
+		 */
+		String cursor();
+
+		/**
+		 * The class name for the label
+		 * 
+		 * @return the class name
+		 */
+		String label();
+
+		/**
+		 * class name to apply to each component (cursor, rule, label)
+		 * when the widget is disabled.
+		 * 
+		 * @return the class name
+		 */
+		String disabled();
+	}
+
+	private static final int DEFAULT_SIZE = 100;
+
+	private static final int DEFAULT_CURSOR_SIZE = 8;
+
+	private int size = Slider.DEFAULT_SIZE;
+
+	private int cursorSize = Slider.DEFAULT_CURSOR_SIZE;
 
 	private Double currentValue;
 
 	private final Orientation orientation;
 
-	private final Widget cursor;
+	private Selection cursor;
+	private Selection rule;
+	private Selection label;
 
-	private Double min = 1.0;
+	private boolean disabled;
 
-	private Double max = 100.0;
+	private final Styles styles;
 
-	private static class DnDSupport {
+	// internal variables
+	private Symbol cursorGenerator;
 
-		protected boolean started;
-		protected Point startPoint;
-		protected Point endPoint;
+	private boolean cursorChanged = false;
 
-	}
+	private boolean valueChanged = false;
 
-	private final DnDSupport support = new DnDSupport();
+	private boolean disabledChanged = false;
 
-	/**
-	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
-	 * 
-	 */
-	public static class DefaultCursor extends FocusWidget {
-		/**
-		 * 
-		 */
-		public DefaultCursor() {
-			super();
-			setElement(Document.get().createDivElement());
-			init();
-		}
+	private boolean sizeChanged = false;
 
-		protected void init() {
-			getElement().getStyle().setBorderColor("red");
-			getElement().getStyle().setBorderWidth(1, Unit.PX);
-			getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
-			getElement().getStyle().setBackgroundColor("red");
-			getElement().getStyle().setProperty("width", "9px");
-			getElement().getStyle().setProperty("height", "9px");
-			getElement().getStyle().setProperty("minWidth", "9px");
-			getElement().getStyle().setProperty("minHeight", "9px");
+	private final LinearScale scale;
 
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see com.google.gwt.event.dom.client.HasDragStartHandlers#addDragStartHandler(com.google.gwt.event.dom.client.DragStartHandler)
-		 */
-		@Override
-		public HandlerRegistration addDragStartHandler(final DragStartHandler handler) {
-			return addBitlessDomHandler(handler, DragStartEvent.getType());
-
-		}
-
-	}
+	// ======= constructors ================
 
 	/**
-	 * A default horizontal slider between 1 and 100 initialized at 50.
+	 * A default horizontal slider between 1 and 100 initialized at 50
+	 * that use the default {@link Resources}.
 	 */
 	public Slider() {
-		this(createDefaultCursor());
-	}
-
-	public Slider(final Widget cursor) {
-		this(cursor, Orientation.HORIZONTAL, 1.0, 100.0, 50);
-	}
-
-	public Slider(final Orientation orientation) {
-		this(createDefaultCursor(), orientation, 1.0, 100.0, 50);
-	}
-
-	public Slider(final Orientation orientation, final double min, final double max, final double value) {
-		this(createDefaultCursor(), orientation, min, max, value);
-	}
-
-	public Slider(final double min, final double max, final double value) {
-		this(createDefaultCursor(), Orientation.HORIZONTAL, min, max, value);
+		this(Orientation.HORIZONTAL);
 	}
 
 	/**
-	 * @return
+	 * A default horizontal slider between 1 and 100 initialized at 50
+	 * that use the given {@link Resources}.
+	 * 
+	 * @param resources
+	 *            the custom resources
 	 */
-	private static Widget createDefaultCursor() {
-		// return new DefaultCursor();
-		return new Label("O");
+	public Slider(final Resources resources) {
+		this(resources, Orientation.HORIZONTAL);
 	}
 
-	public Slider(final Widget cursor, final Orientation orientation) {
-		this(cursor, orientation, 1.0, 100.0, 50);
+	/**
+	 * A default slider with the given orientation
+	 * with values ranging between 1 and 100 initialized at 50
+	 * that use the given {@link Resources}.
+	 * 
+	 * @param resources
+	 *            the custom resources
+	 * @param orientation
+	 *            the orientation
+	 */
+	public Slider(final Resources resources, final Orientation orientation) {
+		this(resources, orientation, 1.0, 100.0, 50);
 	}
 
-	public Slider(final Widget cursor, final Orientation orientation, final double min, final double max, final double value) {
+	/**
+	 * A default slider with the given orientation
+	 * with values ranging between 1 and 100 initialized at 50
+	 * that use the default {@link Resources}.
+	 * 
+	 * @param orientation
+	 *            the orientation
+	 */
+	public Slider(final Orientation orientation) {
+		this(orientation, 1.0, 100.0, 50);
+	}
+
+	/**
+	 * A default horizontal slider with the given range of values
+	 * that use the default {@link Resources}.
+	 * 
+	 * @param min
+	 *            the minimum value
+	 * @param max
+	 *            the maximum value
+	 * @param value
+	 *            the current value
+	 */
+	@UiConstructor
+	public Slider(final double min, final double max, final double value) {
+		this(Orientation.HORIZONTAL, min, max, value);
+	}
+
+	/**
+	 * A default slider with the given orientation
+	 * with the given range of values
+	 * that use the default {@link Resources}.
+	 * 
+	 * @param orientation
+	 *            the orientation
+	 * @param min
+	 *            the minimum value
+	 * @param max
+	 *            the maximum value
+	 * @param value
+	 *            the current value
+	 */
+	public Slider(final Orientation orientation, final double min, final double max, final double value) {
+		this((Resources) GWT.create(Resources.class), orientation, min, max, value);
+	}
+
+	/**
+	 * A slider with the given orientation
+	 * with the given range of values
+	 * that use the given {@link Resources}.
+	 * 
+	 * @param resources
+	 * @param orientation
+	 *            the orientation
+	 * @param min
+	 *            the minimum value
+	 * @param max
+	 *            the maximum value
+	 * @param value
+	 *            the current value
+	 */
+	public Slider(final Resources resources, final Orientation orientation, final double min, final double max, final double value) {
 		super();
-		this.setElement(Document.get().createDivElement());
-		this.cursor = cursor;
-		getElement().appendChild(cursor.getElement());
-		setup();
-		// default values
-		this.min = min;
-		this.max = max >= min ? max : min;
 		this.orientation = orientation;
+		this.styles = resources.styles();
+		inject(styles);
+		// default values
+		this.scale = D3.scale.linear().domain(min, Math.max(min, max));
+		setSize(Slider.DEFAULT_SIZE);
 		this.setValue(value);
 	}
 
-	/**
+	// ========== lifecycle methods ==============
+	@Override
+	protected void onSelectionAttached(final Selection selection) {
+		super.onSelectionAttached(selection);
+
+		// set some constraints
+		// create the rule + attach the styles
+		rule = select().append("rect")
+				.attr("x", 0)
+				.attr("y", 0)
+				.attr("rx", 3)
+				.attr("ry", 3)
+				.attr("width", computeRuleWidth())
+				.attr("height", computeRuleHeight())
+				.classed(styles.rule(), true)
+				.on(BrowserEvents.CLICK, new ClickOnRuleListener());
+		// .on(BrowserEvents.MOUSEWHEEL, new MouseWheelOnRuleListener());
+
+		// create the symbol generator as a circle
+		// TODO: possibly make this customizable
+		this.cursorGenerator = D3.svg().symbol().type(Type.CIRCLE).size(cursorSize);
+		// create the cursor as a path depending cursor generator
+		// this.cursor = select().append("path")
+		// .classed(styles.cursor(), true)
+		// .attr("transform", computeCursorTranslationValue())
+		// // the data passed in no sense: we dont care about the data,
+		// // since all accessors are constants
+		// .attr("d", cursorGenerator.generate(D3.identity()));
+		this.cursor = select().append("circle")
+				.classed(styles.cursor(), true)
+				.attr("transform", computeCursorTranslationValue())
+				.attr("r", cursorSize);
+
+		// install drag
+		Drag drag = D3.behavior().drag()
+				.on(DragEventType.drag, new DragListener())
+				.origin(D3.identity());
+		// register listeners
+		cursor.call(drag);
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * 
+	 * @see com.github.gwtd3.ui.D3Widget#redraw()
 	 */
-	private void setup() {
-		// styles of the slider outer
-		// getElement().getStyle().setHeight(1, Unit.PX);
-		getElement().getStyle().setProperty("minWidth", (cursor.getOffsetWidth() * 2) + "px");
-		setWidth("100px");
-		setHeight("1px");
+	@Override
+	public void redraw() {
+		super.redraw();
 
-		getElement().getStyle().setMarginTop(5, Unit.PX);
-		getElement().getStyle().setMarginRight(0, Unit.PX);
-		getElement().getStyle().setMarginBottom(10, Unit.PX);
-		getElement().getStyle().setMarginLeft(10, Unit.PX);
+		// update the cursor rendition
+		if (cursorChanged) {
+			cursorChanged = false;
+			cursor.call(cursorGenerator);
+		}
 
-		getElement().getStyle().setBorderWidth(1, Unit.PX);
-		getElement().getStyle().setBorderColor("black");
-		getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
-
-		getElement().getStyle().setOverflow(Overflow.VISIBLE);
-
-		getElement().getStyle().setPosition(Position.RELATIVE);
-
-		sinkEvents(Event.ONCLICK | Event.ONMOUSEWHEEL);
-		addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(final ClickEvent event) {
-				updateMouseEvent(event);
+		// update the cursor position
+		if (valueChanged || sizeChanged) {
+			if (sizeChanged) {
+				rule.attr("width", computeRuleWidth())
+						.attr("height", computeRuleHeight());
 			}
-		});
+			cursor.attr("tranform", computeCursorTranslationValue());
+			valueChanged = false;
+			sizeChanged = false;
+		}
 
-		addMouseWheelHandler(new MouseWheelHandler() {
-			@Override
-			public void onMouseWheel(final MouseWheelEvent event) {
-				int deltaY = -event.getDeltaY();
-				setValue(currentValue + deltaY, true);
-			}
-		});
-		// configure cursor
-		// cursor.getElement().setDraggable(Element.DRAGGABLE_TRUE);
-		cursor.getElement().getStyle().setBackgroundColor("white");
-		cursor.getElement().getStyle().setPosition(Position.ABSOLUTE);
-		cursor.getElement().getStyle().setCursor(Cursor.POINTER);
-		cursor.getElement().getStyle().setZIndex(1000);
-
+		if (disabledChanged) {
+			cursor.classed(styles.disabled(), !isEnabled());
+			rule.classed(styles.disabled(), !isEnabled());
+			// label.classed(styles.disabled(), !isEnabled());
+			disabledChanged = false;
+		}
 	}
 
-	/**
-	 * @param event
-	 */
-	protected void updateMouseEvent(final MouseEvent<?> event) {
-		int x = event.getRelativeX(getElement());
-		int y = event.getRelativeY(getElement());
-		Double value = pointToValue(x, y);
-		setValue(value, true);
-	}
+	// =========== internal methods =============
 
 	/**
-	 * @param x
-	 * @param y
-	 * @return
+	 * @return the transation to apply to the g element
+	 *         representing the cursor.
 	 */
-	protected double pointToValue(final int x, final int y) {
-		switch (orientation) {
-		case HORIZONTAL:
-			return (((double) x / getOffsetWidth()) * (max - min)) + min;
-		case VERTICAL:
-			return new Double((double) y / getOffsetHeight());
-		default:
-			throw new IllegalStateException("illegal orientation " + orientation);
+	private String computeCursorTranslationValue() {
+		int cursorPosition = scale.apply(currentValue).asInt();
+		if (isHorizontal()) {
+			// modulate x from currentvalue
+			return "translate(" + cursorPosition + ",0)";
+		}
+		else {
+			// modulate y from currentvalue
+			return "translate(0," + cursorPosition + ")";
 		}
 	}
 
 	/**
-	 * @param currentValue2
-	 * @return
+	 * @return the width to assign to the rule element
 	 */
-	private Point valueToPoint(final Double v) {
-		double range = max - min;
-		double percent = (v - min) / range;
-		switch (orientation) {
-		case HORIZONTAL:
-			return new Point(percent * getOffsetWidth(), 0);
-		case VERTICAL:
-			return new Point(0, percent * getOffsetHeight());
-		default:
-			throw new IllegalStateException("illegal orientation " + orientation);
+	private double computeRuleWidth() {
+		if (isHorizontal()) {
+			return size;
+		} else {
+			return Slider.SMALL_SIZE;
 		}
+	}
+
+	/**
+	 * @return the height to assign to the rule element
+	 */
+	private double computeRuleHeight() {
+		if (isHorizontal()) {
+			return Slider.SMALL_SIZE;
+		} else {
+			return size;
+		}
+	}
+
+	/**
+	 * @return true if this slider is horizontal
+	 */
+	private boolean isHorizontal() {
+		return orientation == Orientation.HORIZONTAL;
+	}
+
+	/**
+	 * Compute the new current value of the slider
+	 * according to the coordionates of the last mouse event
+	 */
+	protected void updateValueFromMouseCoords() {
+		double newValue = 0;
+		if (isHorizontal()) {
+			double mouseX = D3.mouseX(this.getElement());
+			newValue = scale.invert(mouseX).asDouble();
+		}
+		else {
+			double mouseY = D3.mouseY(this.getElement());
+			newValue = scale.invert(mouseY).asDouble();
+		}
+		setValue(newValue, true);
+	}
+
+	/**
+	 * Ensure the value is lower than max and greater than min,
+	 * and correct it if necessary.
+	 * 
+	 * @return true if the value was corrected
+	 */
+	private boolean ensureCurrentValueInRange() {
+		double oldValue = currentValue;
+		this.currentValue = Math.max(currentValue, getMin());
+		this.currentValue = Math.min(currentValue, getMax());
+		return currentValue.doubleValue() != oldValue;
+	}
+
+	// ============ interface methods =========
+
+	/**
+	 * Set the cursor size in pixels. The given
+	 * 
+	 * @param cursorSize
+	 *            the cursorSize to set
+	 */
+	public void setCursorSize(final int cursorSize) {
+		this.cursorSize = cursorSize;
+		cursorChanged = true;
+		scheduleRedraw();
+	}
+
+	/**
+	 * Set the size of the slider in pixels, which is interpreted differently according to the orientation.
+	 * <p>
+	 * The size of the slider measures the length in pixels (with a scale of 1,1) of the rule of the slider.
+	 * 
+	 * @param sizeInPixels
+	 */
+	public void setSize(final int sizeInPixels) {
+		this.size = sizeInPixels;
+		if (isHorizontal()) {
+			this.scale.range(0, sizeInPixels);
+			setPixelSize(size, Slider.SMALL_SIZE);
+		}
+		else {
+			this.scale.range(sizeInPixels, 0);
+			setPixelSize(Slider.SMALL_SIZE, size);
+		}
+		sizeChanged = true;
+		scheduleRedraw();
 	}
 
 	/*
@@ -279,22 +506,6 @@ public class Slider extends FocusWidget implements HasValue<Double>, HasValueCha
 		setValue(value, false);
 	}
 
-	/**
-	 * 
-	 */
-	private void updateCursorPosition() {
-		Point point = valueToPoint(currentValue);
-		// set the cursor pos at the value point minus half the cursor size
-		if (orientation == Orientation.HORIZONTAL) {
-			cursor.getElement().getStyle().setLeft(point.getX() - (cursor.getOffsetWidth() / 2), Unit.PX);
-			cursor.getElement().getStyle().setTop(-(cursor.getOffsetHeight() / 2), Unit.PX);
-		}
-		else if (orientation == Orientation.VERTICAL) {
-			cursor.getElement().getStyle().setLeft(-(cursor.getOffsetWidth() / 2), Unit.PX);
-			cursor.getElement().getStyle().setTop(point.getY() - (cursor.getOffsetHeight() / 2), Unit.PX);
-		}
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -302,120 +513,88 @@ public class Slider extends FocusWidget implements HasValue<Double>, HasValueCha
 	 */
 	@Override
 	public void setValue(final Double value, final boolean fireEvents) {
+		if (Objects.equal(value, currentValue)) {
+			return;
+		}
 		this.currentValue = value;
-		ensureValueInRange();
-		updateCursorPosition();
-		ValueChangeEvent.fire(Slider.this, currentValue);
+		this.valueChanged = true;
+		scheduleRedraw();
+		ensureCurrentValueInRange();
+		if (fireEvents) {
+			ValueChangeEvent.fire(Slider.this, currentValue);
+		}
 
+	}
+
+	/**
+	 * The maximum this slider can set the value.
+	 * 
+	 * @param max
+	 *            the new maximum value
+	 */
+	public void setMax(final double max) {
+		double min = getMin();
+		scale.domain(min, Math.max(min, max));
+		scheduleRedraw();
+		if (ensureCurrentValueInRange()) {
+			ValueChangeEvent.fire(Slider.this, currentValue);
+		}
+	}
+
+	/**
+	 * The minimum this slider can set the value.
+	 * 
+	 * @param min
+	 *            the new minimum value
+	 */
+	public void setMin(final double min) {
+		double max = getMax();
+		scale.domain(Math.min(min, max), max);
+		valueChanged = true;
+		if (ensureCurrentValueInRange()) {
+			ValueChangeEvent.fire(Slider.this, currentValue);
+		}
+		scheduleRedraw();
+	}
+
+	/**
+	 * The maximum this slider can set the value.
+	 * 
+	 * @return the max the maximum
+	 */
+	public double getMax() {
+		return scale.domain().getNumber(1);
+	}
+
+	/**
+	 * The minimum this slider can set the value.
+	 * 
+	 * @return the min the minimum
+	 */
+	public double getMin() {
+		return scale.domain().getNumber(0);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.google.gwt.user.client.ui.Widget#onLoad()
+	 * @see com.google.gwt.user.client.ui.HasEnabled#isEnabled()
 	 */
 	@Override
-	protected void onLoad() {
-		super.onLoad();
-		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-			@Override
-			public void execute() {
-				updateCursorPosition();
-			}
-		});
-
-		// MouseHandler mouseHandler = new MouseHandler();
-		// addDomHandler(mouseHandler, MouseDownEvent.getType());
-		// addDomHandler(mouseHandler, MouseUpEvent.getType());
-		// addDomHandler(mouseHandler, MouseMoveEvent.getType());
-		// addDomHandler(mouseHandler, MouseOverEvent.getType());
-		// addDomHandler(mouseHandler, MouseOutEvent.getType());
-
-		addMouseDownHandler(new MouseDownHandler() {
-			@Override
-			public void onMouseDown(final MouseDownEvent event) {
-				GWT.log("mousedown");
-				support.started = true;
-				support.startPoint = new Point(event.getRelativeX(getElement()), event.getRelativeY(getElement()));
-				support.endPoint = null;
-				DOM.setCapture(cursor.getElement());
-			}
-		});
-		addMouseUpHandler(new MouseUpHandler() {
-			@Override
-			public void onMouseUp(final MouseUpEvent event) {
-				GWT.log("mouseup");
-				support.started = false;
-				support.startPoint = null;
-				support.endPoint = new Point(event.getRelativeX(getElement()), event.getRelativeY(getElement()));
-				DOM.releaseCapture(cursor.getElement());
-			}
-		});
-		// ((HasMouseMoveHandlers) cursor).
-		addMouseMoveHandler(new MouseMoveHandler() {
-			@Override
-			public void onMouseMove(final MouseMoveEvent event) {
-				if (support.started) {
-					updateMouseEvent(event);
-				}
-			}
-		});
-
+	public boolean isEnabled() {
+		return !disabled;
 	}
 
-	public void setMax(final double max) {
-		this.max = max;
-		if (this.max < min) {
-			this.max = min;
-		}
-		if (ensureValueInRange()) {
-			updateCursorPosition();
-			ValueChangeEvent.fire(Slider.this, currentValue);
-		}
-	}
-
-	public void setMin(final double min) {
-		this.min = min;
-		if (this.min > max) {
-			this.min = max;
-		}
-		if (ensureValueInRange()) {
-			updateCursorPosition();
-			ValueChangeEvent.fire(Slider.this, currentValue);
-		}
-
-	}
-
-	/**
-	 * Ensure the value is lower than max and greater than min,
-	 * and correct it if necessary.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return true if the value was corrected
+	 * @see com.google.gwt.user.client.ui.HasEnabled#setEnabled(boolean)
 	 */
-	private boolean ensureValueInRange() {
-		boolean updated = false;
-		if (this.currentValue < min) {
-			this.currentValue = min;
-			updated = true;
-		}
-		if (this.currentValue > max) {
-			this.currentValue = max;
-			updated = true;
-		}
-		return updated;
+	@Override
+	public void setEnabled(final boolean enabled) {
+		this.disabled = !enabled;
+		this.disabledChanged = true;
+		scheduleRedraw();
 	}
 
-	/**
-	 * @return the max
-	 */
-	public double getMax() {
-		return max;
-	}
-
-	/**
-	 * @return the min
-	 */
-	public double getMin() {
-		return min;
-	}
 }

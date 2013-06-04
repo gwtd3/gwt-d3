@@ -23,7 +23,7 @@ import com.google.gwt.dom.client.Element;
  */
 public class GradientBuilder {
 
-	private final SVGDocument widget;
+	private final SVGDocumentContainer widget;
 	private Selection gradientSelection;
 	private int steps = 2;
 	private final Scale<?> offsetScale = createOffsetScaleFromSteps();
@@ -73,12 +73,12 @@ public class GradientBuilder {
 	// TODO: gradientUnits
 	// TODO: xlink:href (inherit from another gradient)
 
-	private GradientBuilder(final SVGDocument widget) {
+	private GradientBuilder(final SVGDocumentContainer widget) {
 		super();
 		this.widget = widget;
 	}
 
-	public static GradientBuilder createHorizontalLinearGradient(final SVGDocument widget, final String gradientId) {
+	public static GradientBuilder createHorizontalLinearGradient(final SVGDocumentContainer widget, final String gradientId) {
 		GradientBuilder builder = new GradientBuilder(widget);
 		widget.defs().select("#" + gradientId).remove();
 		builder.gradientSelection = widget.defs().append("linearGradient")
@@ -107,7 +107,7 @@ public class GradientBuilder {
 		return this;
 	}
 
-	public static GradientBuilder createVerticalLinearGradient(final SVGDocument widget, final String gradientId) {
+	public static GradientBuilder createVerticalLinearGradient(final SVGDocumentContainer widget, final String gradientId) {
 		GradientBuilder builder = new GradientBuilder(widget);
 		widget.defs().select("#" + gradientId).remove();
 		builder.gradientSelection = widget.defs()
@@ -137,7 +137,7 @@ public class GradientBuilder {
 		return this;
 	}
 
-	public static GradientBuilder createLinearGradient(final SVGDocument widget, final String gradientId) {
+	public static GradientBuilder createLinearGradient(final SVGDocumentContainer widget, final String gradientId) {
 		GradientBuilder builder = new GradientBuilder(widget);
 		widget.defs().select("#" + gradientId).remove();
 		builder.gradientSelection = widget.defs().append("linearGradient")

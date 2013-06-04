@@ -13,7 +13,7 @@ import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Symbol;
 import com.github.gwtd3.api.svg.Symbol.Type;
 import com.github.gwtd3.ui.svg.GradientBuilder;
-import com.github.gwtd3.ui.svg.SVGDocument;
+import com.github.gwtd3.ui.svg.SVGDocumentContainer;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Display;
@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.HasValue;
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public abstract class ComponentSelector extends SVGDocument implements HasValue<Double> {
+public abstract class ComponentSelector extends SVGDocumentContainer implements HasValue<Double> {
 
 	/**
 	 * 
