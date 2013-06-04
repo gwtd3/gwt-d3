@@ -87,6 +87,7 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         model.addRangeChangeHandler(new RangeChangeHandler() {
             @Override
             public void onRangeChange(final RangeChangeEvent event) {
+                generator.scale(model.scale());
                 scheduleRedraw();
             }
         });
@@ -228,8 +229,8 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         if (tickOrientation.isHorizontalAxis()) {
             // LEFT TO RIGHT orientation
             // TODO: let the user decide "right to left"
-            model.scale().range(0, length);
-
+            model.setPixelRange(0, length);
+            generator.scale(model.scale());
             if (tickOrientation == Orientation.TOP) {
                 titleLabel.transform().removeAll().translate(length, 18);
             }
@@ -240,7 +241,8 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         else {
             // orientation of the domain ("bottom up")
             // TODO: let the user decide a "top down" orientation
-            model.scale().range(length, 0);
+            model.setPixelRange(length, 0);
+            generator.scale(model.scale());
         }
         // apply the generator on the axis
         select().call(generator);

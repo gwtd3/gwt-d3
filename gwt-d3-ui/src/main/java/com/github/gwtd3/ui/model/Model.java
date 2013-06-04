@@ -8,9 +8,8 @@ import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
 import com.github.gwtd3.api.core.Value;
-
+import com.github.gwtd3.api.scales.Scale;
 import com.github.gwtd3.ui.chart.LineChart;
-import com.github.gwtd3.ui.event.RangeChangeEvent;
 import com.google.common.collect.Range;
 
 /**
@@ -25,8 +24,10 @@ import com.google.common.collect.Range;
  * 
  * @param <T>
  */
-public class Model<T> {
-    private final LineChart<T> chart;
+public class Model<T, S extends Scale<S>> {
+
+    private AxisModel<S> xModel;
+    private AxisModel<S> yModel;
 
     private final Set<Serie<T>> series = new HashSet<Serie<T>>();
 
@@ -37,7 +38,7 @@ public class Model<T> {
         @Override
         public double forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
             T e = element.as();
-            return pointBuilder().x(e);
+            return coordsBuilder().x(e);
         }
     };
 
@@ -48,23 +49,45 @@ public class Model<T> {
         @Override
         public double forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
             T e = element.as();
-            return pointBuilder().y(e);
+            return coordsBuilder().y(e);
         }
     };
     /**
      * Used to convert instance of T to x and y domain values.
      * 
      */
-    private PointBuilder<T> pointBuilder;
+    private PointBuilder<T> coordsBuilder;
 
     private Range<Double> visibleXRange;
 
     private Range<Double> visibleYRange;
 
-    public Model(final LineChart<T> chart) {
+    public Model() {
         super();
-        this.chart = chart;
     }
+
+    // =========== delegate models ================
+
+    public AxisModel<S> xModel() {
+        return xModel;
+    }
+
+    public AxisModel<S> yModel() {
+        return yModel;
+    }
+
+    // =========== coords builder ================
+
+    public Model<T, S> coordsBuilder(final PointBuilder<T> pointBuilder) {
+        this.coordsBuilder = pointBuilder;
+        return this;
+    }
+
+    public PointBuilder<T> coordsBuilder() {
+        return coordsBuilder;
+    }
+
+    // =========== series methods ================
 
     public boolean isEmpty() {
         return series.isEmpty();
@@ -134,94 +157,9 @@ public class Model<T> {
         return maxSeriesValue(valueToDomainY);
     }
 
-    public Model<T> pointBuilder(final PointBuilder<T> pointBuilder) {
-        this.pointBuilder = pointBuilder;
-        return this;
-    }
-
-    public PointBuilder<T> pointBuilder() {
-        return pointBuilder;
-    }
-
-    public Model<T> addSerie(final Serie<T> serie) {
+    public Model<T, S> addSerie(final Serie<T> serie) {
         this.series.add(serie);
         return this;
-    }
-
-    public LineChart<T> update() {
-        this.chart.redraw();
-        return chart;
-    }
-
-    /**
-     * @return the range of values currently visible on the y axis
-     */
-    public Range<Double> visibleYRange() {
-        if (visibleYRange == null) {
-            return Range.closed(minY(), maxY());
-        }
-        return visibleYRange;
-    }
-
-    /**
-     * @return the range of values currently visible on the x axis
-     */
-    public Range<Double> visibleXRange() {
-        if (visibleXRange == null) {
-            return Range.closed(minX(), maxX());
-        }
-        return visibleXRange;
-    }
-
-    /**
-     * @return the range of values currently visible on the x axis
-     */
-    public Model<T> visibleXRange(final Range<Double> range, final boolean sendEvents) {
-        Range<Double> oldRange = visibleXRange;
-        visibleXRange = range;
-        if (sendEvents) {
-            RangeChangeEvent.fire(chart.xAxis(), range, oldRange);
-        }
-        return this;
-    }
-
-    /**
-     * Alias for {@link #visibleXRange(Range, false)}
-     * 
-     * @return the range of values currently visible on the x axis
-     */
-    public Model<T> visibleXRange(final Range<Double> range) {
-        return visibleXRange(range, false);
-    }
-
-    /**
-     * @return the range of values currently visible on the y axis
-     */
-    public Model<T> visibleYRange(final Range<Double> range, final boolean sendEvents) {
-        Range<Double> oldRange = visibleYRange;
-        visibleYRange = range;
-        if (sendEvents) {
-            RangeChangeEvent.fire(chart.yAxis(), range, oldRange);
-        }
-        return this;
-    }
-
-    /**
-     * Alias for {@link #visibleYRange(Range, false)}
-     * 
-     * @return the range of values currently visible on the y axis
-     */
-    public Model<T> visibleYRange(final Range<Double> range) {
-        return visibleYRange(range, false);
-    }
-
-    /**
-     * Return the chart associated to this model.
-     * 
-     * @return the chart
-     */
-    public LineChart<T> chart() {
-        return chart;
     }
 
 }
