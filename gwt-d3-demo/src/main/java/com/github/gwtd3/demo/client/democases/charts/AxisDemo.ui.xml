@@ -15,8 +15,8 @@
 			<hr/>
 			TODO: tick sizes, tick counts...
 			<hr/>
-			visible domain lower:<d:Slider 	ui:field="visibleRangeLower"  min="-100.0" 	max="1000.0" 	value="100.0"/>
-			visible domain upper:<d:Slider 	ui:field="visibleRangeUpper"  min="1001.0" 	max="10000.0" 	value="2000.0"/>
+			visible domain lower:<d:Slider 	ui:field="visibleRangeLower"  min="-100.0" 	max="1000.0" 	value="100.0"/><br/>
+			visible domain upper:<d:Slider 	ui:field="visibleRangeUpper"  min="1001.0" 	max="10000.0" 	value="2000.0"/><br/>
 <!-- 			outerRadius:<d:Slider 	ui:field="outerRadius" 	min="50.0" 	max="100.0" 	value="40.0"/> -->
 <!-- 			startAngle:<d:Slider 	ui:field="startAngle" 	min="0.0" 	max="6.30" 	value="0.0" /> -->
 <!-- 			endAngle:<d:Slider 		ui:field="endAngle"  	min="0.0" 	max="6.30" 	value="3.14"/> -->

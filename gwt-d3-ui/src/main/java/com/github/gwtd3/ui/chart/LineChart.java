@@ -22,7 +22,9 @@ import com.github.gwtd3.ui.model.Model;
 import com.github.gwtd3.ui.model.PointBuilder;
 import com.github.gwtd3.ui.model.Serie;
 import com.github.gwtd3.ui.model.Serie.NamedRange;
+import com.github.gwtd3.ui.svg.SVGResources;
 import com.github.gwtd3.ui.svg.SVGDocumentContainer;
+import com.github.gwtd3.ui.svg.SVGStyles;
 import com.google.common.collect.Range;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -89,13 +91,13 @@ public class LineChart<T> extends SVGDocumentContainer {
 		return GWT.create(Resources.class);
 	}
 
-	public static interface Resources extends SVGDocumentContainer.Resources {
+	public static interface Resources extends SVGResources {
 		@Override
 		@Source("LineChart.css")
-		Styles getStyles();
+		Styles styles();
 	}
 
-	public static interface Styles extends SVGDocumentContainer.Styles {
+	public static interface Styles extends SVGStyles {
 		/**
 		 * @return the classname applied to any axis
 		 */
