@@ -3,13 +3,14 @@
  */
 package com.github.gwtd3.api.core;
 
+import java.util.List;
+
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
 import com.github.gwtd3.api.svg.PathDataGenerator;
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayUtils;
 import com.google.gwt.dom.client.BrowserEvents;
@@ -198,9 +199,12 @@ public class Selection extends EnteringSelection {
      */
     public native final Selection attr(final String name, final DatumFunction<?> callback)
     /*-{
-		return this.attr(name, function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
-		});
+		return this
+				.attr(
+						name,
+						function(d, i) {
+							return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+						});
     }-*/;
 
     /**
@@ -251,9 +255,12 @@ public class Selection extends EnteringSelection {
      * @return
      */
     public native final Selection style(String name, DatumFunction<?> callback) /*-{
-		return this.style(name, function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
-		});
+		return this
+				.style(
+						name,
+						function(d, i) {
+							return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+						});
     }-*/;
 
     /**
@@ -374,10 +381,14 @@ public class Selection extends EnteringSelection {
      * @return the selection
      */
     public native final Selection classed(String classNames, DatumFunction<Boolean> addFunction)/*-{
-		return this.classed(classNames, function(d, i) {
-			var r = addFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
-			return r == null ? false : r.@java.lang.Boolean::booleanValue()();
-		});
+		return this
+				.classed(
+						classNames,
+						function(d, i) {
+							var r = addFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+							return r == null ? false
+									: r.@java.lang.Boolean::booleanValue()();
+						});
     }-*/;
 
     public native final Selection property(String styleName, String value)/*-{
@@ -422,9 +433,10 @@ public class Selection extends EnteringSelection {
      * @return the current selection
      */
     public native final Selection text(final DatumFunction<?> callback) /*-{
-		return this.text(function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
-		});
+		return this
+				.text(function(d, i) {
+					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
     }-*/;
 
     public native final Selection html(String value)/*-{
@@ -459,6 +471,17 @@ public class Selection extends EnteringSelection {
     }-*/;
 
     /**
+     * Same as #data(JavaScriptObject) for an {@link List} of objects.
+     * 
+     * @see #data(JavaScriptObject)
+     * @param data
+     * @return
+     */
+    public final UpdateSelection data(final List<?> data) {
+        return this.data(JsArrays.asJsArray(data));
+    }
+
+    /**
      * Joins the specified array of data with the current selection by
      * controlling how the data is mapped to the selection's elements.
      * <p>
@@ -488,13 +511,16 @@ public class Selection extends EnteringSelection {
      * @return the {@link UpdateSelection}
      */
     public native final UpdateSelection data(JavaScriptObject array, KeyFunction<?> keyFunction)/*-{
-		return this.data(array, function(d, i) {
-			var thisArg = this;
-			if (this == array) {
-				thisArg = null;
-			}
-			return keyFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(thisArg,{datum:d},i);
-		});
+		return this
+				.data(
+						array,
+						function(d, i) {
+							var thisArg = this;
+							if (this == array) {
+								thisArg = null;
+							}
+							return keyFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(thisArg,{datum:d},i);
+						});
     }-*/;
 
     /**
@@ -502,9 +528,10 @@ public class Selection extends EnteringSelection {
      * @return
      */
     public native final UpdateSelection data(DatumFunction<?> callback) /*-{
-		return this.data(function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
-		});
+		return this
+				.data(function(d, i) {
+					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
     }-*/;
 
     /**
@@ -542,6 +569,20 @@ public class Selection extends EnteringSelection {
      * @param jsFunction
      * @return the current selection
      */
+    public native final Selection each(DatumFunction<Void> listener) /*-{
+		return this
+				.each(function(d, i) {
+					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
+    }-*/;
+
+    /**
+     * Invokes the specified function once, passing in the current selection as
+     * a single parameter.
+     * 
+     * @param jsFunction
+     * @return the current selection
+     */
     public native final Selection call(IsFunction jsFunction) /*-{
 		return this.call(jsFunction);
     }-*/;
@@ -555,9 +596,10 @@ public class Selection extends EnteringSelection {
      * @return
      */
     public native final Selection on(String eventType, DatumFunction<Void> listener) /*-{
-		var l = listener == null ? null : function(d, i) {
-			listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
-		};
+		var l = listener == null ? null
+				: function(d, i) {
+					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				};
 		return this.on(eventType, l);
     }-*/;
 
@@ -600,10 +642,35 @@ public class Selection extends EnteringSelection {
      * @return the current selection
      */
     public native final Selection on(String eventType, DatumFunction<Void> listener, boolean useCapture) /*-{
-		var l = (listener == null ? null : function(d, i) {
-			listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
-		});
+		var l = (listener == null ? null
+				: function(d, i) {
+					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
 		return this.on(eventType, l, useCapture);
     }-*/;
 
+    /**
+     * Return the number of elements in the current selection.
+     * 
+     * @return the number of elements
+     */
+    public final int count() {
+        CountFunction function = new CountFunction();
+        each(function);
+        return function.getCount();
+    }
+
+    protected static class CountFunction implements DatumFunction<Void> {
+        private int count = 0;
+
+        @Override
+        public Void apply(final Element context, final Datum d, final int index) {
+            count++;
+            return null;
+        }
+
+        public int getCount() {
+            return count;
+        }
+    }
 }

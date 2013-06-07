@@ -19,9 +19,9 @@ import com.google.gwt.user.client.ui.Widget;
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class D3Container extends ComplexPanel implements HasD3Selection, Drawable {
+public class D3Container extends ComplexPanel implements HasD3Selection, DrawableWidget {
 
-    private DrawableSupport support = new DrawableSupport(this);
+    private final DrawableSupport support = new DrawableSupport(this);
 
     protected D3Container(final Element e) {
         super();
@@ -72,7 +72,7 @@ public class D3Container extends ComplexPanel implements HasD3Selection, Drawabl
     @Override
     public Selection select() {
         if (!isAttached()) {
-            throw new IllegalStateException("cannot select a widget before it is attached");
+            // throw new IllegalStateException("cannot select a widget before it is attached");
         }
         return D3.select(this);
     }

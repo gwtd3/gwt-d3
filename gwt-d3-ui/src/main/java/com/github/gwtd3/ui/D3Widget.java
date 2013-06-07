@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class D3Widget extends Widget implements HasD3Selection, Drawable {
+public class D3Widget extends Widget implements HasD3Selection, DrawableWidget {
 
     private final DrawableSupport support = new DrawableSupport(this);
 

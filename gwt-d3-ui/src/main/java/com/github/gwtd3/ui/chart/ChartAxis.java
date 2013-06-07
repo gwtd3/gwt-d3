@@ -31,7 +31,8 @@ import com.google.gwt.resources.client.CssResource;
  * 
  * <p>
  * An {@link AxisModel} must be provided to define what values are displayed in ticks.
- * 
+ * <p>
+ * FIXME: add a time formatter
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
@@ -40,11 +41,11 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
 
     private static final int DEFAULT_LENGTH = 100;
 
-    private final Orientation tickOrientation;
     private final Axis generator;
     private final AxisModel<S> model;
     private final Text titleLabel;
     private Styles styles;
+    private final Orientation tickOrientation;
     private int length = DEFAULT_LENGTH;
 
     /**
@@ -103,7 +104,7 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         super.onSelectionAttached();
 
         getDocument().inject(styles);
-        setStyleName(styles.axis());
+        addStyleName(styles.axis());
     }
 
     /**
@@ -183,6 +184,12 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         return this;
     }
 
+    // public ChartAxis<S> formatter(final TimeFormat format) {
+    // generator().tickFormat((Formatter) format.cast());
+    // scheduleRedraw();
+    // return this;
+    // }
+
     /**
      * Use the given {@link NumberFormat} to format the tick labels.
      * 
@@ -256,8 +263,12 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
      * @param size
      */
     public void setLength(final int length) {
+        if (this.length == length) {
+            return;
+        }
         this.length = length;
         scheduleRedraw();
 
     }
+
 }

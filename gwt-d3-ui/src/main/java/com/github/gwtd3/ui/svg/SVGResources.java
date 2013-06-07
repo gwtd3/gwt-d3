@@ -10,5 +10,5 @@ import com.google.gwt.resources.client.ClientBundle;
  */
 public interface SVGResources extends ClientBundle {
     @Source("SVGStyles.css")
-    SVGStyles styles();
+    SVGStyles svgStyles();
 }

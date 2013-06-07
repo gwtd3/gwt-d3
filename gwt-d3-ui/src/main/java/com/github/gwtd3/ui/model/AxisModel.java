@@ -66,6 +66,8 @@ public class AxisModel<S extends Scale<S>> implements RangeChangeHasHandlers {
         return scale.copy();
     }
 
+    // ============= events handling ==================
+
     /**
      * @return the domain of the
      */
@@ -101,7 +103,7 @@ public class AxisModel<S extends Scale<S>> implements RangeChangeHasHandlers {
 
         scale.domain(lower, upper);
         if (fireEvent) {
-            RangeChangeEvent.fire(this, newRange, oldRange);
+            fireEvent(new RangeChangeEvent(newRange, oldRange));
         }
         return this;
     }
@@ -118,6 +120,7 @@ public class AxisModel<S extends Scale<S>> implements RangeChangeHasHandlers {
         return visibleDomain().contains(domainValue);
     }
 
+    // ============= events handling ==================
     /*
      * (non-Javadoc)
      * 
@@ -140,16 +143,7 @@ public class AxisModel<S extends Scale<S>> implements RangeChangeHasHandlers {
         return manager.addHandler(RangeChangeEvent.TYPE, handler);
     }
 
-    /**
-     * Convert a given domain value into a distance (in pixels)
-     * from the origin of the axis.
-     * 
-     * @param domainValue the value to convert
-     * @return the pixel value the pixel
-     */
-    public int toPixel(final double domainValue) {
-        return scale.apply(domainValue).asInt();
-    }
+    // ============= Mapping to pixels ==================
 
     /**
      * Set the bounds of the pixel range.
@@ -162,6 +156,17 @@ public class AxisModel<S extends Scale<S>> implements RangeChangeHasHandlers {
      */
     public void setPixelRange(final int start, final int end) {
         scale.range(start, end);
+    }
+
+    /**
+     * Convert a given domain value into a distance (in pixels)
+     * from the origin of the axis.
+     * 
+     * @param domainValue the value to convert
+     * @return the pixel value the pixel
+     */
+    public int toPixel(final double domainValue) {
+        return scale.apply(domainValue).asInt();
     }
 
 }
