@@ -11,21 +11,25 @@ import java.util.Set;
 
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
-
+import com.github.gwtd3.ui.event.SerieChangeEvent;
+import com.github.gwtd3.ui.event.SerieChangeEvent.SerieChangeHandler;
+import com.github.gwtd3.ui.event.SerieChangeEvent.SerieChangeHasHandlers;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Range;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 
-public class Serie<T> {
+public class Serie<T> implements SerieChangeHasHandlers<T> {
 
-    private HandlerManager eventManager = new HandlerManager(this);
+    private final HandlerManager eventManager = new HandlerManager(this);
 
     private final String id;
     private String name;
 
     private List<T> values = new ArrayList<T>();
 
-    private Map<String, NamedRange<T>> namedRanges = new HashMap<String, NamedRange<T>>();
+    private final Map<String, NamedRange<T>> namedRanges = new HashMap<String, NamedRange<T>>();
 
     /**
      * A NamedRange provides a way of logically grouping contiguous values of a {@link Serie},
@@ -36,9 +40,9 @@ public class Serie<T> {
      * 
      */
     public static class NamedRange<T> {
-        private String name;
-        private Range<Double> range;
-        private Serie<T> serie;
+        private final String name;
+        private final Range<Double> range;
+        private final Serie<T> serie;
 
         protected NamedRange(final Serie<T> serie, final String name, final Range<Double> range) {
             super();
@@ -74,7 +78,7 @@ public class Serie<T> {
         public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result + ((name == null) ? 0 : name.hashCode());
+            result = (prime * result) + ((name == null) ? 0 : name.hashCode());
             return result;
         }
 
@@ -117,10 +121,13 @@ public class Serie<T> {
         this.id = id;
     }
 
+    // =========== id ===============
+
     public String id() {
         return id;
     }
 
+    // =========== name===============
     public String name() {
         return name;
     }
@@ -130,18 +137,23 @@ public class Serie<T> {
         return this;
     }
 
+    // =========== values ===============
+
     public List<T> values() {
         return values;
     }
 
     public Serie<T> values(final List<T> t) {
         this.values = t;
+        fireEvent(new SerieChangeEvent<T>(this));
         return this;
     }
 
     public Array<T> valuesAsArray() {
         return JsArrays.asJsArray(values());
     }
+
+    // ============
 
     public boolean isEmpty() {
         return values.isEmpty();
@@ -257,7 +269,7 @@ public class Serie<T> {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = (prime * result) + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
@@ -277,7 +289,7 @@ public class Serie<T> {
         if (!(obj instanceof Serie)) {
             return false;
         }
-        Serie other = (Serie) obj;
+        Serie<?> other = (Serie<?>) obj;
         if (id == null) {
             if (other.id != null) {
                 return false;
@@ -286,6 +298,16 @@ public class Serie<T> {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void fireEvent(final GwtEvent<?> event) {
+        eventManager.fireEvent(event);
+    }
+
+    @Override
+    public HandlerRegistration addSerieChangeHandler(final SerieChangeHandler<T> handler) {
+        return eventManager.addHandler(SerieChangeEvent.TYPE, handler);
     }
 
 }

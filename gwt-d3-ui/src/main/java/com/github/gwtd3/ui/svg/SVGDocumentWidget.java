@@ -3,6 +3,9 @@
  */
 package com.github.gwtd3.ui.svg;
 
+import org.vectomatic.dom.svg.OMSVGRect;
+import org.vectomatic.dom.svg.impl.SVGSVGElement;
+
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Selection;
 import com.google.gwt.dom.client.Element;
@@ -31,7 +34,7 @@ public class SVGDocumentWidget extends SVGWidget implements ISVGDocument {
     protected SVGDocumentWidget(final SVGResources resources) {
         super("svg");
         this.resources = resources;
-        this.styles = resources.styles();
+        this.styles = resources.svgStyles();
         this.addStyleName(styles.svg());
     }
 
@@ -63,7 +66,22 @@ public class SVGDocumentWidget extends SVGWidget implements ISVGDocument {
      */
     @Override
     public void inject(final CssResource resource) {
-        String styleContents = "\n" + resource.getText() + "\n";
-        defs().append("style").attr("type", "text/css").text(styleContents);
+        // String styleContents = "\n" + resource.getText() + "\n";
+        // defs().append("style").attr("type", "text/css").text(styleContents);
+        resource.ensureInjected();
     }
+
+    public SVGSVGElement getSVGElement() {
+        return getElement().cast();
+    }
+
+    @Override
+    public void setViewBox(final int x, final int y, final int width, final int height) {
+        OMSVGRect viewBox = getSVGElement().getViewBox().getBaseVal();
+        viewBox.setX(x);
+        viewBox.setY(y);
+        viewBox.setWidth(width);
+        viewBox.setHeight(height);
+    }
+
 }

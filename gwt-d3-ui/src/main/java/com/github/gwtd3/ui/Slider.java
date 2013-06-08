@@ -17,6 +17,8 @@ import com.github.gwtd3.ui.svg.SVGDocumentWidget;
 import com.github.gwtd3.ui.svg.SVGResources;
 import com.github.gwtd3.ui.svg.SVGStyles;
 import com.google.common.base.Objects;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
@@ -55,6 +57,7 @@ import com.google.gwt.user.client.ui.HasValue;
 public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasValueChangeHandlers<Double>, HasEnabled,
         ISVGDocument {
 
+    private static final int DEFAULT_WIDTH = 100;
     /**
 	 * 
 	 */
@@ -112,7 +115,7 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
          */
         @Override
         @Source("Slider.css")
-        Styles styles();
+        Styles svgStyles();
     }
 
     /**
@@ -302,8 +305,10 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
      */
     public Slider(final Resources resources, final Orientation orientation, final double min, final double max, final double value) {
         super(resources);
+        setWidth("" + DEFAULT_WIDTH);
+        setHeight("22");
         this.orientation = orientation;
-        this.styles = resources.styles();
+        this.styles = resources.svgStyles();
         addStyleName(this.styles.slider());
         // default values
         this.scale = D3.scale.linear().domain(min, Math.max(min, max));
@@ -387,7 +392,7 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
                 this.scale.range(size - cursorSize, cursorSize);
             }
 
-            setPixelSize(width, height);
+            setViewBox(0, 0, width, height);
             rule.attr("width", width - (2 * cursorSize))
                     .attr("height", height - (2 * cursorSize));
             rule.attr("x", x);
@@ -548,9 +553,26 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
         scheduleRedraw();
         ensureCurrentValueInRange();
         if (fireEvents) {
-            ValueChangeEvent.fire(Slider.this, currentValue);
+            scheduleEvent();
         }
 
+    }
+
+    private boolean scheduled = false;
+
+    private void scheduleEvent() {
+        if (scheduled) {
+            return;
+        }
+        scheduled = true;
+        Scheduler.get().scheduleFinally(new ScheduledCommand() {
+            @Override
+            public void execute() {
+                scheduled = false;
+                // ValueChangeEvent.fire(Slider.this, currentValue);
+            }
+        });
+        ValueChangeEvent.fire(Slider.this, currentValue);
     }
 
     /**
@@ -561,11 +583,11 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
      */
     public void setMax(final double max) {
         double min = getMin();
-        scale.domain(min, Math.max(min, max));
+        scale.domain(Math.min(min, max), max);
         valueChanged = true;
         scheduleRedraw();
         if (ensureCurrentValueInRange()) {
-            ValueChangeEvent.fire(Slider.this, currentValue);
+            scheduleEvent();
         }
     }
 
@@ -577,10 +599,10 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
      */
     public void setMin(final double min) {
         double max = getMax();
-        scale.domain(Math.min(min, max), max);
+        scale.domain(min, Math.max(min, max));
         valueChanged = true;
         if (ensureCurrentValueInRange()) {
-            ValueChangeEvent.fire(Slider.this, currentValue);
+            scheduleEvent();
         }
         scheduleRedraw();
     }

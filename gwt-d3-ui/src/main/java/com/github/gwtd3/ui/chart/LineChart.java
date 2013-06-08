@@ -1,33 +1,30 @@
 package com.github.gwtd3.ui.chart;
 
-import java.util.Collection;
-import java.util.Set;
-
-import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.arrays.ForEachCallback;
-import com.github.gwtd3.api.core.Datum;
-import com.github.gwtd3.api.core.Selection;
-import com.github.gwtd3.api.core.UpdateSelection;
-import com.github.gwtd3.api.core.Value;
-import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.LinearScale;
 import com.github.gwtd3.api.scales.Scale;
 import com.github.gwtd3.api.svg.Axis.Orientation;
-import com.github.gwtd3.api.svg.Line;
-import com.github.gwtd3.api.svg.Line.InterpolationMode;
+import com.github.gwtd3.ui.data.GenericUpdatePattern;
+import com.github.gwtd3.ui.data.SelectionUpdater;
+import com.github.gwtd3.ui.event.RangeChangeEvent;
+import com.github.gwtd3.ui.event.RangeChangeEvent.RangeChangeHandler;
+import com.github.gwtd3.ui.event.SerieAddedEvent;
+import com.github.gwtd3.ui.event.SerieAddedEvent.SerieAddedHandler;
+import com.github.gwtd3.ui.event.SerieChangeEvent;
+import com.github.gwtd3.ui.event.SerieChangeEvent.SerieChangeHandler;
+import com.github.gwtd3.ui.event.SerieRemovedEvent;
+import com.github.gwtd3.ui.event.SerieRemovedEvent.SerieRemovedHandler;
+import com.github.gwtd3.ui.model.AxisCoordsBuilder;
 import com.github.gwtd3.ui.model.AxisModel;
 import com.github.gwtd3.ui.model.Model;
 import com.github.gwtd3.ui.model.PointBuilder;
-import com.github.gwtd3.ui.model.Serie;
+import com.github.gwtd3.ui.model.PointViewer;
 import com.github.gwtd3.ui.model.Serie.NamedRange;
+import com.github.gwtd3.ui.svg.GContainer;
 import com.github.gwtd3.ui.svg.SVGDocumentContainer;
 import com.github.gwtd3.ui.svg.SVGResources;
 import com.github.gwtd3.ui.svg.SVGStyles;
-import com.google.common.collect.Range;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
+import com.google.gwt.core.client.debug.JsoInspector;
 
 /**
  * A line chart displaying several series on the same amount.
@@ -53,12 +50,19 @@ import com.google.gwt.dom.client.Element;
  * 
  * @param <T>
  */
-public class LineChart<T, S extends Scale<S>> extends SVGDocumentContainer {
+public class LineChart<T> extends SVGDocumentContainer implements SerieAddedHandler<T>, SerieRemovedHandler<T>,
+        SerieChangeHandler<T>, RangeChangeHandler {
 
+    /**
+     * Configure the chart.
+     * 
+     * @author SCHIOCA
+     * 
+     */
     public class Options {
-        private final LineChart<T, S> chart;
+        private final LineChart<T> chart;
 
-        public Options(final LineChart<T, S> chart) {
+        public Options(final LineChart<T> chart) {
             super();
             this.chart = chart;
         }
@@ -88,14 +92,25 @@ public class LineChart<T, S extends Scale<S>> extends SVGDocumentContainer {
         static int right = 40;
     }
 
+    // ========== Resources and Styles classes =====================
+
     private static Resources createDefaultResources() {
         return GWT.create(Resources.class);
     }
 
     public static interface Resources extends SVGResources {
-        @Override
         @Source("LineChart.css")
-        Styles styles();
+        LineChart.Styles chartStyles();
+    }
+
+    public static interface XAxisResources extends ChartAxis.Resources {
+        @Source("ChartAxis.css")
+        ChartAxis.Styles xStyles();
+    }
+
+    public static interface YAxisResources extends ChartAxis.Resources {
+        @Source("ChartAxis.css")
+        ChartAxis.Styles yStyles();
     }
 
     public static interface Styles extends SVGStyles {
@@ -170,11 +185,6 @@ public class LineChart<T, S extends Scale<S>> extends SVGDocumentContainer {
     }
 
     /**
-     * The model defining this chart
-     */
-    private final Model<T, S> model = new Model<T, S>();
-
-    /**
      * Support for x or y sliding
      */
     private final DragSupport dragSupport = new DragSupport(this.xModel);
@@ -184,165 +194,106 @@ public class LineChart<T, S extends Scale<S>> extends SVGDocumentContainer {
 	 */
     private final Options options = new Options(this);
 
+    private final AxisModel<LinearScale> xModel = AxisModel.createLinear();
+
+    private final AxisModel<LinearScale> yModel = AxisModel.createLinear();
+
     /**
-     * the g selectio in which we draw everything else
+     * The model defining this chart
      */
-    private Selection g;
+    private final Model<T, LinearScale> model;
 
-    private AxisModel<LinearScale> xModel;
+    private ChartAxis<? extends Scale<?>> yAxis;
 
-    private final ChartAxis<? extends Scale<?>> xAxis = new ChartAxis<LinearScale>(xModel, Orientation.BOTTOM);
+    private ChartAxis<? extends Scale<?>> xAxis;
 
-    private AxisModel<LinearScale> yModel;
+    private GContainer g;
 
-    private final ChartAxis<? extends Scale<?>> yAxis = new ChartAxis<LinearScale>(yModel, Orientation.LEFT);
+    private LineChart.Styles styles;
 
-    public LineChart() {
-        this(createDefaultResources());
+    private GenericUpdatePattern seriesUpdatePattern;
+
+    private SelectionUpdater drawer;
+
+    private PointViewer<T> builder;
+
+    public LineChart(final PointBuilder<T> pointBuilder) {
+        this(pointBuilder, createDefaultResources());
     }
 
-    public LineChart(final Resources resources) {
+    public LineChart(final PointBuilder<T> pointBuilder, final Resources resources) {
         super(resources);
-        init();
+
+        getElement().setAttribute("viewBox", "0 0 500 400");
+        styles = resources.chartStyles();
+        styles.ensureInjected();
+        this.model = new Model<T, LinearScale>(xModel, yModel, pointBuilder);
+        initModel();
+        createChildren();
     }
 
-    protected void init() {
-        // TODO: function
-        // parseDate = D3.time().format("%Y%m%d").parse;
-        // create the g selection which will contain everything
-        // add the things in the graph
-        // FIXME
-        g = select().append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    private void initModel() {
+        this.model.addSerieAddedHandler(this);
+        this.model.addSerieRemovedHandler(this);
 
-        // defines scale functions that convert domain values into a value in
-        // pixel
-        // FIXME: let the user customize it
-        // FIXME: listen for resize to update the includeRange
+        // helper converting a domain object to x and y pixels
+        builder = new AxisCoordsBuilder<T>(
+                xModel,
+                yModel,
+                model.coordsBuilder());
+        // a renderer that draws path lines with styles
+        drawer = new SerieRenderer<T>(builder, styles);
+        // a generic D3 pattern helping with data join
+        seriesUpdatePattern =
+                new GenericUpdatePattern(drawer);
 
-        // TODO: implement ordinal sclaes of color
-        // color = D3.scale().category10();
-
-        // append x axis
-        createXAxis();
-        createYAxis();
-        // interactions
-        dragSupport.registerListeners(select()).enable();
-        redraw();
-    }
-
-    /**
-     * Wraps the logic of generating a path data appropriate for displaying
-     * ranges of values.
-     * 
-     * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
-     * 
-     * @param <T>
-     */
-    protected static class PathGenerator<T> {
-
-        private Line lineGenerator;
-
-        private AxisModel<?> xModel;
-        private AxisModel<?> yModel;
-        private PointBuilder<T> coordsBuilder;
-
-        private Range<Double> includeRange;
-        private Set<Range<Double>> excludeRanges;
-
-        public PathGenerator(final AxisModel<?> xModel, final AxisModel<?> yModel, final PointBuilder<T> coordsBuilder) {
-            super();
-            this.xModel = xModel;
-            this.yModel = yModel;
-            this.coordsBuilder = coordsBuilder;
-
-            // create the line generator which will use the scale functions
-            lineGenerator = D3.svg().line().interpolate(InterpolationMode.BASIS)
-                    .x(new DatumFunction<Double>() {
-                        @Override
-                        public Double apply(final Element context, final Datum d, final int index) {
-                            // transform the x returned by the data into a pixel
-                            // value via
-                            // scales
-                            T t = d.<T> as();
-                            double xDomainValue = coordsBuilder.x(t);
-                            return (double) xModel.toPixel(xDomainValue);
-                        }
-                    })
-                    .y(new DatumFunction<Double>() {
-                        @Override
-                        public Double apply(final Element context, final Datum d, final int index) {
-                            // transform the x returned by the data into a pixel
-                            // value via
-                            // scales
-                            T t = d.<T> as();
-                            double yDomainValue = coordsBuilder.y(t);
-                            return (double) yModel.toPixel(yDomainValue);
-                        }
-                    })
-                    .defined(new DatumFunction<Boolean>() {
-                        @Override
-                        public Boolean apply(final Element context, final Datum d, final int index) {
-                            // evict the datum that are outside the visible includeRange
-                            T t = d.<T> as();
-                            double xDomainValue = coordsBuilder.x(t);
-                            // if the value is contained in of the excludeRanges, it is undefined
-                            if (excludeRanges != null) {
-                                // System.out.println("iexcludeRanges:" + includeRange + " "
-                                // + excludeRanges.contains(xDomainValue));
-                                for (Range<Double> range : excludeRanges) {
-                                    if (range.contains(xDomainValue) && !range.lowerEndpoint().equals(xDomainValue)) {
-                                        return false;
-                                    }
-                                }
-                            }
-                            System.out.println("included range:" + includeRange + " "
-                                    + includeRange.contains(xDomainValue));
-                            // return true;
-                            // defined if the value is inside the includeRange (if specified)
-                            return (includeRange == null ? true : includeRange.contains(xDomainValue)
-                                    || includeRange.upperEndpoint().equals(xDomainValue)
-                                    || includeRange.lowerEndpoint().equals(xDomainValue));
-                        }
-                    }
-                    );
-        }
-
-        public PathGenerator<T> includeRange(final Range<Double> range) {
-            this.includeRange = range;
-            return this;
-        }
-
-        public PathGenerator<T> excludeRanges(final Set<Range<Double>> range) {
-            this.excludeRanges = range;
-            return this;
-        }
-
-        public String generatePath(final Collection<T> values) {
-            return lineGenerator.apply(JsArrays.asJsArray(values.toArray()));
-        }
+        // listens for range changed
+        xModel.addRangeChangeHandler(this);
+        yModel.addRangeChangeHandler(this);
 
     }
 
-    private void createXAxis() {
+    // ============== initialization ========================
+
+    private void createChildren() {
+        // create G container
+        g = new GContainer();
+        add(g);
+        g.transform().translate(margin.left, margin.top);
+
+        // X AXIS
+        xAxis = new ChartAxis<LinearScale>(xModel, Orientation.BOTTOM);
         // FIXME
         // xAxis.setPixelSize(0, chartWidth());
         xAxis.addStyleName(styles().x());
         // FIXME let the user configure position at center ?
         // FIXME: or automate the process by a Y domain neg and pos
         // should be yRange.apply(0) instead of chart height ?
-        xAxis.transform().translate(0, chartHeight());
-    }
+        g.add(xAxis);
 
-    private void createYAxis() {
+        // Y AXIS
         // FIXME
         // yAxis.scale().range(chartHeight(), 0);
         // tickSize(6, 4, 2).
+        yAxis = new ChartAxis<LinearScale>(yModel, Orientation.LEFT);
 
         yAxis.generator().ticks(4);// .tickSubdivide(1).tickSize(12, 6, 3);
         // append the axis to the svg
         // change styling, position, (left, right)
         // text label position / orientation
         yAxis.addStyleName(styles().y());
+        g.add(yAxis);
+
+        // SERIES RENDERER
+
+    }
+
+    @Override
+    protected void onSelectionAttached() {
+        super.onSelectionAttached();
+
+        // register x drag interaction
+        dragSupport.registerListeners(select()).enable();
     }
 
     // ==================== redraw methods ================
@@ -353,121 +304,69 @@ public class LineChart<T, S extends Scale<S>> extends SVGDocumentContainer {
     }
 
     private void redrawAxis() {
-        xAxis.redraw();
-        yAxis.redraw();
+
+        // System.out.println("blah:" + getSVGElement().getViewport());
+        // System.out.println("viewBox:" + getSVGElement().getViewBox().getBaseVal().getWidth());
+        // System.out.println("viewBox:" + getSVGElement().getViewBox().getBaseVal().getWidth());
+        // System.out.println("blah:" + getSVGElement().getViewportElement());
+        // System.out.println("DIMS:" + chartWidth() + " " + chartHeight());
+        // resizing
+        xAxis.transform().removeAll().translate(0, chartHeight());
+        xAxis.setLength(chartWidth());
+        yAxis.setLength(chartHeight());
+
+        // domain changes
+
+        // values changes
+        Object object = JsoInspector.convertToInspectableObject(getSVGElement().getChild(0));
+        // System.out.println(object);
+        // System.out.println(object);
+        System.out.println("blah:" + getSVGElement().getViewport());
+        System.out.println("blah:" + getSVGElement().getViewportElement());
     }
 
     protected void redrawSeries() {
         // create/remove g > path elements for each series
+        // creates an intermediary g inside the g to group all series
+        // seriesRenderer.setSelector("." + styles.serie());
 
+        seriesUpdatePattern.redraw(g.select(), model.series());
         // JOIN series to G elements
-        UpdateSelection serie = g.selectAll("." + styles().serie())
-                .data(model.seriesAsArray());
+        // // update the d attr with the correct data
+        // // for the main line
+        // serie.select("." + styles().line())
 
-        // create missing series
-        Selection bnewG = serie.enter()
-                .append("g").attr("class", styles().serie());
-        // we gonna add as path
-        // for each includeRange,
-        bnewG.append("path").classed(styles().line(), true);
-        // remove series that does not exist anymore
-        serie.exit().remove();
-
-        // update the d attr with the correct data
-        // for the main line
-        serie.select("." + styles().line())
-                .attr("d", new DatumFunction<String>() {
-                    @Override
-                    public String apply(final Element context, final Datum d, final int index) {
-                        // take the values of the serie
-                        Serie<T> serie = d.<Serie<T>> as();
-                        // apply the values on the line generator
-                        return new PathGenerator<T>(xModel, yModel, model.coordsBuilder())
-                                .includeRange(model.xModel().visibleDomain())
-                                .excludeRanges(serie.namedRanges())
-                                .generatePath(serie.values());
-                    }
-                });
-
-        // get an array of NamedRange in for each
-        // Join each NamedRange of a serie to elements path with class namedRange
-        UpdateSelection namedRangePath = serie.selectAll("path." + styles().namedRange())
-                .data(new DatumFunction<Array<NamedRange<T>>>() {
-                    @SuppressWarnings("unchecked")
-                    @Override
-                    public Array<NamedRange<T>> apply(final Element context, final Datum d, final int index) {
-                        Serie<T> serie = d.<Serie<T>> as();
-                        // only bind the visible namedRanges, ignore those that are outside
-                        Set<NamedRange<T>> ranges = serie.visibleNamedRanges(model.xModel().visibleDomain());
-                        return JsArrays.asJsArray(ranges);
-                    }
-                });
-        // create the path made visibles and add a class for them
-        namedRangePath.enter().append("path").classed(styles().namedRange(), true).classed(styles().line(), true);
-        // remove unvisible paths
-        namedRangePath.exit().remove();
-        namedRangePath.attr("d", new DatumFunction<String>() {
-            @Override
-            public String apply(final Element context, final Datum d, final int index) {
-                // take the values of the serie
-                NamedRange<T> range = d.<NamedRange<T>> as();
-                // Set<NamedRange<T>> visibleNamedRanges = range.serie().visibleNamedRanges(range.range());
-                // apply the values on the line generator
-                return new PathGenerator<T>(xModel, yModel, model.coordsBuilder())
-                        .includeRange(range.range())
-                        // .excludeRanges()
-                        .generatePath(range.serie().values());
-            }
-        });
-        //
-
-        // now create a path data for each namedrange "connected" to the visible range
-        model.seriesAsArray().map(new ForEachCallback<Serie<T>>() {
-            @Override
-            public Serie<T> forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
-                return null;
-            }
-        });
-
-        // select labels and associte serie.name
-        // UpdateSelection serieLabel = serie.selectAll("text")
-        // .data(new DatumFunction<String>() {
+        // bnewG.append("text")
+        // .text(new DatumFunction<String>() {
         // @Override
-        // public String apply(Element context, Datum d, int index) {
-        // return d.<Serie> as().name();
+        // public String apply(final Element context, final Datum d, final int
+        // index) {
+        // Serie<T> serie = d.<Serie<T>> as();
+        // if (serie.isEmpty()) {
+        // return "";
+        // }
+        // return serie.name();
+        // }
+        // }).attr("x", 3).attr("dy", ".35em");
+        //
+        // serie.selectAll("text")
+        // .attr("transform", new DatumFunction<Object>() {
+        // @Override
+        // public Object apply(final Element context, final Datum d, final int
+        // index) {
+        // // take the last value of the serie
+        // Serie<T> serie = d.<Serie<T>> as();
+        // if (serie.isEmpty()) {
+        // return "";
+        // }
+        // else {
+        // T value = serie.values().get(serie.values().size() - 1);
+        // return "translate(" +
+        // xModel.toPixel(model.coordsBuilder().x(value)) + "," +
+        // yModel.toPixel(model.coordsBuilder().y(value)) + ")";
+        // }
         // }
         // });
-        bnewG.append("text")
-                .text(new DatumFunction<String>() {
-                    @Override
-                    public String apply(final Element context, final Datum d, final int
-                            index) {
-                        Serie<T> serie = d.<Serie<T>> as();
-                        if (serie.isEmpty()) {
-                            return "";
-                        }
-                        return serie.name();
-                    }
-                }).attr("x", 3).attr("dy", ".35em");
-
-        serie.selectAll("text")
-                .attr("transform", new DatumFunction<Object>() {
-                    @Override
-                    public Object apply(final Element context, final Datum d, final int
-                            index) {
-                        // take the last value of the serie
-                        Serie<T> serie = d.<Serie<T>> as();
-                        if (serie.isEmpty()) {
-                            return "";
-                        }
-                        else {
-                            T value = serie.values().get(serie.values().size() - 1);
-                            return "translate(" +
-                                    xModel.toPixel(model.coordsBuilder().x(value)) + "," +
-                                    yModel.toPixel(model.coordsBuilder().y(value)) + ")";
-                        }
-                    }
-                });
 
         // FIXME : color of the serie
         // .style("stroke", function(d) { return color(d.name); });
@@ -478,11 +377,11 @@ public class LineChart<T, S extends Scale<S>> extends SVGDocumentContainer {
 
     // ============= getters =============
 
-    public Styles styles() {
-        return (Styles) styles;
+    protected LineChart.Styles styles() {
+        return styles;
     }
 
-    public Model<T, S> model() {
+    public Model<T, LinearScale> model() {
         return model;
     }
 
@@ -492,15 +391,6 @@ public class LineChart<T, S extends Scale<S>> extends SVGDocumentContainer {
 
     public ChartAxis<?> yAxis() {
         return yAxis;
-    }
-
-    /**
-     * The selection containing the main g element of the svg.
-     * 
-     * @return the selection
-     */
-    public Selection g() {
-        return g;
     }
 
     public Options options() {
@@ -515,7 +405,7 @@ public class LineChart<T, S extends Scale<S>> extends SVGDocumentContainer {
      * @return
      */
     public int chartWidth() {
-        return getElement().getClientWidth() - margin.left - margin.right;
+        return getWidth() - margin.left - margin.right;
     }
 
     /**
@@ -525,6 +415,32 @@ public class LineChart<T, S extends Scale<S>> extends SVGDocumentContainer {
      * @return
      */
     public int chartHeight() {
-        return getElement().getClientHeight() - margin.top - margin.bottom;
+        return getHeight() - margin.top - margin.bottom;
+    }
+
+    // =========== listens to model events ==============
+
+    @Override
+    public void onSerieRemoved(final SerieRemovedEvent<T> event) {
+        event.getSerie().addSerieChangeHandler(this);
+        redrawSeries();
+    }
+
+    @Override
+    public void onSerieAdded(final SerieAddedEvent<T> event) {
+        // attach listener on the serie
+        event.getSerie().addSerieChangeHandler(this);
+        redrawSeries();
+    }
+
+    @Override
+    public void onSerieChange(final SerieChangeEvent<T> event) {
+        // TODO: find a way to redraw only the serie that changed
+        redrawSeries();
+    }
+
+    @Override
+    public void onRangeChange(final RangeChangeEvent event) {
+        redrawSeries();
     }
 }

@@ -3,6 +3,8 @@
  */
 package com.github.gwtd3.api.core;
 
+import java.util.List;
+
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.JsArrays;
@@ -502,6 +504,17 @@ public class Selection extends EnteringSelection {
 	}-*/;
 
 	/**
+     * Same as #data(JavaScriptObject) for an {@link List} of objects.
+     * 
+     * @see #data(JavaScriptObject)
+     * @param data
+     * @return
+     */
+    public final UpdateSelection data(final List<?> data) {
+        return this.data(JsArrays.asJsArray(data));
+    }
+
+    /**
 	 * Joins the specified array of data with the current selection by
 	 * controlling how the data is mapped to the selection's elements.
 	 * <p>
@@ -615,6 +628,20 @@ public class Selection extends EnteringSelection {
 	 * @param jsFunction
 	 * @return the current selection
 	 */
+    public native final Selection each(DatumFunction<Void> listener) /*-{
+		return this
+				.each(function(d, i) {
+					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
+    }-*/;
+
+    /**
+     * Invokes the specified function once, passing in the current selection as
+     * a single parameter.
+     * 
+     * @param jsFunction
+     * @return the current selection
+     */
 	public native final Selection call(IsFunction jsFunction) /*-{
 		return this.call(jsFunction);
 	}-*/;
@@ -685,4 +712,28 @@ public class Selection extends EnteringSelection {
 		return this.on(eventType, l, useCapture);
 	}-*/;
 
+    /**
+     * Return the number of elements in the current selection.
+     * 
+     * @return the number of elements
+     */
+    public final int count() {
+        CountFunction function = new CountFunction();
+        each(function);
+        return function.getCount();
+    }
+
+    protected static class CountFunction implements DatumFunction<Void> {
+        private int count = 0;
+
+        @Override
+        public Void apply(final Element context, final Datum d, final int index) {
+            count++;
+            return null;
+        }
+
+        public int getCount() {
+            return count;
+        }
+    }
 }

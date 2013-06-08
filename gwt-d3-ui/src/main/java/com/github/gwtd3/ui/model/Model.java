@@ -1,16 +1,24 @@
 package com.github.gwtd3.ui.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.arrays.NumericForEachCallback;
-import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.scales.Scale;
 import com.github.gwtd3.ui.chart.LineChart;
-import com.google.common.collect.Range;
+import com.github.gwtd3.ui.event.SerieAddedEvent;
+import com.github.gwtd3.ui.event.SerieAddedEvent.SerieAddedHandler;
+import com.github.gwtd3.ui.event.SerieAddedEvent.SerieAddedHasHandlers;
+import com.github.gwtd3.ui.event.SerieRemovedEvent;
+import com.github.gwtd3.ui.event.SerieRemovedEvent.SerieRemovedHandler;
+import com.github.gwtd3.ui.event.SerieRemovedEvent.SerieRemovedHasHandlers;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 
 /**
  * Model for a {@link LineChart}.
@@ -24,46 +32,26 @@ import com.google.common.collect.Range;
  * 
  * @param <T>
  */
-public class Model<T, S extends Scale<S>> {
+public class Model<T, S extends Scale<S>> implements SerieAddedHasHandlers<T>, SerieRemovedHasHandlers<T> {
 
-    private AxisModel<S> xModel;
-    private AxisModel<S> yModel;
+    private final AxisModel<S> xModel;
+    private final AxisModel<S> yModel;
 
-    private final Set<Serie<T>> series = new HashSet<Serie<T>>();
+    private final Map<String, Serie<T>> series = new HashMap<String, Serie<T>>();
 
-    /**
-     * Provide the x domain value of an object of the serie
-     */
-    private final NumericForEachCallback valueToDomainX = new NumericForEachCallback() {
-        @Override
-        public double forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
-            T e = element.as();
-            return coordsBuilder().x(e);
-        }
-    };
-
-    /**
-     * Provide the y domain vlaue of an object of the serie.
-     */
-    private final NumericForEachCallback valueToDomainY = new NumericForEachCallback() {
-        @Override
-        public double forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
-            T e = element.as();
-            return coordsBuilder().y(e);
-        }
-    };
     /**
      * Used to convert instance of T to x and y domain values.
      * 
      */
     private PointBuilder<T> coordsBuilder;
 
-    private Range<Double> visibleXRange;
+    private final HandlerManager eventManager = new HandlerManager(this);
 
-    private Range<Double> visibleYRange;
-
-    public Model() {
+    public Model(final AxisModel<S> xModel, final AxisModel<S> yModel, final PointBuilder<T> coordsBuilder) {
         super();
+        this.xModel = xModel;
+        this.yModel = yModel;
+        this.coordsBuilder = coordsBuilder;
     }
 
     // =========== delegate models ================
@@ -93,8 +81,12 @@ public class Model<T, S extends Scale<S>> {
         return series.isEmpty();
     }
 
-    public Set<Serie<T>> series() {
-        return series;
+    /**
+     * Return an unmodifiable list of the series.
+     * @return the list of series.
+     */
+    public List<Serie<T>> series() {
+        return Collections.unmodifiableList(new ArrayList<Serie<T>>(series.values()));
     }
 
     public Array<Serie<T>> seriesAsArray() {
@@ -102,64 +94,45 @@ public class Model<T, S extends Scale<S>> {
     }
 
     /**
-     * Return the maximum value among all series using the given {@link NumericForEachCallback}.
+     * Returns the serie identified by the given id.
+     * If such a serie does not exist, it is created.
+     * <p>
      * 
-     * @param domainValueGetter
-     *            the numeric for each callback to be used
-     * @return the maximum
+     * @param serie
+     * @return
      */
-    private double maxSeriesValue(final NumericForEachCallback domainValueGetter) {
-        if (seriesAsArray().length() == 0) {
-            return 1.0;
+    public Serie<T> serie(final String id) {
+        Serie<T> serie = this.series.get(id);
+        if (serie == null) {
+            serie = new Serie<T>(id);
+            this.series.put(id, serie);
+            fireEvent(new SerieAddedEvent<T>(serie));
         }
-        return D3.max(seriesAsArray(), new NumericForEachCallback() {
-            @Override
-            public double forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
-                Serie<T> serie = element.as();
-                return D3.max(serie.valuesAsArray(), domainValueGetter).asDouble();
-            }
-        }).asDouble();
+        return serie;
     }
 
-    /**
-     * Return the minimum value among all series using the given {@link NumericForEachCallback}.
-     * 
-     * @param domainValueGetter
-     *            the numeric for each callback to be used
-     * @return the maximum
-     */
-    private double minSeriesValue(final NumericForEachCallback domainValueGetter) {
-        if (seriesAsArray().length() == 0) {
-            return 0.0;
+    public Model<T, S> removeSerie(final String id) {
+        Serie<T> serie = this.series.remove(id);
+        if (serie != null) {
+            fireEvent(new SerieRemovedEvent<T>(serie));
         }
-        return D3.min(seriesAsArray(), new NumericForEachCallback() {
-            @Override
-            public double forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
-                Serie<T> serie = element.as();
-                return D3.min(serie.valuesAsArray(), domainValueGetter).asDouble();
-            }
-        }).asDouble();
-    }
-
-    public double minX() {
-        return minSeriesValue(valueToDomainX);
-    }
-
-    public double maxX() {
-        return maxSeriesValue(valueToDomainX);
-    }
-
-    public double minY() {
-        return minSeriesValue(valueToDomainY);
-    }
-
-    public double maxY() {
-        return maxSeriesValue(valueToDomainY);
-    }
-
-    public Model<T, S> addSerie(final Serie<T> serie) {
-        this.series.add(serie);
         return this;
+    }
+
+    // =========== events methods ================
+    @Override
+    public void fireEvent(final GwtEvent<?> event) {
+        eventManager.fireEvent(event);
+    }
+
+    @Override
+    public HandlerRegistration addSerieAddedHandler(final SerieAddedHandler<T> handler) {
+        return eventManager.addHandler(SerieAddedEvent.TYPE, handler);
+    }
+
+    @Override
+    public HandlerRegistration addSerieRemovedHandler(final SerieRemovedHandler<T> handler) {
+        return eventManager.addHandler(SerieRemovedEvent.TYPE, handler);
     }
 
 }
