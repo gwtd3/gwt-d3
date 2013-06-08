@@ -18,6 +18,10 @@
   stroke-width: 1.5px;
 }
 
+.line:hover{
+  stroke-width: 3px;
+}
+
 .label{
 	
 }
