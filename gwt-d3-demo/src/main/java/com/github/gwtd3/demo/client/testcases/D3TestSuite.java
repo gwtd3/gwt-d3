@@ -19,6 +19,7 @@ import com.github.gwtd3.demo.client.testcases.scales.TestThresholdScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestTimeScale;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionAttr;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionClassed;
+import com.github.gwtd3.demo.client.testcases.selection.TestSelectionData;
 import com.github.gwtd3.demo.client.testcases.svg.TestArc;
 import com.github.gwtd3.demo.client.testcases.svg.TestArea;
 import com.github.gwtd3.demo.client.testcases.svg.TestAxis;
@@ -46,7 +47,7 @@ public class D3TestSuite {
 				// D3
 				new TestD3(), new TestColors(), new TestInterpolators(),
 				// selections
-				new TestSelectionAttr(), new TestSelectionClassed(),
+				new TestSelectionAttr(), new TestSelectionClassed(), new TestSelectionData(),
 				// scales
 				new TestLinearScale(), new TestThresholdScale(), new TestTimeScale(),
 				// svg

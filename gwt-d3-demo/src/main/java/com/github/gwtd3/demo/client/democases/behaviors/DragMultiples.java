@@ -12,7 +12,6 @@ import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
-
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
 
@@ -39,7 +38,7 @@ public class DragMultiples extends FlowPanel implements DemoCase {
 		Drag drag = D3.behavior().drag()
 				// the origin will be set with the data of svg
 				// on mousedown
-				.origin(D3.identity())
+				.origin("blah")
 				.on(Drag.DragEventType.drag, new OnDragMove())
 				.on(DragEventType.dragstart, new OnDragStart())
 				.on(DragEventType.dragend, new OnDragEnd());

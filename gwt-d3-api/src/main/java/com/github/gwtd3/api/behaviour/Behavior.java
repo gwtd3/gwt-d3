@@ -3,6 +3,7 @@
  */
 package com.github.gwtd3.api.behaviour;
 
+import com.github.gwtd3.api.core.Selection;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -17,9 +18,10 @@ public class Behavior extends JavaScriptObject {
 	}
 
 	/**
-	 * Create a new drag behaviour.
+	 * Create a new {@link Drag} behavior, that you will conigure and apply to a
+	 * {@link Selection}.
 	 * 
-	 * @return the drag
+	 * @return the drag behaviour
 	 */
 	public final native Drag drag()/*-{
 		return this.drag();
