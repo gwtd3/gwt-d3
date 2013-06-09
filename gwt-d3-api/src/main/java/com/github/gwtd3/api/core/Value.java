@@ -98,12 +98,12 @@ public class Value extends JavaScriptObject {
 		return ~~this.datum;
 	}-*/;
 
-    /**
-     * Return the value casted to a String.
-     * 
-     * @return the datum
-     */
-    public final native String asString()/*-{
+	/**
+	 * Return the value casted to a String.
+	 * 
+	 * @return the datum
+	 */
+	public final native String asString()/*-{
 		return this.datum == null ? null : new String(this.datum);
 	}-*/;
 
@@ -120,25 +120,24 @@ public class Value extends JavaScriptObject {
 		return this.datum;
 	}-*/;
 
+	/**
+	 * Cast and return the value.
+	 * 
+	 * @param clazz
+	 *            the clazz to cast to
+	 * @return the casted instance
+	 */
+	@SuppressWarnings("unchecked")
+	public final <T> T as(final Class<T> clazz) {
+		return (T) as();
+	}
 
-    /**
-     * Cast and return the value.
-     * 
-     * @param clazz
-     *            the clazz to cast to
-     * @return the casted instance
-     */
-    @SuppressWarnings("unchecked")
-    public final <T> T as(final Class<T> clazz) {
-        return (T) as();
-    }
-
-    /**
-     * 
-     * @return true if the value is not undefined in the Javascript sense
-     * 
-     */
-    public final native boolean isDefined()/*-{
+	/**
+	 * 
+	 * @return true if the value is not undefined in the Javascript sense
+	 * 
+	 */
+	public final native boolean isDefined()/*-{
 		return typeof (this.datum) != "undefined";
 	}-*/;
 

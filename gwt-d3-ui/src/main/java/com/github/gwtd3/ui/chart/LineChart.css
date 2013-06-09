@@ -41,9 +41,11 @@
 }
 
 .serie{
-
+fill: none;
 }
 
 .namedRange{
 	stroke-width: 4px;
+	fill: none;
+	stroke: steelblue;
 }

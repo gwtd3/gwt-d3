@@ -33,5 +33,6 @@
 	<source path='client' />
 
 	<!-- <set-property name="user.agent" value="ie9" /> -->
+	<set-configuration-property name="CssResource.style" value="pretty"/> 
 
 </module>

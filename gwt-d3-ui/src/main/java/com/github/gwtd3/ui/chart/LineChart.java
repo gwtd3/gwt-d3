@@ -1,5 +1,8 @@
 package com.github.gwtd3.ui.chart;
 
+import java.util.List;
+
+import com.github.gwtd3.api.core.UpdateSelection;
 import com.github.gwtd3.api.scales.LinearScale;
 import com.github.gwtd3.api.scales.Scale;
 import com.github.gwtd3.api.svg.Axis.Orientation;
@@ -17,7 +20,8 @@ import com.github.gwtd3.ui.model.AxisCoordsBuilder;
 import com.github.gwtd3.ui.model.AxisModel;
 import com.github.gwtd3.ui.model.Model;
 import com.github.gwtd3.ui.model.PointBuilder;
-import com.github.gwtd3.ui.model.PointViewer;
+import com.github.gwtd3.ui.model.RangeDomainFilter;
+import com.github.gwtd3.ui.model.Serie;
 import com.github.gwtd3.ui.model.Serie.NamedRange;
 import com.github.gwtd3.ui.svg.GContainer;
 import com.github.gwtd3.ui.svg.SVGDocumentContainer;
@@ -213,9 +217,9 @@ public class LineChart<T> extends SVGDocumentContainer implements SerieAddedHand
 
 	private LineChart.Styles styles;
 
-	private SelectionUpdater drawer;
+	private PointBuilder<T> builder;
 
-	private PointViewer<T> builder;
+	private SelectionUpdater renderer;
 
 	public LineChart(final PointBuilder<T> pointBuilder) {
 		this(pointBuilder, createDefaultResources());
@@ -236,18 +240,12 @@ public class LineChart<T> extends SVGDocumentContainer implements SerieAddedHand
 		this.model.addSerieAddedHandler(this);
 		this.model.addSerieRemovedHandler(this);
 
-		// helper converting a domain object to x and y pixels
-		builder = new AxisCoordsBuilder<T>(
-				xModel,
-				yModel,
-				model.coordsBuilder());
-		// a renderer that draws path lines with styles
-		drawer = new LineRenderer<T>(builder, styles);
-
 		// listens for range changed
 		xModel.addRangeChangeHandler(this);
 		yModel.addRangeChangeHandler(this);
 
+		builder = new AxisCoordsBuilder<T>(xModel, yModel, model.coordsBuilder());
+		renderer = new LineRenderer<T>(builder, styles.line(), new RangeDomainFilter<T>(model.coordsBuilder(), xModel));
 	}
 
 	// ============== initialization ========================
@@ -329,8 +327,20 @@ public class LineChart<T> extends SVGDocumentContainer implements SerieAddedHand
 		// creates an intermediary g inside the g to group all series
 		// seriesRenderer.setSelector("." + styles.serie());
 
-		SelectionDataJoiner.update(g.select(), model.series(), drawer);
-
+		UpdateSelection seriesSelection =
+				SelectionDataJoiner.update(g.select(), model.series(), renderer);
+		// TODO nest series selection to subranges.
+		// SelectionDataJoiner.update(g.select(), model.series(), drawer);
+		// create other subseries for each namedRange
+		List<Serie<T>> series = model.series();
+		for (Serie<T> serie : series) {
+			List<Serie<T>.NamedRange> ranges = serie.getOverlappingRanges(xModel.visibleDomain());
+			GWT.log("named ranges count:" + ranges.size());
+			// FIXME: should create a object that map a NamedRange and a subset
+			// representing the values in the named range
+			SelectionDataJoiner.update(g.select(), ranges,
+					new LineRenderer<T>(builder, styles.namedRange()));
+		}
 		// JOIN series to G elements
 		// // update the d attr with the correct data
 		// // for the main line

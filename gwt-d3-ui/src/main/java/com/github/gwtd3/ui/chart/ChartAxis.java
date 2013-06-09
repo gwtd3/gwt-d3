@@ -23,14 +23,15 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 
 /**
- * Represents a vertical or horizontal axis in a chart,
- * and consists in a line representing domain values,
- * with a title label, and ticks represented.
+ * Represents a vertical or horizontal axis in a chart, and consists in a line
+ * representing domain values, with a title label, and ticks represented.
  * <p>
- * the default style name is ChartAxis and the default style sheet can be found here:
+ * the default style name is ChartAxis and the default style sheet can be found
+ * here:
  * 
  * <p>
- * An {@link AxisModel} must be provided to define what values are displayed in ticks.
+ * An {@link AxisModel} must be provided to define what values are displayed in
+ * ticks.
  * <p>
  * FIXME: add a time formatter
  * 
@@ -39,236 +40,236 @@ import com.google.gwt.resources.client.CssResource;
  */
 public class ChartAxis<S extends Scale<S>> extends GContainer {
 
-    private static final int DEFAULT_LENGTH = 100;
+	private static final int DEFAULT_LENGTH = 100;
 
-    private final Axis generator;
-    private final AxisModel<S> model;
-    private final Text titleLabel;
-    private Styles styles;
-    private final Orientation tickOrientation;
-    private int length = DEFAULT_LENGTH;
+	private final Axis generator;
+	private final AxisModel<S> model;
+	private final Text titleLabel;
+	private Styles styles;
+	private final Orientation tickOrientation;
 
-    /**
-     * Define the styles for the axis.
-     * <p>
-     * default stylesheet is in ChartAxis.css
-     * 
-     * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
-     * 
-     */
-    public static interface Resources extends ClientBundle {
-        @Source("ChartAxis.css")
-        public Styles styles();
-    }
+	private int length = DEFAULT_LENGTH;
 
-    /**
-     * Styles to be applied to the axis.
-     * default stylesheet is in ChartAxis.css
-     * 
-     * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
-     * 
-     */
-    public static interface Styles extends CssResource {
-        /**
-         * @return main class applied to the root axis element.
-         */
-        public String axis();
-    }
+	/**
+	 * Define the styles for the axis.
+	 * <p>
+	 * default stylesheet is in ChartAxis.css
+	 * 
+	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+	 * 
+	 */
+	public static interface Resources extends ClientBundle {
+		@Source("ChartAxis.css")
+		public Styles styles();
+	}
 
-    public ChartAxis(final AxisModel<S> model, final Orientation tickOrientation) {
-        this(model, tickOrientation, (Resources) GWT.create(Resources.class));
-    }
+	/**
+	 * Styles to be applied to the axis. default stylesheet is in ChartAxis.css
+	 * 
+	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+	 * 
+	 */
+	public static interface Styles extends CssResource {
+		/**
+		 * @return main class applied to the root axis element.
+		 */
+		public String axis();
+	}
 
-    public ChartAxis(final AxisModel<S> model, final Orientation tickOrientation, final Resources resources) {
-        super();
-        Preconditions.checkNotNull(model, "please provide a model");
-        Preconditions.checkNotNull(tickOrientation, "please provide a tickorientation");
-        Preconditions.checkNotNull(resources, "please provide a Resources instance");
-        this.model = model;
-        model.addRangeChangeHandler(new RangeChangeHandler() {
-            @Override
-            public void onRangeChange(final RangeChangeEvent event) {
-                generator.scale(model.scale());
-                scheduleRedraw();
-            }
-        });
-        this.tickOrientation = tickOrientation;
-        this.generator = D3.svg().axis().scale(model.scale()).orient(tickOrientation);
-        this.titleLabel = createTitle();
-        add(titleLabel);
-        styles = resources.styles();
-    }
+	public ChartAxis(final AxisModel<S> model, final Orientation tickOrientation) {
+		this(model, tickOrientation, (Resources) GWT.create(Resources.class));
+	}
 
-    @Override
-    protected void onSelectionAttached() {
-        super.onSelectionAttached();
+	public ChartAxis(final AxisModel<S> model, final Orientation tickOrientation, final Resources resources) {
+		super();
+		Preconditions.checkNotNull(model, "please provide a model");
+		Preconditions.checkNotNull(tickOrientation, "please provide a tickorientation");
+		Preconditions.checkNotNull(resources, "please provide a Resources instance");
+		this.model = model;
+		model.addRangeChangeHandler(new RangeChangeHandler() {
+			@Override
+			public void onRangeChange(final RangeChangeEvent event) {
+				generator.scale(model.scale());
+				scheduleRedraw();
+			}
+		});
+		this.tickOrientation = tickOrientation;
+		this.generator = D3.svg().axis().scale(model.scale()).orient(tickOrientation);
+		this.titleLabel = createTitle();
+		add(titleLabel);
+		styles = resources.styles();
+	}
 
-        getDocument().inject(styles);
-        addStyleName(styles.axis());
-    }
+	@Override
+	protected void onSelectionAttached() {
+		super.onSelectionAttached();
 
-    /**
-     * @return
-     */
-    private Text createTitle() {
-        Text t = new Text();
-        // FIXME: put that in the chart
-        // t.addStyleName(chart.styles().label(), true);
-        // t.addStyleName(chart.styles().axis(), true);
-        t.getElement().getStyle().setProperty("textAnchor", "end");
-        if (tickOrientation.isVerticalAxis()) {
-            if (tickOrientation == Orientation.RIGHT) {
-                t.transform().translate(-23, 0);
-            }
-            t.transform().rotate(-90);
-            t.y("6");
-            t.dy(".71em");
-        }
-        else {
-            // position under the tick labels...
-            if (tickOrientation == Orientation.TOP) {
-                t.transform().translate(length, 18);
-            }
-            // or at the "end" of the axis?
-            // FIXME X label
-            // label.classed(chart.styles().x(), true);
-        }
-        return t;
-    }
+		getDocument().inject(styles);
+		addStyleName(styles.axis());
+	}
 
-    /**
-     * Provides the generator used to draw the axis for deeper customization.
-     * 
-     * @return the axis generator
-     */
-    public Axis generator() {
-        return generator;
-    }
+	/**
+	 * @return
+	 */
+	private Text createTitle() {
+		Text t = new Text();
+		// FIXME: put that in the chart
+		// t.addStyleName(chart.styles().label(), true);
+		// t.addStyleName(chart.styles().axis(), true);
+		t.getElement().getStyle().setProperty("textAnchor", "end");
+		if (tickOrientation.isVerticalAxis()) {
+			if (tickOrientation == Orientation.RIGHT) {
+				t.transform().translate(-23, 0);
+			}
+			t.transform().rotate(-90);
+			t.y("6");
+			t.dy(".71em");
+		}
+		else {
+			// position under the tick labels...
+			if (tickOrientation == Orientation.TOP) {
+				t.transform().translate(length, 18);
+			}
+			// or at the "end" of the axis?
+			// FIXME X label
+			// label.classed(chart.styles().x(), true);
+		}
+		return t;
+	}
 
-    public AxisModel<S> model() {
-        return model;
-    }
+	/**
+	 * Provides the generator used to draw the axis for deeper customization.
+	 * 
+	 * @return the axis generator
+	 */
+	public Axis generator() {
+		return generator;
+	}
 
-    // ======== label ===================
+	public AxisModel<S> model() {
+		return model;
+	}
 
-    /**
-     * Set the text of the label to be displayed for the axis.
-     * 
-     * @param text
-     *            the text to set, null to remove the axis
-     * @return the axis
-     */
-    public ChartAxis<S> title(final String text) {
-        titleLabel.setText(text);
-        return this;
-    }
+	// ======== label ===================
 
-    /**
-     * @return the titleLabel
-     */
-    public Text getTitleLabel() {
-        return titleLabel;
-    }
+	/**
+	 * Set the text of the label to be displayed for the axis.
+	 * 
+	 * @param text
+	 *            the text to set, null to remove the axis
+	 * @return the axis
+	 */
+	public ChartAxis<S> title(final String text) {
+		titleLabel.setText(text);
+		return this;
+	}
 
-    // ======== ticks formatter ========
-    /**
-     * Use the given {@link Formatter} to format the tick labels.
-     * 
-     * @param formatter
-     *            the d3 formatter
-     * @return the chart
-     */
-    public ChartAxis<S> formatter(final Formatter formatter) {
-        generator().tickFormat(formatter);
-        scheduleRedraw();
-        return this;
-    }
+	/**
+	 * @return the titleLabel
+	 */
+	public Text getTitleLabel() {
+		return titleLabel;
+	}
 
-    // public ChartAxis<S> formatter(final TimeFormat format) {
-    // generator().tickFormat((Formatter) format.cast());
-    // scheduleRedraw();
-    // return this;
-    // }
+	// ======== ticks formatter ========
+	/**
+	 * Use the given {@link Formatter} to format the tick labels.
+	 * 
+	 * @param formatter
+	 *            the d3 formatter
+	 * @return the chart
+	 */
+	public ChartAxis<S> formatter(final Formatter formatter) {
+		generator().tickFormat(formatter);
+		scheduleRedraw();
+		return this;
+	}
 
-    /**
-     * Use the given {@link NumberFormat} to format the tick labels.
-     * 
-     * @param format
-     *            the formatter to be used
-     * @return the chart
-     */
-    public ChartAxis<S> formatter(final NumberFormat format) {
-        formatter(new DatumFunction<String>() {
-            @Override
-            public String apply(final Element context, final Datum d, final int index) {
-                String format2 = format.format(d.asDouble());
-                return format2;
-            }
-        });
-        return this;
-    }
+	// public ChartAxis<S> formatter(final TimeFormat format) {
+	// generator().tickFormat((Formatter) format.cast());
+	// scheduleRedraw();
+	// return this;
+	// }
 
-    /**
-     * Use the given {@link DatumFunction} to format tick labels, as specified
-     * in {@link Axis#tickFormat(DatumFunction)}.
-     * 
-     * @param formatFunction
-     *            the format function to be used
-     * @return the chart
-     */
-    public ChartAxis<S> formatter(final DatumFunction<String> formatFunction) {
-        generator().tickFormat(formatFunction);
-        scheduleRedraw();
-        return this;
-    }
+	/**
+	 * Use the given {@link NumberFormat} to format the tick labels.
+	 * 
+	 * @param format
+	 *            the formatter to be used
+	 * @return the chart
+	 */
+	public ChartAxis<S> formatter(final NumberFormat format) {
+		formatter(new DatumFunction<String>() {
+			@Override
+			public String apply(final Element context, final Datum d, final int index) {
+				String format2 = format.format(d.asDouble());
+				return format2;
+			}
+		});
+		return this;
+	}
 
-    // ======= business =========
+	/**
+	 * Use the given {@link DatumFunction} to format tick labels, as specified
+	 * in {@link Axis#tickFormat(DatumFunction)}.
+	 * 
+	 * @param formatFunction
+	 *            the format function to be used
+	 * @return the chart
+	 */
+	public ChartAxis<S> formatter(final DatumFunction<String> formatFunction) {
+		generator().tickFormat(formatFunction);
+		scheduleRedraw();
+		return this;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.github.gwtd3.ui.svg.Container#redraw()
-     */
-    @Override
-    public void redraw() {
-        super.redraw();
-        // update the range of the scale to fit new size if necessary
-        if (tickOrientation.isHorizontalAxis()) {
-            // LEFT TO RIGHT orientation
-            // TODO: let the user decide "right to left"
-            model.setPixelRange(0, length);
-            generator.scale(model.scale());
-            if (tickOrientation == Orientation.TOP) {
-                titleLabel.transform().removeAll().translate(length, 18);
-            }
-            else {
-                titleLabel.transform().removeAll().translate(length, -6);
-            }
-        }
-        else {
-            // orientation of the domain ("bottom up")
-            // TODO: let the user decide a "top down" orientation
-            model.setPixelRange(length, 0);
-            generator.scale(model.scale());
-        }
-        // apply the generator on the axis
-        select().call(generator);
+	// ======= business =========
 
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.github.gwtd3.ui.svg.Container#redraw()
+	 */
+	@Override
+	public void redraw() {
+		super.redraw();
+		// update the range of the scale to fit new size if necessary
+		if (tickOrientation.isHorizontalAxis()) {
+			// LEFT TO RIGHT orientation
+			// TODO: let the user decide "right to left"
+			model.setPixelRange(0, length);
+			generator.scale(model.scale());
+			if (tickOrientation == Orientation.TOP) {
+				titleLabel.transform().removeAll().translate(length, 18);
+			}
+			else {
+				titleLabel.transform().removeAll().translate(length, -6);
+			}
+		}
+		else {
+			// orientation of the domain ("bottom up")
+			// TODO: let the user decide a "top down" orientation
+			model.setPixelRange(length, 0);
+			generator.scale(model.scale());
+		}
+		// apply the generator on the axis
+		select().call(generator);
 
-    /**
-     * Set the length in pixel the axis extends.
-     * <p>
-     * 
-     * @param size
-     */
-    public void setLength(final int length) {
-        if (this.length == length) {
-            return;
-        }
-        this.length = length;
-        scheduleRedraw();
+	}
 
-    }
+	/**
+	 * Set the length in pixel the axis extends.
+	 * <p>
+	 * 
+	 * @param size
+	 */
+	public void setLength(final int length) {
+		if (this.length == length) {
+			return;
+		}
+		this.length = length;
+		scheduleRedraw();
+
+	}
 
 }
