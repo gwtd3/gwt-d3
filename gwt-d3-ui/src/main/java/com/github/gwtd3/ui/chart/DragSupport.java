@@ -75,7 +75,7 @@ class DragSupport {
             double newX2 = domain.getNumber(1) - dXDomain;
 
             // update the new scale and redraw Xaxis and Series
-            model.setVisibleDomain(newX1, newX2, true);
+            model.setVisibleDomain(newX1, newX2);
             return null;
         }
     }

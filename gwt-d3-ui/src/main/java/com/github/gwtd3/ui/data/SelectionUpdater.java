@@ -8,7 +8,7 @@ import com.github.gwtd3.api.core.Selection;
  * <p>
  * Lifecycle:
  * <ol>
- * <li>onJointStart
+ * <li>onJoinStart
  * <li>beforeEnter
  * <li>afterEnter
  * <li>beforeExit
@@ -19,7 +19,7 @@ import com.github.gwtd3.api.core.Selection;
  * @author SCHIOCA
  * 
  */
-public interface SelectionUpdater {
+public interface SelectionUpdater<T> {
 
     /**
      * Returns the selector used to create the update pattern.
@@ -47,10 +47,10 @@ public interface SelectionUpdater {
     public boolean beforeEnter(Selection selection);
 
     /**
-     * Return a selection to the nodes that were just appended,
+     * Provide a selection to the nodes that were just appended,
      * letting the user a chance to configure the new nodes.
      * <p>
-     * The selection may be empty if no nodes were appended.
+     * The selection may be empty if no new node were appended.
      * <p>
      * 
      * @param selection the selection containing only the new appended nodes.
@@ -88,8 +88,20 @@ public interface SelectionUpdater {
     public void onJoinStart(Selection selection);
 
     /**
+     * Provides a selection containing the existing nodes,
+     * the new created nodes (if any), and do not contains
+     * the 'stales' nodes (if removed in exit phase).
      * @param selection
      */
     public void onJoinEnd(Selection selection);
+
+    /**
+     * Return a key used to map one datum to an element.
+     * 
+     * @param datum
+     * @param index
+     * @return
+     */
+    public String getKey(T datum, int index);
 
 }

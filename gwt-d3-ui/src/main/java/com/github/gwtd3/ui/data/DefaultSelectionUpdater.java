@@ -9,10 +9,16 @@ import com.github.gwtd3.api.core.Selection;
  * @author SCHIOCA
  * 
  */
-public abstract class DefaultSelectionUpdater implements SelectionUpdater {
+public abstract class DefaultSelectionUpdater<T> implements SelectionUpdater<T> {
 
     private final String selector;
 
+    /**
+     * Specify the selector that will be used to select the right elements
+     * in the parent.
+     * Note: class or id selectors are advised compare to tag names
+     * @param selector
+     */
     public DefaultSelectionUpdater(final String selector) {
         super();
         this.selector = selector;
@@ -53,6 +59,11 @@ public abstract class DefaultSelectionUpdater implements SelectionUpdater {
     @Override
     public void onJoinEnd(final Selection selection) {
         System.out.println("onJoinEnd : " + selection.count());
+    }
+
+    @Override
+    public String getKey(final T datum, final int index) {
+        return Integer.toString(index);
     }
 
 }

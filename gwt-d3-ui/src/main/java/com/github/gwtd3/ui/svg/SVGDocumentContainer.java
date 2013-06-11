@@ -42,6 +42,20 @@ public class SVGDocumentContainer extends SVGContainer implements ISVGDocument {
         this.styles = this.resources.svgStyles();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.github.gwtd3.ui.HasD3Selection#select()
+     */
+    @Override
+    public Selection select() {
+        return D3.select(this);
+    }
+
+    public SVGSVGElement getSVGElement() {
+        return getElement().cast();
+    }
+
     @Override
     public void setWidth(final String width) {
         getElement().setAttribute("width", width);
@@ -66,30 +80,10 @@ public class SVGDocumentContainer extends SVGContainer implements ISVGDocument {
             inject(styles);
             select().classed(styles.svg(), true);
         }
-        // in
-        // select().on("onresize", new DatumFunction<Void>() {
-        // @Override
-        // public Void apply(final Element context, final Datum d, final int index) {
-        // System.out.println("youpee !!!");
-        // return null;
-        // }
-        // });
 
-        attachOnResize(getSVGElement(), null);
     }
 
-    public final static native void attachOnResize(SVGSVGElement element, Object handler)/*-{
-		element.onresize = function(e) {
-			alert('.onresize');
-		}
-		element.addEventListener("onresize", function(e) {
-			alert('onresize');
-		});
-		element.addEventListener("SVGResize", function(e) {
-			alert('SVGResize');
-		}, false);
-
-    }-*/;
+    // =============== DEFS ===============
 
     /**
      * @return a D3 selection representing the &lt;defs&gt; element.
@@ -100,6 +94,16 @@ public class SVGDocumentContainer extends SVGContainer implements ISVGDocument {
             defs = getElement().insertFirst(DOM.createSVGElement("defs")).cast();
         }
         return D3.select(defs);
+    }
+
+    /**
+     * Find an element with the given id in the &lt;defs&gt; element
+     * 
+     * @param id
+     * @return
+     */
+    public Selection getDefById(final String id) {
+        return defs().select("#" + id);
     }
 
     /**
@@ -116,30 +120,7 @@ public class SVGDocumentContainer extends SVGContainer implements ISVGDocument {
         resource.ensureInjected();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.github.gwtd3.ui.HasD3Selection#select()
-     */
-    @Override
-    public Selection select() {
-        return D3.select(this);
-    }
-
-    /**
-     * Find an element with the given id in the &lt;defs&gt; element
-     * 
-     * @param id
-     * @return
-     */
-    public Selection getDefById(final String id) {
-        return defs().select("#" + id);
-    }
-
-    public SVGSVGElement getSVGElement() {
-        return getElement().cast();
-    }
-
+    // =============== SIZE attributes ==> TO BE REMOVED ===============
     @Override
     public void setViewBox(final int x, final int y, final int width, final int height) {
         OMSVGRect viewBox = getSVGElement().getViewBox().getBaseVal();

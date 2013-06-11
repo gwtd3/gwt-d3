@@ -6,7 +6,7 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 
 /**
- * Implements the logic of scheduling redraws
+ * Implements the logic of scheduling redraw calls
  * for {@link Drawable}.
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
@@ -57,7 +57,7 @@ public class DrawableSupport {
 	 * 
 	 */
     private void scheduleRedrawCall() {
-        Scheduler.get().scheduleFinally(new MayCallRedraw());
+        Scheduler.get().scheduleDeferred(new MayCallRedraw());
     }
 
 }
