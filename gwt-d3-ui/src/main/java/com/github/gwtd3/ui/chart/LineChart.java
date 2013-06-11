@@ -24,6 +24,7 @@ import com.github.gwtd3.ui.model.Serie;
 import com.github.gwtd3.ui.model.Serie.NamedRange;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.resources.client.CssResource.ImportedWithPrefix;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 
 /**
@@ -75,6 +76,7 @@ public class LineChart<T> extends BaseChart<T> implements SerieAddedHandler<T>, 
     // ChartAxis.Styles yStyles();
     // }
 
+    @ImportedWithPrefix("d3-line-chart")
     public static interface Styles extends BaseChart.Styles {
 
         /**
@@ -187,6 +189,7 @@ public class LineChart<T> extends BaseChart<T> implements SerieAddedHandler<T>, 
                         return generator.generate(values);
                     }
                 });
+
             }
 
         };

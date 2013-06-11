@@ -3,6 +3,8 @@
  */
 package com.github.gwtd3.ui.chart;
 
+import java.util.Date;
+
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Formatter;
@@ -10,6 +12,7 @@ import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.Scale;
 import com.github.gwtd3.api.svg.Axis;
 import com.github.gwtd3.api.svg.Axis.Orientation;
+import com.github.gwtd3.api.time.TimeFormat;
 import com.github.gwtd3.ui.event.RangeChangeEvent;
 import com.github.gwtd3.ui.event.RangeChangeEvent.RangeChangeHandler;
 import com.github.gwtd3.ui.model.AxisModel;
@@ -224,6 +227,23 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
             public String apply(final Element context, final Datum d, final int index) {
                 String format2 = format.format(d.asDouble());
                 return format2;
+            }
+        });
+        return this;
+    }
+
+    /**
+     * Use the given {@link TimeFormat} to format the tick labels.
+     * 
+     * @param format
+     *            the formatter to be used
+     * @return the chart
+     */
+    public ChartAxis<S> formatter(final TimeFormat format) {
+        formatter(new DatumFunction<String>() {
+            @Override
+            public String apply(final Element context, final Datum d, final int index) {
+                return format.apply(new Date(d.asLong()));
             }
         });
         return this;

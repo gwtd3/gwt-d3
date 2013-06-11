@@ -10,6 +10,7 @@ import com.github.gwtd3.ui.event.RangeChangeEvent;
 import com.github.gwtd3.ui.event.RangeChangeEvent.RangeChangeHandler;
 import com.github.gwtd3.ui.event.RangeChangeEvent.RangeChangeHasHandlers;
 import com.google.common.collect.Range;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.web.bindery.event.shared.HandlerRegistration;
@@ -101,7 +102,7 @@ public class AxisModel<S extends Scale<S>> implements RangeChangeHasHandlers {
         if (oldRange.equals(newRange)) {
             return this;
         }
-
+        GWT.log("Setting visible domain to [" + lower + "," + upper + "]");
         scale.domain(lower, upper);
         if (fireEvent) {
             fireEvent(new RangeChangeEvent(newRange, oldRange));
