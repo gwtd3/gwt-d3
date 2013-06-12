@@ -28,6 +28,8 @@ public class Serie<T> implements SerieChangeHasHandlers<T>, ValueProvider<T> {
 
     private List<T> values = new ArrayList<T>();
 
+    private String classNames;
+
     private final Map<String, NamedRange> namedRanges = new HashMap<String, NamedRange>();
 
     private final PointBuilder<T> domainBuilder;
@@ -48,12 +50,27 @@ public class Serie<T> implements SerieChangeHasHandlers<T>, ValueProvider<T> {
         private final Serie<T> serie;
         private int startIndex;
         private int endIndex;
+        private String classNames;
 
         protected NamedRange(final Serie<T> serie, final String id, final Range<Double> range) {
             super();
             this.id = id;
             this.range = range;
             this.serie = serie;
+        }
+
+        // ============== styling ====================
+        /**
+         * @param classNames
+         */
+        public NamedRange setClassNames(final String classNames) {
+            this.classNames = classNames;
+            serie.fireEvent(new SerieChangeEvent<T>(Serie.this));
+            return this;
+        }
+
+        public String getClassNames() {
+            return classNames;
         }
 
         public String id() {
@@ -322,4 +339,17 @@ public class Serie<T> implements SerieChangeHasHandlers<T>, ValueProvider<T> {
         return eventManager.addHandler(SerieChangeEvent.TYPE, handler);
     }
 
+    // ============== styling ====================
+    /**
+     * @param classNames
+     */
+    public Serie<T> setClassNames(final String classNames) {
+        this.classNames = classNames;
+        fireEvent(new SerieChangeEvent<T>(this));
+        return this;
+    }
+
+    public String getClassNames() {
+        return classNames;
+    }
 }
