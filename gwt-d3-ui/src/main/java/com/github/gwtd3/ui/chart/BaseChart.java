@@ -16,6 +16,7 @@ import com.github.gwtd3.ui.svg.SVGDocumentContainer;
 import com.github.gwtd3.ui.svg.SVGResources;
 import com.github.gwtd3.ui.svg.SVGStyles;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Random;
 
 /**
  * A base class for a chart with one horizontal axis and one vertical axis.
@@ -133,7 +134,7 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
         styles = resources.chartStyles();
         styles.ensureInjected();
 
-        clipPath = new ClipPath("clip");
+        clipPath = new ClipPath("clip" + Random.nextInt(100000));
 
         createChildren();
     }

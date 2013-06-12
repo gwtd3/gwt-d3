@@ -31,39 +31,35 @@ public abstract class DefaultSelectionUpdater<T> implements SelectionUpdater<T> 
 
     @Override
     public boolean beforeEnter(final Selection selection) {
-        System.out.println("beforeEnter : " + selection.count());
         return true;
     }
 
     @Override
-    public void afterEnter(final Selection selection) {
-        System.out.println("afterEnter : " + selection.count());
-    }
+    public void afterEnter(final Selection selection) {}
 
     @Override
     public boolean beforeExit(final Selection selection) {
-        System.out.println("beforeExit : " + selection.count());
         return true;
     }
 
     @Override
-    public void afterExit(final Selection selection) {
-        System.out.println("afterExit : " + selection.count());
-    }
+    public void afterExit(final Selection selection) {}
 
     @Override
-    public void onJoinStart(final Selection selection) {
-        System.out.println("onJoinStart : " + selection.count());
-    }
+    public void onJoinStart(final Selection selection) {}
 
     @Override
     public void onJoinEnd(final Selection selection) {
-        System.out.println("onJoinEnd : " + selection.count());
+
     }
 
     @Override
     public String getKey(final T datum, final int index) {
         return Integer.toString(index);
+    }
+
+    public static final void debugSelection(final String message, final Selection selection) {
+        System.out.println(message + ": " + selection.count());
     }
 
 }
