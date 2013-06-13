@@ -46,8 +46,8 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
     private static class margin {
         static int top = 20;
         static int bottom = 30;
-        static int left = 50;
-        static int right = 40;
+        static int left = 25;
+        static int right = 15;
     }
 
     /**
