@@ -282,7 +282,8 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
      * @return
      */
     public int chartHeight() {
-        return getHeight() - margin.top - margin.bottom;
+        // we add 1 pixel so we can see the line when its value is zero.
+        return getHeight() - margin.top - margin.bottom + 1;
     }
 
     public ChartAxis<? extends Scale<?>> xAxis() {
