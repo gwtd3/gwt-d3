@@ -23,7 +23,6 @@ import com.github.gwtd3.api.time.TimeScale;
 import com.github.gwtd3.api.xhr.XmlHttpRequest;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsDate;
@@ -195,7 +194,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 				svg.append("svg:path")
 						.attr("class", css.line())
 						.attr("clip-path", "url(#clip)")
-						.attr("d", line.apply(values));
+						.attr("d", line.generate(values));
 
 				// Add a small label for the symbol name.
 				svg.append("svg:text")
@@ -215,7 +214,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 						Transition transition = svg.transition().duration(750);
 						transition.select("." + css.x() + "." + css.axis()).call(xAxis);
 						transition.select("." + css.area()).attr("d", area.apply(values));
-						transition.select("." + css.line()).attr("d", line.apply(values));
+						transition.select("." + css.line()).attr("d", line.generate(values));
 						return null;
 					};
 				});

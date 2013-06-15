@@ -1,0 +1,15 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.github.gwtd3.ui.chart" xmlns:gwtd3="urn:import:com.github.gwtd3.ui">
+	<ui:style>
+		.important {
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:HTMLPanel>
+			Visible X range:<gwtd3:Slider ui:field="xrange" min='0.0' max='500.0' value="0.0"/>
+			<g:CheckBox ui:field="highlight">Highlight part</g:CheckBox>
+		</g:HTMLPanel>
+		<c:LineChart ui:field="chart" width="500px" height="400px"/>
+	</g:HTMLPanel>
+</ui:UiBinder> 

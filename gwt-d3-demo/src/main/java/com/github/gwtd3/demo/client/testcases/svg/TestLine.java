@@ -10,7 +10,6 @@ import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Line;
 import com.github.gwtd3.api.svg.Line.InterpolationMode;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
-
 import com.google.gwt.dom.client.Element;
 
 public class TestLine extends AbstractTestCase {
@@ -28,7 +27,7 @@ public class TestLine extends AbstractTestCase {
 		final List<Double> yCapture = new ArrayList<Double>();
 
 		// default x and y function (data must be a
-		String d = line.apply(JsArrays.asJsArray(JsArrays.asJsArray(0, 0), JsArrays.asJsArray(1, 1),
+		String d = line.generate(JsArrays.asJsArray(JsArrays.asJsArray(0, 0), JsArrays.asJsArray(1, 1),
 				JsArrays.asJsArray(2, 2)));
 
 		// x and y
@@ -48,7 +47,7 @@ public class TestLine extends AbstractTestCase {
 			}
 		});
 
-		d = line.apply(JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2), new Coords(3, 3)));
+		d = line.generate(JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2), new Coords(3, 3)));
 
 		assertEquals(1.0, xCapture.get(0));
 		assertEquals(2.0, xCapture.get(1));
@@ -58,11 +57,11 @@ public class TestLine extends AbstractTestCase {
 		assertEquals(2.0, yCapture.get(1));
 		assertEquals(3.0, yCapture.get(2));
 
-		d = line.apply(JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2), new Coords(3, 3)));
+		d = line.generate(JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2), new Coords(3, 3)));
 		// System.out.println("defined : " + d);
 
 		// x and y constants
-		d = line.x(50).y(30).apply(JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2), new Coords(3, 3)));
+		d = line.x(50).y(30).generate(JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2), new Coords(3, 3)));
 		// System.out.println("defined : " + d);
 
 		// TODO: tension

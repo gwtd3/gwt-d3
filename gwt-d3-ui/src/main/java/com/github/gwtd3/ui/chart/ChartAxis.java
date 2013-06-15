@@ -3,6 +3,8 @@
  */
 package com.github.gwtd3.ui.chart;
 
+import java.util.Date;
+
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Formatter;
@@ -10,6 +12,7 @@ import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.Scale;
 import com.github.gwtd3.api.svg.Axis;
 import com.github.gwtd3.api.svg.Axis.Orientation;
+import com.github.gwtd3.api.time.TimeFormat;
 import com.github.gwtd3.ui.event.RangeChangeEvent;
 import com.github.gwtd3.ui.event.RangeChangeEvent.RangeChangeHandler;
 import com.github.gwtd3.ui.model.AxisModel;
@@ -23,15 +26,15 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 
 /**
- * Represents a vertical or horizontal axis in a chart,
- * and consists in a line representing domain values,
- * with a title label, and ticks represented.
+ * Represents a vertical or horizontal axis in a chart, and consists in a line
+ * representing domain values, with a title label, and ticks represented.
  * <p>
  * the default style name is ChartAxis and the default style sheet can be found here:
  * 
  * <p>
  * An {@link AxisModel} must be provided to define what values are displayed in ticks.
- * 
+ * <p>
+ * FIXME: add a time formatter
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
@@ -40,11 +43,34 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
 
     private static final int DEFAULT_LENGTH = 100;
 
-    private final Orientation tickOrientation;
     private final Axis generator;
-    private final AxisModel<S> model;
+    private final AxisModel<? extends S> model;
     private final Text titleLabel;
     private Styles styles;
+    private final Orientation tickOrientation;
+
+    private Direction direction = Direction.ASCENDING;
+
+    /**
+     * Direction of the how the values are increasing on the axis.
+     * 
+     * @author SCHIOCA
+     * 
+     */
+    public static enum Direction {
+        /**
+         * This is the default value.
+         * For an horizontal axis, indicates values are increasing Left to Right
+         * For a vertical axis, indicates values are increasing from bottom to top.
+         */
+        ASCENDING,
+        /**
+         * For an horizontal axis, indicates values are increasing from right to left.
+         * For a vertical axis, indicates the values are increasing from top to bottom.
+         */
+        DESCENDING;
+    }
+
     private int length = DEFAULT_LENGTH;
 
     /**
@@ -61,8 +87,7 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
     }
 
     /**
-     * Styles to be applied to the axis.
-     * default stylesheet is in ChartAxis.css
+     * Styles to be applied to the axis. default stylesheet is in ChartAxis.css
      * 
      * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
      * 
@@ -74,11 +99,11 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         public String axis();
     }
 
-    public ChartAxis(final AxisModel<S> model, final Orientation tickOrientation) {
+    public ChartAxis(final AxisModel<? extends S> model, final Orientation tickOrientation) {
         this(model, tickOrientation, (Resources) GWT.create(Resources.class));
     }
 
-    public ChartAxis(final AxisModel<S> model, final Orientation tickOrientation, final Resources resources) {
+    public ChartAxis(final AxisModel<? extends S> model, final Orientation tickOrientation, final Resources resources) {
         super();
         Preconditions.checkNotNull(model, "please provide a model");
         Preconditions.checkNotNull(tickOrientation, "please provide a tickorientation");
@@ -87,11 +112,12 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         model.addRangeChangeHandler(new RangeChangeHandler() {
             @Override
             public void onRangeChange(final RangeChangeEvent event) {
+                generator.scale((S) model.scale());
                 scheduleRedraw();
             }
         });
         this.tickOrientation = tickOrientation;
-        this.generator = D3.svg().axis().scale(model.scale()).orient(tickOrientation);
+        this.generator = D3.svg().axis().scale((S) model.scale()).orient(tickOrientation);
         this.titleLabel = createTitle();
         add(titleLabel);
         styles = resources.styles();
@@ -102,7 +128,7 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         super.onSelectionAttached();
 
         getDocument().inject(styles);
-        setStyleName(styles.axis());
+        addStyleName(styles.axis());
     }
 
     /**
@@ -143,7 +169,7 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         return generator;
     }
 
-    public AxisModel<S> model() {
+    public AxisModel<? extends S> model() {
         return model;
     }
 
@@ -182,6 +208,12 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         return this;
     }
 
+    // public ChartAxis<S> formatter(final TimeFormat format) {
+    // generator().tickFormat((Formatter) format.cast());
+    // scheduleRedraw();
+    // return this;
+    // }
+
     /**
      * Use the given {@link NumberFormat} to format the tick labels.
      * 
@@ -195,6 +227,23 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
             public String apply(final Element context, final Datum d, final int index) {
                 String format2 = format.format(d.asDouble());
                 return format2;
+            }
+        });
+        return this;
+    }
+
+    /**
+     * Use the given {@link TimeFormat} to format the tick labels.
+     * 
+     * @param format
+     *            the formatter to be used
+     * @return the chart
+     */
+    public ChartAxis<S> formatter(final TimeFormat format) {
+        formatter(new DatumFunction<String>() {
+            @Override
+            public String apply(final Element context, final Datum d, final int index) {
+                return format.apply(new Date(d.asLong()));
             }
         });
         return this;
@@ -228,8 +277,13 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         if (tickOrientation.isHorizontalAxis()) {
             // LEFT TO RIGHT orientation
             // TODO: let the user decide "right to left"
-            model.scale().range(0, length);
-
+            if (direction == Direction.ASCENDING) {
+                model.setPixelRange(0, length);
+            }
+            else {
+                model.setPixelRange(length, 0);
+            }
+            generator.scale((S) model.scale());
             if (tickOrientation == Orientation.TOP) {
                 titleLabel.transform().removeAll().translate(length, 18);
             }
@@ -239,8 +293,13 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         }
         else {
             // orientation of the domain ("bottom up")
-            // TODO: let the user decide a "top down" orientation
-            model.scale().range(length, 0);
+            if (direction == Direction.ASCENDING) {
+                model.setPixelRange(length, 0);
+            }
+            else {
+                model.setPixelRange(0, length);
+            }
+            generator.scale((S) model.scale());
         }
         // apply the generator on the axis
         select().call(generator);
@@ -254,8 +313,21 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
      * @param size
      */
     public void setLength(final int length) {
+        if (this.length == length) {
+            return;
+        }
         this.length = length;
         scheduleRedraw();
 
     }
+
+    public ChartAxis<S> direction(final Direction direction) {
+        if (this.direction == direction) {
+            return this;
+        }
+        this.direction = direction;
+        scheduleRedraw();
+        return this;
+    }
+
 }

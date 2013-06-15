@@ -22,13 +22,4 @@ public class TimeScale extends com.github.gwtd3.api.scales.Scale<TimeScale> {
 		return this.range(values);
     }-*/;
 
-    /**
-     * Get the scale's output range.
-     * 
-     * @return the scale's output range.
-     */
-    public final native Range range()/*-{
-		return this.range();
-    }-*/;
-
 }

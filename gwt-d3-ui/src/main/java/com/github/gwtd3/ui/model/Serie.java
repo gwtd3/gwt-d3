@@ -2,53 +2,79 @@ package com.github.gwtd3.ui.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.arrays.Array;
-
+import com.github.gwtd3.ui.event.SerieChangeEvent;
+import com.github.gwtd3.ui.event.SerieChangeEvent.SerieChangeHandler;
+import com.github.gwtd3.ui.event.SerieChangeEvent.SerieChangeHasHandlers;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 import com.google.common.collect.Range;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 
-public class Serie<T> {
+public class Serie<T> implements SerieChangeHasHandlers<T>, ValueProvider<T> {
 
-    private HandlerManager eventManager = new HandlerManager(this);
+    private final HandlerManager eventManager = new HandlerManager(this);
 
     private final String id;
-    private String name;
+    // private String name;
 
     private List<T> values = new ArrayList<T>();
 
-    private Map<String, NamedRange<T>> namedRanges = new HashMap<String, NamedRange<T>>();
+    private String classNames;
+
+    private final Map<String, NamedRange> namedRanges = new HashMap<String, NamedRange>();
+
+    private final PointBuilder<T> domainBuilder;
 
     /**
-     * A NamedRange provides a way of logically grouping contiguous values of a {@link Serie},
-     * in order to apply on these values specific formatting or behavior.
+     * A NamedRange provides a way of logically grouping contiguous values of a {@link Serie}, in order to apply on
+     * these values specific formatting or
+     * behavior.
      * <p>
+     * The NamedRange is a {@link Predicate} allowing to filter domain values.
      * 
      * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
      * 
      */
-    public static class NamedRange<T> {
-        private String name;
-        private Range<Double> range;
-        private Serie<T> serie;
+    public class NamedRange implements ValueProvider<T>, DomainFilter<T> {
+        private final String id;
+        private final Range<Double> range;
+        private final Serie<T> serie;
+        private int startIndex;
+        private int endIndex;
+        private String classNames;
 
-        protected NamedRange(final Serie<T> serie, final String name, final Range<Double> range) {
+        protected NamedRange(final Serie<T> serie, final String id, final Range<Double> range) {
             super();
-            this.name = name;
+            this.id = id;
             this.range = range;
             this.serie = serie;
         }
 
-        public String name() {
-            return name;
+        // ============== styling ====================
+        /**
+         * @param classNames
+         */
+        public NamedRange setClassNames(final String classNames) {
+            this.classNames = classNames;
+            serie.fireEvent(new SerieChangeEvent<T>(Serie.this));
+            return this;
+        }
+
+        public String getClassNames() {
+            return classNames;
+        }
+
+        public String id() {
+            return id;
         }
 
         public Range<Double> range() {
@@ -62,7 +88,7 @@ public class Serie<T> {
          */
         @Override
         public String toString() {
-            return "'" + name + "'[" + range.toString() + "]";
+            return "'" + id + "'[" + range.toString() + "]";
         }
 
         /*
@@ -74,7 +100,7 @@ public class Serie<T> {
         public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result + ((name == null) ? 0 : name.hashCode());
+            result = (prime * result) + ((id == null) ? 0 : id.hashCode());
             return result;
         }
 
@@ -95,12 +121,12 @@ public class Serie<T> {
                 return false;
             }
             @SuppressWarnings("unchecked")
-            NamedRange<T> other = (NamedRange<T>) obj;
-            if (name == null) {
-                if (other.name != null) {
+            NamedRange other = (NamedRange) obj;
+            if (id == null) {
+                if (other.id != null) {
                     return false;
                 }
-            } else if (!name.equals(other.name)) {
+            } else if (!id.equals(other.id)) {
                 return false;
             }
             return true;
@@ -110,38 +136,53 @@ public class Serie<T> {
             return serie;
         }
 
+        @Override
+        public List<T> getValues() {
+            return values;
+        }
+
+        @Override
+        public boolean accept(final T value) {
+            return range.contains(domainBuilder.x(value));
+        }
     }
 
-    public Serie(final String id) {
+    public Serie(final String id, final PointBuilder<T> domainBuilder) {
         super();
         this.id = id;
+        this.domainBuilder = domainBuilder;
     }
+
+    // =========== id ===============
 
     public String id() {
         return id;
     }
 
-    public String name() {
-        return name;
-    }
+    // =========== name===============
+    // public String name() {
+    // return name;
+    // }
+    //
+    // public Serie<T> name(final String name) {
+    // this.name = name;
+    // return this;
+    // }
 
-    public Serie<T> name(final String name) {
-        this.name = name;
-        return this;
-    }
+    // =========== values ===============
 
-    public List<T> values() {
+    @Override
+    public List<T> getValues() {
         return values;
     }
 
     public Serie<T> values(final List<T> t) {
         this.values = t;
+        fireEvent(new SerieChangeEvent<T>(this));
         return this;
     }
 
-    public Array<T> valuesAsArray() {
-        return JsArrays.asJsArray(values());
-    }
+    // ============
 
     public boolean isEmpty() {
         return values.isEmpty();
@@ -149,7 +190,7 @@ public class Serie<T> {
 
     @Override
     public String toString() {
-        String s = "[" + id + "]" + " '" + name + "'";
+        String s = "[" + id + "]:";
         for (T value : values) {
             s += value + ",";
         }
@@ -163,9 +204,13 @@ public class Serie<T> {
      * <p>
      * The given new range cannot intersect any existing range with another name.
      * 
-     * @param name the name of the range
-     * @param newRange the range
-     * @throws IllegalArgumentException if the new range intersects any existing range with other name
+     * @param name
+     *            the name of the range
+     * @param newRange
+     *            the range
+     * @throws IllegalArgumentException
+     *             if the new range intersects any existing range with other
+     *             name
      * @return this serie
      */
     public Serie<T> putNamedRange(final String name, final Range<Double> newRange) {
@@ -177,15 +222,16 @@ public class Serie<T> {
         // assert the range does not intersect with a previous range
         assertNotIntersectingExistingRanges(newRange);
 
-        namedRanges.put(name, new NamedRange<T>(this, name, newRange));
-        // fire event:::
+        namedRanges.put(name, new NamedRange(this, name, newRange));
+        fireEvent(new SerieChangeEvent<T>(this));
         return this;
     }
 
     /**
      * Return the {@link NamedRange} for the specified name.
      * 
-     * @param name the name of the {@link NamedRange}
+     * @param name
+     *            the name of the {@link NamedRange}
      * @return the {@link NamedRange} corresponding to the given name
      */
     // public NamedRange getRange(final String name) {
@@ -194,12 +240,14 @@ public class Serie<T> {
 
     /**
      * Assert the given range is not intersecting any existing range.
-     * @throws IllegalArgumentException if the given range intersects
+     * 
+     * @throws IllegalArgumentException
+     *             if the given range intersects
      * @param newRange
      */
     private void assertNotIntersectingExistingRanges(final Range<Double> newRange) {
-        Set<Entry<String, NamedRange<T>>> ranges = namedRanges.entrySet();
-        for (Entry<String, NamedRange<T>> range : ranges) {
+        Set<Entry<String, NamedRange>> ranges = namedRanges.entrySet();
+        for (Entry<String, NamedRange> range : ranges) {
             Preconditions.checkArgument(range.getValue().range().intersection(newRange).isEmpty(),
                     "The given newRange %s intersect with the existing range %s",
                     newRange.toString(), range.getKey(), range.getValue().toString());
@@ -218,30 +266,23 @@ public class Serie<T> {
      * 
      * @return an unmodifiable list of {@link NamedRange}.
      */
-    public Set<Range<Double>> namedRanges() {
-        Set<Range<Double>> result = new HashSet<Range<Double>>();
-        Collection<NamedRange<T>> ranges = namedRanges.values();
-        for (NamedRange<T> namedRange : ranges) {
-            result.add(namedRange.range());
-        }
-        return result;
+    public List<NamedRange> namedRanges() {
+        Collection<NamedRange> ranges = namedRanges.values();
+        return Collections.unmodifiableList(new ArrayList<NamedRange>(ranges));
     }
 
     /**
-     * Return a {@link Set} containing only the {@link Range}s
-     * that are visible inside the given range.
-     * More formally, a range r is returned in the set only
+     * Return a {@link List} containing only the {@link NamedRange}s that are
+     * fully or partially enclosed by the given range.
      * 
-     * if visibleXRange.{@link Range#isConnected(Range) isConnected(r)} returns true.
-     * 
-     * @param visibleXRange
+     * @param
      * @return
      */
-    public Set<NamedRange<T>> visibleNamedRanges(final Range<Double> visibleXRange) {
-        Set<NamedRange<T>> result = new HashSet<NamedRange<T>>();
-        Collection<NamedRange<T>> ranges = namedRanges.values();
-        for (NamedRange<T> namedRange : ranges) {
-            if (visibleXRange.isConnected(namedRange.range())) {
+    public List<NamedRange> getOverlappingRanges(final Range<Double> range) {
+        List<NamedRange> result = new ArrayList<NamedRange>();
+        Collection<NamedRange> ranges = namedRanges.values();
+        for (NamedRange namedRange : ranges) {
+            if (range.isConnected(namedRange.range())) {
                 result.add(namedRange);
             }
         }
@@ -257,7 +298,7 @@ public class Serie<T> {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = (prime * result) + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
@@ -277,7 +318,7 @@ public class Serie<T> {
         if (!(obj instanceof Serie)) {
             return false;
         }
-        Serie other = (Serie) obj;
+        Serie<?> other = (Serie<?>) obj;
         if (id == null) {
             if (other.id != null) {
                 return false;
@@ -288,4 +329,27 @@ public class Serie<T> {
         return true;
     }
 
+    @Override
+    public void fireEvent(final GwtEvent<?> event) {
+        eventManager.fireEvent(event);
+    }
+
+    @Override
+    public HandlerRegistration addSerieChangeHandler(final SerieChangeHandler<T> handler) {
+        return eventManager.addHandler(SerieChangeEvent.TYPE, handler);
+    }
+
+    // ============== styling ====================
+    /**
+     * @param classNames
+     */
+    public Serie<T> setClassNames(final String classNames) {
+        this.classNames = classNames;
+        fireEvent(new SerieChangeEvent<T>(this));
+        return this;
+    }
+
+    public String getClassNames() {
+        return classNames;
+    }
 }

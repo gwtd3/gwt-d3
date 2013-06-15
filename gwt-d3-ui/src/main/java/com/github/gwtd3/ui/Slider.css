@@ -1,12 +1,17 @@
+.svg.slider{
+	vertical-align: middle;
+}
+
 .rule{
 	stroke: #999;
 	fill: none;
 	cursor: pointer;
+	pointer-events: visible;
 }
 
 .cursor{
 	stroke: #999;
-	fill: white;
+	fill: #fff;
 	cursor: pointer;
 }
 

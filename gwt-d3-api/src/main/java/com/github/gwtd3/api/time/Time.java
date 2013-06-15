@@ -174,13 +174,13 @@ public class Time extends JavaScriptObject {
     }-*/;
 
     /**
-     * Tueday-based weeks (e.g., February 7, 2012 at 12:00 AM).
+     * Tuesday-based weeks (e.g., February 7, 2012 at 12:00 AM).
      * <p>
      * 
      * @return the {@link Interval}
      */
-    public final native Interval tueday()/*-{
-		return this.tueday;
+    public final native Interval tuesday()/*-{
+		return this.tuesday;
     }-*/;
 
     /**

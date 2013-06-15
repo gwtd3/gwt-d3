@@ -15,7 +15,7 @@
 .line {
   fill: none;
   stroke: steelblue;
-  stroke-width: 1.5px;
+  stroke-width: 1px;
 }
 
 .label{
@@ -37,9 +37,12 @@
 }
 
 .serie{
-
 }
 
 .namedRange{
-	stroke-width: 4px;
+	stroke-width: 2px;
+}
+
+.namedRange:hover{
+	stroke-width: 3px;
 }

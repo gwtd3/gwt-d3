@@ -5,7 +5,6 @@ package com.github.gwtd3.api.functions;
 
 import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
-
 import com.google.gwt.dom.client.Element;
 
 /**

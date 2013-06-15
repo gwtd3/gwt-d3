@@ -3,11 +3,14 @@
  */
 package com.github.gwtd3.api.core;
 
+import java.util.List;
+
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
+import com.github.gwtd3.api.functions.NestedDatumFunction;
 import com.github.gwtd3.api.svg.PathDataGenerator;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayUtils;
@@ -435,6 +438,29 @@ public class Selection extends EnteringSelection {
 	}-*/;
 
 	/**
+     * Same as #data(JavaScriptObject) for an {@link List} of objects.
+     * 
+     * @see #data(JavaScriptObject)
+     * @param data
+     * @return
+     */
+    public final UpdateSelection data(final List<?> data) {
+        return this.data(JsArrays.asJsArray(data));
+    }
+
+    /**
+     * Same as {@link #data(JavaScriptObject, KeyFunction)} for an {@link List} of objects.
+     * 
+     * @see #data(JavaScriptObject)
+     * @param data the data
+     * @param keyFunction the key function
+     * @return
+     */
+    public final UpdateSelection data(final List<?> data, final KeyFunction<?> keyFunction) {
+        return this.data(JsArrays.asJsArray(data), keyFunction);
+    }
+
+    /**
 	 * Joins the specified array of data with the current selection by
 	 * controlling how the data is mapped to the selection's elements.
 	 * <p>
@@ -484,6 +510,25 @@ public class Selection extends EnteringSelection {
 				});
 	}-*/;
 
+    public native final UpdateSelection data(NestedDatumFunction<?> callback)/*-{
+		return this
+				.data(function(d, i, j, k) {
+					console.log(d);
+					console.log(i);
+					console.log(j);
+					console.log(k);
+
+					if (j == undefined) {
+						j = -1;
+					}
+
+					if (k == undefined) {
+						k = -1;
+					}
+					return callback.@com.github.gwtd3.api.functions.NestedDatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;III)(this,{datum:d},i,j,k);
+				});
+    }-*/;
+
 	/**
 	 * Sets the element's bound data to the specified value on all selected
 	 * elements. Unlike the {@link #data} methods, this method does not compute
@@ -519,6 +564,20 @@ public class Selection extends EnteringSelection {
 	 * @param jsFunction
 	 * @return the current selection
 	 */
+    public native final Selection each(DatumFunction<Void> listener) /*-{
+		return this
+				.each(function(d, i) {
+					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
+    }-*/;
+
+    /**
+     * Invokes the specified function once, passing in the current selection as
+     * a single parameter.
+     * 
+     * @param jsFunction
+     * @return the current selection
+     */
 	public native final Selection call(IsFunction jsFunction) /*-{
 		return this.call(jsFunction);
 	}-*/;
@@ -582,4 +641,28 @@ public class Selection extends EnteringSelection {
 		return this.on(eventType, l, useCapture);
 	}-*/;
 
+    /**
+     * Return the number of elements in the current selection.
+     * 
+     * @return the number of elements
+     */
+    public final int count() {
+        CountFunction function = new CountFunction();
+        each(function);
+        return function.getCount();
+    }
+
+    protected static class CountFunction implements DatumFunction<Void> {
+        private int count = 0;
+
+        @Override
+        public Void apply(final Element context, final Datum d, final int index) {
+            count++;
+            return null;
+        }
+
+        public int getCount() {
+            return count;
+        }
+    }
 }

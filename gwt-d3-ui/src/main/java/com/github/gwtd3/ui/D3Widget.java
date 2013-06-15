@@ -20,9 +20,9 @@ import com.google.gwt.user.client.ui.Widget;
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class D3Widget extends Widget implements HasD3Selection, Drawable {
+public class D3Widget extends Widget implements HasD3Selection, DrawableWidget {
 
-    private DrawableSupport support = new DrawableSupport(this);
+    private final DrawableSupport support = new DrawableSupport(this);
 
     public D3Widget(final String tagName) {
         this(DOM.createElement(tagName));
@@ -43,7 +43,7 @@ public class D3Widget extends Widget implements HasD3Selection, Drawable {
     @Override
     public Selection select() {
         if (!isAttached()) {
-            throw new IllegalStateException("Cannot get the selection of a widget that is not attached.");
+            // throw new IllegalStateException("Cannot get the selection of a widget that is not attached.");
         }
         return D3.select(this);
     }
