@@ -13,7 +13,8 @@ import java.util.List;
  * <p>
  * According to official specs, all selectors are case-insensitive;
  * 
- * @see <a href="http://www.w3.org/TR/selectors/">official CSS3 selectors specifications</a>
+ * @see <a href="http://www.w3.org/TR/selectors/">official CSS3 selectors
+ *      specifications</a>
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
@@ -34,7 +35,7 @@ public class Selectors {
 		Select.elements().being(PseudoElement.firstLinePseudoElement()).havingID("blah");
 		// all the elements under the svg: namespace
 		Select.elements(Universal.inNamespaceUniversal("svg"));
-
+		Select.elements().havingClasses("bar", "foo");
 		// elements that not has attribute "name" but
 		// FIXME: Select.elements().hasNoAttr("name").;
 
@@ -45,7 +46,8 @@ public class Selectors {
 		Select.theFirstLineOfElements("p");
 
 		// combinators
-		// select the <a> somewhere inside <li> which have <ul> as direct parent.
+		// select the <a> somewhere inside <li> which have <ul> as direct
+		// parent.
 		Select.elements("a").havingForAncestors("li").whoseAttribute("class").exists().havingForParents("ul");
 		Select.elements("p").havingForPreviousSiblings("div");
 		Select.elements("p").havingForPreviousAdjacentSiblings("div");
@@ -56,10 +58,13 @@ public class Selectors {
 				.orElements().elements("a").havingClass("foo");
 
 		// complex syntax equivalent to:
-		// div.contents > p[title*=par]:first-child::first-letter, *:visited::first-letter, *:link::first-letter;
+		// div.contents > p[title*=par]:first-child::first-letter,
+		// *:visited::first-letter, *:link::first-letter;
 		// in other words:
-		// it selects the first letter of p elements with a title attribute containing "par" which are the first children
-		// of a div parent with a class "contents", and it will also select the first letter of any link (visited or unvisited).
+		// it selects the first letter of p elements with a title attribute
+		// containing "par" which are the first children
+		// of a div parent with a class "contents", and it will also select the
+		// first letter of any link (visited or unvisited).
 		Select.theFirstLetterOfElements("p").whoseAttribute("title").contains("par")
 				.beingFirstChildren()
 				.havingForParents("div").havingClass("contents")
@@ -83,13 +88,15 @@ public class Selectors {
 
 			/**
 			 * Create a new sequence starting with the type selector specified
-			 * by the given tag name, this new sequence defining a
-			 * sibling immediately before the current selector.
+			 * by the given tag name, this new sequence defining a sibling
+			 * immediately before the current selector.
 			 * <p>
-			 * In other words, the current selector defines elements that are siblings after the new selector, immediately adjacent to it.
+			 * In other words, the current selector defines elements that are
+			 * siblings after the new selector, immediately adjacent to it.
 			 * 
 			 * @param tagName
-			 *            the type selector to be used for the sibling before the current selector.
+			 *            the type selector to be used for the sibling before
+			 *            the current selector.
 			 * @return the selector
 			 */
 			public SelectorBuilder havingForPreviousAdjacentSiblings(final String tagName) {
@@ -103,10 +110,13 @@ public class Selectors {
 			 * by the given tag name, this new sequence defining a sibling
 			 * before the current selector.
 			 * <p>
-			 * In other words, the current selector defines elements that are siblings after the new selector, but not necessarily immediately adjacent to it.
+			 * In other words, the current selector defines elements that are
+			 * siblings after the new selector, but not necessarily immediately
+			 * adjacent to it.
 			 * 
 			 * @param tagName
-			 *            the type selector to be used for the sibling before the current selector.
+			 *            the type selector to be used for the sibling before
+			 *            the current selector.
 			 * @return the selector
 			 */
 			public SelectorBuilder havingForPreviousSiblings(final String tagName) {
@@ -120,7 +130,8 @@ public class Selectors {
 			 * by the given tag name, this new sequence defining the immediate
 			 * parent of the current selector.
 			 * <p>
-			 * In other words, the current selector defines elements that are direct children of the new selector.
+			 * In other words, the current selector defines elements that are
+			 * direct children of the new selector.
 			 * 
 			 * @param tagName
 			 *            the type selector to be used for the ancestor.
@@ -134,10 +145,11 @@ public class Selectors {
 
 			/**
 			 * Create a new sequence starting with the type selector specified
-			 * by the given tag name, this new sequence defining the ancestor
-			 * of the current selector.
+			 * by the given tag name, this new sequence defining the ancestor of
+			 * the current selector.
 			 * <p>
-			 * In other words, the current selector is defined as a descendant of the new selector.
+			 * In other words, the current selector is defined as a descendant
+			 * of the new selector.
 			 * 
 			 * @param tagName
 			 *            the type selector to be used for the ancestor.
@@ -195,8 +207,8 @@ public class Selectors {
 			}
 
 			/**
-			 * Close the current selector
-			 * and append a new one in the selector group.
+			 * Close the current selector and append a new one in the selector
+			 * group.
 			 * 
 			 * @return
 			 */
@@ -218,6 +230,13 @@ public class Selectors {
 
 			public SelectorBuilder havingClass(final String className) {
 				this.currentSequence().append(Class.hasClass(className));
+				return this;
+			}
+
+			public SelectorBuilder havingClasses(String... classNames) {
+				for (String className : classNames) {
+					havingClass(className);
+				}
 				return this;
 			}
 
@@ -428,8 +447,8 @@ public class Selectors {
 			}
 
 			/**
-			 * the attribute is a list of whitespace separated values,
-			 * one of which is equals to value.
+			 * the attribute is a list of whitespace separated values, one of
+			 * which is equals to value.
 			 * 
 			 * @param value
 			 * @return the select
@@ -440,9 +459,9 @@ public class Selectors {
 			}
 
 			/**
-			 * the attribute is a list of hyphen separated values,
-			 * the first value of which is equals to the given value;
-			 * or the attribute is equals to the given value.
+			 * the attribute is a list of hyphen separated values, the first
+			 * value of which is equals to the given value; or the attribute is
+			 * equals to the given value.
 			 * 
 			 * @param value
 			 * @return
@@ -477,8 +496,7 @@ public class Selectors {
 	public static enum AttributeOperator {
 
 		/**
-		 * The attribute value is exactly equals
-		 * to the operand 2.
+		 * The attribute value is exactly equals to the operand 2.
 		 */
 		EQUALS("="),
 
@@ -495,14 +513,13 @@ public class Selectors {
 		 */
 		CONTAINS_WITH("*="),
 		/**
-		 * The attribute value is a list of comma separated values
-		 * whose one is equals to the operand 2.
+		 * The attribute value is a list of comma separated values whose one is
+		 * equals to the operand 2.
 		 */
 		CONTAINS_SPACE_SEPARATED_VALUE("~="),
 		/**
-		 * The attribute is exactly equals to the operand 2
-		 * or begins with the operand 2 and is immediately followed
-		 * by an hyphen.
+		 * The attribute is exactly equals to the operand 2 or begins with the
+		 * operand 2 and is immediately followed by an hyphen.
 		 * 
 		 */
 		STARTS_WITH_HYPHEN_SEPARATED_VALUE("|=");
@@ -547,8 +564,7 @@ public class Selectors {
 	}
 
 	/**
-	 * Comma separated list of selectors.
-	 * Must have at least one selector.
+	 * Comma separated list of selectors. Must have at least one selector.
 	 * 
 	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
 	 * 
@@ -608,9 +624,9 @@ public class Selectors {
 	}
 
 	/**
-	 * A selector is a chain of sequences of simple selectors ,
-	 * each sequence being separated by combinators
-	 * and optionnally terminated by a pseudo element.
+	 * A selector is a chain of sequences of simple selectors , each sequence
+	 * being separated by combinators and optionnally terminated by a pseudo
+	 * element.
 	 * <p>
 	 * At least one sequence or a pseudo element is required.
 	 * <p>
@@ -662,7 +678,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Append the given sequence as a descendant of the last appended sequence.
+		 * Append the given sequence as a descendant of the last appended
+		 * sequence.
 		 * 
 		 * @param descendant
 		 * @return
@@ -688,7 +705,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Append the given sequence as an adjacent sibling of the last appended sequence.
+		 * Append the given sequence as an adjacent sibling of the last appended
+		 * sequence.
 		 * 
 		 * @param sibling
 		 * @return
@@ -701,7 +719,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Append the given sequence as a general sibling of the last appended sequence.
+		 * Append the given sequence as a general sibling of the last appended
+		 * sequence.
 		 * 
 		 * @param sibling
 		 * @return
@@ -779,8 +798,8 @@ public class Selectors {
 	}
 
 	/**
-	 * Marker interface for a selector that can be at first in a sequence
-	 * of simple selectors.
+	 * Marker interface for a selector that can be at first in a sequence of
+	 * simple selectors.
 	 * 
 	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
 	 * 
@@ -792,7 +811,8 @@ public class Selectors {
 	/**
 	 * A sequence of simple selectors.
 	 * 
-	 * @see <a href="http://www.w3.org/TR/selectors/#sequence">sequence of simple selectors in W3C specs</a>
+	 * @see <a href="http://www.w3.org/TR/selectors/#sequence">sequence of
+	 *      simple selectors in W3C specs</a>
 	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
 	 * 
 	 */
@@ -822,11 +842,11 @@ public class Selectors {
 		}
 
 		/**
-		 * Set the type selector used in this sequence.
-		 * If the given selector is null, this sequence represents
-		 * the universal selector.
+		 * Set the type selector used in this sequence. If the given selector is
+		 * null, this sequence represents the universal selector.
 		 * <p>
-		 * Calling this method will clear any effect implied by a previous call to {@link #setUniversal(Universal)}.
+		 * Calling this method will clear any effect implied by a previous call
+		 * to {@link #setUniversal(Universal)}.
 		 * 
 		 * @param firstSelector
 		 * @return this sequence for chaining
@@ -939,10 +959,13 @@ public class Selectors {
 		}
 
 		/**
-		 * Return the namespace and name separated by {@link #NAMESPACE_SEPARATOR}.
-		 * If <code>namespace</code> is null, return only the <code>name</code>.
+		 * Return the namespace and name separated by
+		 * {@link #NAMESPACE_SEPARATOR}. If <code>namespace</code> is null,
+		 * return only the <code>name</code>.
 		 * 
-		 * @return the namespace and name separated by {@link #NAMESPACE_SEPARATOR}, or only <code>name</code> if <code>namespace</code> is null.
+		 * @return the namespace and name separated by
+		 *         {@link #NAMESPACE_SEPARATOR}, or only <code>name</code> if
+		 *         <code>namespace</code> is null.
 		 */
 		public String get() {
 			if (namespace == null) {
@@ -962,8 +985,8 @@ public class Selectors {
 	}
 
 	/**
-	 * Defines methods for a Universal selector, i.e a selector
-	 * which match any element.
+	 * Defines methods for a Universal selector, i.e a selector which match any
+	 * element.
 	 * 
 	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
 	 * 
@@ -975,10 +998,10 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching all the elements in the default namespace if defined.
-		 * If the default namespace is not defined,
-		 * the returned selector apply on the same elements
-		 * as the selector returned by {@link #inAnyNamespace()}.
+		 * Return a selector matching all the elements in the default namespace
+		 * if defined. If the default namespace is not defined, the returned
+		 * selector apply on the same elements as the selector returned by
+		 * {@link #inAnyNamespace()}.
 		 * 
 		 * @return the selector
 		 */
@@ -991,7 +1014,8 @@ public class Selectors {
 		 * <p>
 		 * 
 		 * @param namespace
-		 *            the namespace to select; if null, returns the same selector as {@link #all()}.
+		 *            the namespace to select; if null, returns the same
+		 *            selector as {@link #all()}.
 		 * @return the selector
 		 */
 		public static String inNamespace(final String namespace) {
@@ -999,7 +1023,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching all elements, with or whithout any namespace.
+		 * Return a selector matching all elements, with or whithout any
+		 * namespace.
 		 * 
 		 * @return the selector
 		 */
@@ -1021,10 +1046,10 @@ public class Selectors {
 		// =========
 
 		/**
-		 * Return a selector matching all the elements in the default namespace if defined.
-		 * If the default namespace is not defined,
-		 * the returned selector apply on the same elements
-		 * as the selector returned by {@link #inAnyNamespace()}.
+		 * Return a selector matching all the elements in the default namespace
+		 * if defined. If the default namespace is not defined, the returned
+		 * selector apply on the same elements as the selector returned by
+		 * {@link #inAnyNamespace()}.
 		 * 
 		 * @return the selector
 		 */
@@ -1037,7 +1062,8 @@ public class Selectors {
 		 * <p>
 		 * 
 		 * @param namespace
-		 *            the namespace to select; if null, returns the same selector as {@link #all()}.
+		 *            the namespace to select; if null, returns the same
+		 *            selector as {@link #all()}.
 		 * @return the selector
 		 */
 		public static Universal inNamespaceUniversal(final String namespace) {
@@ -1045,7 +1071,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching all elements, with or whithout any namespace.
+		 * Return a selector matching all elements, with or whithout any
+		 * namespace.
 		 * 
 		 * @return the selector
 		 */
@@ -1072,9 +1099,9 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements with the given tag name
-		 * in the default namespace, if the default namespace has been defined.
-		 * If not defined, the selector is the same as {@link #inAnyNamespace(String)}.
+		 * Return a selector matching elements with the given tag name in the
+		 * default namespace, if the default namespace has been defined. If not
+		 * defined, the selector is the same as {@link #inAnyNamespace(String)}.
 		 * 
 		 * @param elementTagName
 		 * @return the selector
@@ -1084,8 +1111,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements with the given tag name
-		 * in the given namespace.
+		 * Return a selector matching elements with the given tag name in the
+		 * given namespace.
 		 * 
 		 * @param namespace
 		 * @param elementTagName
@@ -1096,8 +1123,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements with the given tag name
-		 * and having no namespace defined.
+		 * Return a selector matching elements with the given tag name and
+		 * having no namespace defined.
 		 * 
 		 * @param namespace
 		 * @param elementTagName
@@ -1108,8 +1135,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements with the given tag name,
-		 * with or without any namespace.
+		 * Return a selector matching elements with the given tag name, with or
+		 * without any namespace.
 		 * 
 		 * @param elementTagName
 		 * @return
@@ -1121,9 +1148,9 @@ public class Selectors {
 		// ===========
 
 		/**
-		 * Return a selector matching elements with the given tag name
-		 * in the default namespace, if the default namespace has been defined.
-		 * If not defined, the selector is the same as {@link #inAnyNamespace(String)}.
+		 * Return a selector matching elements with the given tag name in the
+		 * default namespace, if the default namespace has been defined. If not
+		 * defined, the selector is the same as {@link #inAnyNamespace(String)}.
 		 * 
 		 * @param elementTagName
 		 * @return the selector
@@ -1133,8 +1160,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements with the given tag name
-		 * in the given namespace.
+		 * Return a selector matching elements with the given tag name in the
+		 * given namespace.
 		 * 
 		 * @param namespace
 		 * @param elementTagName
@@ -1149,8 +1176,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements with the given tag name
-		 * and having no namespace defined.
+		 * Return a selector matching elements with the given tag name and
+		 * having no namespace defined.
 		 * 
 		 * @param namespace
 		 * @param elementTagName
@@ -1161,8 +1188,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements with the given tag name,
-		 * with or without any namespace.
+		 * Return a selector matching elements with the given tag name, with or
+		 * without any namespace.
 		 * 
 		 * @param elementTagName
 		 * @return
@@ -1179,8 +1206,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the attribute with the given name
-		 * specified, whatever its value is.
+		 * Return a selector matching elements having the attribute with the
+		 * given name specified, whatever its value is.
 		 * 
 		 * @param attributeName
 		 *            the name of the attribute
@@ -1191,8 +1218,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the attribute with the given name
-		 * specified, whatever its value is.
+		 * Return a selector matching elements having the attribute with the
+		 * given name specified, whatever its value is.
 		 * 
 		 * @param attributeName
 		 *            the name of the attribute
@@ -1203,8 +1230,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the attribute with the given name
-		 * whose value is exactly equals to the provided value.
+		 * Return a selector matching elements having the attribute with the
+		 * given name whose value is exactly equals to the provided value.
 		 * 
 		 * @param attributeName
 		 *            the name of the attribute
@@ -1217,8 +1244,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the attribute with the given name
-		 * whose value is exactly equals to the provided value.
+		 * Return a selector matching elements having the attribute with the
+		 * given name whose value is exactly equals to the provided value.
 		 * 
 		 * @param attributeName
 		 *            the name of the attribute
@@ -1231,9 +1258,9 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements
-		 * having an attribute's value containing a chain of whitespace-separated values
-		 * whose one of which exactly equals to the provided value.
+		 * Return a selector matching elements having an attribute's value
+		 * containing a chain of whitespace-separated values whose one of which
+		 * exactly equals to the provided value.
 		 * 
 		 * @param attributeName
 		 * @param value
@@ -1244,9 +1271,9 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements
-		 * having an attribute's value containing a chain of whitespace-separated values
-		 * whose one of which exactly equals to the provided value.
+		 * Return a selector matching elements having an attribute's value
+		 * containing a chain of whitespace-separated values whose one of which
+		 * exactly equals to the provided value.
 		 * 
 		 * @param attributeName
 		 * @param value
@@ -1257,8 +1284,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose <code>class</code> attribute
-		 * contains the given class name.
+		 * Return a selector matching elements whose <code>class</code>
+		 * attribute contains the given class name.
 		 * 
 		 * @param className
 		 *            the class name
@@ -1269,7 +1296,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> starts with the given prefix.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> starts with the given prefix.
 		 * 
 		 * @param prefix
 		 *            the prefix
@@ -1280,7 +1308,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> starts with the given prefix.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> starts with the given prefix.
 		 * 
 		 * @param suffix
 		 *            the suffix
@@ -1291,7 +1320,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> contains the given substring.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> contains the given substring.
 		 * 
 		 * @param substring
 		 *            the substring
@@ -1302,9 +1332,9 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> contains a hyphen-separated chain of values begining (from the left) with the
-		 * given
-		 * prefix.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> contains a hyphen-separated chain of
+		 * values begining (from the left) with the given prefix.
 		 * 
 		 * @param prefix
 		 *            the prefix
@@ -1315,8 +1345,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the attribute with the given name
-		 * specified, whatever its value is.
+		 * Return a selector matching elements having the attribute with the
+		 * given name specified, whatever its value is.
 		 * 
 		 * @param attributeName
 		 *            the name of the attribute
@@ -1327,8 +1357,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the attribute with the given name
-		 * specified, whatever its value is.
+		 * Return a selector matching elements having the attribute with the
+		 * given name specified, whatever its value is.
 		 * 
 		 * @param attributeName
 		 *            the name of the attribute
@@ -1339,8 +1369,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the attribute with the given name
-		 * whose value is exactly equals to the provided value.
+		 * Return a selector matching elements having the attribute with the
+		 * given name whose value is exactly equals to the provided value.
 		 * 
 		 * @param attributeName
 		 *            the name of the attribute
@@ -1353,8 +1383,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the attribute with the given name
-		 * whose value is exactly equals to the provided value.
+		 * Return a selector matching elements having the attribute with the
+		 * given name whose value is exactly equals to the provided value.
 		 * 
 		 * @param attributeName
 		 *            the name of the attribute
@@ -1367,9 +1397,9 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements
-		 * having an attribute's value containing a chain of whitespace-separated values
-		 * whose one of which exactly equals to the provided value.
+		 * Return a selector matching elements having an attribute's value
+		 * containing a chain of whitespace-separated values whose one of which
+		 * exactly equals to the provided value.
 		 * 
 		 * @param attributeName
 		 * @param value
@@ -1380,9 +1410,9 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements
-		 * having an attribute's value containing a chain of whitespace-separated values
-		 * whose one of which exactly equals to the provided value.
+		 * Return a selector matching elements having an attribute's value
+		 * containing a chain of whitespace-separated values whose one of which
+		 * exactly equals to the provided value.
 		 * 
 		 * @param attributeName
 		 * @param value
@@ -1393,8 +1423,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose <code>class</code> attribute
-		 * contains the given class name.
+		 * Return a selector matching elements whose <code>class</code>
+		 * attribute contains the given class name.
 		 * 
 		 * @param className
 		 *            the class name
@@ -1405,7 +1435,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> starts with the given prefix.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> starts with the given prefix.
 		 * 
 		 * @param prefix
 		 *            the prefix
@@ -1416,7 +1447,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> starts with the given prefix.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> starts with the given prefix.
 		 * 
 		 * @param suffix
 		 *            the suffix
@@ -1427,7 +1459,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> contains the given substring.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> contains the given substring.
 		 * 
 		 * @param substring
 		 *            the substring
@@ -1438,7 +1471,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> starts with the given prefix.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> starts with the given prefix.
 		 * 
 		 * @param prefix
 		 *            the prefix
@@ -1449,7 +1483,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> starts with the given prefix.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> starts with the given prefix.
 		 * 
 		 * @param suffix
 		 *            the suffix
@@ -1460,7 +1495,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> contains the given substring.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> contains the given substring.
 		 * 
 		 * @param substring
 		 *            the substring
@@ -1471,9 +1507,9 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose the attribute named <code>attributeName</code> contains a hyphen-separated chain of values begining (from the left) with the
-		 * given
-		 * prefix.
+		 * Return a selector matching elements whose the attribute named
+		 * <code>attributeName</code> contains a hyphen-separated chain of
+		 * values begining (from the left) with the given prefix.
 		 * 
 		 * @param prefix
 		 *            the prefix
@@ -1485,7 +1521,8 @@ public class Selectors {
 	}
 
 	/**
-	 * {@link SimpleSelector} matching elements according to their class attribute.
+	 * {@link SimpleSelector} matching elements according to their class
+	 * attribute.
 	 * 
 	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
 	 * 
@@ -1497,8 +1534,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose class attribute contains
-		 * a whitespace-separated chain of values, one of which is as
+		 * Return a selector matching elements whose class attribute contains a
+		 * whitespace-separated chain of values, one of which is as
 		 * 
 		 * @param className
 		 *            the name of the class
@@ -1509,8 +1546,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements whose class attribute contains
-		 * a whitespace-separated chain of values, one of which is as
+		 * Return a selector matching elements whose class attribute contains a
+		 * whitespace-separated chain of values, one of which is as
 		 * 
 		 * @param className
 		 *            the name of the class
@@ -1563,8 +1600,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements corresponding
-		 * to the specified pseudo class .
+		 * Return a selector matching elements corresponding to the specified
+		 * pseudo class .
 		 * 
 		 * @param id
 		 * @return the selector
@@ -1583,7 +1620,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching links that have been visited at least once by the user.
+		 * Return a selector matching links that have been visited at least once
+		 * by the user.
 		 * 
 		 * @return the selector
 		 */
@@ -1592,8 +1630,10 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements designated by the user with a pointing device, but does not necessarily activate it.
-		 * For example, a visual user agent could apply this pseudo-class when the cursor (mouse pointer) hovers over a box generated by the element.
+		 * Return a selector matching elements designated by the user with a
+		 * pointing device, but does not necessarily activate it. For example, a
+		 * visual user agent could apply this pseudo-class when the cursor
+		 * (mouse pointer) hovers over a box generated by the element.
 		 * 
 		 * @return the selector
 		 */
@@ -1602,10 +1642,11 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements being activated by the user.
-		 * For example, between the times the user presses the mouse button and releases it.
-		 * On systems with more than one mouse button, :active applies only to the primary or
-		 * primary activation button (typically the "left" mouse button), and any aliases thereof.
+		 * Return a selector matching elements being activated by the user. For
+		 * example, between the times the user presses the mouse button and
+		 * releases it. On systems with more than one mouse button, :active
+		 * applies only to the primary or primary activation button (typically
+		 * the "left" mouse button), and any aliases thereof.
 		 * 
 		 * @return the selector
 		 */
@@ -1614,7 +1655,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the focus (accepts keyboard or mouse events, or other forms of input).
+		 * Return a selector matching elements having the focus (accepts
+		 * keyboard or mouse events, or other forms of input).
 		 * 
 		 * @return the selector
 		 */
@@ -1623,7 +1665,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements which are the targets (i.e the fragment identifier) in the URI of the document.
+		 * Return a selector matching elements which are the targets (i.e the
+		 * fragment identifier) in the URI of the document.
 		 * 
 		 * @return the selector
 		 */
@@ -1659,7 +1702,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements which are neither checked nor unchecked.
+		 * Return a selector matching elements which are neither checked nor
+		 * unchecked.
 		 * 
 		 * @return the selector
 		 */
@@ -1668,12 +1712,14 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements based on the language defined by the document.
+		 * Return a selector matching elements based on the language defined by
+		 * the document.
 		 * <p>
 		 * 
 		 * 
 		 * @param langOrPrefix
-		 *            a full language designation ("fr-fr") or a language prefix ("de").
+		 *            a full language designation ("fr-fr") or a language prefix
+		 *            ("de").
 		 * @return the selector
 		 */
 		public static String lang(final String langOrPrefix) {
@@ -1681,8 +1727,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector of the <code>:root</code> pseudo-class,
-		 * represents an element that is the root of the document.
+		 * Return a selector of the <code>:root</code> pseudo-class, represents
+		 * an element that is the root of the document.
 		 * <p>
 		 * In HTML 4, this is always the HTML element.
 		 * 
@@ -1720,7 +1766,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching an element if it is the only child of its parent.
+		 * Return a selector matching an element if it is the only child of its
+		 * parent.
 		 * 
 		 * @return the selector
 		 */
@@ -1729,8 +1776,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching an element if it is the only element of this type
-		 * among the children of its parent.
+		 * Return a selector matching an element if it is the only element of
+		 * this type among the children of its parent.
 		 * 
 		 * @return the selector
 		 */
@@ -1739,7 +1786,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching an element if it has no child (even text nodes and so on).
+		 * Return a selector matching an element if it has no child (even text
+		 * nodes and so on).
 		 * 
 		 * @return the selector
 		 */
@@ -1757,8 +1805,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching the n-th child of an element.
-		 * This first child has index 1.
+		 * Return a selector matching the n-th child of an element. This first
+		 * child has index 1.
 		 * 
 		 * @param index
 		 *            the n-th index
@@ -1772,10 +1820,12 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching children an element that have <code>a<i>n</i>+b-1</code> siblings before it in the document tree,
+		 * Return a selector matching children an element that have
+		 * <code>a<i>n</i>+b-1</code> siblings before it in the document tree,
 		 * for any positive integer or zero value of <i>n</i> .
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c specs</a>
+		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
@@ -1787,10 +1837,13 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching children elements that has <code>a<i>n</i>+b-1</code> siblings after it in the document tree,
+		 * Return a selector matching children elements that has
+		 * <code>a<i>n</i>+b-1</code> siblings after it in the document tree,
 		 * for any positive integer or zero value of <i>n</i> .
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-last-child-pseudo">w3c specs</a>
+		 * @see <a
+		 *      href="http://www.w3.org/TR/selectors/#nth-last-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
@@ -1802,9 +1855,11 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements that has an+b-1 siblings of the same type.
+		 * Return a selector matching elements that has an+b-1 siblings of the
+		 * same type.
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c specs</a>
+		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
@@ -1818,7 +1873,8 @@ public class Selectors {
 		/**
 		 * Return a selector matching odd sibling elements of the same type.
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c specs</a>
+		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
@@ -1832,7 +1888,8 @@ public class Selectors {
 		/**
 		 * Return a selector matching even sibling elements of the same type.
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c specs</a>
+		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
@@ -1878,7 +1935,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching links that have been visited at least once by the user.
+		 * Return a selector matching links that have been visited at least once
+		 * by the user.
 		 * 
 		 * @return the selector
 		 */
@@ -1887,8 +1945,10 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements designated by the user with a pointing device, but does not necessarily activate it.
-		 * For example, a visual user agent could apply this pseudo-class when the cursor (mouse pointer) hovers over a box generated by the element.
+		 * Return a selector matching elements designated by the user with a
+		 * pointing device, but does not necessarily activate it. For example, a
+		 * visual user agent could apply this pseudo-class when the cursor
+		 * (mouse pointer) hovers over a box generated by the element.
 		 * 
 		 * @return the selector
 		 */
@@ -1897,10 +1957,11 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements being activated by the user.
-		 * For example, between the times the user presses the mouse button and releases it.
-		 * On systems with more than one mouse button, :active applies only to the primary or
-		 * primary activation button (typically the "left" mouse button), and any aliases thereof.
+		 * Return a selector matching elements being activated by the user. For
+		 * example, between the times the user presses the mouse button and
+		 * releases it. On systems with more than one mouse button, :active
+		 * applies only to the primary or primary activation button (typically
+		 * the "left" mouse button), and any aliases thereof.
 		 * 
 		 * @return the selector
 		 */
@@ -1909,7 +1970,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements having the focus (accepts keyboard or mouse events, or other forms of input).
+		 * Return a selector matching elements having the focus (accepts
+		 * keyboard or mouse events, or other forms of input).
 		 * 
 		 * @return the selector
 		 */
@@ -1918,7 +1980,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements which are the targets (i.e the fragment identifier) in the URI of the document.
+		 * Return a selector matching elements which are the targets (i.e the
+		 * fragment identifier) in the URI of the document.
 		 * 
 		 * @return the selector
 		 */
@@ -1954,7 +2017,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements which are neither checked nor unchecked.
+		 * Return a selector matching elements which are neither checked nor
+		 * unchecked.
 		 * 
 		 * @return the selector
 		 */
@@ -1963,12 +2027,14 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements based on the language defined by the document.
+		 * Return a selector matching elements based on the language defined by
+		 * the document.
 		 * <p>
 		 * 
 		 * 
 		 * @param langOrPrefix
-		 *            a full language designation ("fr-fr") or a language prefix ("de").
+		 *            a full language designation ("fr-fr") or a language prefix
+		 *            ("de").
 		 * @return the selector
 		 */
 		public static PseudoClass langPseudoClass(final String langOrPrefix) {
@@ -1976,8 +2042,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector of the <code>:root</code> pseudo-class,
-		 * represents an element that is the root of the document.
+		 * Return a selector of the <code>:root</code> pseudo-class, represents
+		 * an element that is the root of the document.
 		 * <p>
 		 * In HTML 4, this is always the HTML element.
 		 * 
@@ -2015,7 +2081,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching an element if it is the only child of its parent.
+		 * Return a selector matching an element if it is the only child of its
+		 * parent.
 		 * 
 		 * @return the selector
 		 */
@@ -2024,8 +2091,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching an element if it is the only element of this type
-		 * among the children of its parent.
+		 * Return a selector matching an element if it is the only element of
+		 * this type among the children of its parent.
 		 * 
 		 * @return the selector
 		 */
@@ -2034,7 +2101,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching an element if it has no child (even text nodes and so on).
+		 * Return a selector matching an element if it has no child (even text
+		 * nodes and so on).
 		 * 
 		 * @return the selector
 		 */
@@ -2052,8 +2120,8 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching the n-th child of an element.
-		 * This first child has index 1.
+		 * Return a selector matching the n-th child of an element. This first
+		 * child has index 1.
 		 * 
 		 * @param index
 		 *            the n-th index
@@ -2067,10 +2135,12 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching children an element that have <code>a<i>n</i>+b-1</code> siblings before it in the document tree,
+		 * Return a selector matching children an element that have
+		 * <code>a<i>n</i>+b-1</code> siblings before it in the document tree,
 		 * for any positive integer or zero value of <i>n</i> .
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c specs</a>
+		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
@@ -2082,10 +2152,13 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching children elements that has <code>a<i>n</i>+b-1</code> siblings after it in the document tree,
+		 * Return a selector matching children elements that has
+		 * <code>a<i>n</i>+b-1</code> siblings after it in the document tree,
 		 * for any positive integer or zero value of <i>n</i> .
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-last-child-pseudo">w3c specs</a>
+		 * @see <a
+		 *      href="http://www.w3.org/TR/selectors/#nth-last-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
@@ -2097,9 +2170,11 @@ public class Selectors {
 		}
 
 		/**
-		 * Return a selector matching elements that has an+b-1 siblings of the same type.
+		 * Return a selector matching elements that has an+b-1 siblings of the
+		 * same type.
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c specs</a>
+		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
@@ -2113,7 +2188,8 @@ public class Selectors {
 		/**
 		 * Return a selector matching odd sibling elements of the same type.
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c specs</a>
+		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
@@ -2127,7 +2203,8 @@ public class Selectors {
 		/**
 		 * Return a selector matching even sibling elements of the same type.
 		 * 
-		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c specs</a>
+		 * @see <a href="http://www.w3.org/TR/selectors/#nth-child-pseudo">w3c
+		 *      specs</a>
 		 * @param a
 		 *            a positive, negative or zero integer
 		 * @param b
