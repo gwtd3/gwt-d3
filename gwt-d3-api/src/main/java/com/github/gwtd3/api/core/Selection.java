@@ -182,11 +182,8 @@ public class Selection extends EnteringSelection {
 	 * Sets the attribute with the specified name to the specified
 	 * {@link PathDataGenerator} value on all selected elements.
 	 * <p>
-	 * <<<<<<< HEAD This method should always been used with a selection
-	 * containing a svg &lt;path&gt; element by specifying "d" for the name
-	 * argument. ======= This method should always been used with a selection
-	 * containing a svg &lt;path&gt; element by specifying "d" for the name
-	 * argument. >>>>>>> colorpalette
+	 * This method should always been used with a selection containing a svg
+	 * &lt;path&gt; element by specifying "d" for the name argument.
 	 * <p>
 	 * The specified name may have a namespace prefix, such as xlink:href, to
 	 * specify an "href" attribute in the XLink namespace. By default, D3
@@ -435,8 +432,109 @@ public class Selection extends EnteringSelection {
 						});
 	}-*/;
 
-	public native final Selection property(String styleName, String value)/*-{
-		throw new UnsupportedOperationException("not yet implemented");
+	// ================ property functions ================
+
+	/**
+	 * This method return the value of the specified property for the first
+	 * non-null element in the selection. This is generally useful only if you
+	 * know that the selection contains exactly one element.
+	 * <p>
+	 * Some HTML elements have special properties that are not addressable using
+	 * standard attributes or styles. For example, form text fields have a value
+	 * string property, and checkboxes have a checked boolean property, and
+	 * underlying element has addressable fields, such as className. This method
+	 * is used to address thoses properties.
+	 * <p>
+	 * 
+	 * @param name
+	 *            the name of the property
+	 * @return the value of the property
+	 */
+	public native final Value property(final String name)/*-{
+		return {
+			datum : this.property(name)
+		};
+	}-*/;
+
+	/**
+	 * Sets the property with the specified name to the specified value on all
+	 * selected elements.
+	 * <p>
+	 * Some HTML elements have special properties that are not addressable using
+	 * standard attributes or styles. For example, form text fields have a value
+	 * string property, and checkboxes have a checked boolean property, and
+	 * underlying element has addressable fields, such as className. This method
+	 * is used to address thoses properties.
+	 * <p>
+	 * A null value will remove the specified property.
+	 * <p>
+	 * 
+	 * @param name
+	 *            the name of the attribute
+	 * @param value
+	 *            the new value to assign, or null to remove the attribute
+	 * @return the current selection
+	 */
+	public native final <T> Selection property(final String name, String value)
+	/*-{
+		return this.attr(name, value);
+	}-*/;
+
+	/**
+	 * See {@link #property(String, String)}.
+	 * 
+	 * @param name
+	 *            the name of the property
+	 * @param value
+	 *            the value
+	 * @return the selection
+	 */
+	public native final Selection property(final String name, double value)
+	/*-{
+		return this.property(name, value);
+	}-*/;
+
+	/**
+	 * See {@link #property(String, String)}.
+	 * 
+	 * @param name
+	 *            the name of the property
+	 * @param value
+	 *            the value
+	 * @return the selection
+	 */
+	public native final <T> Selection property(final String name, boolean value)/*-{
+		return this.property(name, value);
+	}-*/;
+
+	/**
+	 * Sets the property with the specified name to the value returned by the
+	 * specified function on all selected elements.
+	 * <p>
+	 * The function is evaluated for each selected element (in order), being
+	 * passed the current datum d and the current index i. The function's return
+	 * value is then used to set each element's attribute. A null value will
+	 * remove the specified attribute.
+	 * <p>
+	 * The specified name may have a namespace prefix, such as xlink:href, to
+	 * specify an "href" attribute in the XLink namespace. By default, D3
+	 * supports svg, xhtml, xlink, xml, and xmlns namespaces. Additional
+	 * namespaces can be registered by adding to d3.ns.prefix.
+	 * 
+	 * @param name
+	 *            the name of the attribute
+	 * @param callback
+	 *            the function used to compute the new value of the attribute
+	 * @return the current selection
+	 */
+	public native final Selection property(final String name, final DatumFunction<?> callback)
+	/*-{
+		return this
+				.attr(
+						name,
+						function(d, i) {
+							return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+						});
 	}-*/;
 
 	/**

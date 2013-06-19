@@ -33,6 +33,7 @@ package com.github.gwtd3.demo.client.test;
 
 import junit.framework.Assert;
 
+import com.github.gwtd3.api.core.Value;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -66,12 +67,16 @@ public abstract class AbstractTestCase extends Assert implements TestCase {
 		return getElement(index).getStyle().getProperty(style);
 	}
 
+	protected Value getElementProperty(int index, String property) {
+		return Value.create(getElement(index), property);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.github.gwtd3.demo.client.tests.UnitTest#tearDown(com.google.gwt.user.client
-	 * .ui .RootPanel)
+	 * com.github.gwtd3.demo.client.tests.UnitTest#tearDown(com.google.gwt.user
+	 * .client .ui .RootPanel)
 	 */
 	@Override
 	public void tearDown(final ComplexPanel sandbox) {
@@ -87,8 +92,8 @@ public abstract class AbstractTestCase extends Assert implements TestCase {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.github.gwtd3.demo.client.tests.UnitTest#setUp(com.google.gwt.user.client
-	 * .ui.RootPanel )
+	 * com.github.gwtd3.demo.client.tests.UnitTest#setUp(com.google.gwt.user
+	 * .client .ui.RootPanel )
 	 */
 	@Override
 	public void setUp(final ComplexPanel sandbox) {

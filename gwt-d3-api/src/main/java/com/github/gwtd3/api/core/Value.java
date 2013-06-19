@@ -42,6 +42,33 @@ public class Value extends JavaScriptObject {
 	}
 
 	/**
+	 * Wraps the given object into a {@link Value}.
+	 * 
+	 * @param o
+	 *            the object to be wrapped as a Value
+	 * @return the value
+	 */
+	public static final native Value create(Object o)/*-{
+		return {
+			datum : o
+		};
+	}-*/;
+
+	/**
+	 * Create a {@link Value} instance from the value of the named property of
+	 * the given object.
+	 * 
+	 * @param object
+	 * @param propertyName
+	 * @return
+	 */
+	public static final native Value create(JavaScriptObject object, String propertyName)/*-{
+		return {
+			datum : object[propertyName]
+		};
+	}-*/;
+
+	/**
 	 * Cast and return the datum.
 	 * <p>
 	 * 

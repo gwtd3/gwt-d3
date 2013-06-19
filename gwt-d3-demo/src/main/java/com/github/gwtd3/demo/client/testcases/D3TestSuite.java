@@ -49,6 +49,7 @@ import com.github.gwtd3.demo.client.testcases.selection.TestSelectionAttr;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionClassed;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionControls;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionData;
+import com.github.gwtd3.demo.client.testcases.selection.TestSelectionProperty;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionStyle;
 import com.github.gwtd3.demo.client.testcases.svg.TestArc;
 import com.github.gwtd3.demo.client.testcases.svg.TestArea;
@@ -78,7 +79,7 @@ public class D3TestSuite {
 				new TestD3(), new TestColors(), new TestInterpolators(),
 				// selections
 				new TestSelectionAttr(), new TestSelectionClassed(),
-				new TestSelectionData(),
+				new TestSelectionData(), new TestSelectionProperty(),
 				new TestSelectionControls(), new TestSelectionStyle(),
 				// scales
 				new TestLinearScale(), new TestThresholdScale(), new TestTimeScale(),
