@@ -42,9 +42,9 @@ public class TestSelectionStyle extends AbstractSelectionTest {
 	/**
 	 * 
 	 */
-	private static final String VALUE = "end";
-	private static final String STYLE_CAMEL = "textAlign";
-	private static final String STYLE_HTML = "text-align";
+	private static final String VALUE = "0.75";
+	private static final String STYLE_CAMEL = "opacity";
+	private static final String STYLE_HTML = "opacity";
 
 	@Override
 	public void doTest(final ComplexPanel sandbox) {
@@ -60,25 +60,25 @@ public class TestSelectionStyle extends AbstractSelectionTest {
 		// works with single selection
 		Selection selection = givenASimpleSelection(new Label());
 		final double value = 0.5;
-		selection.style("opacity", new DatumFunction<Double>() {
+		selection.style(STYLE_HTML, new DatumFunction<Double>() {
 			@Override
 			public Double apply(final Element context, final Datum datum, final int index) {
 				return value;
 			}
 		});
-		assertEquals(value, getElementAttribute(0, "opacity"));
+		assertEquals(Double.toString(value), getElementStyle(0, STYLE_CAMEL));
 
 		// works with multiple selection
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
-		selection2.attr("opacity", new DatumFunction<Double>() {
+		selection2.style(STYLE_HTML, new DatumFunction<Double>() {
 			@Override
 			public Double apply(final Element context, final Datum datum, final int index) {
 				return value;
 			}
 		});
-		assertEquals(value, getElementAttribute(0, "opacity"));
-		assertEquals(value, getElementAttribute(1, "opacity"));
-		assertEquals(value, getElementAttribute(2, "opacity"));
+		assertEquals(Double.toString(value), getElementStyle(0, STYLE_CAMEL));
+		assertEquals(Double.toString(value), getElementStyle(1, STYLE_CAMEL));
+		assertEquals(Double.toString(value), getElementStyle(2, STYLE_CAMEL));
 
 	}
 
@@ -86,32 +86,32 @@ public class TestSelectionStyle extends AbstractSelectionTest {
 		// works with single selection
 		Selection selection = givenASimpleSelection(new Label());
 		final double value = 1.54;
-		selection.style(TestSelectionStyle.STYLE_CAMEL, new DatumFunction<Double>() {
+		selection.style(TestSelectionStyle.STYLE_HTML, new DatumFunction<Double>() {
 			@Override
 			public Double apply(final Element context, final Datum datum, final int index) {
 				return value;
 			}
 		}, true);
-		assertEquals("1.54 !important", getElementAttribute(0, TestSelectionStyle.STYLE_CAMEL));
+		assertEquals("1.54", getElementStyle(0, TestSelectionStyle.STYLE_CAMEL));
 
 		// works with multiple selection
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
-		selection2.attr(TestSelectionStyle.STYLE_CAMEL, new DatumFunction<Double>() {
+		selection2.style(TestSelectionStyle.STYLE_HTML, new DatumFunction<Double>() {
 			@Override
 			public Double apply(final Element context, final Datum datum, final int index) {
 				return value;
 			}
 		});
-		assertEquals("1.54 !important", getElementAttribute(0, TestSelectionStyle.STYLE_CAMEL));
-		assertEquals("1.54 !important", getElementAttribute(1, TestSelectionStyle.STYLE_CAMEL));
-		assertEquals("1.54 !important", getElementAttribute(2, TestSelectionStyle.STYLE_CAMEL));
+		assertEquals("1.54", getElementStyle(0, TestSelectionStyle.STYLE_CAMEL));
+		assertEquals("1.54", getElementStyle(1, TestSelectionStyle.STYLE_CAMEL));
+		assertEquals("1.54", getElementStyle(2, TestSelectionStyle.STYLE_CAMEL));
 
 	}
 
 	protected void testSetterConstantString() {
 		// works with single selection
 		Selection selection = givenASimpleSelection(new Label());
-		String value = "end";
+		String value = "1.54";
 		selection.style(TestSelectionStyle.STYLE_HTML, value);
 		assertEquals(value, getElementStyle(0, TestSelectionStyle.STYLE_CAMEL));
 
@@ -154,7 +154,7 @@ public class TestSelectionStyle extends AbstractSelectionTest {
 				createLabel(TestSelectionStyle.STYLE_CAMEL, "blah"));
 		object = JsoInspector.convertToInspectableObject(selection2.node());
 
-		assertEquals(TestSelectionStyle.VALUE, selection2.attr(TestSelectionStyle.STYLE_HTML));
+		assertEquals(TestSelectionStyle.VALUE, selection2.style(TestSelectionStyle.STYLE_HTML));
 
 	}
 
