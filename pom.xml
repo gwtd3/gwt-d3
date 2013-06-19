@@ -102,6 +102,7 @@
 				<configuration>
 					<header>LICENSE</header>
 					<encoding>UTF-8</encoding>
+					<strictCheck>true</strictCheck>
 				</configuration>
 				<executions>
 					<execution>
