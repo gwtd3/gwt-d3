@@ -29,7 +29,10 @@
 package com.github.gwtd3.demo.client.testcases.selection;
 
 import com.github.gwtd3.api.D3;
+import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.functions.DatumFunction;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Label;
 
@@ -41,7 +44,42 @@ public class TestSelectionControls extends AbstractSelectionTest {
 	public void doTest(final ComplexPanel sandbox) {
 		testEmpty();// 1
 		testNode();// 2
+		testEach();
+		testCount();
+		testCall();
+	}
 
+	/**
+	 * 
+	 */
+	private void testCall() {
+		// TODO: see other use cases of using selection.call-
+		// maybe by providing a SelectionCallback interface with one method call(Selection) ?
+
+	}
+
+	/**
+	 * 
+	 */
+	private void testEach() {
+		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
+		final StringBuilder sb = new StringBuilder();
+		selection.each(new DatumFunction<Void>() {
+			@Override
+			public Void apply(final Element context, final Datum d, final int index) {
+				sb.append(context.getInnerText());
+				return null;
+			}
+		});
+		assertEquals("12", sb.toString());
+	}
+
+	/**
+	 * 
+	 */
+	private void testCount() {
+		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
+		assertEquals(2, selection.count());
 	}
 
 	/**
