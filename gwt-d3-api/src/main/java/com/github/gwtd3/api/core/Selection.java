@@ -498,10 +498,14 @@ public class Selection extends EnteringSelection {
 						});
 	}-*/;
 
+	// ================ text functions ================
+
 	/**
 	 * Returns the value of the text content for the first non-null element in
 	 * the selection. This is generally useful only if you know that the
 	 * selection contains exactly one element.
+	 * <p>
+	 * The text operator is based on the <code>textContent</code> property.
 	 * 
 	 * @return the value of the text property
 	 */
@@ -511,6 +515,7 @@ public class Selection extends EnteringSelection {
 
 	/**
 	 * Sets the text content of all selected elements to the given value.
+	 * A null value will clear the content.
 	 * <p>
 	 * The text operator is based on the textContent property; setting the text content will replace any existing child elements.
 	 * 
@@ -518,28 +523,31 @@ public class Selection extends EnteringSelection {
 	 *            the new text value to set
 	 * @return the current selection
 	 */
-	public native final <T> Selection text(T value)/*-{
+	public native final <T> Selection text(String value)/*-{
 		return this.text(value);
 	}-*/;
 
 	/**
 	 * Sets the text content to the value returned by the specified function on
-	 * all selected elements.
+	 * all selected elements. A null value will clear the content.
 	 * <p>
 	 * The function is evaluated for each selected element (in order), being passed the current datum d and the current index i. The function's return value is then used to set
 	 * each element's text content.
 	 * <p>
+	 * The text operator is based on the textContent property; setting the text content will replace any existing child elements.
 	 * 
 	 * @param callback
 	 *            the function used to compute the new text property
 	 * @return the current selection
 	 */
-	public native final Selection text(final DatumFunction<?> callback) /*-{
+	public native final Selection text(final DatumFunction<String> callback) /*-{
 		return this
 				.text(function(d, i) {
 					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
 				});
 	}-*/;
+
+	// ================ html functions ================
 
 	public native final Selection html(String value)/*-{
 		return this.html(value);

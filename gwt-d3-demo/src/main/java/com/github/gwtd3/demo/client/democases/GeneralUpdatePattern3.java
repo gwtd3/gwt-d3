@@ -42,7 +42,6 @@ import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.resources.client.ClientBundle;
@@ -157,12 +156,13 @@ public class GeneralUpdatePattern3 extends FlowPanel implements DemoCase {
 					}
 				})
 				.style("fill-opacity", 0.01D)
-				.text(new DatumFunction<Character>() {
+				.text(new DatumFunction<String>() {
 					@Override
-					public Character apply(final Element context, final Datum datum, final int index) {
-						return datum.asChar();
+					public String apply(final Element context, final Datum datum, final int index) {
+						return Character.toString(datum.asChar());
 					}
 				})
+
 				.transition()
 				.duration(750)
 				.attr("y", 0)
