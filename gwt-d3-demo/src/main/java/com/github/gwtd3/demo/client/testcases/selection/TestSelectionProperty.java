@@ -28,11 +28,9 @@
  */
 package com.github.gwtd3.demo.client.testcases.selection;
 
-import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
-import com.github.gwtd3.api.svg.PathDataGenerator;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -50,8 +48,35 @@ public class TestSelectionProperty extends AbstractSelectionTest {
 		testSetterConstantBoolean();
 		testSetterConstantDouble();
 		testSetterConstantString();
-		testSetterPathDataGenerator();
+		testSetterConstantJavascriptObject();
 		testSetterFunction();
+		testSetterGetter();
+	}
+
+	/**
+	 * 
+	 */
+	private void testSetterGetter() {
+		// works with single selection
+		Selection selection = givenASimpleSelection(new Label());
+		final double value = 1.56;
+		selection.property(TestSelectionProperty.PROPERTY, new DatumFunction<Double>() {
+			@Override
+			public Double apply(final Element context, final Datum datum, final int index) {
+				return value;
+			}
+		});
+		assertEquals(value, selection.property(TestSelectionProperty.PROPERTY).asDouble());
+
+		// works with multiple selection
+		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
+		selection2.property(TestSelectionProperty.PROPERTY, new DatumFunction<Double>() {
+			@Override
+			public Double apply(final Element context, final Datum datum, final int index) {
+				return value;
+			}
+		});
+		assertEquals(value, selection.property(TestSelectionProperty.PROPERTY).asDouble());
 
 	}
 
@@ -59,41 +84,40 @@ public class TestSelectionProperty extends AbstractSelectionTest {
 		// works with single selection
 		Selection selection = givenASimpleSelection(new Label());
 		final String value = "1";
-		selection.attr(TestSelectionProperty.PROPERTY, new DatumFunction<String>() {
+		selection.property(TestSelectionProperty.PROPERTY, new DatumFunction<String>() {
 			@Override
 			public String apply(final Element context, final Datum datum, final int index) {
 				return value;
 			}
 		});
-		assertEquals(value, getElementAttribute(0, TestSelectionProperty.PROPERTY));
+		assertEquals(value, getElementProperty(0, TestSelectionProperty.PROPERTY).asString());
 
 		// works with multiple selection
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
-		selection2.attr(TestSelectionProperty.PROPERTY, new DatumFunction<String>() {
+		selection2.property(TestSelectionProperty.PROPERTY, new DatumFunction<String>() {
 			@Override
 			public String apply(final Element context, final Datum datum, final int index) {
 				return value;
 			}
 		});
-		assertEquals(value, getElementAttribute(0, TestSelectionProperty.PROPERTY));
-		assertEquals(value, getElementAttribute(1, TestSelectionProperty.PROPERTY));
-		assertEquals(value, getElementAttribute(2, TestSelectionProperty.PROPERTY));
-
+		assertEquals(value, getElementProperty(0, TestSelectionProperty.PROPERTY).asString());
+		assertEquals(value, getElementProperty(1, TestSelectionProperty.PROPERTY).asString());
+		assertEquals(value, getElementProperty(2, TestSelectionProperty.PROPERTY).asString());
 	}
 
 	protected void testSetterConstantString() {
 		// works with single selection
 		Selection selection = givenASimpleSelection(new Label());
 		String value = "1";
-		selection.attr(TestSelectionProperty.PROPERTY, value);
-		assertEquals(value, getElementAttribute(0, TestSelectionProperty.PROPERTY));
+		selection.property(TestSelectionProperty.PROPERTY, value);
+		assertEquals(value, getElementProperty(0, TestSelectionProperty.PROPERTY).asString());
 
 		// works with multiple selection
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
-		selection2.attr(TestSelectionProperty.PROPERTY, value);
-		assertEquals(value, getElementAttribute(0, TestSelectionProperty.PROPERTY));
-		assertEquals(value, getElementAttribute(1, TestSelectionProperty.PROPERTY));
-		assertEquals(value, getElementAttribute(2, TestSelectionProperty.PROPERTY));
+		selection2.property(TestSelectionProperty.PROPERTY, value);
+		assertEquals(value, getElementProperty(0, TestSelectionProperty.PROPERTY).asString());
+		assertEquals(value, getElementProperty(1, TestSelectionProperty.PROPERTY).asString());
+		assertEquals(value, getElementProperty(2, TestSelectionProperty.PROPERTY).asString());
 
 	}
 
@@ -101,41 +125,49 @@ public class TestSelectionProperty extends AbstractSelectionTest {
 		// works with single selection
 		Selection selection = givenASimpleSelection(new Label());
 		double value = 3.56;
-		selection.attr(TestSelectionProperty.PROPERTY, value);
-		assertEquals("3.56", getElementAttribute(0, TestSelectionProperty.PROPERTY));
+		selection.property(TestSelectionProperty.PROPERTY, value);
+		assertEquals(value, getElementProperty(0, TestSelectionProperty.PROPERTY).asDouble());
 
 		// works with multiple selection
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
-		selection2.attr(TestSelectionProperty.PROPERTY, value);
-		assertEquals("3.56", getElementAttribute(0, TestSelectionProperty.PROPERTY));
-		assertEquals("3.56", getElementAttribute(1, TestSelectionProperty.PROPERTY));
-		assertEquals("3.56", getElementAttribute(2, TestSelectionProperty.PROPERTY));
+		selection2.property(TestSelectionProperty.PROPERTY, value);
+		assertEquals(value, getElementProperty(0, TestSelectionProperty.PROPERTY).asDouble());
+		assertEquals(value, getElementProperty(1, TestSelectionProperty.PROPERTY).asDouble());
+		assertEquals(value, getElementProperty(2, TestSelectionProperty.PROPERTY).asDouble());
 	}
 
 	protected void testSetterConstantBoolean() {
 		boolean value = true;
-		String expectedValue = "true";
 		// works with single selection
 		Selection selection = givenASimpleSelection(new Label());
 		selection.property(TestSelectionProperty.PROPERTY, value);
-		assertEquals(expectedValue, getElementProperty(0, TestSelectionProperty.PROPERTY).asString());
-
-	}
-
-	protected void testSetterPathDataGenerator() {
-		PathDataGenerator generator = D3.svg().arc().innerRadius(1).outerRadius(2).startAngle(0).endAngle(2);
-		// works with single selection
-		Selection selection = givenASimpleSelection(new Label());
-		selection.attr(TestSelectionProperty.PROPERTY, generator);
-		String expectedValue = generator.generate(JavaScriptObject.createArray());
-		assertEquals(expectedValue, getElementAttribute(0, TestSelectionProperty.PROPERTY));
+		assertEquals(value, getElementProperty(0, TestSelectionProperty.PROPERTY).asBoolean());
 
 		// works with multiple selection
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
-		selection2.attr(TestSelectionProperty.PROPERTY, generator);
-		assertEquals(expectedValue, getElementAttribute(0, TestSelectionProperty.PROPERTY));
-		assertEquals(expectedValue, getElementAttribute(1, TestSelectionProperty.PROPERTY));
-		assertEquals(expectedValue, getElementAttribute(2, TestSelectionProperty.PROPERTY));
+		selection2.property(TestSelectionProperty.PROPERTY, value);
+		assertEquals(value, getElementProperty(0, TestSelectionProperty.PROPERTY).asBoolean());
+		assertEquals(value, getElementProperty(1, TestSelectionProperty.PROPERTY).asBoolean());
+		assertEquals(value, getElementProperty(2, TestSelectionProperty.PROPERTY).asBoolean());
+
+	}
+
+	protected void testSetterConstantJavascriptObject() {
+		// any object
+		JavaScriptObject value = JavaScriptObject.createArray();
+		// works with single selection
+		Selection selection = givenASimpleSelection(new Label());
+		String propName = "__test__";
+		selection.property(propName, value);
+		assertEquals(value, getElementProperty(0, propName).as());
+
+		// works with multiple selection
+		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
+		selection2.property(propName, value);
+		assertEquals(value, getElementProperty(0, propName).as(Object.class));
+		assertEquals(value, getElementProperty(1, propName).as(Object.class));
+		assertEquals(value, getElementProperty(2, propName).as(Object.class));
+
 	}
 
 	protected void testGetter() {
