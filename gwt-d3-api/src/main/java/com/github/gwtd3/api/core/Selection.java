@@ -549,8 +549,55 @@ public class Selection extends EnteringSelection {
 
 	// ================ html functions ================
 
+	/**
+	 * Sets the inner html content to the value returned by the specified function on
+	 * all selected elements. A null value will clear the content.
+	 * <p>
+	 * The function is evaluated for each selected element (in order), being passed the current datum d and the current index i. The function's return value is then used to set
+	 * each element's inner html content.
+	 * <p>
+	 * The html operator is based on the innerHTML property; setting the inner HTML content will replace any existing child elements. Also, you may prefer to use the
+	 * {@link #append(String)} or {@link #insert(String, String)} operators to create HTML content in a data-driven way; this operator is intended for when you want a little bit of
+	 * HTML, say for rich formatting.
+	 * 
+	 * @param callback
+	 *            the function used to compute the new inner html property
+	 * @return the current selection
+	 */
+	public native final Selection html(final DatumFunction<String> callback) /*-{
+		return this
+				.html(function(d, i) {
+					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
+	}-*/;
+
+	/**
+	 * Sets the inner html content of all selected elements to the specified value.
+	 * A null value will clear the content.
+	 * <p>
+	 * The html operator is based on the innerHTML property; setting the inner HTML content will replace any existing child elements. Also, you may prefer to use the
+	 * {@link #append(String)} or {@link #insert(String, String)} operators to create HTML content in a data-driven way; this operator is intended for when you want a little bit of
+	 * HTML, say for rich formatting.
+	 * 
+	 * @param value
+	 *            the new value to set
+	 * @return the current selection
+	 */
 	public native final Selection html(String value)/*-{
 		return this.html(value);
+	}-*/;
+
+	/**
+	 * Returns the value of the inner HTML content for the first non-null element in
+	 * the selection. This is generally useful only if you know that the
+	 * selection contains exactly one element.
+	 * <p>
+	 * The html operator is based on the <code>innerHTML</code> property.
+	 * 
+	 * @return the value of the text property
+	 */
+	public native final String html()/*-{
+		return this.html();
 	}-*/;
 
 	/**

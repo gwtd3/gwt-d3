@@ -63,6 +63,10 @@ public abstract class AbstractTestCase extends Assert implements TestCase {
 		return getElement(index).getInnerText();
 	}
 
+	public String getElementInnerHtml(final int index) {
+		return getElement(index).getInnerHTML();
+	}
+
 	public String getElementClassAttribute(final int index) {
 		return getElement(index).getClassName();
 	}
