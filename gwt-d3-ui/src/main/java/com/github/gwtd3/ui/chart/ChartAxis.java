@@ -54,8 +54,8 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 
 /**
- * Represents a vertical or horizontal axis in a chart, and consists in a line
- * representing domain values, with a title label, and ticks represented.
+ * Represents a vertical or horizontal axis in a chart, and consists in a line representing domain values, with a title
+ * label, and ticks represented.
  * <p>
  * the default style name is ChartAxis and the default style sheet can be found here:
  * 
@@ -87,19 +87,24 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
      */
     public static enum Direction {
         /**
-         * This is the default value.
-         * For an horizontal axis, indicates values are increasing Left to Right
-         * For a vertical axis, indicates values are increasing from bottom to top.
+         * This is the default value. For an horizontal axis, indicates values are increasing Left to Right For a
+         * vertical axis, indicates values are increasing from bottom to top.
          */
         ASCENDING,
         /**
-         * For an horizontal axis, indicates values are increasing from right to left.
-         * For a vertical axis, indicates the values are increasing from top to bottom.
+         * For an horizontal axis, indicates values are increasing from right to left. For a vertical axis, indicates
+         * the values are increasing from top to bottom.
          */
         DESCENDING;
     }
 
     private int length = DEFAULT_LENGTH;
+
+    private String titleX;
+
+    private String titleY;
+
+    private double titleAngle;
 
     /**
      * Define the styles for the axis.
@@ -167,25 +172,46 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
         // FIXME: put that in the chart
         // t.addStyleName(chart.styles().label(), true);
         // t.addStyleName(chart.styles().axis(), true);
-        t.getElement().getStyle().setProperty("textAnchor", "end");
         if (tickOrientation.isVerticalAxis()) {
             if (tickOrientation == Orientation.RIGHT) {
                 t.transform().translate(-23, 0);
             }
-            t.transform().rotate(-90);
-            t.y("6");
+            titleX = "";
+            titleY = "6";
+            titleAngle = -90;
+
             t.dy(".71em");
-        }
-        else {
+        } else {
             // position under the tick labels...
             if (tickOrientation == Orientation.TOP) {
                 t.transform().translate(length, 18);
             }
+            
+            titleX = "";
+            titleY = "";
+            titleAngle = 0;
             // or at the "end" of the axis?
             // FIXME X label
             // label.classed(chart.styles().x(), true);
         }
         return t;
+    }
+
+    public ChartAxis<S> titlePosition(String x, String y) {
+        this.titleX = x;
+        this.titleY = y;
+        scheduleRedraw();
+        return this;
+    }
+
+    /**
+     * Set the title rotation angle (in degrees) of the axis title text.
+     * @param angle the angle in degrees
+     */
+    public ChartAxis<S> titleRotation(double angle) {
+        this.titleAngle = angle;
+        scheduleRedraw();
+        return this;
     }
 
     /**
@@ -206,8 +232,7 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
     /**
      * Set the text of the label to be displayed for the axis.
      * 
-     * @param text
-     *            the text to set, null to remove the axis
+     * @param text the text to set, null to remove the axis
      * @return the axis
      */
     public ChartAxis<S> title(final String text) {
@@ -226,8 +251,7 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
     /**
      * Use the given {@link Formatter} to format the tick labels.
      * 
-     * @param formatter
-     *            the d3 formatter
+     * @param formatter the d3 formatter
      * @return the chart
      */
     public ChartAxis<S> formatter(final Formatter formatter) {
@@ -245,8 +269,7 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
     /**
      * Use the given {@link NumberFormat} to format the tick labels.
      * 
-     * @param format
-     *            the formatter to be used
+     * @param format the formatter to be used
      * @return the chart
      */
     public ChartAxis<S> formatter(final NumberFormat format) {
@@ -263,8 +286,7 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
     /**
      * Use the given {@link TimeFormat} to format the tick labels.
      * 
-     * @param format
-     *            the formatter to be used
+     * @param format the formatter to be used
      * @return the chart
      */
     public ChartAxis<S> formatter(final TimeFormat format) {
@@ -278,11 +300,10 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
     }
 
     /**
-     * Use the given {@link DatumFunction} to format tick labels, as specified
-     * in {@link Axis#tickFormat(DatumFunction)}.
+     * Use the given {@link DatumFunction} to format tick labels, as specified in {@link Axis#tickFormat(DatumFunction)}
+     * .
      * 
-     * @param formatFunction
-     *            the format function to be used
+     * @param formatFunction the format function to be used
      * @return the chart
      */
     public ChartAxis<S> formatter(final DatumFunction<String> formatFunction) {
@@ -301,30 +322,32 @@ public class ChartAxis<S extends Scale<S>> extends GContainer {
     @Override
     public void redraw() {
         super.redraw();
+        // FIXME: make title position/orientation more consistent
+        // update title
+        titleLabel.transform().rotate(titleAngle);
+        titleLabel.x(titleX);
+        titleLabel.y(titleY);
+
         // update the range of the scale to fit new size if necessary
         if (tickOrientation.isHorizontalAxis()) {
             // LEFT TO RIGHT orientation
             // TODO: let the user decide "right to left"
             if (direction == Direction.ASCENDING) {
                 model.setPixelRange(0, length);
-            }
-            else {
+            } else {
                 model.setPixelRange(length, 0);
             }
             generator.scale((S) model.scale());
             if (tickOrientation == Orientation.TOP) {
                 titleLabel.transform().removeAll().translate(length, 18);
-            }
-            else {
+            } else {
                 titleLabel.transform().removeAll().translate(length, -6);
             }
-        }
-        else {
+        } else {
             // orientation of the domain ("bottom up")
             if (direction == Direction.ASCENDING) {
                 model.setPixelRange(length, 0);
-            }
-            else {
+            } else {
                 model.setPixelRange(0, length);
             }
             generator.scale((S) model.scale());
