@@ -3,7 +3,7 @@ gwt-d3
 
 GWT wrapper around d3.js.
 
-This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
+This project provides access to the [d3.js API](http://d3js.org/) library for the Java and GWT community.
 
 It is still in a developpement phase. We are paying efforts on covering almost 100% of relevant d3 API.
 
