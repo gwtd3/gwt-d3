@@ -71,6 +71,7 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
     private Styles styles;
 
     /**
+     * .
      * Support for x or y sliding
      */
     private final DragSupport dragSupport = new DragSupport(this.xModel);
