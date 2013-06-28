@@ -66,6 +66,7 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
     private Styles styles;
 
     /**
+     * .
      * FIXME: remove this ugly thing
      * 
      * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
@@ -311,7 +312,7 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
      */
     public int chartHeight() {
         // we add 1 pixel so we can see the line when its value is zero.
-        return getHeight() - margin.top - margin.bottom + 1;
+        return (getHeight() - margin.top - margin.bottom) + 1;
     }
 
     public ChartAxis<? extends Scale<?>> xAxis() {
