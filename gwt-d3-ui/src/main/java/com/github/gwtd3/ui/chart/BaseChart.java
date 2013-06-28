@@ -55,6 +55,11 @@ import com.google.gwt.user.client.Random;
  */
 public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
 
+    protected static final int DEFAULT_TOP_POSITION = 20;
+    protected static final int DEFAULT_BOTTOM_POSITION = 30;
+    protected static final int DEFAULT_LEFT_POSITION = 35;
+    protected static final int DEFAULT_RIGHT_POSITION = 15;
+    
     protected final AxisModel<LinearScale> xModel = AxisModel.createLinear();
 
     protected final AxisModel<LinearScale> yModel = AxisModel.createLinear();
@@ -64,19 +69,6 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
     private ChartAxis<? extends Scale<?>> yAxis;
 
     private Styles styles;
-
-    /**
-     * FIXME: remove this ugly thing
-     * 
-     * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
-     * 
-     */
-    private static class margin {
-        static int top = 20;
-        static int bottom = 30;
-        static int left = 35;
-        static int right = 15;
-    }
 
     /**
      * Support for x or y sliding
@@ -195,7 +187,7 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
         // create G container
         g = new GContainer();
         add(g);
-        g.transform().translate(margin.left, margin.top);
+        g.transform().translate(DEFAULT_LEFT_POSITION, DEFAULT_TOP_POSITION);
 
         // X AXIS
         xAxis = new ChartAxis<LinearScale>(xModel, Orientation.BOTTOM);
@@ -301,7 +293,7 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
      * @return
      */
     public int chartWidth() {
-        return getWidth() - margin.left - margin.right;
+        return getWidth() - DEFAULT_LEFT_POSITION - DEFAULT_RIGHT_POSITION;
     }
 
     /**
@@ -311,7 +303,7 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
      */
     public int chartHeight() {
         // we add 1 pixel so we can see the line when its value is zero.
-        return getHeight() - margin.top - margin.bottom + 1;
+        return getHeight() - DEFAULT_TOP_POSITION - DEFAULT_BOTTOM_POSITION + 1;
     }
 
     public ChartAxis<? extends Scale<?>> xAxis() {
@@ -331,4 +323,14 @@ public class BaseChart<T> extends SVGDocumentContainer implements ChartContext {
         return clipPath;
     }
 
+    /**
+     * Push a translation by x and y to the main container. <br>
+     * The main container contains the x and y axis.
+     * 
+     * @param x position on the x axis
+     * @param y position on the y axis
+     */
+    public void translateMainContainer(int x, int y) {
+        g.transform().removeAll().translate(x, y);
+    }
 }
