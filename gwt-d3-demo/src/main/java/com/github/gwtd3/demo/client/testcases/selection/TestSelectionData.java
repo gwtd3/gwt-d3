@@ -46,7 +46,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class TestSelectionData extends AbstractSelectionTest {
 
 	@Override
-	public void doTest(ComplexPanel sandbox) {
+	public void doTest(final ComplexPanel sandbox) {
 
 		// testNestedSelection();
 	}
@@ -66,7 +66,7 @@ public class TestSelectionData extends AbstractSelectionTest {
 		Array<String> firstLevelData = JsArrays.asJsArray(list);
 		Selection secondLevelDiv = firstLevel.selectAll("div").data(firstLevelData).enter().append("div").text(new DatumFunction<String>() {
 			@Override
-			public String apply(Element context, Datum d, int index) {
+			public String apply(final Element context, final Datum d, final int index) {
 				return d.asString();
 			}
 		});
@@ -75,8 +75,8 @@ public class TestSelectionData extends AbstractSelectionTest {
 		// second level must be joined with a data function
 		UpdateSelection secondLevel = secondLevelDiv.data(new NestedDatumFunction<Array<String>>() {
 			@Override
-			public Array<String> apply(Element context, Value datum, int index, int rowIndex, int squareIndex) {
-				System.out.println(context + " " + datum.asString() + " " + index + " " + rowIndex + " " + squareIndex);
+			public Array<String> apply(final Element context, final Value datum, final int index, final int rowIndex) {
+				System.out.println(context + " " + datum.asString() + " " + index + " " + rowIndex);
 				return JsArrays.asJsArray(Arrays.asList("J", "K", "L"));
 			}
 		});
@@ -88,7 +88,7 @@ public class TestSelectionData extends AbstractSelectionTest {
 		System.out.println("creating thirs level divs");
 		Selection thirdLevelDiv = secondLevel.enter().append("div").text(new DatumFunction<String>() {
 			@Override
-			public String apply(Element context, Datum d, int index) {
+			public String apply(final Element context, final Datum d, final int index) {
 				return d.asString();
 			}
 		});
@@ -97,15 +97,15 @@ public class TestSelectionData extends AbstractSelectionTest {
 		System.out.println("mapping 3rd level divs to leaf data values");
 		thirdLevelDiv.data(new NestedDatumFunction<String>() {
 			@Override
-			public String apply(Element context, Value datum, int index, int rowIndex, int squareIndex) {
-				System.out.println(context + " " + datum.asString() + " " + index + " " + rowIndex + " " + squareIndex);
+			public String apply(final Element context, final Value datum, final int index, final int rowIndex) {
+				System.out.println(context + " " + datum.asString() + " " + index + " " + rowIndex);
 				return datum.asString();
 			}
 		});
 		System.out.println(panel.toString());
 		thirdLevelDiv.attr("name", new DatumFunction<String>() {
 			@Override
-			public String apply(Element context, Datum d, int index) {
+			public String apply(final Element context, final Datum d, final int index) {
 				return d.asString();
 			}
 		});

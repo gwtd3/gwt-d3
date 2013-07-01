@@ -31,6 +31,8 @@
  */
 package com.github.gwtd3.api;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -68,6 +70,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.WidgetCollection;
 
 /**
  * Entry point for D3 api modules. A lot of methods of this class allow access
@@ -114,7 +117,7 @@ public class D3 extends JavaScriptObject {
 		return $wnd.d3.version;
 	}-*/;
 
-	// =========== selections ==============
+	// =========== select ==============
 	/**
 	 * Selects the first element that matches the specified selector string,
 	 * returning a single-element selection. If no elements in the current
@@ -157,6 +160,7 @@ public class D3 extends JavaScriptObject {
 		return select(widget.getElement());
 	}
 
+	// ================ selectAll ================
 	/**
 	 * Selects all elements that match the specified selector. The elements will
 	 * be selected in document traversal order (top-to-bottom). If no elements
@@ -171,18 +175,79 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Selects the specified array of elements. This is useful if you already
-	 * have a reference to nodes, such as d3.selectAll(this.childNodes) within
-	 * an event listener, or a global such as document.links. The nodes argument
-	 * doesn't have to be an array, exactly; any pseudo-array that can be
-	 * coerced into an array (e.g., a NodeList or arguments) will work.
+	 * Selects the list of elements.
 	 * 
 	 * @param nodes
-	 * @return
+	 *            the elements
+	 * @return the selection
 	 */
 	public static final native Selection selectAll(NodeList<?> nodes)/*-{
 		return $wnd.d3.selectAll(nodes);
 	}-*/;
+
+	/**
+	 * Selects the specified array of elements.
+	 * 
+	 * @param nodes
+	 *            the elements
+	 * @return the selection
+	 */
+	public static final native Selection selectAll(Array<Element> nodes)/*-{
+		return $wnd.d3.selectAll(nodes);
+	}-*/;
+
+	/**
+	 * Selects the specified array of elements.
+	 * 
+	 * @param nodes
+	 *            the elements
+	 * @return the selection
+	 */
+	public static final Selection selectAll(final Element... nodes) {
+		return selectAll(JsArrays.asJsArray(nodes));
+	}
+
+	/**
+	 * Selects the specified collection of elements.
+	 * 
+	 * @param nodes
+	 *            the elements
+	 * @return the selection
+	 */
+	public static final Selection selectAll(final Collection<Element> nodes) {
+		return selectAll(JsArrays.asJsArray(nodes));
+	}
+
+	/**
+	 * Selects the elements corresponding to the root elements of the widgets
+	 * in the specified array.
+	 * 
+	 * @param nodes
+	 *            the elements
+	 * @return the selection
+	 */
+	public static final Selection selectAll(final Widget... nodes) {
+		List<Element> elements = new ArrayList<Element>();
+		for (Widget widget : nodes) {
+			elements.add(widget.getElement());
+		}
+		return selectAll(elements);
+	}
+
+	/**
+	 * Selects the specified collection of elements.
+	 * 
+	 * @param nodes
+	 *            the elements
+	 * @return the selection
+	 */
+	public static final Selection selectAll(final WidgetCollection widgets) {
+		List<Element> elements = new ArrayList<Element>();
+		for (Widget widget : widgets) {
+			elements.add(widget.getElement());
+		}
+		return selectAll(elements);
+	}
 
 	// =========== shuffle ==============
 

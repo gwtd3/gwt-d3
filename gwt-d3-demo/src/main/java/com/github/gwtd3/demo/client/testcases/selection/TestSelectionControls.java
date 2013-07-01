@@ -53,7 +53,7 @@ public class TestSelectionControls extends AbstractSelectionTest {
 	 * 
 	 */
 	private void testCall() {
-		// TODO: see other use cases of using selection.call-
+		// nothing to test before any other use cases of using selection.call-
 		// maybe by providing a SelectionCallback interface with one method call(Selection) ?
 
 	}
@@ -79,7 +79,7 @@ public class TestSelectionControls extends AbstractSelectionTest {
 	 */
 	private void testCount() {
 		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
-		assertEquals(2, selection.count());
+		assertEquals(2, selection.nodeCount());
 	}
 
 	/**

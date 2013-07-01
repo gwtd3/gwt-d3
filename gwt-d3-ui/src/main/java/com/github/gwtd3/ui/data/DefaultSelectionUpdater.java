@@ -87,7 +87,7 @@ public abstract class DefaultSelectionUpdater<T> implements SelectionUpdater<T> 
     }
 
     public static final void debugSelection(final String message, final Selection selection) {
-        System.out.println(message + ": " + selection.count());
+        System.out.println(message + ": " + selection.nodeCount());
     }
 
 }
