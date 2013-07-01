@@ -60,11 +60,33 @@ import com.google.gwt.dom.client.Element;
  * subselections, so that you may add or remove elements in response to changes in data.
  * <p>
  * You won't generally need to use for loops or recursive functions to modify the document with D3. That's because you operate on entire selections at once, rather than looping
- * over individual elements. TODO: However, you can still loop over elements manually if you wish: there's an each operator which invokes an arbitrary function, and selections are
- * arrays, so elements can be accessed directly (e.g., selection[0][0]).
+ * over individual elements. However, you can still loop over elements manually if you wish: there's an {@link #each(DatumFunction)} operator which invokes an arbitrary function,
+ * and (TODO) selections are arrays, so elements can be accessed directly (e.g., selection[0][0]).
  * <p>
  * D3 supports method chaining for brevity when applying multiple operators: the operator return value is the selection.
  * <p>
+ * <h1>Creating selections</h1>
+ * D3 provides two top-level methods for selecting elements: {@link D3#select(String)} and {@link D3#selectAll(String)}. These methods accept selector strings; the former selects
+ * only the first matching element, while the latter selects all matching elements in document traversal order. There are also variant of these methods which accept nodes, which is
+ * useful to integrate with GWT {@link Element} API.
+ * <p>
+ * <h1>Operating on selections</h1>
+ * Selections are arrays of elements—literally. D3 binds additional methods to the array so that you can apply operators to the selected elements, such as setting an attribute on
+ * all the selected elements. One nuance is that selections are grouped: rather than a one-dimensional array, each selection is an array of arrays of elements. This preserves the
+ * hierarchical structure of subselections. Most of the time, you can ignore this detail, but that's why a single-element selection looks like [[node]] rather than [node]. For more
+ * on nested selections, see Nested Selections.
+ * <p>
+ * If you want to learn how selections work, try selecting elements interactively using your browser's developer console. You can inspect the returned array to see which elements
+ * were selected, and how they are grouped. You can also then apply operators to the selected elements and see how the page content changes.
+ * <p>
+ * <h1>Subselections</h1>
+ * Whereas the top-level {@link D3#select(String)} methods query the entire document, a selection's {@link #select(String)} and {@link #selectAll(String)} operators restrict
+ * queries to descendants of each selected element; we call this "subselection". For example, d3.selectAll("p").select("b") returns the first bold ("b") elements in every paragraph
+ * ("p") element. Subselecting via {@link #selectAll(String)} groups elements by ancestor. Thus, d3.selectAll("p").selectAll("b") groups by paragraph, while d3.selectAll("p b")
+ * returns a flat selection. Subselecting via select is similar, but preserves groups and propagates data. Grouping plays an important role in the data join, and functional
+ * operators may depend on the numeric index of the current element within its group.
+ * 
+ * 
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
@@ -100,12 +122,18 @@ public class Selection extends EnteringSelection {
 	 * Grouping by selectAll also affects subsequent entering placeholder nodes. Thus, to specify the parent node when appending entering nodes, use select followed by selectAll:
 	 * <code>
 	 * d3.select("body").selectAll("div") 
-	 * </code> You can see the parent node of each group by inspecting the parentNode property of each group array, such as selection[0].parentNode.
+	 * </code>
+	 * <p>
+	 * You can see the parent node of each group by inspecting the parentNode property of each group array, such as selection[0].parentNode, or by using the
+	 * {@link #parentNode(int)} method.
+	 * <p>
 	 * 
 	 * <p>
 	 * TODO: The selector may also be specified as a function that returns an array of elements (or a NodeList), or the empty array if there are no matching elements. In this case,
 	 * the specified selector is invoked in the same manner as other operator functions, being passed the current datum d and index i, with the this context as the current DOM
 	 * element.
+	 * <p>
+	 * TODO: check this method also work for EnteringSelections and pull it up in that case...
 	 * 
 	 * @param selector
 	 * @return
@@ -602,14 +630,77 @@ public class Selection extends EnteringSelection {
 
 	/**
 	 * Removes the elements in the current selection from the current document.
-	 * Generally speaking, you should stop using selections once you've removed
-	 * them, because there's not currently a way to add them back to the
-	 * document. (See the {@link #append(String)} and {@link #insert(String,String)} operators above for details.)
+	 * Returns the current selection (the same elements that were removed) which are now “off-screen”, detached from the DOM.
+	 * Note that there is not currently a dedicated API to add removed elements back to the document;
+	 * however, you can pass a function to selection.each or selection.select to re-add elements.
+	 * <p>
+	 * The elements are removed from the DOM but still remains in the selection.
+	 * <p>
 	 * 
-	 * @return the current selection
+	 * @see <a href="https://github.com/mbostock/d3/issues/1342">that issue</a> for more information.
+	 *      <p>
+	 * 
+	 * @return the current selection containing only the removed elements
 	 */
 	public native final Selection remove()/*-{
 		return this.remove();
+	}-*/;
+
+	// ================ controls functions ================
+
+	/**
+	 * Return the number of elements in the current selection.
+	 * 
+	 * @return the number of elements
+	 */
+	public final int nodeCount() {
+		CountFunction function = new CountFunction();
+		each(function);
+		return function.getCount();
+	}
+
+	protected static class CountFunction implements DatumFunction<Void> {
+		private int count = 0;
+
+		@Override
+		public Void apply(final Element context, final Datum d, final int index) {
+			count++;
+			return null;
+		}
+
+		public int getCount() {
+			return count;
+		}
+	}
+
+	/**
+	 * Invokes the specified function for each element in the current selection,
+	 * passing in the current datum d and index i.
+	 * <p>
+	 * This operator is used internally by nearly every other operator, and can be used to invoke arbitrary code for each selected element.
+	 * <p>
+	 * The each operator can be used to process selections recursively, by using d3.select(context) within the callback function.
+	 * 
+	 * @param func
+	 *            the callback function
+	 * @return the current selection
+	 */
+	public native final Selection each(DatumFunction<Void> func) /*-{
+		return this
+				.each(function(d, i) {
+					func.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
+	}-*/;
+
+	/**
+	 * Invokes the specified function once, passing in the current selection as
+	 * a single parameter.
+	 * 
+	 * @param jsFunction
+	 * @return the current selection
+	 */
+	public native final Selection call(IsFunction jsFunction) /*-{
+		return this.call(jsFunction);
 	}-*/;
 
 	// ================================ data functions ========
@@ -717,7 +808,7 @@ public class Selection extends EnteringSelection {
 					if (k == undefined) {
 						k = -1;
 					}
-					return callback.@com.github.gwtd3.api.functions.NestedDatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;III)(this,{datum:d},i,j,k);
+					return callback.@com.github.gwtd3.api.functions.NestedDatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;II)(this,{datum:d},i,j);
 				});
 	}-*/;
 
@@ -747,31 +838,6 @@ public class Selection extends EnteringSelection {
 	 */
 	public native final Transition transition()/*-{
 		return this.transition();
-	}-*/;
-
-	/**
-	 * Invokes the specified function once, passing in the current selection as
-	 * a single parameter.
-	 * 
-	 * @param jsFunction
-	 * @return the current selection
-	 */
-	public native final Selection each(DatumFunction<Void> listener) /*-{
-		return this
-				.each(function(d, i) {
-					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
-				});
-	}-*/;
-
-	/**
-	 * Invokes the specified function once, passing in the current selection as
-	 * a single parameter.
-	 * 
-	 * @param jsFunction
-	 * @return the current selection
-	 */
-	public native final Selection call(IsFunction jsFunction) /*-{
-		return this.call(jsFunction);
 	}-*/;
 
 	/**
@@ -833,28 +899,4 @@ public class Selection extends EnteringSelection {
 		return this.on(eventType, l, useCapture);
 	}-*/;
 
-	/**
-	 * Return the number of elements in the current selection.
-	 * 
-	 * @return the number of elements
-	 */
-	public final int count() {
-		CountFunction function = new CountFunction();
-		each(function);
-		return function.getCount();
-	}
-
-	protected static class CountFunction implements DatumFunction<Void> {
-		private int count = 0;
-
-		@Override
-		public Void apply(final Element context, final Datum d, final int index) {
-			count++;
-			return null;
-		}
-
-		public int getCount() {
-			return count;
-		}
-	}
 }
