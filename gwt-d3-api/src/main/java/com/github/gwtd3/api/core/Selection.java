@@ -815,19 +815,64 @@ public class Selection extends EnteringSelection {
 	}-*/;
 
 	/**
-	 * Sets the element's bound data to the specified value on all selected
-	 * elements. Unlike the {@link #data} methods, this method does not compute
-	 * a join (and thus does not compute enter and exit selections).
+	 * Sets the bound data to the specified value on all selected
+	 * elements.
+	 * <p>
+	 * Unlike the {@link #data} methods, this method does not compute a join (and thus does not compute enter and exit selections). This method is implemented on top of
+	 * {@link #property(String)}.
+	 * <p>
+	 * All elements in the selection are given the same data.
+	 * <p>
+	 * A null value will delete the bound data. This operator has no effect on the index.
+	 * <p>
+	 * See <a href="https://github.com/mbostock/d3/wiki/Selections#wiki-datum">datum </a>
 	 * 
-	 * See <a
-	 * href="https://github.com/mbostock/d3/wiki/Selections#wiki-datum">datum
-	 * </a>
+	 * @param the
+	 *            function providing the datum
+	 * @return the current selection
+	 */
+	public native final <T> Selection datum(DatumFunction<T> datumFunction)/*-{
+		if (datumFunction == null) {
+			return this.datum(null);
+		}
+		return this
+				.datum(function(d, i) {
+					return datumFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
+	}-*/;
+
+	/**
+	 * Sets the bound data to the specified value on all selected
+	 * elements.
+	 * <p>
+	 * Unlike the {@link #data} methods, this method does not compute a join (and thus does not compute enter and exit selections). This method is implemented on top of
+	 * {@link #property(String)}.
+	 * <p>
+	 * All elements in the selection are given the same data.
+	 * <p>
+	 * A null value will delete the bound data. This operator has no effect on the index.
+	 * <p>
+	 * See <a href="https://github.com/mbostock/d3/wiki/Selections#wiki-datum">datum </a>
 	 * 
 	 * @param object
-	 * @return
+	 *            the datum
+	 * @return the current selection
 	 */
-	public native final <T> Selection datum(T object)/*-{
+	public native final Selection datum(Object object)/*-{
 		return this.datum(object);
+	}-*/;
+
+	/**
+	 * Returns the bound datum for the first non-null element in the selection.
+	 * <p>
+	 * This is generally useful only if you know the selection contains exactly one element.
+	 * 
+	 * @return the datum of the first non null element
+	 */
+	public native final Value datum()/*-{
+		return {
+			datum : this.datum()
+		};
 	}-*/;
 
 	/**

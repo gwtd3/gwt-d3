@@ -51,10 +51,78 @@ public class TestSelectionData extends AbstractSelectionTest {
 	public void doTest(final ComplexPanel sandbox) {
 
 		// testNestedSelection();
+		testSelectionDatumGetter();
+		testSelectionDatumSetterConstant();
+		testSelectionDatumSetterFunction();
 		testSelectionFilterString();
 		testSelectionFilterFunction();
 		testSelectionSort();
 		testSelectionOrder();
+	}
+
+	/**
+	 * 
+	 */
+	private void testSelectionDatumSetterFunction() {
+		// GIVEN a multiple selection
+		Selection selection = givenAMultipleSelection(new Label(), new Label(), new Label());
+		// WHEN I call selection.datum() with a function depending on the index
+		selection.datum(new DatumFunction<Double>() {
+			@Override
+			public Double apply(final Element context, final Datum d, final int index) {
+				return (index % 2) == 0 ? 5.0 : 2.0;
+			}
+		});
+		// THEN each element has a the corresponding data
+		selection.each(new DatumFunction<Void>() {
+			@Override
+			public Void apply(final Element context, final Datum d, final int index) {
+				assertEquals(((index % 2) == 0) ? 5.0 : 2.0, d.asDouble());
+				return null;
+			}
+		});
+	}
+
+	/**
+	 * 
+	 */
+	private void testSelectionDatumSetterConstant() {
+		// GIVEN a multiple selection
+		Selection selection = givenAMultipleSelection(new Label(), new Label(), new Label());
+		// WHEN I call selection.datum() with a constant "blah"
+		selection.datum("blah");
+		// THEN all data has a datum of "blah"
+		selection.each(new DatumFunction<Void>() {
+			@Override
+			public Void apply(final Element context, final Datum d, final int index) {
+				assertEquals("blah", d.asString());
+				return null;
+			}
+		});
+		// WHEN I call selection.datum() with a constant NULL
+		selection.datum(null);
+		// THEN all elements has a null data
+		selection.each(new DatumFunction<Void>() {
+			@Override
+			public Void apply(final Element context, final Datum d, final int index) {
+				assertNull(d.asString());
+				return null;
+			}
+		});
+	}
+
+	/**
+	 * 
+	 */
+	private void testSelectionDatumGetter() {
+		// GIVEN a multiple selection with data join
+		Selection selection = givenAMultipleSelection(new Label(), new Label(), new Label());
+		selection.data(Arrays.asList("54", "2", "10"));
+		// WHEN I call selection.datum()
+		Value v = selection.datum();
+		// THEN I get the datum of the first non null elemenet
+		assertEquals("54", v.asString());
+
 	}
 
 	/**
