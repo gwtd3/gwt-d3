@@ -31,11 +31,13 @@
  */
 package com.github.gwtd3.api.core;
 
+import java.util.Comparator;
 import java.util.List;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.JsArrays;
+import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
 import com.github.gwtd3.api.functions.NestedDatumFunction;
@@ -826,6 +828,66 @@ public class Selection extends EnteringSelection {
 	 */
 	public native final <T> Selection datum(T object)/*-{
 		return this.datum(object);
+	}-*/;
+
+	/**
+	 * Filters the selection, returning a new selection that contains only the elements for which the specified selector is true.
+	 * Like the built-in array filter method, the returned selection does not preserve the index of the original selection;
+	 * it returns a copy with elements removed.
+	 * <p>
+	 * 
+	 * @param selector
+	 *            the CSS3 selector to be used as a filter
+	 * @return a new selection containing the filtered elements
+	 */
+	public native final Selection filter(String selector)/*-{
+		return this.filter(selector);
+	}-*/;
+
+	/**
+	 * Filters the selection, returning a new selection that contains only the elements returned by the given function.
+	 * <p>
+	 * The given function is called for each element in the current selection, with the datum corresponding to the current element. Like the built-in array filter method, the
+	 * returned selection does not preserve the index of the original selection; it returns a copy with elements removed.
+	 * <p>
+	 * 
+	 * @param datumFunction
+	 *            the function to be used as a filter
+	 * @return a new selection containing the filtered elements
+	 */
+	public native final Selection filter(final DatumFunction<Element> datumFunction)/*-{
+		return this
+				.filter(function(d, i) {
+					return datumFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+				});
+	}-*/;
+
+	/**
+	 * Sorts the elements in the current selection according to the specified comparator function.
+	 * <p>
+	 * The comparator function is passed two data elements a and b to compare, returning either a negative, positive, or zero value. If negative, then a should be before b; if
+	 * positive, then a should be after b; otherwise, a and b are considered equal and the order is arbitrary.
+	 * <p>
+	 * Note that the sort is not guaranteed to be stable; however, it is guaranteed to have the same behavior as your browser's built-in {@link Array#sort} method on arrays.
+	 * <p>
+	 * 
+	 * @param comparator
+	 *            the comparator to be used
+	 */
+	public native final Selection sort(final Comparator<Datum> comparator)/*-{
+		return this
+				.sort(function(o1, o2) {
+					return comparator.@java.util.Comparator::compare(Ljava/lang/Object;Ljava/lang/Object;)({datum:o1},{datum:o2});
+				});
+	}-*/;
+
+	/**
+	 * Re-inserts elements into the document such that the document order matches the selection order.
+	 * <p>
+	 * This is equivalent to calling sort() if the data is already sorted, but much faster.
+	 */
+	public native final Selection order()/*-{
+		return this.order();
 	}-*/;
 
 	// ==================== TRANSITION =======

@@ -29,6 +29,7 @@
 package com.github.gwtd3.demo.client.testcases.selection;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import com.github.gwtd3.api.JsArrays;
@@ -42,6 +43,7 @@ import com.github.gwtd3.api.functions.NestedDatumFunction;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 
 public class TestSelectionData extends AbstractSelectionTest {
 
@@ -49,6 +51,98 @@ public class TestSelectionData extends AbstractSelectionTest {
 	public void doTest(final ComplexPanel sandbox) {
 
 		// testNestedSelection();
+		testSelectionFilterString();
+		testSelectionFilterFunction();
+		testSelectionSort();
+		testSelectionOrder();
+	}
+
+	/**
+	 * 
+	 */
+	private void testSelectionFilterFunction() {
+		// GIVEN a selection with n elements
+		Selection selection = givenAMultipleSelection(new Label("0"), new Label("1"), new Label("2"));
+		assertEquals(3, selection.nodeCount());
+		// WHEN i call filter(":nth-child(odd)")
+		Selection filtered = selection.filter(new DatumFunction<Element>() {
+			@Override
+			public Element apply(final Element context, final Datum d, final int index) {
+				return (index % 2) == 0 ? context : null;
+			}
+		});
+		// THEN the returned selection contains 2 elements (css is 1-based index)
+		assertEquals(2, filtered.nodeCount());
+		assertEquals("0", filtered.node().getInnerText());
+		assertEquals(3, selection.nodeCount());
+	}
+
+	/**
+	 * 
+	 */
+	private void testSelectionFilterString() {
+		// GIVEN a selection with n elements
+		Selection selection = givenAMultipleSelection(new Label("0"), new Label("1"), new Label("2"));
+		assertEquals(3, selection.nodeCount());
+		// WHEN i call filter(":nth-child(odd)")
+		Selection filtered = selection.filter(":nth-child(odd)");
+		// THEN the returned selection contains 2 elements (css is 1-based index)
+		assertEquals(2, filtered.nodeCount());
+		assertEquals("0", filtered.node().getInnerText());
+		assertEquals(3, selection.nodeCount());
+	}
+
+	/**
+	 * 
+	 */
+	private void testSelectionSort() {
+		// GIVEN a selection with elements ordered differently than in the DOM
+		Label l1 = new Label("blah2"), l2 = new Label("blah1");
+		Selection selection = givenAMultipleSelection(l1, l2);
+		assertEquals("blah2", selection.asElementArray().get(0).get(0).getInnerText());
+		assertEquals("blah1", selection.asElementArray().get(0).get(1).getInnerText());
+		assertEquals("blah2", ((Element) sandbox.getElement().getChild(0)).getInnerText());
+		assertEquals("blah1", ((Element) sandbox.getElement().getChild(1)).getInnerText());
+		// bind integers 1 and 2 on the elements
+		selection.data(Arrays.asList(2, 1));
+		// WHEN calling selection.order
+		selection = selection.sort(new Comparator<Datum>() {
+			@Override
+			public int compare(final Datum o1, final Datum o2) {
+				Integer d1 = o1.<Integer> as();
+				Integer d2 = o2.<Integer> as();
+				System.out.println("sorting: " + d1 + " " + d2);
+				return d1.compareTo(d2);
+			}
+		});
+		// THEN the elements are reordered in the DOM in the order of the selection
+		assertEquals("blah1", selection.asElementArray().get(0).get(0).getInnerText());
+		assertEquals("blah2", selection.asElementArray().get(0).get(1).getInnerText());
+		assertEquals("blah1", ((Element) sandbox.getElement().getChild(0)).getInnerText());
+		assertEquals("blah2", ((Element) sandbox.getElement().getChild(1)).getInnerText());
+	}
+
+	/**
+	 * 
+	 */
+	private void testSelectionOrder() {
+		// GIVEN a selection with elements ordered differently than in the DOM
+		Label l1 = new Label("blah1"), l2 = new Label("blah2");
+		Selection selection = givenAMultipleSelection(l1, l2);
+		sandbox.remove(l1);
+		sandbox.add(l1);
+		assertEquals("blah1", selection.asElementArray().get(0).get(0).getInnerText());
+		assertEquals("blah2", selection.asElementArray().get(0).get(1).getInnerText());
+		assertEquals("blah2", ((Element) sandbox.getElement().getChild(0)).getInnerText());
+		assertEquals("blah1", ((Element) sandbox.getElement().getChild(1)).getInnerText());
+		// WHEN calling selection.order
+		selection.order();
+		// THEN the elements are reordered in the DOM in the order of the selection
+		assertEquals("blah1", selection.asElementArray().get(0).get(0).getInnerText());
+		assertEquals("blah2", selection.asElementArray().get(0).get(1).getInnerText());
+		assertEquals("blah1", ((Element) sandbox.getElement().getChild(0)).getInnerText());
+		assertEquals("blah2", ((Element) sandbox.getElement().getChild(1)).getInnerText());
+
 	}
 
 	private void testNestedSelection() {
