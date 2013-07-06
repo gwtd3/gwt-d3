@@ -51,11 +51,11 @@ public class TestSelectionContents extends AbstractSelectionTest {
 		assertEquals(3, sandbox.getWidgetCount());
 		// we gonna insert sub elements into the divs
 		Selection insertedElements = selection.insert("blah", "*");
-		assertEquals(3, insertedElements.nodeCount());
+		assertEquals(3, insertedElements.size());
 		assertEquals(1, selection.node().getChildCount());
 		insertedElements.remove();
 		// there is still off screen elements in the selection
-		assertEquals(3, insertedElements.nodeCount());
+		assertEquals(3, insertedElements.size());
 		assertEquals(0, selection.node().getChildCount());
 
 		// GIVEN 3 divs, the last div is a blahblah class
@@ -64,7 +64,7 @@ public class TestSelectionContents extends AbstractSelectionTest {
 			selection = D3.select(sandbox).append("div");
 		}
 		selection.classed("blahblah", true);
-		assertEquals(1, selection.nodeCount());
+		assertEquals(1, selection.size());
 		assertEquals(3, sandbox.getElement().getChildCount());
 		// WHEN I remove the blahblah div from the selection
 		selection = D3.select(sandbox).selectAll(".blahblah");
@@ -72,7 +72,7 @@ public class TestSelectionContents extends AbstractSelectionTest {
 		// THEN it remove from the DOM
 		assertEquals(2, sandbox.getElement().getChildCount());
 		// BUT remains in the selection
-		assertEquals(1, selection.nodeCount());
+		assertEquals(1, selection.size());
 	}
 
 	/**
@@ -80,11 +80,11 @@ public class TestSelectionContents extends AbstractSelectionTest {
 	 */
 	private void testInsert() {
 		Selection selection = givenAMultipleSelection(new Label());
-		assertEquals(1, selection.nodeCount());
+		assertEquals(1, selection.size());
 		assertEquals(0, selection.node().getChildCount());
 		assertEquals("div", selection.node().getTagName().toLowerCase());
 		Selection insertedElements = selection.insert("blah", "*");
-		assertEquals(1, insertedElements.nodeCount());
+		assertEquals(1, insertedElements.size());
 		// the inserted blah nodes has been inserted into the labels div
 		// insert before unexisting element => idem to append
 		assertEquals(selection.node(), insertedElements.node().getParentElement());
@@ -100,22 +100,22 @@ public class TestSelectionContents extends AbstractSelectionTest {
 	 */
 	private void testAppend() {
 		Selection selection = givenAMultipleSelection(new Label(), new Label());
-		assertEquals(2, selection.nodeCount());
+		assertEquals(2, selection.size());
 		assertEquals(sandbox.getElement(), selection.node().getParentElement());
 		Selection selection2 = selection.append("div");
-		assertEquals(2, selection.nodeCount());
+		assertEquals(2, selection.size());
 		assertNotNull(selection.node());
 		assertNotNull(selection2.node());
 		assertEquals(selection.node(), selection2.node().getParentElement());
-		assertEquals(2, selection2.nodeCount());// returned selection contains only the appended nodes
+		assertEquals(2, selection2.size());// returned selection contains only the appended nodes
 		//
 		assertEquals("div", selection2.node().getTagName().toLowerCase());
 
 		// insert before the existing divs
 		Selection selection3 = selection2.append("span");
-		assertEquals(2, selection.nodeCount());
-		assertEquals(2, selection2.nodeCount());
-		assertEquals(2, selection3.nodeCount());
+		assertEquals(2, selection.size());
+		assertEquals(2, selection2.size());
+		assertEquals(2, selection3.size());
 		assertNotNull(selection.node());
 		assertEquals("span", selection3.node().getTagName().toLowerCase());
 		assertEquals(selection2.node(), selection3.node().getParentElement());

@@ -29,7 +29,7 @@
 package com.github.gwtd3.demo.client.testcases.selection;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.dom.client.Element;
@@ -66,7 +66,7 @@ public class TestSelectionControls extends AbstractSelectionTest {
 		final StringBuilder sb = new StringBuilder();
 		selection.each(new DatumFunction<Void>() {
 			@Override
-			public Void apply(final Element context, final Datum d, final int index) {
+			public Void apply(final Element context, final Value d, final int index) {
 				sb.append(context.getInnerText());
 				return null;
 			}
@@ -79,7 +79,7 @@ public class TestSelectionControls extends AbstractSelectionTest {
 	 */
 	private void testCount() {
 		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
-		assertEquals(2, selection.nodeCount());
+		assertEquals(2, selection.size());
 	}
 
 	/**

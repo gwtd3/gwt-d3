@@ -35,7 +35,7 @@ import java.util.Arrays;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.UpdateSelection;
 import com.github.gwtd3.api.functions.DatumFunction;
@@ -135,7 +135,7 @@ public class GeneralUpdatePattern1 extends FlowPanel implements DemoCase {
 				.attr("class", Bundle.INSTANCE.css().enter())
 				.attr("x", new DatumFunction<Integer>() {
 					@Override
-					public Integer apply(final Element context, final Datum datum, final int index) {
+					public Integer apply(final Element context, final Value datum, final int index) {
 						return index * 32;
 					}
 				})
@@ -149,7 +149,7 @@ public class GeneralUpdatePattern1 extends FlowPanel implements DemoCase {
 		// the enter selection will apply to both entering and updating nodes.
 		selection.text(new DatumFunction<String>() {
 			@Override
-			public String apply(final Element context, final Datum datum, final int index) {
+			public String apply(final Element context, final Value datum, final int index) {
 				return Character.toString(datum.asChar());
 			}
 		});

@@ -38,9 +38,9 @@ import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
+import com.github.gwtd3.api.functions.CountFunction;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
-import com.github.gwtd3.api.functions.NestedDatumFunction;
 import com.github.gwtd3.api.svg.PathDataGenerator;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayUtils;
@@ -94,6 +94,11 @@ import com.google.gwt.dom.client.Element;
  * 
  */
 public class Selection extends EnteringSelection {
+
+	/**
+	 * Name of the element property in which D3 stores the datum of an element.
+	 */
+	public static final String DATA_PROPERTY = "__data__";
 
 	protected Selection() {
 	}
@@ -249,7 +254,7 @@ public class Selection extends EnteringSelection {
 				.attr(
 						name,
 						function(d, i) {
-							return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+							return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 						});
 	}-*/;
 
@@ -302,14 +307,25 @@ public class Selection extends EnteringSelection {
 	 * @return
 	 */
 	public native final Selection style(String name, DatumFunction<?> callback) /*-{
-		return this
-				.style(
-						name,
-						function(d, i) {
-							var r = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
-							//alert(r.@java.lang.Object::toString()());
-							return r.@java.lang.Object::toString()();
-						});
+		try {
+			return this
+					.style(
+							name,
+							function(d, i) {
+								try {
+
+									var r = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
+									//r.@java.lang.Object::toString()();
+									return r;
+								} catch (e) {
+									alert(e);
+									return null;
+								}
+							});
+		} catch (e) {
+			alert(e);
+			return null;
+		}
 	}-*/;
 
 	/**
@@ -339,9 +355,9 @@ public class Selection extends EnteringSelection {
 						name,
 						function(d, i) {
 							var r = 
-							callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)
+							callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)
 								(this,{datum:d},i);
-							return r.@java.lang.Object::toString()();
+							return r?r.@java.lang.Object::toString()():null;
 						}, imp);
 	}-*/;
 
@@ -409,7 +425,7 @@ public class Selection extends EnteringSelection {
 				.classed(
 						classNames,
 						function(d, i) {
-							var r = addFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+							var r = addFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 							return r == null ? false
 									: r.@java.lang.Boolean::booleanValue()();
 						});
@@ -524,7 +540,7 @@ public class Selection extends EnteringSelection {
 				.property(
 						name,
 						function(d, i) {
-							return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+							return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 						});
 	}-*/;
 
@@ -573,7 +589,7 @@ public class Selection extends EnteringSelection {
 	public native final Selection text(final DatumFunction<String> callback) /*-{
 		return this
 				.text(function(d, i) {
-					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 
@@ -597,7 +613,7 @@ public class Selection extends EnteringSelection {
 	public native final Selection html(final DatumFunction<String> callback) /*-{
 		return this
 				.html(function(d, i) {
-					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 
@@ -655,24 +671,10 @@ public class Selection extends EnteringSelection {
 	 * 
 	 * @return the number of elements
 	 */
-	public final int nodeCount() {
+	public final int size() {
 		CountFunction function = new CountFunction();
 		each(function);
 		return function.getCount();
-	}
-
-	protected static class CountFunction implements DatumFunction<Void> {
-		private int count = 0;
-
-		@Override
-		public Void apply(final Element context, final Datum d, final int index) {
-			count++;
-			return null;
-		}
-
-		public int getCount() {
-			return count;
-		}
 	}
 
 	/**
@@ -690,7 +692,7 @@ public class Selection extends EnteringSelection {
 	public native final Selection each(DatumFunction<Void> func) /*-{
 		return this
 				.each(function(d, i) {
-					func.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					func.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 
@@ -705,63 +707,53 @@ public class Selection extends EnteringSelection {
 		return this.call(jsFunction);
 	}-*/;
 
-	// ================================ data functions ========
+	// ================================ data getter functions ========
+
 	/**
-	 * Joins the specified array of data with the current selection using the
+	 * Returns the array of data for the first group in the selection.
+	 * <p>
+	 * The length of the returned array will match the length of the first group, and the index of each datum in the returned array will match the corresponding index in the
+	 * selection.
+	 * <p>
+	 * If some of the elements in the selection are null, or if they have no associated data, then the corresponding element in the array will be undefined.
+	 * 
+	 * @return the array of data for the first group in the selection
+	 */
+	public native final <T> Array<T> data()/*-{
+		return this.data();
+	}-*/;
+
+	// ================================ data setter functions with array ========
+
+	/**
+	 * Joins the specified array of values with the current selection using the
 	 * default by-index key mapping.
 	 * <p>
+	 * The specified values must be an array-like structure of data values, such as an array of numbers or objects. Use {@link JsArrayUtils} or {@link JsArrays} to turn your Java
+	 * arrays into Javascript arrays (which has no overhead in prod mode), or use the variant {@link #data} methods.
+	 * <p>
+	 * The by-index key mapping means that the first datum in the array is assigned to the first element in the current selection, the second datum to the second selected element,
+	 * and so on. If you want to control how data is mapped to elements, use the data methods that takes a {@link KeyFunction} parameter, such as
+	 * {@link #data(JavaScriptObject, KeyFunction)}.
+	 * <p>
+	 * The given array specifies data for each group in the selection. Thus, if the selection has multiple groups (such as a {@link D3#selectAll} followed by a
+	 * {@link Selection#selectAll}), and if you want different data for each group, you should rather use the method {@link #data(DatumFunction)}.
+	 * <p>
+	 * When data is assigned to an element, it is stored in the property {@link #DATA_PROPERTY}, thus making the data "sticky" so that the data is available on re-selection.
+	 * <p>
 	 * 
-	 * 
-	 * @param data
-	 *            the data array to map to the selection
-	 * @return
+	 * @param array
+	 *            the values array to map to the selection
+	 * @return the update selection
 	 */
 	public native final UpdateSelection data(JavaScriptObject array)/*-{
 		return this.data(array);
 	}-*/;
 
 	/**
-	 * Same as #data(JavaScriptObject) for an {@link List} of objects.
-	 * 
-	 * @see #data(JavaScriptObject)
-	 * @param data
-	 * @return
-	 */
-	public final UpdateSelection data(final List<?> data) {
-		return this.data(JsArrays.asJsArray(data));
-	}
-
-	/**
-	 * Same as {@link #data(JavaScriptObject, KeyFunction)} for an {@link List} of objects.
-	 * 
-	 * @see #data(JavaScriptObject)
-	 * @param data
-	 *            the data
-	 * @param keyFunction
-	 *            the key function
-	 * @return
-	 */
-	public final UpdateSelection data(final List<?> data, final KeyFunction<?> keyFunction) {
-		return this.data(JsArrays.asJsArray(data), keyFunction);
-	}
-
-	/**
-	 * Joins the specified array of data with the current selection by
-	 * controlling how the data is mapped to the selection's elements.
+	 * Same as {@link #data(JavaScriptObject)} but let the user control how to map data to the selection.
 	 * <p>
-	 * The specified values is an array of data values, such as an array of numbers or objects. Use {@link JsArrayUtils} or {@link JsArrays} to turn your Java arrays into
-	 * Javascript arrays (which has no overhead in prod mode).
-	 * <p>
-	 * The key function is used control how to map data to the selection. See {@link KeyFunction}'s documentation.
-	 * <p>
-	 * When data is assigned to an element, it is stored in the property __data__, thus making the data "sticky" so that the data is available on re-selection.
-	 * <p>
-	 * The values array specifies the data for each group in the selection. Thus, if the selection has multiple groups (such as a d3.selectAll followed by a selection.selectAll),
-	 * then data should be specified as a function that returns an array (assuming that you want different data for each group). For example, you may bind a two-dimensional array
-	 * to an initial selection, and then bind the contained inner arrays to each subselection. The values function in this case is the identity function: it is invoked for each
-	 * group of child elements, being passed the data bound to the parent element, and returns this array of data.
-	 * <p>
-	 * The result of data operator is the {@link UpdateSelection}.
+	 * See {@link KeyFunction}'s documentation.
 	 * <p>
 	 * 
 	 * @param array
@@ -776,43 +768,264 @@ public class Selection extends EnteringSelection {
 				.data(
 						array,
 						function(d, i) {
-							var thisArg = this;
+							var ctxEl, newDataArray = null;
 							if (this == array) {
-								thisArg = null;
+								newDataArray = this;
+							} else {
+								ctxEl = this;
 							}
-							return keyFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(thisArg,{datum:d},i);
+							return keyFunction.@com.github.gwtd3.api.functions.KeyFunction::map(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/arrays/Array;Lcom/github/gwtd3/api/core/Value;I)(ctxEl,newDataArray,{datum:d},i);
 						});
 	}-*/;
 
 	/**
+	 * Joins each array returned by the specified function to a group of the current selection,
+	 * using the default by-index key mapping.
+	 * <p>
+	 * The specified callback must return an array-like structure of data values, such as an array of numbers or objects. Use {@link JsArrayUtils} or {@link JsArrays} to turn your
+	 * Java arrays into Javascript arrays (which has no overhead in prod mode).
+	 * <p>
+	 * This method is appropriate to join data on a multi-group selection, like one returned by d3.selectAll followed by a call to selection.selectAll.
+	 * <p>
+	 * For example, you may bind a two-dimensional array to an initial selection, and then bind the contained inner arrays to each subselection. The values function in this case is
+	 * the identity function: it is invoked for each group of child elements, being passed the data bound to the parent element, and returns this array of data.
+	 * <p>
+	 * 
 	 * @param callback
-	 * @return
+	 *            the function called for each group in the selection, passing the data of the parent node of the group.
+	 * @return the {@link UpdateSelection}
 	 */
-	public native final UpdateSelection data(DatumFunction<?> callback) /*-{
+	public native final <JSO extends JavaScriptObject> UpdateSelection data(DatumFunction<JSO> callback) /*-{
 		return this
 				.data(function(d, i) {
-					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					var result = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
+					//alert(result);
+					return result;
 				});
 	}-*/;
 
-	public native final UpdateSelection data(NestedDatumFunction<?> callback)/*-{
-		return this
-				.data(function(d, i, j, k) {
-					console.log(d);
-					console.log(i);
-					console.log(j);
-					console.log(k);
+	/**
+	 * Joins the specified array of data with the current selection using the
+	 * default by-index key mapping.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final Object[] array) {
+		return data(JsArrays.asJsArray(array));
+	}
 
-					if (j == undefined) {
-						j = -1;
-					}
+	/**
+	 * Same as {@link #data(JavaScriptObject, KeyFunction)}.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @param keyFunction
+	 *            the function to control how data is mapped to the selection
+	 *            elements
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final Object[] array, final KeyFunction<?> keyFunction) {
+		return data(JsArrays.asJsArray(array), keyFunction);
+	}
 
-					if (k == undefined) {
-						k = -1;
-					}
-					return callback.@com.github.gwtd3.api.functions.NestedDatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;II)(this,{datum:d},i,j);
-				});
-	}-*/;
+	/**
+	 * Joins the specified array of data with the current selection using the
+	 * default by-index key mapping.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final byte[] array) {
+		return data(JsArrayUtils.readOnlyJsArray(array));
+	}
+
+	/**
+	 * Same as {@link #data(JavaScriptObject, KeyFunction)}.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @param keyFunction
+	 *            the function to control how data is mapped to the selection
+	 *            elements
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final byte[] array, final KeyFunction<?> keyFunction) {
+		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
+	}
+
+	/**
+	 * Joins the specified array of data with the current selection using the
+	 * default by-index key mapping.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final double[] array) {
+		return data(JsArrayUtils.readOnlyJsArray(array));
+	}
+
+	/**
+	 * Same as {@link #data(JavaScriptObject, KeyFunction)}.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @param keyFunction
+	 *            the function to control how data is mapped to the selection
+	 *            elements
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final double[] array, final KeyFunction<?> keyFunction) {
+		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
+	}
+
+	/**
+	 * Joins the specified array of data with the current selection using the
+	 * default by-index key mapping.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final float[] array) {
+		return data(JsArrayUtils.readOnlyJsArray(array));
+	}
+
+	/**
+	 * Same as {@link #data(JavaScriptObject, KeyFunction)}.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @param keyFunction
+	 *            the function to control how data is mapped to the selection
+	 *            elements
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final float[] array, final KeyFunction<?> keyFunction) {
+		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
+	}
+
+	/**
+	 * Joins the specified array of data with the current selection using the
+	 * default by-index key mapping.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final int[] array) {
+		return data(JsArrayUtils.readOnlyJsArray(array));
+	}
+
+	/**
+	 * Same as {@link #data(JavaScriptObject, KeyFunction)}.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @param keyFunction
+	 *            the function to control how data is mapped to the selection
+	 *            elements
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final int[] array, final KeyFunction<?> keyFunction) {
+		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
+	}
+
+	/**
+	 * Joins the specified array of data with the current selection using the
+	 * default by-index key mapping.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final long[] array) {
+		return data(JsArrayUtils.readOnlyJsArray(array));
+	}
+
+	/**
+	 * Same as {@link #data(JavaScriptObject, KeyFunction)}.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @param keyFunction
+	 *            the function to control how data is mapped to the selection
+	 *            elements
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final long[] array, final KeyFunction<?> keyFunction) {
+		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
+	}
+
+	/**
+	 * Joins the specified array of data with the current selection using the
+	 * default by-index key mapping.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final short[] array) {
+		return data(JsArrayUtils.readOnlyJsArray(array));
+	}
+
+	/**
+	 * Same as {@link #data(JavaScriptObject, KeyFunction)}.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the data array to map to the selection
+	 * @param keyFunction
+	 *            the function to control how data is mapped to the selection
+	 *            elements
+	 * @return the update selection
+	 */
+	public final UpdateSelection data(final short[] array, final KeyFunction<?> keyFunction) {
+		return data(JsArrays.asJsArray(array), keyFunction);
+	}
+
+	/**
+	 * Same as #data(JavaScriptObject) for an {@link List} of objects.
+	 * 
+	 * @see #data(JavaScriptObject)
+	 * @param array
+	 * @return the {@link UpdateSelection}
+	 */
+	public final UpdateSelection data(final List<?> array) {
+		return this.data(JsArrays.asJsArray(array));
+	}
+
+	/**
+	 * Same as {@link #data(JavaScriptObject, KeyFunction)} for an {@link List} of objects.
+	 * 
+	 * @see #data(JavaScriptObject)
+	 * @param array
+	 *            the array
+	 * @param keyFunction
+	 *            the key function
+	 * @return the {@link UpdateSelection}
+	 */
+	public final UpdateSelection data(final List<?> array, final KeyFunction<?> keyFunction) {
+		return this.data(JsArrays.asJsArray(array), keyFunction);
+	}
+
+	// ================================ datum functions ========
 
 	/**
 	 * Sets the bound data to the specified value on all selected
@@ -837,7 +1050,7 @@ public class Selection extends EnteringSelection {
 		}
 		return this
 				.datum(function(d, i) {
-					return datumFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					return datumFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 
@@ -903,7 +1116,7 @@ public class Selection extends EnteringSelection {
 	public native final Selection filter(final DatumFunction<Element> datumFunction)/*-{
 		return this
 				.filter(function(d, i) {
-					return datumFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					return datumFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 
@@ -919,7 +1132,7 @@ public class Selection extends EnteringSelection {
 	 * @param comparator
 	 *            the comparator to be used
 	 */
-	public native final Selection sort(final Comparator<Datum> comparator)/*-{
+	public native final Selection sort(final Comparator<Value> comparator)/*-{
 		return this
 				.sort(function(o1, o2) {
 					return comparator.@java.util.Comparator::compare(Ljava/lang/Object;Ljava/lang/Object;)({datum:o1},{datum:o2});
@@ -958,7 +1171,7 @@ public class Selection extends EnteringSelection {
 	public native final Selection on(String eventType, DatumFunction<Void> listener) /*-{
 		var l = listener == null ? null
 				: function(d, i) {
-					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				};
 		return this.on(eventType, l);
 	}-*/;
@@ -1001,7 +1214,7 @@ public class Selection extends EnteringSelection {
 	public native final Selection on(String eventType, DatumFunction<Void> listener, boolean useCapture) /*-{
 		var l = (listener == null ? null
 				: function(d, i) {
-					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 		return this.on(eventType, l, useCapture);
 	}-*/;

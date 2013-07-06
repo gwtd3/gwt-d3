@@ -29,248 +29,308 @@
 package com.github.gwtd3.demo.client.testcases.selection;
 
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
+import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
-import com.github.gwtd3.api.core.UpdateSelection;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
-import com.github.gwtd3.api.functions.NestedDatumFunction;
+import com.github.gwtd3.api.functions.KeyFunction;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayUtils;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Label;
 
 public class TestSelectionData extends AbstractSelectionTest {
 
 	@Override
 	public void doTest(final ComplexPanel sandbox) {
+		testSelectionDataGetter();
+		testSelectionDataSetterArray();
+		testSelectionDataSetterFunctionReturningJSO();
+		testSelectionDataSetterArrayWithKeyFunction();
 
-		// testNestedSelection();
-		testSelectionDatumGetter();
-		testSelectionDatumSetterConstant();
-		testSelectionDatumSetterFunction();
-		testSelectionFilterString();
-		testSelectionFilterFunction();
-		testSelectionSort();
-		testSelectionOrder();
+		testNestedSelection();
+	}
+
+	private final int[][] MATRIX = new int[][] {
+			{ 11975, 5871, 8916, 2868 },
+			{ 1951, 10048, 2060, 6171 },
+			{ 8010, 16145, 8090, 8045 },
+			{ 1013, 990, 940, 6907 }
+	};
+
+	protected Selection givenASimpleSelection() {
+		clearSandbox();
+		return D3.select(sandbox).append("table").selectAll("tr")
+				.data(MATRIX[0])
+				.enter().append("tr");
+	}
+
+	/**
+	 * Create a nested selection of td elements grouped
+	 * by tr elements inside a root table element.
+	 * <p>
+	 * The td elements are joined with the MATRIX.
+	 * 
+	 * @return the selection
+	 */
+	protected Selection givenANestedSelection() {
+		clearSandbox();
+		Selection tr = D3.select(sandbox).append("table").selectAll("tr")
+				.data(MATRIX)
+				.enter().append("tr");
+
+		Selection td =
+				tr.selectAll("td")
+						.data(new DatumFunction<JavaScriptObject>() {
+							@Override
+							public JavaScriptObject apply(final Element context, final Value d, final int index) {
+								int[] as = d.as();
+								return JsArrayUtils.readOnlyJsArray(as);
+							}
+						})
+						.enter().append("td")
+						.text(new DatumFunction<String>() {
+							@Override
+							public String apply(final Element context, final Value d, final int index) {
+								return d.asString();
+							}
+						});
+		return td;
 	}
 
 	/**
 	 * 
 	 */
-	private void testSelectionDatumSetterFunction() {
-		// GIVEN a multiple selection
-		Selection selection = givenAMultipleSelection(new Label(), new Label(), new Label());
-		// WHEN I call selection.datum() with a function depending on the index
-		selection.datum(new DatumFunction<Double>() {
+	private void testSelectionDataSetterFunctionReturningJSO() {
+		Selection selection = givenTrElementsInATable(3);
+
+		selection.data(new DatumFunction<JavaScriptObject>() {
 			@Override
-			public Double apply(final Element context, final Datum d, final int index) {
-				return (index % 2) == 0 ? 5.0 : 2.0;
+			public JavaScriptObject apply(final Element context, final Value d, final int index) {
+				System.out.println("testSelectionDataSetterFunctionReturningPrimitiveArray " + index);
+				return JsArrays.asJsArray("0", "1", "2");
 			}
 		});
-		// THEN each element has a the corresponding data
-		selection.each(new DatumFunction<Void>() {
+
+		assertDataPropertyEqualsTo("0", selection, 0);
+		assertDataPropertyEqualsTo("1", selection, 1);
+		assertDataPropertyEqualsTo("2", selection, 2);
+
+	}
+
+	protected Selection givenTrElementsInATable(final int numberOfTRToCreate) {
+		clearSandbox();
+		Selection table = D3.select(sandbox).append("table");
+		for (int i = 0; i < numberOfTRToCreate; i++) {
+			table.append("tr");
+		}
+		Selection selection = table.selectAll("tr");
+		assertEquals(numberOfTRToCreate, selection.size());
+		return selection;
+
+	}
+
+	/**
+	 * 
+	 */
+	private void testSelectionDataSetterArray() {
+		Selection selection = givenTrElementsInATable(3);
+		// bytes
+		selection.data(new byte[] { 60, 5, 100 });
+		assertDataPropertyEqualsTo(60, selection, 0);
+		assertDataPropertyEqualsTo(5, selection, 1);
+		assertDataPropertyEqualsTo(100, selection, 2);
+		// double
+		selection.data(new double[] { 61.0, 6.0, 101.0 });
+		assertDataPropertyEqualsTo(61, selection, 0);
+		assertDataPropertyEqualsTo(6, selection, 1);
+		assertDataPropertyEqualsTo(101, selection, 2);
+
+		// float
+		selection.data(new float[] { 62.0f, 7.0f, 102.0f });
+		assertDataPropertyEqualsTo(62, selection, 0);
+		assertDataPropertyEqualsTo(7, selection, 1);
+		assertDataPropertyEqualsTo(102, selection, 2);
+
+		// int
+		selection.data(new int[] { 63, 8, 103 });
+		assertDataPropertyEqualsTo(63, selection, 0);
+		assertDataPropertyEqualsTo(8, selection, 1);
+		assertDataPropertyEqualsTo(103, selection, 2);
+
+		// long
+		selection.data(new long[] { 64l, 9l, 104l });
+		assertDataPropertyEqualsTo(64, selection, 0);
+		assertDataPropertyEqualsTo(9, selection, 1);
+		assertDataPropertyEqualsTo(104, selection, 2);
+
+		// short
+		selection.data(new short[] { 65, 10, 105 });
+		assertDataPropertyEqualsTo(65, selection, 0);
+		assertDataPropertyEqualsTo(10, selection, 1);
+		assertDataPropertyEqualsTo(105, selection, 2);
+
+		// short
+		selection.data(new short[] { 66, 11, 106 });
+		assertDataPropertyEqualsTo(66, selection, 0);
+		assertDataPropertyEqualsTo(11, selection, 1);
+		assertDataPropertyEqualsTo(106, selection, 2);
+
+		// Object
+		selection.data(new Object[] { "67", "12", "107" });
+		assertDataPropertyEqualsTo("67", selection, 0);
+		assertDataPropertyEqualsTo("12", selection, 1);
+		assertDataPropertyEqualsTo("107", selection, 2);
+
+		// JSO
+		selection.data(JsArrays.asJsArray('b', 'z', 'g'));
+		assertDataPropertyEqualsTo('b', selection, 0);
+		assertDataPropertyEqualsTo('z', selection, 1);
+		assertDataPropertyEqualsTo('g', selection, 2);
+
+		// List<?>
+		selection.data(Arrays.asList(68, 13, 108));
+		assertDataPropertyEqualsTo(68, selection, 0);
+		assertDataPropertyEqualsTo(13, selection, 1);
+		assertDataPropertyEqualsTo(108, selection, 2);
+	}
+
+	private void testSelectionDataSetterArrayWithKeyFunction() {
+		Selection selection = givenTrElementsInATable(3);
+		selection.data(new byte[] { 60, 5, 100 });
+		KeyFunction<Integer> func = new KeyFunction<Integer>() {
 			@Override
-			public Void apply(final Element context, final Datum d, final int index) {
-				assertEquals(((index % 2) == 0) ? 5.0 : 2.0, d.asDouble());
-				return null;
+			public Integer map(final Element context, final Array<?> newDataArray, final Value datum, final int index) {
+				return datum.asInt();
 			}
-		});
+		};
+
+		// bytes
+		selection.data(new byte[] { 60, 5, 100 }, func);
+		assertDataPropertyEqualsTo(60, selection, 0);
+		assertDataPropertyEqualsTo(5, selection, 1);
+		assertDataPropertyEqualsTo(100, selection, 2);
+		// double
+		selection.data(new double[] { 5.0, 60.0, 100.0 }, func);
+		assertDataPropertyEqualsTo(60, selection, 0);
+		assertDataPropertyEqualsTo(5, selection, 1);
+		assertDataPropertyEqualsTo(100, selection, 2);
+
+		// float
+		selection.data(new float[] { 5.0f, 60.0f, 100.0f }, func);
+		assertDataPropertyEqualsTo(60, selection, 0);
+		assertDataPropertyEqualsTo(5, selection, 1);
+		assertDataPropertyEqualsTo(100, selection, 2);
+
+		// int
+		selection.data(new int[] { 60, 5, 100 }, func);
+		assertDataPropertyEqualsTo(60, selection, 0);
+		assertDataPropertyEqualsTo(5, selection, 1);
+		assertDataPropertyEqualsTo(100, selection, 2);
+
+		// long
+		selection.data(new long[] { 60l, 5l, 100l }, func);
+		assertDataPropertyEqualsTo(60, selection, 0);
+		assertDataPropertyEqualsTo(5, selection, 1);
+		assertDataPropertyEqualsTo(100, selection, 2);
+
+		// short
+		selection.data(new short[] { 60, 5, 100 }, func);
+		assertDataPropertyEqualsTo(60, selection, 0);
+		assertDataPropertyEqualsTo(5, selection, 1);
+		assertDataPropertyEqualsTo(100, selection, 2);
+
+		// short
+		selection.data(new short[] { 60, 5, 100 }, func);
+		assertDataPropertyEqualsTo(60, selection, 0);
+		assertDataPropertyEqualsTo(5, selection, 1);
+		assertDataPropertyEqualsTo(100, selection, 2);
+
+		// Object
+		selection.data(new Object[] { "67", "12", "107" });
+		selection.data(new Object[] { "67", "12", "107" }, func);
+		assertDataPropertyEqualsTo("67", selection, 0);
+		assertDataPropertyEqualsTo("12", selection, 1);
+		assertDataPropertyEqualsTo("107", selection, 2);
+
+		// JSO
+		selection.data(JsArrays.asJsArray('b', 'z', 'g'));
+		selection.data(JsArrays.asJsArray('b', 'z', 'g'), func);
+		assertDataPropertyEqualsTo('b', selection, 0);
+		assertDataPropertyEqualsTo('z', selection, 1);
+		assertDataPropertyEqualsTo('g', selection, 2);
+
+		// List<?>
+		selection.data(Arrays.asList(67, 13, 108));
+		selection.data(Arrays.asList(67, 13, 108), func);
+		assertDataPropertyEqualsTo(67, selection, 0);
+		assertDataPropertyEqualsTo(13, selection, 1);
+		assertDataPropertyEqualsTo(108, selection, 2);
+	}
+
+	protected void assertDataPropertyEqualsTo(final int expectedData, final Selection selection, final int elementIndex) {
+		Array<Array<Element>> array = selection.asElementArray();
+		assertEquals(expectedData, array.get(0).get(elementIndex).getPropertyInt(Selection.DATA_PROPERTY));
+
+	}
+
+	protected void assertDataPropertyEqualsTo(final String expectedData, final Selection selection, final int elementIndex) {
+		Array<Array<Element>> array = selection.asElementArray();
+		assertEquals(expectedData, array.get(0).get(elementIndex).getPropertyString(Selection.DATA_PROPERTY));
 	}
 
 	/**
 	 * 
 	 */
-	private void testSelectionDatumSetterConstant() {
-		// GIVEN a multiple selection
-		Selection selection = givenAMultipleSelection(new Label(), new Label(), new Label());
-		// WHEN I call selection.datum() with a constant "blah"
-		selection.datum("blah");
-		// THEN all data has a datum of "blah"
-		selection.each(new DatumFunction<Void>() {
-			@Override
-			public Void apply(final Element context, final Datum d, final int index) {
-				assertEquals("blah", d.asString());
-				return null;
-			}
-		});
-		// WHEN I call selection.datum() with a constant NULL
-		selection.datum(null);
-		// THEN all elements has a null data
-		selection.each(new DatumFunction<Void>() {
-			@Override
-			public Void apply(final Element context, final Datum d, final int index) {
-				assertNull(d.asString());
-				return null;
-			}
-		});
-	}
-
-	/**
-	 * 
-	 */
-	private void testSelectionDatumGetter() {
-		// GIVEN a multiple selection with data join
-		Selection selection = givenAMultipleSelection(new Label(), new Label(), new Label());
-		selection.data(Arrays.asList("54", "2", "10"));
-		// WHEN I call selection.datum()
-		Value v = selection.datum();
-		// THEN I get the datum of the first non null elemenet
-		assertEquals("54", v.asString());
-
-	}
-
-	/**
-	 * 
-	 */
-	private void testSelectionFilterFunction() {
-		// GIVEN a selection with n elements
-		Selection selection = givenAMultipleSelection(new Label("0"), new Label("1"), new Label("2"));
-		assertEquals(3, selection.nodeCount());
-		// WHEN i call filter(":nth-child(odd)")
-		Selection filtered = selection.filter(new DatumFunction<Element>() {
-			@Override
-			public Element apply(final Element context, final Datum d, final int index) {
-				return (index % 2) == 0 ? context : null;
-			}
-		});
-		// THEN the returned selection contains 2 elements (css is 1-based index)
-		assertEquals(2, filtered.nodeCount());
-		assertEquals("0", filtered.node().getInnerText());
-		assertEquals(3, selection.nodeCount());
-	}
-
-	/**
-	 * 
-	 */
-	private void testSelectionFilterString() {
-		// GIVEN a selection with n elements
-		Selection selection = givenAMultipleSelection(new Label("0"), new Label("1"), new Label("2"));
-		assertEquals(3, selection.nodeCount());
-		// WHEN i call filter(":nth-child(odd)")
-		Selection filtered = selection.filter(":nth-child(odd)");
-		// THEN the returned selection contains 2 elements (css is 1-based index)
-		assertEquals(2, filtered.nodeCount());
-		assertEquals("0", filtered.node().getInnerText());
-		assertEquals(3, selection.nodeCount());
-	}
-
-	/**
-	 * 
-	 */
-	private void testSelectionSort() {
-		// GIVEN a selection with elements ordered differently than in the DOM
-		Label l1 = new Label("blah2"), l2 = new Label("blah1");
-		Selection selection = givenAMultipleSelection(l1, l2);
-		assertEquals("blah2", selection.asElementArray().get(0).get(0).getInnerText());
-		assertEquals("blah1", selection.asElementArray().get(0).get(1).getInnerText());
-		assertEquals("blah2", ((Element) sandbox.getElement().getChild(0)).getInnerText());
-		assertEquals("blah1", ((Element) sandbox.getElement().getChild(1)).getInnerText());
-		// bind integers 1 and 2 on the elements
-		selection.data(Arrays.asList(2, 1));
-		// WHEN calling selection.order
-		selection = selection.sort(new Comparator<Datum>() {
-			@Override
-			public int compare(final Datum o1, final Datum o2) {
-				Integer d1 = o1.<Integer> as();
-				Integer d2 = o2.<Integer> as();
-				System.out.println("sorting: " + d1 + " " + d2);
-				return d1.compareTo(d2);
-			}
-		});
-		// THEN the elements are reordered in the DOM in the order of the selection
-		assertEquals("blah1", selection.asElementArray().get(0).get(0).getInnerText());
-		assertEquals("blah2", selection.asElementArray().get(0).get(1).getInnerText());
-		assertEquals("blah1", ((Element) sandbox.getElement().getChild(0)).getInnerText());
-		assertEquals("blah2", ((Element) sandbox.getElement().getChild(1)).getInnerText());
-	}
-
-	/**
-	 * 
-	 */
-	private void testSelectionOrder() {
-		// GIVEN a selection with elements ordered differently than in the DOM
-		Label l1 = new Label("blah1"), l2 = new Label("blah2");
-		Selection selection = givenAMultipleSelection(l1, l2);
-		sandbox.remove(l1);
-		sandbox.add(l1);
-		assertEquals("blah1", selection.asElementArray().get(0).get(0).getInnerText());
-		assertEquals("blah2", selection.asElementArray().get(0).get(1).getInnerText());
-		assertEquals("blah2", ((Element) sandbox.getElement().getChild(0)).getInnerText());
-		assertEquals("blah1", ((Element) sandbox.getElement().getChild(1)).getInnerText());
-		// WHEN calling selection.order
-		selection.order();
-		// THEN the elements are reordered in the DOM in the order of the selection
-		assertEquals("blah1", selection.asElementArray().get(0).get(0).getInnerText());
-		assertEquals("blah2", selection.asElementArray().get(0).get(1).getInnerText());
-		assertEquals("blah1", ((Element) sandbox.getElement().getChild(0)).getInnerText());
-		assertEquals("blah2", ((Element) sandbox.getElement().getChild(1)).getInnerText());
+	private void testSelectionDataGetter() {
+		// given a 2-dim selection
+		Selection selection = givenANestedSelection();
+		Array<Integer> data = selection.data();
+		assertEquals(MATRIX[0][0], (int) data.getNumber(0));
+		assertEquals(MATRIX[0][1], (int) data.getNumber(1));
+		// with a single group selection
+		selection = givenASimpleSelection();
+		data = selection.data();
+		assertEquals(MATRIX[0][0], (int) data.getNumber(0));
+		assertEquals(MATRIX[0][1], (int) data.getNumber(1));
 
 	}
 
 	private void testNestedSelection() {
-		HTMLPanel panel = new HTMLPanel("") {
-			@Override
-			public String toString() {
-				return getElement().getInnerHTML();
-			}
-		};
-		Selection firstLevel = givenASimpleSelection(new HTMLPanel(""));
-		final List<String> list = Arrays.asList("A", "B", "C");
-		// given a multi level selection
-		// say:
-		// an array
-		Array<String> firstLevelData = JsArrays.asJsArray(list);
-		Selection secondLevelDiv = firstLevel.selectAll("div").data(firstLevelData).enter().append("div").text(new DatumFunction<String>() {
-			@Override
-			public String apply(final Element context, final Datum d, final int index) {
-				return d.asString();
-			}
-		});
-		System.out.println(panel.toString());
-		System.out.println("creating second level divs");
-		// second level must be joined with a data function
-		UpdateSelection secondLevel = secondLevelDiv.data(new NestedDatumFunction<Array<String>>() {
-			@Override
-			public Array<String> apply(final Element context, final Value datum, final int index, final int rowIndex) {
-				System.out.println(context + " " + datum.asString() + " " + index + " " + rowIndex);
-				return JsArrays.asJsArray(Arrays.asList("J", "K", "L"));
-			}
-		});
-		System.out.println(panel.toString());
-		// at this moment,
-		// we have a root div,
-		// containing 3 divs A B and C,
-		// each of them being joined to a data list of J K L
-		System.out.println("creating thirs level divs");
-		Selection thirdLevelDiv = secondLevel.enter().append("div").text(new DatumFunction<String>() {
-			@Override
-			public String apply(final Element context, final Datum d, final int index) {
-				return d.asString();
-			}
-		});
-		System.out.println(panel.toString());
+		clearSandbox();
+		Selection tr = D3.select(sandbox).append("table").selectAll("tr")
+				.data(MATRIX)
+				.enter().append("tr");
 
-		System.out.println("mapping 3rd level divs to leaf data values");
-		thirdLevelDiv.data(new NestedDatumFunction<String>() {
-			@Override
-			public String apply(final Element context, final Value datum, final int index, final int rowIndex) {
-				System.out.println(context + " " + datum.asString() + " " + index + " " + rowIndex);
-				return datum.asString();
-			}
-		});
-		System.out.println(panel.toString());
-		thirdLevelDiv.attr("name", new DatumFunction<String>() {
-			@Override
-			public String apply(final Element context, final Datum d, final int index) {
-				return d.asString();
-			}
-		});
-		System.out.println(panel.toString());
+		// mapping second level
+		System.out.println("creating second level divs");
+		Selection td =
+				tr.selectAll("td")
+						.data(new DatumFunction<Array<?>>() {
+							/*
+							 * (non-Javadoc)
+							 * 
+							 * @see com.github.gwtd3.api.functions.DatumFunction#apply(com.google.gwt.dom.client.Element, com.github.gwtd3.api.core.Datum, int)
+							 */
+							@Override
+							public Array<?> apply(final Element context, final Value d, final int index) {
+								System.out.println(context + " " + d.asString() + " " + index);
+								int[] as = d.as();
+								System.out.println(as);
+								return JsArrayUtils.readOnlyJsArray(as).cast();
+								// return JsArrays.asJsArray(Arrays.asList("J", "K", "L"));
+							}
+						})
+						.enter().append("td")
+						.text(new DatumFunction<String>() {
+							@Override
+							public String apply(final Element context, final Value d, final int index) {
+								return d.asString();
+							}
+						});
+
 	}
 }

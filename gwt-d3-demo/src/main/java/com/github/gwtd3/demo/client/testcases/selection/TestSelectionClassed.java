@@ -28,7 +28,7 @@
  */
 package com.github.gwtd3.demo.client.testcases.selection;
 
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 
@@ -59,7 +59,7 @@ public class TestSelectionClassed extends AbstractSelectionTest {
 		Selection selection = givenASimpleSelection(createLabel(""));
 		selection.classed("foo bar", new DatumFunction<Boolean>() {
 			@Override
-			public Boolean apply(final Element context, final Datum datum, final int index) {
+			public Boolean apply(final Element context, final Value datum, final int index) {
 				return true;
 			}
 		});
@@ -69,7 +69,7 @@ public class TestSelectionClassed extends AbstractSelectionTest {
 		selection = givenAMultipleSelection(createLabel(""), createLabel(""), createLabel(""));
 		selection.classed("foo bar", new DatumFunction<Boolean>() {
 			@Override
-			public Boolean apply(final Element context, final Datum datum, final int index) {
+			public Boolean apply(final Element context, final Value datum, final int index) {
 				return (index % 2) == 0;
 			}
 		});

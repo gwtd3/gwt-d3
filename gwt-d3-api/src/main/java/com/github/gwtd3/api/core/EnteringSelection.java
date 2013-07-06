@@ -126,7 +126,7 @@ public class EnteringSelection extends JavaScriptObject {
 	public final native Selection select(DatumFunction<Element> func)/*-{
 		return this
 				.select(function(d, i) {
-					return func.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					return func.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 

@@ -28,7 +28,7 @@
  */
 package com.github.gwtd3.demo.client.testcases.selection;
 
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.dom.client.Element;
@@ -52,7 +52,7 @@ public class TestSelectionText extends AbstractSelectionTest {
 		final String value = "foo bar";
 		selection.text(new DatumFunction<String>() {
 			@Override
-			public String apply(final Element context, final Datum datum, final int index) {
+			public String apply(final Element context, final Value datum, final int index) {
 				return value + index;
 			}
 		});
@@ -62,7 +62,7 @@ public class TestSelectionText extends AbstractSelectionTest {
 		selection = givenAMultipleSelection(new Label(), new Label(), new Label());
 		selection.text(new DatumFunction<String>() {
 			@Override
-			public String apply(final Element context, final Datum datum, final int index) {
+			public String apply(final Element context, final Value datum, final int index) {
 				return value + index;
 			}
 		});

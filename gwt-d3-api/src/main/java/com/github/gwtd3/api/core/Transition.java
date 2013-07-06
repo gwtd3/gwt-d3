@@ -119,7 +119,7 @@ public class Transition extends Selection {
      */
     public native final Transition attrTween(String name, TweenFunction<?> tweenFunction)/*-{
 		return this.attrTween(name, function(d, i, a) {
-			var interpolator = tweenFunction.@com.github.gwtd3.api.tweens.TweenFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;ILcom/github/gwtd3/api/core/Value;)(this,{datum:d},i,{datum:a});
+			var interpolator = tweenFunction.@com.github.gwtd3.api.tweens.TweenFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;ILcom/github/gwtd3/api/core/Value;)(this,{datum:d},i,{datum:a});
 			return @com.github.gwtd3.api.core.Transition::trampolineInterpolator(Lcom/github/gwtd3/api/interpolators/Interpolator;)(interpolator);
 		});
     }-*/;

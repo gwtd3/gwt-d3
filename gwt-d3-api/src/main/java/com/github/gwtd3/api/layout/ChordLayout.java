@@ -29,8 +29,7 @@
 package com.github.gwtd3.api.layout;
 
 import com.github.gwtd3.api.Sort;
-import com.github.gwtd3.api.core.Datum;
-
+import com.github.gwtd3.api.core.Value;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayNumber;
@@ -59,33 +58,33 @@ public class ChordLayout extends Layout<ChordLayout> {
 	public final native JavaScriptObject chords() /*-{
 		return this.chords;
 	}-*/;
-	
+
 	public static class Group extends JavaScriptObject {
 		protected Group() {
 			super();
 		}
-		
+
 		public final native int index() /*-{
 			return this.index;
 		}-*/;
-		
+
 		public final native double startAngle() /*-{
 			return this.startAngle;
 		}-*/;
-		
+
 		public final native double endAngle() /*-{
 			return this.endAngle;
 		}-*/;
-		
+
 		public final native double value() /*-{
 			return this.value;
 		}-*/;
 	}
-    
-    public static class Chord extends Datum {
-    	protected Chord() {
-    		super();
-    	}
+
+	public static class Chord extends Value {
+		protected Chord() {
+			super();
+		}
 
 		public final native Group source() /*-{
 			return this.source;
@@ -94,5 +93,5 @@ public class ChordLayout extends Layout<ChordLayout> {
 		public final native Group target() /*-{
 			return this.target;
 		}-*/;
-    }
+	}
 }

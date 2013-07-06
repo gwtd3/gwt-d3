@@ -32,7 +32,7 @@ import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.core.Value;
@@ -117,7 +117,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 				// .x(function(d) { return x(d.date); })
 				.x(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						return x.apply(((Data) d.as()).getDate()).asDouble();
 					}
 				})
@@ -125,7 +125,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 				// .y1(function(d) { return y(d.price); });
 				.y1(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						return y.apply(((Data) d.as()).getPrice()).asDouble();
 					}
 				});
@@ -136,14 +136,14 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 				// .x(function(d) { return x(d.date); })
 				.x(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						return x.apply(((Data) d.as()).getDate()).asDouble();
 					}
 				})
 				// // .y(function(d) { return y(d.price); });
 				.y(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						return y.apply(d.<Data> as().getPrice()).asDouble();
 					}
 				});
@@ -234,7 +234,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 				// On click, update the x-axis.
 				svg.on(BrowserEvents.CLICK, new DatumFunction<Void>() {
 					@Override
-					public Void apply(final Element context, final Datum d, final int index) {
+					public Void apply(final Element context, final Value d, final int index) {
 						int n = values.length() - 1;
 						int i = (int) Math.floor((Math.random() * n) / 2);
 						int j = i + (int) Math.floor((Math.random() * n) / 2) + 1;

@@ -35,8 +35,8 @@ import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.behaviour.Drag;
 import com.github.gwtd3.api.behaviour.Drag.DragEventType;
 import com.github.gwtd3.api.core.Color;
-import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Symbol;
 import com.github.gwtd3.api.svg.Symbol.Type;
@@ -108,7 +108,7 @@ public abstract class ComponentSelector extends SVGDocumentContainer implements 
 
 		Drag dragBehavior = D3.behavior().drag().on(DragEventType.drag, new DatumFunction<Void>() {
 			@Override
-			public Void apply(final Element context, final Datum d, final int index) {
+			public Void apply(final Element context, final Value d, final int index) {
 				updateColorFromMouse(rectangleSelector);
 				return null;
 			}

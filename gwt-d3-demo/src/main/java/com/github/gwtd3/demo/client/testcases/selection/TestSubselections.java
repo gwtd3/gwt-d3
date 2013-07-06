@@ -30,8 +30,9 @@ package com.github.gwtd3.demo.client.testcases.selection;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.functions.CountFunction;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -84,8 +85,8 @@ public class TestSubselections extends AbstractSelectionTest {
 		// appending returns a new selection with the same parent node (html)
 		Selection child = select.append("blah");
 		assertParentNodeIsRootHtml(child);
-		assertEquals(1, child.nodeCount());
-		assertEquals(1, D3.selectAll("blah").nodeCount());
+		assertEquals(1, child.size());
+		assertEquals(1, D3.selectAll("blah").size());
 
 	}
 
@@ -94,6 +95,7 @@ public class TestSubselections extends AbstractSelectionTest {
 	 */
 	private void testD3SelectAll() {
 		clearSandbox();
+
 		sandbox.getElement().setInnerHTML(
 				"<div><blah>foo</blah></div>" +
 						"<div><blah>bar</blah></div>" +
@@ -103,7 +105,7 @@ public class TestSubselections extends AbstractSelectionTest {
 		Selection blahs = D3.selectAll("blah");
 
 		// internal structure
-		assertEquals(3, blahs.nodeCount());
+		assertEquals(3, blahs.size());
 		assertEquals(1, blahs.groupCount());
 		assertEquals(1, blahs.asElementArray().length());
 		assertEquals(3, blahs.asElementArray().get(0).length());
@@ -113,7 +115,7 @@ public class TestSubselections extends AbstractSelectionTest {
 
 		// appending an element to the blah tags are easy
 		Selection barfoos = blahs.append("barfoo");
-		assertEquals(3, barfoos.nodeCount());
+		assertEquals(3, barfoos.size());
 		assertEquals(1, barfoos.groupCount());
 		assertEquals(1, barfoos.asElementArray().length());
 		assertEquals(3, barfoos.asElementArray().get(0).length());
@@ -121,35 +123,13 @@ public class TestSubselections extends AbstractSelectionTest {
 
 		// also test variant of selectAll
 		Selection selection = D3.selectAll(sandbox.getElement().getChildNodes());
-		assertEquals(3, selection.nodeCount());
+		assertEquals(3, selection.size());
 
 		selection = D3.selectAll(sandbox.getElement().getChild(0).<Element> cast(),
 				sandbox.getElement().getChild(1).<Element> cast(),
 				sandbox.getElement().getChild(2).<Element> cast());
-		assertEquals(3, selection.nodeCount());
+		assertEquals(3, selection.size());
 
-	}
-
-	/**
-	 * 
-	 */
-	private void testSelectAllByFunction() {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * 
-	 */
-	private void testSelectAllByString() {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * 
-	 */
-	private void testSelectByFunction() {
 	}
 
 	/**
@@ -158,40 +138,72 @@ public class TestSubselections extends AbstractSelectionTest {
 	private void testD3SelectThenSelect() {
 		clearSandbox();
 		// given 3 DIV>SPAN elements in the sandbox
+		clearSandbox();
 		sandbox.getElement().setInnerHTML(
-				"<div><zorg>foo</zorg></div>" +
-						"<zorg><span>bar</zorg></div>" +
-						"<zorg><span>zing</zorg></div>"
+				"<div><zorg>foo</zorg><zorg>foo2</zorg></div>" +
+						"<div><zorg>bar</zorg><zorg>bar2</zorg></div>" +
+						"<div><zorg>zing</zorg><zorg>zing2</zorg></div>"
 				);
-		// when selecting the sandbox then selecting the div
-		// I got only 1 node in the selection
 		Selection sandboxSelection = D3.select(sandbox);
-		// there is no parentNode here
-		Selection fooNode = sandboxSelection.select("zorg");
-		assertParentNodeIsRootHtml(fooNode);
-		assertEquals(1, fooNode.groupCount());
-		assertEquals(1, fooNode.nodeCount());
-		// internal structure
-		Array<Array<Element>> array = fooNode.asElementArray();
+
+		// for each element in the current selection, select the first descendant matching the selector
+		Selection divs = sandboxSelection.selectAll("div");
+		Selection firstZorgs = sandboxSelection.select("zorg");
+		assertEquals(1, firstZorgs.size());
+		assertEquals(1, firstZorgs.groupCount());
+		assertParentNodeIsRootHtml(firstZorgs);
+		Array<Array<Element>> array = firstZorgs.asElementArray();
 		assertEquals(1, array.length());
 		assertEquals(1, array.get(0).length());
-		// parent node
+		// if multiple elements match the selector, only the first matching element in document traversal order will be selected.
 
-		// appending
-		Selection blahNodes = fooNode.append("blah");
-		assertParentNodeIsRootHtml(blahNodes);
-		assertEquals(1, blahNodes.nodeCount());
-		assertEquals(1, blahNodes.groupCount());
+		// if no element match for a element, the element at the current index will be null in the returned selection
+		// a) operators skip null element , thereby preserving the index of the existing selection
+		clearSandbox();
+		sandbox.getElement().setInnerHTML(
+				"<div></div>" +
+						"<div></div>" +
+						"<div><zorg>zing</zorg><zorg>zing2</zorg></div>"
+				);
+		sandboxSelection = D3.select(sandbox);
+		divs = sandboxSelection.selectAll("div");
+		firstZorgs = sandboxSelection.select("zorg");
+		assertEquals(1, firstZorgs.size());
+		assertEquals(1, firstZorgs.groupCount());
+		assertParentNodeIsRootHtml(firstZorgs);
+
+		CountFunction countFunction = new CountFunction();
+		firstZorgs.each(countFunction.reset());
+		assertEquals(1, countFunction.getCount());
+
+		// if the current element has associated data, this data is inherited by the returned subselection and automatically bound to the newly selected elements
+		clearSandbox();
+		sandbox.getElement().setInnerHTML(
+				"<div><zorg>foo</zorg><zorg>foo2</zorg></div>" +
+						"<div><zorg>bar</zorg><zorg>bar2</zorg></div>" +
+						"<div><zorg>zing</zorg><zorg>zing2</zorg></div>"
+				);
+		divs = D3.select(sandbox).selectAll("div");
+		divs.asElementArray().get(0).get(0).setPropertyInt(Selection.DATA_PROPERTY, 6);
+		divs.asElementArray().get(0).get(1).setPropertyInt(Selection.DATA_PROPERTY, 2);
+		divs.asElementArray().get(0).get(2).setPropertyInt(Selection.DATA_PROPERTY, 4);
+		Selection select = divs.select("zorg");
+		Array<Object> data = select.data();
+		assertEquals(6.0, data.getNumber(0));
+		assertEquals(2.0, data.getNumber(1));
+		assertEquals(4.0, data.getNumber(2));
+
+		// select as a function returning element or null
 
 		// select by function
 		Selection selection = sandboxSelection.select(new DatumFunction<Element>() {
 			@Override
-			public Element apply(final Element context, final Datum d, final int index) {
+			public Element apply(final Element context, final Value d, final int index) {
 				// maybe it can be any node ??? even a non child node
 				return Document.get().getBody();
 			}
 		});
-		assertEquals(1, selection.nodeCount());
+		assertEquals(1, selection.size());
 		assertEquals(1, selection.groupCount());
 		assertEquals(Document.get().getBody(), selection.node());
 	}
@@ -210,12 +222,12 @@ public class TestSubselections extends AbstractSelectionTest {
 		//
 		assertEquals(3, sandbox.getElement().getChildCount());
 		Selection spans = D3.select(sandbox).selectAll("span");
-		assertEquals(3, spans.nodeCount());
+		assertEquals(3, spans.size());
 		assertEquals(1, spans.groupCount());
 		assertEquals(sandbox.getElement(), spans.parentNode(0));
 		// appending a node append it to each span nodes, and the parent node of the new selection is the same as before
 		Selection appended = spans.append("foobar");
-		assertEquals(3, appended.nodeCount());
+		assertEquals(3, appended.size());
 		assertEquals(1, appended.groupCount());
 		assertEquals(sandbox.getElement(), appended.parentNode(0));
 
@@ -224,7 +236,7 @@ public class TestSubselections extends AbstractSelectionTest {
 		// it seems in the span elements
 		D3.select(sandbox).selectAll("span").each(new DatumFunction<Void>() {
 			@Override
-			public Void apply(final Element context, final Datum d, final int index) {
+			public Void apply(final Element context, final Value d, final int index) {
 				assertEquals(1, context.getChildCount());
 				return null;
 			}
@@ -245,9 +257,9 @@ public class TestSubselections extends AbstractSelectionTest {
 		// Selection sandboxSelection = D3.select(sandbox);
 		// assertEquals(1, sandboxSelection.count());
 		Selection divs = D3.select(sandbox).selectAll("div");
-		assertEquals(3, divs.nodeCount());
+		assertEquals(3, divs.size());
 		Selection spans = divs.select("span");
-		assertEquals(3, spans.nodeCount());
+		assertEquals(3, spans.size());
 
 	}
 

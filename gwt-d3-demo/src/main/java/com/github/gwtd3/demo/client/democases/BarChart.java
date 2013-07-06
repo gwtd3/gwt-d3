@@ -33,7 +33,7 @@ import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Formatter;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Value;
@@ -154,20 +154,20 @@ public class BarChart extends FlowPanel implements DemoCase {
 						.attr("class", css.bar())
 						.attr("x", new DatumFunction<Double>() {
 							@Override
-							public Double apply(final Element context, final Datum d,
+							public Double apply(final Element context, final Value d,
 									final int index) {
 								return x.apply(d.<Data> as().getLetter()).asDouble();
 							}
 						}).attr("width", x.rangeBand())
 						.attr("y", new DatumFunction<Double>() {
 							@Override
-							public Double apply(final Element context, final Datum d,
+							public Double apply(final Element context, final Value d,
 									final int index) {
 								return y.apply(d.<Data> as().getFrequency()).asDouble();
 							}
 						}).attr("height", new DatumFunction<Double>() {
 							@Override
-							public Double apply(final Element context, final Datum d,
+							public Double apply(final Element context, final Value d,
 									final int index) {
 								return height
 										- y.apply(d.<Data> as().getFrequency()).asDouble();

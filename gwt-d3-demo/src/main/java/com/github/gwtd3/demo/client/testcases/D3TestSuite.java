@@ -50,6 +50,7 @@ import com.github.gwtd3.demo.client.testcases.selection.TestSelectionClassed;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionContents;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionControls;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionData;
+import com.github.gwtd3.demo.client.testcases.selection.TestSelectionData2;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionHtml;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionProperty;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionStyle;
@@ -84,7 +85,7 @@ public class D3TestSuite {
 				// selections
 				new TestSubselections(), new TestSelectionContents(),
 				new TestSelectionAttr(), new TestSelectionClassed(),
-				new TestSelectionData(), new TestSelectionProperty(),
+				new TestSelectionData(), new TestSelectionData2(), new TestSelectionProperty(),
 				new TestSelectionText(), new TestSelectionHtml(),
 				new TestSelectionControls(), new TestSelectionStyle(),
 				// scales

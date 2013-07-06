@@ -28,7 +28,7 @@
  */
 package com.github.gwtd3.demo.client.testcases.selection;
 
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -62,7 +62,7 @@ public class TestSelectionProperty extends AbstractSelectionTest {
 		final double value = 1.56;
 		selection.property(TestSelectionProperty.PROPERTY, new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Datum datum, final int index) {
+			public Double apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		});
@@ -72,7 +72,7 @@ public class TestSelectionProperty extends AbstractSelectionTest {
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
 		selection2.property(TestSelectionProperty.PROPERTY, new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Datum datum, final int index) {
+			public Double apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		});
@@ -86,7 +86,7 @@ public class TestSelectionProperty extends AbstractSelectionTest {
 		final String value = "1";
 		selection.property(TestSelectionProperty.PROPERTY, new DatumFunction<String>() {
 			@Override
-			public String apply(final Element context, final Datum datum, final int index) {
+			public String apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		});
@@ -96,7 +96,7 @@ public class TestSelectionProperty extends AbstractSelectionTest {
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
 		selection2.property(TestSelectionProperty.PROPERTY, new DatumFunction<String>() {
 			@Override
-			public String apply(final Element context, final Datum datum, final int index) {
+			public String apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		});

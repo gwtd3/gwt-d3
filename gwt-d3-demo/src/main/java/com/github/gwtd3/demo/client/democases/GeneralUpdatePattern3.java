@@ -35,9 +35,10 @@ import java.util.Arrays;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.UpdateSelection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
 import com.github.gwtd3.demo.client.DemoCase;
@@ -129,8 +130,8 @@ public class GeneralUpdatePattern3 extends FlowPanel implements DemoCase {
 				.data(JsArrays.asJsArray(data), new KeyFunction<Integer>() {
 
 					@Override
-					public Integer apply(final Element context, final Datum d, final int index) {
-						return d.asInt();
+					public Integer map(final Element context, final Array<?> newDataArray, final Value datum, final int index) {
+						return datum.asInt();
 					}
 				});
 		// UPDATE
@@ -138,7 +139,7 @@ public class GeneralUpdatePattern3 extends FlowPanel implements DemoCase {
 		selection.attr("class", styles.update())
 				.transition().duration(750).attr("x", new DatumFunction<Integer>() {
 					@Override
-					public Integer apply(final Element context, final Datum d, final int index) {
+					public Integer apply(final Element context, final Value d, final int index) {
 						return index * 32;
 					}
 				});
@@ -151,14 +152,14 @@ public class GeneralUpdatePattern3 extends FlowPanel implements DemoCase {
 				.attr("y", -60)
 				.attr("x", new DatumFunction<Integer>() {
 					@Override
-					public Integer apply(final Element context, final Datum d, final int index) {
+					public Integer apply(final Element context, final Value d, final int index) {
 						return index * 32;
 					}
 				})
 				.style("fill-opacity", 0.01D)
 				.text(new DatumFunction<String>() {
 					@Override
-					public String apply(final Element context, final Datum datum, final int index) {
+					public String apply(final Element context, final Value datum, final int index) {
 						return Character.toString(datum.asChar());
 					}
 				})

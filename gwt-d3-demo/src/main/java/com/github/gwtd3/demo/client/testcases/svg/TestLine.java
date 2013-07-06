@@ -33,7 +33,7 @@ import java.util.List;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Line;
 import com.github.gwtd3.api.svg.Line.InterpolationMode;
@@ -61,7 +61,7 @@ public class TestLine extends AbstractTestCase {
 		// x and y
 		line.x(new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Datum d, final int index) {
+			public Double apply(final Element context, final Value d, final int index) {
 				xCapture.add(d.<Coords> as().x);
 				return d.<Coords> as().x;
 			}
@@ -69,7 +69,7 @@ public class TestLine extends AbstractTestCase {
 
 		line.y(new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Datum d, final int index) {
+			public Double apply(final Element context, final Value d, final int index) {
 				yCapture.add(d.<Coords> as().y);
 				return d.<Coords> as().y;
 			}
@@ -96,7 +96,7 @@ public class TestLine extends AbstractTestCase {
 
 		line.defined(new DatumFunction<Boolean>() {
 			@Override
-			public Boolean apply(final Element context, final Datum d, final int index) {
+			public Boolean apply(final Element context, final Value d, final int index) {
 				// System.out.println(context);
 				// System.out.println(d);
 				// System.out.println(index);
@@ -107,7 +107,7 @@ public class TestLine extends AbstractTestCase {
 		// not called
 		line.y(new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Datum d, final int index) {
+			public Double apply(final Element context, final Value d, final int index) {
 				counter.y = (counter.y + 1);
 				yCapture.add(d.<Coords> as().y);
 				return d.<Coords> as().y;

@@ -32,7 +32,7 @@ import java.util.List;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Line;
 import com.github.gwtd3.api.svg.Line.InterpolationMode;
@@ -47,7 +47,7 @@ public class LineGenerator<T> {
 	protected PointBuilder<T> builder;
 	protected DomainFilter<T> filter;
 
-	public LineGenerator(PointBuilder<T> builder, DomainFilter<T> filter) {
+	public LineGenerator(final PointBuilder<T> builder, final DomainFilter<T> filter) {
 		super();
 		this.builder = builder;
 		this.filter = filter;
@@ -59,7 +59,7 @@ public class LineGenerator<T> {
 				// convert the domain object to a pixel distance
 				.x(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						int x = (int) builder.x(d.<T> as());
 						// System.out.println(x);
 						return (double) x;
@@ -68,7 +68,7 @@ public class LineGenerator<T> {
 				// convert the domain to a pixel distance
 				.y(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						int y = (int) builder.y(d.<T> as());
 						// System.out.println(y);
 						return (double) y;
@@ -76,7 +76,7 @@ public class LineGenerator<T> {
 				})
 				.defined(new DatumFunction<Boolean>() {
 					@Override
-					public Boolean apply(final Element context, final Datum d, final int index) {
+					public Boolean apply(final Element context, final Value d, final int index) {
 						T value = d.<T> as();
 						// if (true) {
 						// return true;
@@ -95,11 +95,11 @@ public class LineGenerator<T> {
 	 * 
 	 * @param filter
 	 */
-	public void setFilter(DomainFilter<T> filter) {
+	public void setFilter(final DomainFilter<T> filter) {
 		this.filter = filter;
 	}
 
-	public String generate(List<T> values) {
+	public String generate(final List<T> values) {
 		return generator.generate(JsArrays.asJsArray(values));
 	}
 }

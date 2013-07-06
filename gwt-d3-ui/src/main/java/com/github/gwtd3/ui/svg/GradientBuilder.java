@@ -33,9 +33,9 @@ package com.github.gwtd3.ui.svg;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Color;
-import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.UpdateSelection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.Scale;
 import com.google.gwt.dom.client.Element;
@@ -58,7 +58,7 @@ public class GradientBuilder {
 
 	private final DatumFunction<String> offsetAccessor = new DatumFunction<String>() {
 		@Override
-		public String apply(final Element context, final Datum d, final int index) {
+		public String apply(final Element context, final Value d, final int index) {
 			int step = d.asInt();
 			// linearly set the offset
 			// (but you could also use log or other...)
