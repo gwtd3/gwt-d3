@@ -83,7 +83,7 @@ public abstract class DefaultSelectionUpdater<T> implements SelectionUpdater<T> 
 
     @Override
     public String getKey(final T datum, final int index) {
-        return Integer.toString(index);
+        return Integer.toString(index); 
     }
 
     public static final void debugSelection(final String message, final Selection selection) {

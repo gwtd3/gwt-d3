@@ -50,77 +50,78 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class TestSessionContainer extends Composite {
 
-    public static final String RUN_BUTTON_ID = "runTestButton";
-    public static final String STOP_BUTTON_ID = "stopTestButton";
+	public static final String RUN_BUTTON_ID = "runTestButton";
+	public static final String STOP_BUTTON_ID = "stopTestButton";
 
-    private static TestSessionContainerUiBinder uiBinder = GWT.create(TestSessionContainerUiBinder.class);
+	private static TestSessionContainerUiBinder uiBinder = GWT.create(TestSessionContainerUiBinder.class);
 
-    interface TestSessionContainerUiBinder extends UiBinder<Widget, TestSessionContainer> {}
+	interface TestSessionContainerUiBinder extends UiBinder<Widget, TestSessionContainer> {
+	}
 
-    private RunUiHandlers uiHandlers;
+	private RunUiHandlers uiHandlers;
 
-    @UiField
-    HasWidgets container;
-    @UiField
-    HeaderPanel leftPanel;
-    @UiField
-    HasWidgets toolbar;
-    @UiField
-    ComplexPanel testCaseContainer;
+	@UiField
+	HasWidgets container;
+	@UiField
+	HeaderPanel leftPanel;
+	@UiField
+	HasWidgets toolbar;
+	@UiField
+	ComplexPanel testCaseContainer;
 
-    // toolbar
-    @UiField
-    Button stopButton;
-    @UiField
-    Button runButton;
-    @UiField
-    AbsolutePanel sandbox;
+	// toolbar
+	@UiField
+	Button stopButton;
+	@UiField
+	Button runButton;
+	@UiField
+	AbsolutePanel sandbox;
 
-    public TestSessionContainer() {
-        initWidget(TestSessionContainer.uiBinder.createAndBindUi(this));
+	public TestSessionContainer() {
+		initWidget(TestSessionContainer.uiBinder.createAndBindUi(this));
 
-        runButton.ensureDebugId(RUN_BUTTON_ID);
-        stopButton.ensureDebugId(STOP_BUTTON_ID);
-    }
+		runButton.ensureDebugId(TestSessionContainer.RUN_BUTTON_ID);
+		stopButton.ensureDebugId(TestSessionContainer.STOP_BUTTON_ID);
+	}
 
-    public ComplexPanel getSandbox() {
-        return sandbox;
-    }
+	public ComplexPanel getSandbox() {
+		return sandbox;
+	}
 
-    @UiHandler("stopButton")
-    void onStopClick(final ClickEvent e) {
-        uiHandlers.stop();
-    }
+	@UiHandler("stopButton")
+	void onStopClick(final ClickEvent e) {
+		uiHandlers.stop();
+	}
 
-    @UiHandler("runButton")
-    void onRunClick(final ClickEvent e) {
-        uiHandlers.start();
-    }
+	@UiHandler("runButton")
+	void onRunClick(final ClickEvent e) {
+		uiHandlers.start();
+	}
 
-    /**
-     * @param widget
-     */
-    public void addUnitTestWidget(final UnitTestWidget widget) {
-        testCaseContainer.add(widget);
-    }
+	/**
+	 * @param widget
+	 */
+	public void addUnitTestWidget(final UnitTestWidget widget) {
+		testCaseContainer.add(widget);
+	}
 
-    /**
-     * @param uiHandlers
-     *            the uiHandlers to set
-     */
-    public void setUiHandlers(final RunUiHandlers uiHandlers) {
-        this.uiHandlers = uiHandlers;
-    }
+	/**
+	 * @param uiHandlers
+	 *            the uiHandlers to set
+	 */
+	public void setUiHandlers(final RunUiHandlers uiHandlers) {
+		this.uiHandlers = uiHandlers;
+	}
 
-    /**
-     * @param i
-     * @param testExecution
-     */
-    public void setTestExecution(final int i, final TestExecution testExecution) {
-        ((UnitTestWidget) testCaseContainer.getWidget(i)).setTestExecution(testExecution);
-    }
+	/**
+	 * @param i
+	 * @param testExecution
+	 */
+	public void setTestExecution(final int i, final TestExecution testExecution) {
+		((UnitTestWidget) testCaseContainer.getWidget(i)).setTestExecution(testExecution);
+	}
 
-    public void openDetails(final int index) {
-        ((UnitTestWidget) testCaseContainer.getWidget(index)).openDetails();
-    }
+	public void openDetails(final int index) {
+		// ((UnitTestWidget) testCaseContainer.getWidget(index)).openDetails();
+	}
 }

@@ -56,7 +56,7 @@ import com.github.gwtd3.demo.client.testcases.selection.TestSelectionProperty;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionStyle;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionText;
 import com.github.gwtd3.demo.client.testcases.selection.TestSubselections;
-import com.github.gwtd3.demo.client.testcases.svg.TestArc;
+import com.github.gwtd3.demo.client.testcases.svg.TestArc; 
 import com.github.gwtd3.demo.client.testcases.svg.TestArea;
 import com.github.gwtd3.demo.client.testcases.svg.TestAxis;
 import com.github.gwtd3.demo.client.testcases.svg.TestLine;

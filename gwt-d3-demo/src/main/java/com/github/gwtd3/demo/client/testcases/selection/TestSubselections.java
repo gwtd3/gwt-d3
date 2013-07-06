@@ -260,7 +260,7 @@ public class TestSubselections extends AbstractSelectionTest {
 		assertEquals(3, divs.size());
 		Selection spans = divs.select("span");
 		assertEquals(3, spans.size());
-
+ 
 	}
 
 }

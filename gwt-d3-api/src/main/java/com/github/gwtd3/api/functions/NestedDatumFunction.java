@@ -26,19 +26,11 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.demo.client.testcases.scales;
+package com.github.gwtd3.api.functions;
 
-import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.demo.client.test.AbstractTestCase;
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.github.gwtd3.api.core.Value;
+import com.google.gwt.dom.client.Element;
 
-public class TestThresholdScale extends AbstractTestCase {
-
-	@Override
-	public void doTest(final ComplexPanel sandbox) {
-		Array<?> domain = D3.scale.threshold().domain();
-		assertEquals(1, domain.length());
-		assertEquals(0.5, domain.getNumber(0));
-	}
+public interface NestedDatumFunction<T> {
+	public T apply(Element context, Value datum, int index, int groupIndex);
 }

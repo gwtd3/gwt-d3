@@ -75,7 +75,7 @@ public class TestSelectionContents extends AbstractSelectionTest {
 		assertEquals(1, selection.size());
 	}
 
-	/**
+	/** 
 	 * 
 	 */
 	private void testInsert() {
