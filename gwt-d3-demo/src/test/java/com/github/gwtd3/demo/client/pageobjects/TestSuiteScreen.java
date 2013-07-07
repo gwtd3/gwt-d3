@@ -28,21 +28,27 @@
  */
 package com.github.gwtd3.demo.client.pageobjects;
 
+import static org.assertj.core.api.Assertions.*;
+
 import java.util.List;
 
-import com.github.gwtd3.demo.client.conditions.Conditions;
-import com.github.gwtd3.demo.client.conditions.WebElementCondition;
-import com.github.gwtd3.demo.client.test.ui.TestSessionContainer;
-import com.github.gwtd3.demo.client.test.ui.UnitTestWidget;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.github.gwtbootstrap.client.ui.constants.ButtonType;
+import com.github.gwtbootstrap.client.ui.constants.Constants;
+import com.github.gwtd3.demo.client.conditions.ClassCondition;
+import com.github.gwtd3.demo.client.conditions.Conditions;
+import com.github.gwtd3.demo.client.conditions.WebElementCondition;
+import com.github.gwtd3.demo.client.test.ui.TestSessionContainer;
+
 public class TestSuiteScreen extends PageObject<DemoApplication> {
 
-	protected TestSuiteScreen(DemoApplication parent) {
+	protected TestSuiteScreen(final DemoApplication parent) {
 		super(parent);
 	}
 
@@ -51,15 +57,15 @@ public class TestSuiteScreen extends PageObject<DemoApplication> {
 		return this;
 	}
 
-	public static final WebElementCondition unitTestIsError = Conditions.backgroundColor(UnitTestWidget.ERROR_COLOR);
-	public static final WebElementCondition unitTestIsSuccess = Conditions
-			.backgroundColor(UnitTestWidget.SUCCESS_COLOR);
-	public static final WebElementCondition unitTestIsDone = Conditions.or(unitTestIsError, unitTestIsSuccess);
+	public static final WebElementCondition unitTestIsError = new ClassCondition(ButtonType.DANGER.get());
+	public static final WebElementCondition unitTestIsSuccess = new ClassCondition(ButtonType.SUCCESS.get());
+	public static final WebElementCondition unitTestIsDone = Conditions.or(TestSuiteScreen.unitTestIsError, TestSuiteScreen.unitTestIsSuccess);
 
 	public TestSuiteScreen waitTestsAreAllDone() {
-		List<WebElement> elements = getIconStatus();
-		ExpectedCondition<List<WebElement>> unitTestsAreDone = Conditions.onElements(elements, unitTestIsDone);
-		WebDriverWait wait = new WebDriverWait(driver, 3);
+		List<WebElement> elements = getTestCaseWidgets();
+		assertThat(elements.size()).isGreaterThan(5);
+		ExpectedCondition<List<WebElement>> unitTestsAreDone = Conditions.onElements(elements, TestSuiteScreen.unitTestIsDone);
+		WebDriverWait wait = new WebDriverWait(driver, 8);
 		//
 		wait.until(ExpectedConditions.refreshed(unitTestsAreDone));
 		return this;
@@ -72,15 +78,15 @@ public class TestSuiteScreen extends PageObject<DemoApplication> {
 	 * @return
 	 */
 	public ExpectedCondition<List<WebElement>> getUnitTestsAreSuccessfulCondition() {
-		List<WebElement> elements = getIconStatus();
-		return Conditions.onElements(elements, unitTestIsSuccess);
+		List<WebElement> elements = getTestCaseWidgets();
+		return Conditions.onElements(elements, TestSuiteScreen.unitTestIsSuccess);
 	}
 
-	public List<WebElement> getIconStatus() {
-		By name = By.name(UnitTestWidget.STATUS_INDICATOR_NAME);
+	public List<WebElement> getTestCaseWidgets() {
+		ByChained chained = new ByChained(By.id(TestSessionContainer.ID), By.className(Constants.BTN));
 		WebDriverWait wait = new WebDriverWait(driver, 3);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(name));
-		List<WebElement> elements = driver.findElements(name);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(chained));
+		List<WebElement> elements = driver.findElements(chained);
 		return elements;
 	}
 

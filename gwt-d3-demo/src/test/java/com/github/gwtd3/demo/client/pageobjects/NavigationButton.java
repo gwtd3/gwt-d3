@@ -46,8 +46,8 @@ public abstract class NavigationButton<S, P extends PageObject<?>> extends Eleme
 	 * @param parent
 	 * @param buttonId
 	 */
-	public NavigationButton(P parent, String buttonId) {
-		super(parent, parent.findClickableById(buttonId, 1));
+	public NavigationButton(final P parent, final String buttonId) {
+		super(parent, parent.findClickableById(buttonId, 8));
 	}
 
 	/**

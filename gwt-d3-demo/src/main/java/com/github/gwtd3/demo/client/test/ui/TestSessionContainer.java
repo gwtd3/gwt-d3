@@ -55,6 +55,7 @@ public class TestSessionContainer extends Composite {
 
 	public static final String RUN_BUTTON_ID = "runTestButton";
 	public static final String STOP_BUTTON_ID = "stopTestButton";
+	public static final String ID = "testSessionContainer";
 
 	private static TestSessionContainerUiBinder uiBinder = GWT.create(TestSessionContainerUiBinder.class);
 
@@ -85,6 +86,7 @@ public class TestSessionContainer extends Composite {
 
 	public TestSessionContainer() {
 		initWidget(TestSessionContainer.uiBinder.createAndBindUi(this));
+		((UIObject) testCaseContainer).ensureDebugId(TestSessionContainer.ID);
 
 		((UIObject) runButton).ensureDebugId(TestSessionContainer.RUN_BUTTON_ID);
 		((UIObject) stopButton).ensureDebugId(TestSessionContainer.STOP_BUTTON_ID);
