@@ -39,7 +39,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public interface Interpolator<T> {
 
-    public T interpolate(double t);
+	public T interpolate(double t);
 
-    public JavaScriptObject asJSOFunction();
+	public JavaScriptObject asJSOFunction();
 }

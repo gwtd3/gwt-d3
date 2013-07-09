@@ -1022,7 +1022,7 @@ public class D3 extends JavaScriptObject {
 	 *            the step between each value
 	 * @return the array
 	 */
-	public static final native Array range(double stop, double step) /*-{
+	public static final native Array<?> range(double stop, double step) /*-{
 		return $wnd.d3.range(stop, step);
 	}-*/;
 

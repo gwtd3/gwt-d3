@@ -55,7 +55,7 @@
 					<b:Button ui:field="stopButton" addStyleNames="{style.inline}" type="INVERSE" enabled="false">Stop</b:Button>
 				</g:FlowPanel>
 				<g:FlowPanel ui:field="testCaseContainer" addStyleNames="{style.testCaseContainer}"  width="100%"/>
-				<b:TextArea ui:field="consoleField" visible="true" visibleLines="6" width="100%">Run the tests suite and click a test case to see the results</b:TextArea>
+				<b:TextArea ui:field="consoleField" visible="true" visibleLines="16" width="100%">Run the tests suite and click a test case to see the results</b:TextArea>
 			</g:HeaderPanel>
 			<g:AbsolutePanel ui:field="sandbox" width="20px" height="20px" addStyleNames="{style.inline}"/>
 		</g:FlowPanel>

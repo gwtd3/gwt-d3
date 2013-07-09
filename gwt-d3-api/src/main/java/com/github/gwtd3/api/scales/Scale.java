@@ -28,143 +28,209 @@
  */
 package com.github.gwtd3.api.scales;
 
+import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.time.TimeScale;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayInteger;
+import com.google.gwt.core.client.JsArrayUtils;
 
 public class Scale<S extends Scale<S>> extends JavaScriptObject {
 
-    protected Scale() {};
+	protected Scale() {
+	};
 
-    // ========= Domain functions ===============
+	// ========= Domain functions ===============
 
-    /*
-     * * @return the scale current input domain
-     */
-    public native final <T> Array<T> domain()/*-{
+	/**
+	 * Returns the scale's current input domain.
+	 * 
+	 * @return the scale current input domain
+	 */
+	public native final <T> Array<T> domain()/*-{
 		return this.domain();
-    }-*/;
+	}-*/;
 
-    public native final S domain(JavaScriptObject d) /*-{
-		return this.domain(d);
-    }-*/;
+	/**
+	 * Sets the scale's input domain to the specified array of numbers.
+	 * <p>
+	 * The array must contain two or more numbers.
+	 * <p>
+	 * If the elements in the given array are not numbers, they will be coerced to numbers; this coercion happens similarly when the scale is called. Thus, a linear scale can be
+	 * used to encode types such as date objects that can be converted to numbers; however, it is often more convenient to use {@link TimeScale} for dates.
+	 * <p>
+	 * (You can implement your own convertible number objects using valueOf.)
+	 * <p>
+	 * Although linear scales typically have just two numeric values in their domain, you can specify more than two values for a polylinear scale.
+	 * <p>
+	 * In this case, there must be an equivalent number of values in the output range. A polylinear scale represents multiple piecewise linear scales that divide a continuous
+	 * domain and range. This is particularly useful for defining diverging quantitative scales. For example, to interpolate between white and red for negative values, and white
+	 * and green for positive values, say:
+	 * 
+	 * <pre>
+	 * {@code
+	 * 
+	 * 
+	 *        var color = d3.scale.linear()
+	 *        .domain([-1, 0, 1])
+	 *        .range(["red", "white", "green"]);
+	 * 
+	 *        }
+	 * </pre>
+	 * 
+	 * The resulting value of color(-.5) is rgb(255, 128, 128), and the value of color(.5) is rgb(128, 192, 128).
+	 * <p>
+	 * Internally, polylinear scales perform a binary search for the output interpolator corresponding to the given domain value. By repeating values in both the domain and range,
+	 * you can also force a chunk of the input domain to map to a constant in the output range.
+	 * <p>
+	 * 
+	 * @param array
+	 *            the array of number
+	 * @return this scale instance for chaining
+	 */
+	public native final S domain(JavaScriptObject array) /*-{
+		return this.domain(array);
+	}-*/;
 
-    public native final S domain(double a, double b) /*-{
-		if (!this.domain) {
-			return this;
-		}
+	/**
+	 * Shortcut to {@link #domain(JavaScriptObject)} for 2 numbers.
+	 * <p>
+	 * 
+	 * @param a
+	 *            the first bound of the domain
+	 * @param b
+	 *            the last bound of the domain
+	 * @return this scale instance for chaining
+	 */
+	public native final S domain(double a, double b) /*-{
 		return this.domain([ a, b ]);
-    }-*/;
+	}-*/;
 
-    public native final S domain(String a, String b) /*-{
+	/**
+	 * Shortcut to {@link #domain(JavaScriptObject)} for 2 number-coercable strings,
+	 * such as colors.
+	 * <p>
+	 * 
+	 * @param a
+	 *            the first bound of the domain
+	 * @param b
+	 *            the last bound of the domain
+	 * @return this scale instance for chaining
+	 */
+	public native final S domain(String a, String b) /*-{
 		return this.domain([ a, b ]);
-    }-*/;
+	}-*/;
 
-    /**
-     * Set the domain of this scale function with a domain that can be
-     * understood by Javascript.
-     * <p>
-     * 
-     * @param a
-     * @param b
-     * @return
-     */
-    public native final <T> S domain(T a, T b) /*-{
-		return this.domain(a, b);
-    }-*/;
+	/**
+	 * Shortcut to {@link #domain(JavaScriptObject)} for an array of double.
+	 * <p>
+	 * 
+	 * @param numbers
+	 *            an array of numbers
+	 * @return this scale instance for chaining
+	 */
+	public final S domain(final double... numbers) {
+		return this.domain(JsArrayUtils.readOnlyJsArray(numbers));
+	}
 
-    // ========= Range functions ===============
+	// ========= Range functions ===============
 
-    /**
-     * Returns the scale's current output range.
-     * @return the range
-     */
-    public native final <T> Array<T> range()/*-{
+	/**
+	 * Returns the scale's current output range.
+	 * 
+	 * @return the range
+	 */
+	public native final <T> Array<T> range()/*-{
 		return this.range();
-    }-*/;
+	}-*/;
 
-    /**
-     * Set the scale's output range.
-     * <p>
-     * Sets the scale's output range to the specified array of values. The array must contain two or more values, to
-     * match the cardinality of the input domain. The elements in the given array need not be numbers; any value that is
-     * supported by the underlying interpolator will work. However, numeric ranges are required for the invert operator.
-     * 
-     * @param values
-     *            the array of values.
-     * @return the current scale
-     */
-    public final native S range(JavaScriptObject values) /*-{
+	/**
+	 * Set the scale's output range.
+	 * <p>
+	 * Sets the scale's output range to the specified array of values. The array must contain two or more values, to match the cardinality of the input domain. The elements in the
+	 * given array need not be numbers; any value that is supported by the underlying interpolator will work. However, numeric ranges are required for the invert operator.
+	 * 
+	 * @param values
+	 *            the array of values.
+	 * @return the current scale for chaining
+	 */
+	public final native S range(JavaScriptObject values) /*-{
 		return this.range(values);
-    }-*/;
+	}-*/;
 
-    /**
-     * See {@link #range(JsArrayInteger)}.
-     * 
-     * @param a
-     *            the first bound of the range
-     * @param b
-     *            the second bound of the range
-     * @return the current scale
-     */
-    public final native S range(int a, int b) /*-{
-		return this.range([ a, b ]);
-    }-*/;
+	/**
+	 * See {@link #range(JavaScriptObject)}.
+	 * 
+	 * @param numbers
+	 * @return the current scale for chaining
+	 */
+	public final S range(final double... numbers) {
+		return this.range(JsArrayUtils.readOnlyJsArray(numbers));
+	}
 
-    // ========= Copy functions ===============
+	/**
+	 * See {@link #range(JavaScriptObject)}.
+	 * 
+	 * @param numbers
+	 * @return the current scale for chaining
+	 */
+	public final S range(final String... numbers) {
+		return this.range(JsArrays.asJsArray(numbers));
+	}
 
-    /**
-     * Returns an exact copy of this scale.
-     * <p>
-     * Changes to this scale will not affect the returned scale, and vice versa.
-     * 
-     * @return the copy
-     */
-    public native final S copy()/*-{
+	// ========= Copy functions ===============
+
+	/**
+	 * Returns an exact copy of this scale.
+	 * <p>
+	 * Changes to this scale will not affect the returned scale, and vice versa.
+	 * 
+	 * @return the copy
+	 */
+	public native final S copy()/*-{
 		return this.copy();
-    }-*/;
+	}-*/;
 
-    // ========= Apply functions ===============
+	// ========= Apply functions ===============
 
-    /**
-     * Given a value x in the input domain, returns the corresponding value in
-     * the output range.
-     * 
-     * @param d
-     *            the input value
-     * @return the output value
-     */
-    public native final Value apply(JavaScriptObject d)/*-{
+	/**
+	 * Given a value x in the input domain, returns the corresponding value in
+	 * the output range.
+	 * 
+	 * @param d
+	 *            the input value
+	 * @return the output value
+	 */
+	public native final Value apply(JavaScriptObject d)/*-{
 		return {
 			datum : this(d)
 		};
-    }-*/;
+	}-*/;
 
-    /**
-     * Given a value x in the input domain, returns the corresponding value in
-     * the output range.
-     * 
-     * @see #apply(JavaScriptObject)
-     * @param d
-     *            the input value
-     * @return the output value
-     */
-    public native final Value apply(double d)/*-{
+	/**
+	 * Given a value x in the input domain, returns the corresponding value in
+	 * the output range.
+	 * 
+	 * @see #apply(JavaScriptObject)
+	 * @param d
+	 *            the input value
+	 * @return the output value
+	 */
+	public native final Value apply(double d)/*-{
 		return {
 			datum : this(d)
 		};
-    }-*/;
+	}-*/;
 
-    /**
-     * @see #apply(JavaScriptObject)
-     * @param d
-     *            the input value
-     * @return the output value
-     */
-    public native final Value apply(String d)/*-{
+	/**
+	 * @see #apply(JavaScriptObject)
+	 * @param d
+	 *            the input value
+	 * @return the output value
+	 */
+	public native final Value apply(String d)/*-{
 		return {
 			datum : this(d)
 		};
-    }-*/;
+	}-*/;
 }
