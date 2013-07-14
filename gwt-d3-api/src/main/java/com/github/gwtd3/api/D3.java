@@ -249,6 +249,16 @@ public class D3 extends JavaScriptObject {
 		return selectAll(elements);
 	}
 
+
+
+	// =========== Math ==============
+	
+	public static final com.github.gwtd3.api.core.Random random = com.github.gwtd3.api.core.Random.get();
+
+	
+	
+
+
 	// =========== shuffle ==============
 
 	/**
