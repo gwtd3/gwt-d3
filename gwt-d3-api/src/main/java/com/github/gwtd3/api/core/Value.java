@@ -55,8 +55,7 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Create a {@link Value} instance from the value of the named property of
-	 * the given object.
+	 * Create a {@link Value} instance from the value of the named property of the given object.
 	 * 
 	 * @param object
 	 * @param propertyName
@@ -208,7 +207,7 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	public final native boolean isString()/*-{
-		return this.datum === string;
+		return (typeof this.datum == 'string' || this.datum instanceof String);
 	}-*/;
 
 	// public final native boolean isNumber()/*-{
@@ -226,4 +225,30 @@ public class Value extends JavaScriptObject {
 		return this.datum == true || this.datum == false;
 	}-*/;
 
+	/**
+	 * Return the property of this object as a {@link Value}.
+	 * <p>
+	 * This method result is never non-null. The returned value may then be tested for nullity (with {@link #isNull()}) or for undefinition
+	 * (with {@link #isUndefined()}).
+	 * <p>
+	 * 
+	 * @param propertyName
+	 *            the name of the property to get
+	 * @return the property value as a value.
+	 */
+	public final native Value getProperty(String propertyName)/*-{
+		return {
+			datum : this.datum[propertyName]
+		};
+	}-*/;
+
+	/**
+	 * The result of the typeof operator.
+	 * <p>
+	 * 
+	 * @return the String returned by a call to typeof
+	 */
+	public final native String typeof()/*-{
+		return typeof this.datum;
+	}-*/;
 }
