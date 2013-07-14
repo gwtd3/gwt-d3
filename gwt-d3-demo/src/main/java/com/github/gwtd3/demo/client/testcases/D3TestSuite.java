@@ -64,7 +64,6 @@ import com.github.gwtd3.demo.client.testcases.svg.TestAxis;
 import com.github.gwtd3.demo.client.testcases.svg.TestLine;
 import com.github.gwtd3.demo.client.testcases.time.TestTimeFormat;
 import com.github.gwtd3.demo.client.testcases.time.TestTimeIntervals;
-import com.github.gwtd3.demo.client.testcases.time.TestTimeScales;
 import com.github.gwtd3.demo.client.testcases.tsv.TestTsv;
 
 /**
@@ -79,23 +78,23 @@ public class D3TestSuite {
 		D3TestSuite suite = new D3TestSuite();
 		suite.tests = Arrays.asList(
 				// arrays
-				new TestArrays(), new TestD3Arrays(),
+				new TestArrays(),
+				new TestD3Arrays(),
 				// utils
 				new TestValue(),
 				// D3
-				new TestD3(), new TestColors(), new TestInterpolators(),
+				new TestD3(), new TestColors(),
+				new TestInterpolators(),
 				// selections
-				new TestSubselections(), new TestSelectionContents(),
-				new TestSelectionAttr(), new TestSelectionClassed(),
-				new TestSelectionData(), new TestSelectionData2(), new TestSelectionProperty(),
-				new TestSelectionText(), new TestSelectionHtml(),
-				new TestSelectionControls(), new TestSelectionStyle(),
+				new TestSubselections(), new TestSelectionContents(), new TestSelectionAttr(), new TestSelectionClassed(),
+				new TestSelectionData(), new TestSelectionData2(), new TestSelectionProperty(), new TestSelectionText(),
+				new TestSelectionHtml(), new TestSelectionControls(), new TestSelectionStyle(),
 				// scales
 				new TestLinearScale(), new TestLogScale(), new TestPowScale(), new TestThresholdScale(), new TestTimeScale(),
 				// svg
 				new TestAxis(), new TestLine(), new TestArea(), new TestArc(),
 				// time
-				new TestTimeFormat(), new TestTimeScales(), new TestTimeIntervals(),
+				new TestTimeFormat(), new TestTimeIntervals(),
 				// csv
 				new TestCsv(),
 				// tsv

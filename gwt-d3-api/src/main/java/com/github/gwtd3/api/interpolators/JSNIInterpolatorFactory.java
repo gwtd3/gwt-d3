@@ -28,30 +28,43 @@
  */
 package com.github.gwtd3.api.interpolators;
 
+import com.github.gwtd3.api.D3;
+import com.github.gwtd3.api.core.Value;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * An interpolator that can be passed to JSNI.
+ * An interpolator factory returned by JSNI.
  * <p>
- * This is useful when you want to create an implementation of {@link Interpolator} in Java that must be used in JSNI side.
+ * This class is used by {@link D3} to allow java code to invoke built-in interpolator factories. You should not instanciate this object
+ * unless you know what you are doing.
  * <p>
  * 
- * @author Anthony Schiochet (schiochetanthoni@gmail.com)
+ * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
- * @param <T>
- *            the type to be interpolated
  */
-public abstract class CallableInterpolator<T> implements Interpolator<T> {
+public class JSNIInterpolatorFactory<O> extends JavaScriptObject implements InterpolatorFactory<O> {
+
+	protected JSNIInterpolatorFactory() {
+		super();
+	}
 
 	@Override
-	public abstract T interpolate(double t);
+	public final JavaScriptObject asJSOFunction() {
+		return this;
+	}
 
 	@Override
-	public native final JavaScriptObject asJSOFunction() /*-{
-		var self = this;
-		return function(t) {
-			return self.@com.github.gwtd3.api.interpolators.CallableInterpolator::interpolate(D)(t);
-		}
+	public final <I> Interpolator<O> create(final I a, final I b) {
+		return new JavascriptFunctionInterpolatorDecorator<O>(createInterpolator(a, b)) {
+			@Override
+			public O cast(final Value v) {
+				return v.as();
+			}
+		};
+	}
+
+	public final native <I> JavascriptFunctionInterpolator createInterpolator(final I a, final I b)/*-{
+		return this(a, b);
 	}-*/;
 
 }
