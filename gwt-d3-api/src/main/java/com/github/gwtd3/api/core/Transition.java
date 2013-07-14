@@ -31,9 +31,9 @@
  */
 package com.github.gwtd3.api.core;
 
+import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.interpolators.Interpolator;
 import com.github.gwtd3.api.tweens.TweenFunction;
-
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -69,73 +69,85 @@ import com.google.gwt.core.client.JavaScriptObject;
  * <p>
  * For more on transitions, read the Working with Transitions tutorial.
  * 
- * TODO:
- * <ul>
- * <li>duration function version
- * <li>ease
- * </ul>
- * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
 public class Transition extends Selection {
 
-    protected Transition() {}
+	protected Transition() {}
 
-    /**
-     * Specifies per-element duration in milliseconds of all elements. The
-     * default duration is 250ms.
-     * 
-     * @param milliseconds
-     *            the transition duration in milliseconds
-     * @return the current transition
-     */
-    public native final Transition duration(int milliseconds)/*-{
+	/**
+	 * Specifies per-element duration in milliseconds of all elements. The
+	 * default duration is 250ms.
+	 * 
+	 * @param milliseconds
+	 *            the transition duration in milliseconds
+	 * @return the current transition
+	 */
+	public native final Transition duration(int milliseconds)/*-{
 		return this.duration(milliseconds);
     }-*/;
 
-    // public native final Transition attrTween(String name, TweenInt tweenFunction)/*-{
-    // return this.attrTween(name, function(d, i, a) {
-    // var result =
-    // tweenFunction.@com.gwtd3.api.core.TweenInt::tween(Lcom/google/gwt/dom/client/Element;III)(this,d,i,a);
-    // return result;
-    // });
-    // }-*/;
 
-    /**
-     * Transitions the value of the attribute with the specified name according to the specified tween function.
-     * <p>
-     * The starting and ending value of the transition are determined by tweenFunction; the tween function is invoked
-     * when the transition starts on each element, being passed the current DOM element, the datum d, the current index
-     * i and the current attribute value a.
-     * <p>
-     * The return value of tween must be an interpolator: a function that maps a parametric value t in the domain [0,1]
-     * to a color, number or arbitrary value.
-     * 
-     * @see <a href="https://github.com/mbostock/d3/wiki/Transitions#wiki-attrTween">Offical API</a>
-     * 
-     * @param name the name of the attribute to transition
-     * @param tweenFunction the function used to create an interpolator
-     */
-    public native final Transition attrTween(String name, TweenFunction<?> tweenFunction)/*-{
+	/**
+	 * Specifies per-element duration in milliseconds of all elements,
+	 * using the given function. The
+	 * default duration is 250ms.
+	 * 
+	 * @param func
+	 *            the function returning a transition duration in milliseconds
+	 * @return the current transition
+	 */
+	public native final Transition duration(DatumFunction<Integer> func)/*-{
+		return this.duration(function(d,i){
+			return func.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
+		});
+    }-*/;
+
+
+
+	// public native final Transition attrTween(String name, TweenInt tweenFunction)/*-{
+	// return this.attrTween(name, function(d, i, a) {
+	// var result =
+	// tweenFunction.@com.gwtd3.api.core.TweenInt::tween(Lcom/google/gwt/dom/client/Element;III)(this,d,i,a);
+	// return result;
+	// });
+	// }-*/;
+
+	/**
+	 * Transitions the value of the attribute with the specified name according to the specified tween function.
+	 * <p>
+	 * The starting and ending value of the transition are determined by tweenFunction; the tween function is invoked
+	 * when the transition starts on each element, being passed the current DOM element, the datum d, the current index
+	 * i and the current attribute value a.
+	 * <p>
+	 * The return value of tween must be an interpolator: a function that maps a parametric value t in the domain [0,1]
+	 * to a color, number or arbitrary value.
+	 * 
+	 * @see <a href="https://github.com/mbostock/d3/wiki/Transitions#wiki-attrTween">Offical API</a>
+	 * 
+	 * @param name the name of the attribute to transition
+	 * @param tweenFunction the function used to create an interpolator
+	 */
+	public native final Transition attrTween(String name, TweenFunction<?> tweenFunction)/*-{
 		return this.attrTween(name, function(d, i, a) {
 			var interpolator = tweenFunction.@com.github.gwtd3.api.tweens.TweenFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;ILcom/github/gwtd3/api/core/Value;)(this,{datum:d},i,{datum:a});
 			return @com.github.gwtd3.api.core.Transition::trampolineInterpolator(Lcom/github/gwtd3/api/interpolators/Interpolator;)(interpolator);
 		});
     }-*/;
 
-    private static JavaScriptObject trampolineInterpolator(final Interpolator<?> interpolator) {
-        return interpolator.asJSOFunction();
-    }
-    /**
-     * @param name
-     * @param tweenObject
-     */
-    // public native final Transition attrTween(String name, String s)/*-{
-    // return this.attrTween(name, function(d, i, a) {
-    //
-    // return s;
-    // });
-    // }-*/;
+	private static JavaScriptObject trampolineInterpolator(final Interpolator<?> interpolator) {
+		return interpolator.asJSOFunction();
+	}
+	/**
+	 * @param name
+	 * @param tweenObject
+	 */
+	// public native final Transition attrTween(String name, String s)/*-{
+	// return this.attrTween(name, function(d, i, a) {
+	//
+	// return s;
+	// });
+	// }-*/;
 
 }
