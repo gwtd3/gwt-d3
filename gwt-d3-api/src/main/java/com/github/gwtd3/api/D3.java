@@ -184,6 +184,13 @@ public class D3 extends JavaScriptObject {
 		return $wnd.d3.selectAll(nodes);
 	}-*/;
 
+
+	// =========== Math ==============
+	
+	public static final com.github.gwtd3.api.core.Random random = com.github.gwtd3.api.core.Random.get();
+
+	
+	
 	// =========== shuffle ==============
 
 	/**
