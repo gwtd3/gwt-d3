@@ -76,6 +76,12 @@ public class TestColors extends AbstractTestCase {
 
 		HSLColor hsl2 = D3.hsl(120, 1, 0.5);
 		System.out.println(hsl2.toHexaString());
+
+		HSLColor hsl3 = D3.hsl(rgb);
+		assertEquals(0, hsl3.h());
+		assertEquals(1.0, hsl3.s());
+		assertEquals(0.5, hsl3.l());
+
 	}
 
 	/**
@@ -100,6 +106,12 @@ public class TestColors extends AbstractTestCase {
 		assertEquals(0, rgb2.g());
 		assertEquals(255, rgb2.b());
 		System.out.println(rgb2.toHexaString());
+
+		RGBColor rgb3 = D3.rgb(hsl);
+		assertEquals(255, rgb3.r());
+		assertEquals(0, rgb3.g());
+		assertEquals(0, rgb3.b());
+
 	}
 
 }
