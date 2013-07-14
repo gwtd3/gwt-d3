@@ -35,13 +35,13 @@ import org.openqa.selenium.support.Color;
 
 public class DemoDragMultiple extends AbstractDemoPage<DemoDragMultiple> {
 
-	protected DemoDragMultiple(WebDriver driver, DemoApplication parent) {
+	protected DemoDragMultiple(final WebDriver driver, final DemoApplication parent) {
 		super(parent);
 	}
 
 	public static class Circle extends ElementPageObject<DemoDragMultiple> {
 
-		public Circle(DemoDragMultiple parent, WebElement element) {
+		public Circle(final DemoDragMultiple parent, final WebElement element) {
 			super(parent, element);
 		}
 
@@ -61,7 +61,7 @@ public class DemoDragMultiple extends AbstractDemoPage<DemoDragMultiple> {
 		}
 	}
 
-	public Circle getCircle(int i) {
+	public Circle getCircle(final int i) {
 		// generate something like circle:first-child + circle + circle
 		return new Circle(this, findAll(By.tagName("circle")).get(i));
 	}

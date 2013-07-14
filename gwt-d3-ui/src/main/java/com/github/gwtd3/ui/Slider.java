@@ -34,8 +34,8 @@ package com.github.gwtd3.ui;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.behaviour.Drag;
 import com.github.gwtd3.api.behaviour.Drag.DragEventType;
-import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.LinearScale;
 import com.github.gwtd3.api.svg.Symbol;
@@ -61,14 +61,12 @@ import com.google.gwt.user.client.ui.HasValue;
 /**
  * A component that allows the user to change a numeric value using the mouse.
  * <p>
- * The slider is composed of a rule (a rigid line) and a cursor (a button-like shape). To change the value, the user can
- * drag the cursor along the rule, use the mouse wheel (TODO), or directly click on the rule. The current value may be
- * shown to the user (TODO) or not.
+ * The slider is composed of a rule (a rigid line) and a cursor (a button-like shape). To change the value, the user can drag the cursor along the rule, use the mouse wheel (TODO),
+ * or directly click on the rule. The current value may be shown to the user (TODO) or not.
  * <p>
  * This component can be disabled using the {@link #setEnabled(boolean)} method.
  * <p>
- * This component fires {@link ValueChangeEvent} to external listeners when the value is changed by the user in any
- * mean.
+ * This component fires {@link ValueChangeEvent} to external listeners when the value is changed by the user in any mean.
  * <p>
  * Styling may be customized by providing you own instance of {@link Resources} (TODO).
  * <p>
@@ -96,7 +94,7 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
      */
     private class ClickOnRuleListener implements DatumFunction<Void> {
         @Override
-        public Void apply(final Element context, final Datum d, final int index) {
+		public Void apply(final Element context, final Value d, final int index) {
             updateValueFromMouseCoords();
             return null;
         }
@@ -111,7 +109,7 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
      */
     private class DragListener implements DatumFunction<Void> {
         @Override
-        public Void apply(final Element context, final Datum d, final int index) {
+		public Void apply(final Element context, final Value d, final int index) {
             updateValueFromMouseCoords();
             return null;
         }
@@ -156,6 +154,7 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
 
         /**
          * the class name for the slider
+		 * 
          * @return
          */
         String slider();
@@ -333,7 +332,7 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
      */
     public Slider(final Resources resources, final Orientation orientation, final double min, final double max, final double value) {
         super(resources);
-        setWidth("" + DEFAULT_WIDTH);
+		setWidth("" + Slider.DEFAULT_WIDTH);
         setHeight("22");
         this.orientation = orientation;
         this.styles = resources.svgStyles();
@@ -403,19 +402,19 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
         // update the size of the component and layout
         if (cursorChanged || sizeChanged) {
             // compute component size
-            int smalldim = (cursorSize * 2) + RULE_THICKNESS;
+			int smalldim = (cursorSize * 2) + Slider.RULE_THICKNESS;
 
             if (isHorizontal()) {
                 width = size;
                 height = smalldim;
                 x = cursorSize;
-                y = (smalldim / 2) - (RULE_THICKNESS / 2);
+				y = (smalldim / 2) - (Slider.RULE_THICKNESS / 2);
                 this.scale.range(cursorSize, size - cursorSize);
             }
             else {
                 width = smalldim;
                 height = size;
-                x = (smalldim / 2) - (RULE_THICKNESS / 2);
+				x = (smalldim / 2) - (Slider.RULE_THICKNESS / 2);
                 y = cursorSize;
                 this.scale.range(size - cursorSize, cursorSize);
             }
@@ -439,7 +438,7 @@ public class Slider extends SVGDocumentWidget implements HasValue<Double>, HasVa
             int cx = 0;
             int cy = 0;
             int cursorPosition = scale.apply(currentValue).asInt();
-            int smallPosition = (RULE_THICKNESS / 2) + cursorSize;
+			int smallPosition = (Slider.RULE_THICKNESS / 2) + cursorSize;
             if (isHorizontal()) {
                 // modulate x from currentvalue
                 cx = cursorPosition;

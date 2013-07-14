@@ -28,7 +28,7 @@
  */
 package com.github.gwtd3.demo.client.testcases.selection;
 
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.core.client.debug.JsoInspector;
@@ -62,7 +62,7 @@ public class TestSelectionStyle extends AbstractSelectionTest {
 		final double value = 0.5;
 		selection.style(STYLE_HTML, new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Datum datum, final int index) {
+			public Double apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		});
@@ -72,7 +72,7 @@ public class TestSelectionStyle extends AbstractSelectionTest {
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
 		selection2.style(STYLE_HTML, new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Datum datum, final int index) {
+			public Double apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		});
@@ -88,7 +88,7 @@ public class TestSelectionStyle extends AbstractSelectionTest {
 		final double value = 1.54;
 		selection.style(TestSelectionStyle.STYLE_HTML, new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Datum datum, final int index) {
+			public Double apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		}, true);
@@ -98,7 +98,7 @@ public class TestSelectionStyle extends AbstractSelectionTest {
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
 		selection2.style(TestSelectionStyle.STYLE_HTML, new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Datum datum, final int index) {
+			public Double apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		});

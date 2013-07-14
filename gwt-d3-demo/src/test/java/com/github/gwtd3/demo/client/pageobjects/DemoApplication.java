@@ -28,9 +28,13 @@
  */
 package com.github.gwtd3.demo.client.pageobjects;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Duration;
+import org.openqa.selenium.support.ui.Sleeper;
 
 /**
  * Entry point for the gwt-d3 Demo Application. The demo consists in a header
@@ -45,18 +49,23 @@ public class DemoApplication extends PageObject<DemoApplication> {
 
     private DemoApplication(final WebDriver driver) {
         super(driver);
+		try {
+			Sleeper.SYSTEM_SLEEPER.sleep(new Duration(5, TimeUnit.SECONDS));
+		} catch (InterruptedException e) {
+			throw new RuntimeException("cannot wait", e);
     }
+	}
 
     /**
      * @param driver
      * @return the instance
      */
     public static DemoApplication getInstance(final WebDriver driver) {
-        if (INSTANCE == null) {
-            INSTANCE = new DemoApplication(driver);
+		if (DemoApplication.INSTANCE == null) {
+			DemoApplication.INSTANCE = new DemoApplication(driver);
         }
         DemoApplication.INSTANCE.driver = driver;
-        return INSTANCE;
+		return DemoApplication.INSTANCE;
     }
 
     /**
@@ -67,7 +76,12 @@ public class DemoApplication extends PageObject<DemoApplication> {
     }
 
     public DemoDragMultiple revealDemoDragMultiple() {
+		try {
+			Sleeper.SYSTEM_SLEEPER.sleep(new Duration(5, TimeUnit.SECONDS));
         return new DemoDragMultiple(driver, this).reveal();
+		} catch (InterruptedException e) {
+			throw new RuntimeException("do the thing ");
+		}
     }
 
     public WebElement getDemoContainer() {

@@ -41,4 +41,6 @@ public interface RunUiHandlers {
 
 	public void stop();
 
+	public void onShowTestResults(String results);
+
 }

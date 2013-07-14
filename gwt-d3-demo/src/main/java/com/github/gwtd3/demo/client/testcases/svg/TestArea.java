@@ -33,7 +33,7 @@ import java.util.List;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Area;
 import com.github.gwtd3.api.svg.Area.InterpolationMode;
@@ -62,7 +62,7 @@ public class TestArea extends AbstractTestCase {
         // x and y
         area.x(new DatumFunction<Double>() {
             @Override
-            public Double apply(final Element context, final Datum d, final int index) {
+            public Double apply(final Element context, final Value d, final int index) {
                 xCapture.add(d.<Coords> as().x);
                 return d.<Coords> as().x;
             }
@@ -70,7 +70,7 @@ public class TestArea extends AbstractTestCase {
 
         area.x0(new DatumFunction<Double>() {
             @Override
-            public Double apply(final Element context, final Datum d, final int index) {
+            public Double apply(final Element context, final Value d, final int index) {
                 xCapture.add(d.<Coords> as().x);
                 return d.<Coords> as().x;
             }
@@ -78,21 +78,21 @@ public class TestArea extends AbstractTestCase {
 
         area.x1(new DatumFunction<Double>() {
             @Override
-            public Double apply(final Element context, final Datum d, final int index) {
+            public Double apply(final Element context, final Value d, final int index) {
                 return d.<Coords> as().x;
             }
         });
 
         area.y(new DatumFunction<Double>() {
             @Override
-            public Double apply(final Element context, final Datum d, final int index) {
+            public Double apply(final Element context, final Value d, final int index) {
                 return d.<Coords> as().y;
             }
         });
 
         area.y0(new DatumFunction<Double>() {
             @Override
-            public Double apply(final Element context, final Datum d, final int index) {
+            public Double apply(final Element context, final Value d, final int index) {
                 yCapture.add(d.<Coords> as().y);
                 return d.<Coords> as().y;
             }
@@ -100,7 +100,7 @@ public class TestArea extends AbstractTestCase {
 
         area.y1(new DatumFunction<Double>() {
             @Override
-            public Double apply(final Element context, final Datum d, final int index) {
+            public Double apply(final Element context, final Value d, final int index) {
                 return d.<Coords> as().y;
             }
         });
@@ -129,7 +129,7 @@ public class TestArea extends AbstractTestCase {
         // defined : it does not seem to work
         area.defined(new DatumFunction<Boolean>() {
             @Override
-            public Boolean apply(final Element context, final Datum d, final int index) {
+            public Boolean apply(final Element context, final Value d, final int index) {
 //                System.out.println(context);
 //                System.out.println(d);
 //                System.out.println(index);
@@ -140,7 +140,7 @@ public class TestArea extends AbstractTestCase {
         // not called
         area.y(new DatumFunction<Double>() {
             @Override
-            public Double apply(final Element context, final Datum d, final int index) {
+            public Double apply(final Element context, final Value d, final int index) {
                 counter.y = (counter.y + 1);
                 yCapture.add(d.<Coords> as().y);
                 return d.<Coords> as().y;

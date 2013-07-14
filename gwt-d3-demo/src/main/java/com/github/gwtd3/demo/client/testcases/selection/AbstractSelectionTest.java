@@ -49,7 +49,7 @@ public abstract class AbstractSelectionTest extends AbstractTestCase {
 	 * @param w
 	 * @return the selection containing only the given widget
 	 */
-	protected Selection givenASimpleSelection(Widget w) {
+	protected Selection givenASimpleSelection(final Widget w) {
 		clearSandbox();
 		sandbox.add(w);
 		return D3.select(w.getElement());
@@ -62,7 +62,7 @@ public abstract class AbstractSelectionTest extends AbstractTestCase {
 	 * @param widgets
 	 * @return
 	 */
-	protected Selection givenAMultipleSelection(Widget... widgets) {
+	protected Selection givenAMultipleSelection(final Widget... widgets) {
 		clearSandbox();
 		for (Widget widget : widgets) {
 			sandbox.add(widget);

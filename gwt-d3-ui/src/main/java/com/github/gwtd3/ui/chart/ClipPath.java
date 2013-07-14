@@ -28,8 +28,8 @@
  */
 package com.github.gwtd3.ui.chart;
 
-import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.dom.client.Element;
 
@@ -71,7 +71,7 @@ public class ClipPath {
     public void apply(final Selection s) {
         s.attr("clip-path", new DatumFunction<String>() {
             @Override
-            public String apply(final Element context, final Datum d, final int index) {
+			public String apply(final Element context, final Value d, final int index) {
                 return "url(#" + getId() + ")";
             }
         });

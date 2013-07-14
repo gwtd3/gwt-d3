@@ -28,10 +28,8 @@
  */
 package com.github.gwtd3.api.tweens;
 
-import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.interpolators.Interpolator;
-
 import com.google.gwt.dom.client.Element;
 
 /**
@@ -43,5 +41,5 @@ import com.google.gwt.dom.client.Element;
  */
 public interface TweenFunction<T> {
 
-    Interpolator<T> apply(Element context, Datum datum, int index, Value attributeValue);
+	Interpolator<T> apply(Element context, Value datum, int index, Value attributeValue);
 }

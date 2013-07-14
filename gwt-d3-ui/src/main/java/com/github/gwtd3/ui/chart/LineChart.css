@@ -40,6 +40,10 @@
 .y path {
 }
 
+.y text{
+	text-anchor: end;
+}
+
 .line {
   fill: none;
   stroke: steelblue;

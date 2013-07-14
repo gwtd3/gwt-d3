@@ -33,8 +33,8 @@ import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.behaviour.Drag;
 import com.github.gwtd3.api.behaviour.Drag.DragEventType;
-import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.ContinuousQuantitativeScale;
 import com.github.gwtd3.ui.model.AxisModel;
@@ -84,7 +84,7 @@ class DragSupport {
 
     private final class OnDrag implements DatumFunction<Void> {
         @Override
-        public Void apply(final Element context, final Datum d, final int index) {
+		public Void apply(final Element context, final Value d, final int index) {
             if (disabled) {
                 return null;
             }
@@ -110,7 +110,7 @@ class DragSupport {
 
     private final class OnDragEnd implements DatumFunction<Void> {
         @Override
-        public Void apply(final Element context, final Datum d, final int index) {
+		public Void apply(final Element context, final Value d, final int index) {
             if (disabled) {
                 return null;
             }
@@ -122,7 +122,7 @@ class DragSupport {
 
     private final class OnDragStart implements DatumFunction<Void> {
         @Override
-        public Void apply(final Element context, final Datum d, final int index) {
+		public Void apply(final Element context, final Value d, final int index) {
             if (disabled) {
                 return null;
             }

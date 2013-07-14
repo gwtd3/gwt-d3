@@ -170,7 +170,7 @@ public class Line extends PathDataGenerator {
 	public final native Line x(final DatumFunction<Double> callback)/*-{
 		return this
 				.x(function(d, i) {
-					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 
@@ -204,7 +204,7 @@ public class Line extends PathDataGenerator {
 	public final native Line y(final DatumFunction<Double> callback) /*-{
 		return this
 				.y(function(d, i) {
-					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 
@@ -223,7 +223,7 @@ public class Line extends PathDataGenerator {
 	public final native Line defined(final DatumFunction<Boolean> callback) /*-{
 		return this
 				.defined(function(d) {
-					var result = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(null,{datum:d}, 0);
+					var result = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(null,{datum:d}, 0);
 					if (result == null) {
 						return false;
 					} else {

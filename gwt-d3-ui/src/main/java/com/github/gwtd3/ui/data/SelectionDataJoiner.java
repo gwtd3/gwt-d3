@@ -30,9 +30,10 @@ package com.github.gwtd3.ui.data;
 
 import java.util.List;
 
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.UpdateSelection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.KeyFunction;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
@@ -41,8 +42,7 @@ import com.google.gwt.dom.client.Element;
  * Wraps the generic algorithm of joining data to a selection, easing the
  * process of creating and removing new elements.
  * <p>
- * Usage : create a SelectionUpdater and call the {@link #update(Selection, List, SelectionUpdater)} method providing
- * data.
+ * Usage : create a SelectionUpdater and call the {@link #update(Selection, List, SelectionUpdater)} method providing data.
  * 
  * FIXME: handle nested selections case
  * 
@@ -86,7 +86,7 @@ public class SelectionDataJoiner {
         GWT.log("DATA: joining " + data.size() + " elements ");
         UpdateSelection updateSelection = child.data(data, new KeyFunction<String>() {
             @Override
-            public String apply(final Element context, final Datum d, final int index) {
+			public String map(final Element context, final Array<?> newDataArray, final Value d, final int index) {
                 return updater.getKey(d.<T> as(), index);
             }
         });

@@ -120,7 +120,7 @@ public class Formatter extends JavaScriptObject implements IsFunction {
 	 * @param specifier
 	 * @return the {@link Formatter} instance.
 	 */
-	public static Formatter create(String specifier) {
+	public static Formatter create(final String specifier) {
 		return D3.format(specifier);
 	}
 }

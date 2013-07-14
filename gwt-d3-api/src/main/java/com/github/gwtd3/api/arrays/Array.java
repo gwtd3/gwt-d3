@@ -167,19 +167,19 @@ public class Array<T> extends JavaScriptObject {
     // ============== get methods ==============
 
     /**
-     * Return the element at the specified index of this domain.
+	 * Return the element at the specified index
+	 * as the parameterized type.
      * 
      * @param index
-     * @return
+	 *            the index of the object
+	 * @return the
      */
-    public final native Value get(int index)/*-{
-		return {
-			datum : this[index]
-		};
+	public final native T get(int index)/*-{
+		return this[index];
     }-*/;
 
     /**
-     * Return the element at the given index as a {@link Value} object.
+	 * Return the element at the given index wrapped by a {@link Value} object.
      * 
      * @param i
      *            the index
@@ -469,8 +469,7 @@ public class Array<T> extends JavaScriptObject {
      * Otherwise, if callback returned a true value for all elements, every will
      * return true.
      * <p>
-     * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which
-     * have been deleted or which have never been assigned values.
+	 * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which have been deleted or which have never been assigned values.
      * <p>
      * 
      * @param callback
@@ -495,8 +494,7 @@ public class Array<T> extends JavaScriptObject {
      * Otherwise, if callback returned a true value for all elements, every will
      * return true.
      * <p>
-     * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which
-     * have been deleted or which have never been assigned values.
+	 * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which have been deleted or which have never been assigned values.
      * <p>
      * 
      * @param callback
@@ -524,8 +522,7 @@ public class Array<T> extends JavaScriptObject {
      * an element is found, the method immediately returns true. Otherwise, some
      * will return false.
      * <p>
-     * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which
-     * have been deleted or which have never been assigned values.
+	 * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which have been deleted or which have never been assigned values.
      * <p>
      * 
      * @param callback
@@ -576,8 +573,7 @@ public class Array<T> extends JavaScriptObject {
      * true value. Array elements which do not pass the callback test are simply
      * skipped, and are not included in the new array.
      * <p>
-     * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which
-     * have been deleted or which have never been assigned values.
+	 * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which have been deleted or which have never been assigned values.
      * <p>
      * 
      * @param callback
@@ -600,8 +596,7 @@ public class Array<T> extends JavaScriptObject {
      * true value. Array elements which do not pass the callback test are simply
      * skipped, and are not included in the new array.
      * <p>
-     * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which
-     * have been deleted or which have never been assigned values.
+	 * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which have been deleted or which have never been assigned values.
      * <p>
      * 
      * @param callback
@@ -626,8 +621,7 @@ public class Array<T> extends JavaScriptObject {
      * Calls the provided callback function once for each element in the array,
      * and constructs a new array of all the values returned by the callback.
      * <p>
-     * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which
-     * have been deleted or which have never been assigned values.
+	 * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which have been deleted or which have never been assigned values.
      * <p>
      * 
      * @param callback
@@ -645,8 +639,7 @@ public class Array<T> extends JavaScriptObject {
      * Calls the provided callback function once for each element in the array,
      * and constructs a new array of all the values returned by the callback.
      * <p>
-     * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which
-     * have been deleted or which have never been assigned values.
+	 * callback is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which have been deleted or which have never been assigned values.
      * <p>
      * 
      * @param callback

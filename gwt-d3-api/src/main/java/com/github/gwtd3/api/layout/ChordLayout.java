@@ -29,8 +29,7 @@
 package com.github.gwtd3.api.layout;
 
 import com.github.gwtd3.api.Sort;
-import com.github.gwtd3.api.core.Datum;
-
+import com.github.gwtd3.api.core.Value;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayNumber;
@@ -82,7 +81,7 @@ public class ChordLayout extends Layout<ChordLayout> {
 		}-*/;
 	}
     
-    public static class Chord extends Datum {
+	public static class Chord extends Value {
     	protected Chord() {
     		super();
     	}

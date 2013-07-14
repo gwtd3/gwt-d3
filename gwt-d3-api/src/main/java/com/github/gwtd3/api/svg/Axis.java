@@ -33,20 +33,17 @@ package com.github.gwtd3.api.svg;
 
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Formatter;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.Scale;
-
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * D3’s axis component displays reference lines for {@link Scale}s
  * automatically.
  * <p>
- * This lets you focus on displaying the data, while the axis component takes
- * care of the tedious task of drawing axes and labeled ticks.
+ * This lets you focus on displaying the data, while the axis component takes care of the tedious task of drawing axes and labeled ticks.
  * <p>
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
@@ -57,13 +54,13 @@ public class Axis extends JavaScriptObject implements IsFunction {
 
 	public static enum Orientation {
 		TOP, BOTTOM, LEFT, RIGHT;
-		
-		public boolean isVerticalAxis(){
-			return (this==LEFT)||(this==RIGHT); 
+
+		public boolean isVerticalAxis() {
+			return (this == LEFT) || (this == RIGHT);
 		}
-		
-		public boolean isHorizontalAxis(){
-			return (this==TOP)||(this==BOTTOM); 
+
+		public boolean isHorizontalAxis() {
+			return (this == TOP) || (this == BOTTOM);
 		}
 	}
 
@@ -91,8 +88,7 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
-	 * Returns the current orientation, which defaults to
-	 * {@link Orientation#BOTTOM}.
+	 * Returns the current orientation, which defaults to {@link Orientation#BOTTOM}.
 	 * <p>
 	 * 
 	 * @see #orient(Orientation)
@@ -107,15 +103,12 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	/**
 	 * Sets the axis orientation and returns the axis.
 	 * <p>
-	 * The orientation of an axis is the position of the ticks and their labels
-	 * in relation to the axis path.
+	 * The orientation of an axis is the position of the ticks and their labels in relation to the axis path.
 	 * <p>
-	 * For a vertical axis, specify {@link Orientation#LEFT} or
-	 * {@link Orientation#RIGHT}; for a horizontal axis, specify
+	 * For a vertical axis, specify {@link Orientation#LEFT} or {@link Orientation#RIGHT}; for a horizontal axis, specify
 	 * {@link Orientation#TOP} or {@link Orientation#BOTTOM}.
 	 * <p>
-	 * If instead you want to determine the position of the axis with respect to
-	 * the plot, use the transform attribute.
+	 * If instead you want to determine the position of the axis with respect to the plot, use the transform attribute.
 	 * <p>
 	 * 
 	 * @param o
@@ -127,13 +120,11 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
-	 * Specify the argument that will be passed to the associated scale
-	 * {@link Scale#ticks()} method to compute the tick values. This version
+	 * Specify the argument that will be passed to the associated scale {@link Scale#ticks()} method to compute the tick values. This
+	 * version
 	 * specify the desired tick count.
 	 * <p>
-	 * The count parameter is also passed to the
-	 * {@link Scale#tickFormat(int, String)} method to generate the default tick
-	 * format.
+	 * The count parameter is also passed to the {@link Scale#tickFormat(int, String)} method to generate the default tick format.
 	 * 
 	 * 
 	 * @param count
@@ -144,8 +135,7 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
-	 * Get the arguments that will be passed to the associated scale
-	 * {@link Scale#ticks()} method to compute the tick values.
+	 * Get the arguments that will be passed to the associated scale {@link Scale#ticks()} method to compute the tick values.
 	 * 
 	 * @param count
 	 * @return
@@ -214,13 +204,11 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	/**
 	 * Set the tick subdivision count and returns the axis.
 	 * <p>
-	 * Sets the number of uniform subdivision ticks to make between major tick
-	 * marks. The specified count specifies the number of minor ticks, which is
-	 * one less than the number of subdivisions.
+	 * Sets the number of uniform subdivision ticks to make between major tick marks. The specified count specifies the number of minor
+	 * ticks, which is one less than the number of subdivisions.
 	 * <p>
-	 * For example, axis.tickSubdivide(1) produces one minor tick per major
-	 * tick, thus cutting the space between each major tick in two. As another
-	 * example, decimal subdivision is specified as axis.tickSubdivide(9).
+	 * For example, axis.tickSubdivide(1) produces one minor tick per major tick, thus cutting the space between each major tick in two. As
+	 * another example, decimal subdivision is specified as axis.tickSubdivide(9).
 	 * 
 	 * @param count
 	 *            the tick subdivision count
@@ -257,10 +245,9 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	/**
 	 * Set the function to be used to format tick values.
 	 * <p>
-	 * This method can be used for example to add prefix or suffix to the result
-	 * of a {@link Formatter#format(double)} method.
+	 * This method can be used for example to add prefix or suffix to the result of a {@link Formatter#format(double)} method.
 	 * <p>
-	 * Note: the this argument will be null instance, and the index will be -1.
+	 * Note: the given function of context argument will be null instance, and the index will be -1.
 	 * <p>
 	 * 
 	 * @param formatFunction
@@ -270,7 +257,7 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	public final native Axis tickFormat(DatumFunction<String> formatFunction) /*-{
 		return this
 				.tickFormat(function(d) {
-					return formatFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(null,{datum:d},-1);
+					return formatFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(null,{datum:d},-1);
 				});
 	}-*/;
 

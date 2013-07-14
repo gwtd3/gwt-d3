@@ -148,7 +148,7 @@ public class Symbol extends PathDataGenerator {
 	public native final Symbol type(DatumFunction<Type> typeAccessorFunction)/*-{
 		return this
 				.type(function(d, i) {
-					return typeAccessorFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					return typeAccessorFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 
@@ -176,7 +176,7 @@ public class Symbol extends PathDataGenerator {
 	public native final Symbol size(DatumFunction<Integer> sizeAccessorFunction)/*-{
 		return this
 				.size(function(d, i) {
-					return sizeAccessorFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+					return sizeAccessorFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
 	}-*/;
 

@@ -32,7 +32,7 @@
 package com.github.gwtd3.demo.client.democases;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.core.Value;
@@ -151,7 +151,7 @@ public class ArcTween extends FlowPanel implements DemoCase {
 	protected void myFunction(final Transition transition, final double newAngle) {
 		transition.attrTween("d", new TweenFunction<String>() {
 			@Override
-			public Interpolator<String> apply(final Element context, final Datum datum, final int index,
+			public Interpolator<String> apply(final Element context, final Value datum, final int index,
 					final Value currentAttributeValue) {
 				final Arc arcDatum = datum.as();
 				try {

@@ -29,10 +29,11 @@
 package com.github.gwtd3.demo.client.testcases;
 
 import org.assertj.core.api.Assertions;
-import com.github.gwtd3.demo.client.pageobjects.DemoApplication;
-import com.github.gwtd3.demo.client.pageobjects.DemoDragMultiple.Circle;
 import org.junit.Test;
 import org.openqa.selenium.interactions.Actions;
+
+import com.github.gwtd3.demo.client.pageobjects.DemoApplication;
+import com.github.gwtd3.demo.client.pageobjects.DemoDragMultiple.Circle;
 
 public class TestDragMultiples extends AbstractSeleniumTest {
 
@@ -40,8 +41,9 @@ public class TestDragMultiples extends AbstractSeleniumTest {
 	public void testDragWorks() throws Exception {
 		// go to dragMultiples
 		Circle circle = DemoApplication.getInstance(driver).revealDemoDragMultiple()
-				// get the nth circle
+				// get the 5th circle
 				.getCircle(5);
+
 		// assert it's black
 		assertThat(circle.fillColor()).isNull();
 		// get its initial position

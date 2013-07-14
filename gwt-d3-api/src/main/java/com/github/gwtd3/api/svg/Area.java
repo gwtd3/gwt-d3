@@ -123,7 +123,7 @@ public class Area extends PathDataGenerator{
      */
     public final native Area x(final DatumFunction<Double> callback)/*-{
 		return this.x(function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 		});
     }-*/;
 
@@ -157,7 +157,7 @@ public class Area extends PathDataGenerator{
      */
     public final native Area x0(final DatumFunction<Double> callback)/*-{
 		return this.x0(function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 		});
     }-*/;
 
@@ -177,7 +177,7 @@ public class Area extends PathDataGenerator{
      */
     public final native Area x1(final DatumFunction<Double> callback)/*-{
 		return this.x1(function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 		});
     }-*/;
 
@@ -221,7 +221,7 @@ public class Area extends PathDataGenerator{
      */
     public final native Area y(final DatumFunction<Double> callback) /*-{
 		return this.y(function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 		});
     }-*/;
 
@@ -238,7 +238,7 @@ public class Area extends PathDataGenerator{
      */
     public final native Area y0(final DatumFunction<Double> callback) /*-{
 		return this.y0(function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 		});
     }-*/;
 
@@ -255,7 +255,7 @@ public class Area extends PathDataGenerator{
      */
     public final native Area y1(final DatumFunction<Double> callback) /*-{
 		return this.y1(function(d, i) {
-			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(this,{datum:d},i);
+			return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 		});
     }-*/;
 
@@ -275,7 +275,7 @@ public class Area extends PathDataGenerator{
     public final native Line defined(final DatumFunction<Boolean> callback) /*-{
 		return this.defined(function(d) {
 			alert('yo');
-			var result = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Datum;I)(null,{datum:d}, 0);
+			var result = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(null,{datum:d}, 0);
 			alert(result);
 			return result;
 		});

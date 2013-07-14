@@ -32,8 +32,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.gwtd3.api.core.Datum;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.LinearScale;
 import com.github.gwtd3.ui.data.DefaultSelectionUpdater;
@@ -62,8 +62,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
  * <p>
  * You can configure the chart behaviour using {@link #options()}.
  * <p>
- * User is able by default to navigate accross the X dimension domain. Call {@link Options#enableXNavigation(boolean)}
- * with false to disable it.
+ * User is able by default to navigate accross the X dimension domain. Call {@link Options#enableXNavigation(boolean)} with false to disable it.
  * <p>
  * FIXME: styling lines (colors, etc...) FIXME: styling serie label (position, font, etc...)
  * 
@@ -206,7 +205,7 @@ public class LineChart<T> extends BaseChart<T> implements SerieAddedHandler<T>, 
                 selection.attr("d", new DatumFunction<String>() {
                     @SuppressWarnings("unchecked")
                     @Override
-                    public String apply(final Element context, final Datum d, final int index) {
+					public String apply(final Element context, final Value d, final int index) {
                         Serie<T> serie = d.<Serie<T>> as();
                         List<T> values = serie.getValues();
                         LineGenerator<T> generator =
@@ -258,7 +257,7 @@ public class LineChart<T> extends BaseChart<T> implements SerieAddedHandler<T>, 
                         // setting the attribute d of the path
                         selection.attr("d", new DatumFunction<String>() {
                             @Override
-                            public String apply(final Element context, final Datum d, final int index) {
+							public String apply(final Element context, final Value d, final int index) {
                                 Serie<T>.NamedRange namedRange = d.<Serie<T>.NamedRange> as();
                                 // filter the points with the range
                                 LineGenerator<T> lineGenerator = new LineGenerator<T>(pointBuilder, namedRange);

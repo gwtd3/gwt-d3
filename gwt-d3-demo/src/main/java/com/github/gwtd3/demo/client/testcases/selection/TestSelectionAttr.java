@@ -29,7 +29,7 @@
 package com.github.gwtd3.demo.client.testcases.selection;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Arc;
@@ -64,7 +64,7 @@ public class TestSelectionAttr extends AbstractSelectionTest {
 		final String value = "1";
 		selection.attr(TestSelectionAttr.ATTRIBUTE, new DatumFunction<String>() {
 			@Override
-			public String apply(final Element context, final Datum datum, final int index) {
+			public String apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		});
@@ -74,7 +74,7 @@ public class TestSelectionAttr extends AbstractSelectionTest {
 		Selection selection2 = givenAMultipleSelection(new Label(), new Label(), new Label());
 		selection2.attr(TestSelectionAttr.ATTRIBUTE, new DatumFunction<String>() {
 			@Override
-			public String apply(final Element context, final Datum datum, final int index) {
+			public String apply(final Element context, final Value datum, final int index) {
 				return value;
 			}
 		});

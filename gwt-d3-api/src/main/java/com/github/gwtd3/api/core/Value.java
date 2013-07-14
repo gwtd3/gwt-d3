@@ -69,10 +69,10 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the datum.
+	 * Cast and return the value.
 	 * <p>
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final native boolean asBoolean()/*-{
 		return this.datum instanceof Boolean ? this.datum.valueOf()
@@ -80,20 +80,20 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the datum.
+	 * Cast and return the value.
 	 * <p>
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final native byte asByte()/*-{
 		return ~~this.datum;
 	}-*/;
 
 	/**
-	 * Cast and return the datum.
+	 * Cast and return the value.
 	 * <p>
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final native char asChar()/*-{
 		return ~~this.datum;
@@ -104,50 +104,50 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the datum.
+	 * Cast and return the value.
 	 * <p>
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final native double asDouble()/*-{
 		return this.datum - 0;
 	}-*/;
 
 	/**
-	 * Cast and return the datum.
+	 * Cast and return the value.
 	 * <p>
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final native float asFloat()/*-{
 		return this.datum - 0;
 	}-*/;
 
 	/**
-	 * Cast and return the datum.
+	 * Cast and return the value.
 	 * <p>
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final native int asInt()/*-{
 		return ~~this.datum;
 	}-*/;
 
 	/**
-	 * Cast and return the datum.
+	 * Cast and return the value.
 	 * <p>
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final long asLong() {
 		return (long) asDouble();
 	}
 
 	/**
-	 * Cast and return the datum.
+	 * Cast and return the value.
 	 * <p>
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final native short asShort()/*-{
 		return ~~this.datum;
@@ -156,20 +156,20 @@ public class Value extends JavaScriptObject {
 	/**
 	 * Return the value casted to a String.
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final native String asString()/*-{
 		return this.datum == null ? null : new String(this.datum);
 	}-*/;
 
 	/**
-	 * Cast and return the datum, if possible.
+	 * Cast and return the value, if possible.
 	 * <p>
 	 * 
 	 * @throws ClassCastException
-	 *             if the datum cannot be converted in T
+	 *             if the value cannot be converted in T
 	 * 
-	 * @return the datum
+	 * @return the value
 	 */
 	public final native <T> T as()/*-{
 		return this.datum;

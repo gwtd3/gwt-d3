@@ -33,7 +33,7 @@ package com.github.gwtd3.demo.client.democases;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.demo.client.DemoCase;
@@ -72,13 +72,13 @@ public class StupidExample extends FlowPanel implements DemoCase {
                 .attr("cy", 90)
                 .attr("cx", new DatumFunction<Integer>() {
                     @Override
-                    public Integer apply(final Element context, final Datum d, final int index) {
+                    public Integer apply(final Element context, final Value d, final int index) {
                         return d.asInt();
                     }
                 })// String
                 .attr("r", new DatumFunction<Double>() {
                     @Override
-                    public Double apply(final Element context, final Datum d, final int index) {
+                    public Double apply(final Element context, final Value d, final int index) {
                         return Math.sqrt(d.asDouble());
                     }
                 });// sqrt
@@ -88,13 +88,13 @@ public class StupidExample extends FlowPanel implements DemoCase {
                 .attr("cy", 90)
                 .attr("cx", new DatumFunction<Integer>() {
                     @Override
-                    public Integer apply(final Element context, final Datum d, final int index) {
+                    public Integer apply(final Element context, final Value d, final int index) {
                         return d.asInt();
                     }
                 })// String
                 .attr("r", new DatumFunction<Double>() {
                     @Override
-                    public Double apply(final Element context, final Datum d, final int index) {
+                    public Double apply(final Element context, final Value d, final int index) {
                         return Math.sqrt(d.asDouble());
                     }
                 });// sqrt

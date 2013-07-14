@@ -59,6 +59,14 @@ public abstract class AbstractTestCase extends Assert implements TestCase {
 		return getElement(index).getAttribute(attribute);
 	}
 
+	public String getElementInnerText(final int index) {
+		return getElement(index).getInnerText();
+	}
+
+	public String getElementInnerHtml(final int index) {
+		return getElement(index).getInnerHTML();
+	}
+
 	public String getElementClassAttribute(final int index) {
 		return getElement(index).getClassName();
 	}
@@ -67,7 +75,7 @@ public abstract class AbstractTestCase extends Assert implements TestCase {
 		return getElement(index).getStyle().getProperty(style);
 	}
 
-	protected Value getElementProperty(int index, String property) {
+	protected Value getElementProperty(final int index, final String property) {
 		return Value.create(getElement(index), property);
 	}
 

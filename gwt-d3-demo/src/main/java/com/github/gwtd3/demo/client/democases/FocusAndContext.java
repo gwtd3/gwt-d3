@@ -33,7 +33,7 @@ import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.dsv.DsvCallback;
@@ -114,12 +114,12 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
 				.interpolate(InterpolationMode.MONOTONE)
 				.x(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						return x.apply(d.<Data> as().getDate()).asDouble();
 					}
 				}).y0(height).y1(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						return y.apply(d.<Data> as().getPrice()).asDouble();
 					}
 				});
@@ -128,12 +128,12 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
 				.interpolate(InterpolationMode.MONOTONE)
 				.x(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						return x2.apply(d.<Data> as().getDate()).asDouble();
 					}
 				}).y0(height2).y1(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Datum d, final int index) {
+					public Double apply(final Element context, final Value d, final int index) {
 						return y2.apply(d.<Data> as().getPrice()).asDouble();
 					}
 				});

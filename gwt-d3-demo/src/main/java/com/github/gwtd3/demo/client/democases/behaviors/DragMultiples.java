@@ -34,7 +34,7 @@ import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.behaviour.Drag;
 import com.github.gwtd3.api.behaviour.Drag.DragEventType;
-import com.github.gwtd3.api.core.Datum;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
@@ -91,13 +91,13 @@ public class DragMultiples extends FlowPanel implements DemoCase {
                 .attr("r", CIRCLE_RADIUS)
                 .attr("cx", new DatumFunction<Double>() {
                     @Override
-                    public Double apply(final Element context, final Datum d, final int index) {
+                    public Double apply(final Element context, final Value d, final int index) {
                         return d.as(Coords.class).x();
                     }
                 })
                 .attr("cy", new DatumFunction<Double>() {
                     @Override
-                    public Double apply(final Element context, final Datum d, final int index) {
+                    public Double apply(final Element context, final Value d, final int index) {
                         return d.as(Coords.class).y();
                     }
                 })
@@ -109,7 +109,7 @@ public class DragMultiples extends FlowPanel implements DemoCase {
 
     private class OnDragMove implements DatumFunction<Void> {
         @Override
-        public Void apply(final Element context, final Datum d, final int index) {
+        public Void apply(final Element context, final Value d, final int index) {
             // change color of the element being dragged
             D3.select(context).attr("fill", "green");
             Coords datum = d.as();
@@ -130,7 +130,7 @@ public class DragMultiples extends FlowPanel implements DemoCase {
     public class OnDragEnd implements DatumFunction<Void> {
 
         @Override
-        public Void apply(final Element context, final Datum d, final int index) {
+        public Void apply(final Element context, final Value d, final int index) {
             // remove fill attributes
             D3.select(context).attr("fill", "");
             return null;
@@ -141,7 +141,7 @@ public class DragMultiples extends FlowPanel implements DemoCase {
     public class OnDragStart implements DatumFunction<Void> {
 
         @Override
-        public Void apply(final Element context, final Datum d, final int index) {
+        public Void apply(final Element context, final Value d, final int index) {
             D3.select(context).attr("fill", "red");
             return null;
         }

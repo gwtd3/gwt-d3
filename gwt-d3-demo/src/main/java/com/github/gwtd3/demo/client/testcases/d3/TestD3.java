@@ -35,12 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
-
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Label;
 
@@ -59,9 +54,6 @@ public class TestD3 extends AbstractTestCase {
 	public void doTest(final ComplexPanel sandbox) {
 		// version
 		version();
-		select();
-		selectAll();
-
 		shuffle();
 	}
 
@@ -130,33 +122,8 @@ public class TestD3 extends AbstractTestCase {
 	/**
 	 * 
 	 */
-	private void selectAll() {
-
-		NodeList<Element> labels = Document.get().getElementsByTagName("div");
-		Selection selection = D3.selectAll(labels);
-		assertFalse(selection.empty());
-
-		Selection selection2 = D3.selectAll("div");
-		assertFalse(selection2.empty());
-	}
-
-	/**
-	 * 
-	 */
 	private void version() {
 		D3.version();
-	}
-
-	/**
-	 * 
-	 */
-	private void select() {
-		Selection select = D3.select(sandbox);
-		assertEquals(sandbox.getElement(), select.node());
-
-		select = D3.select("div");
-		assertFalse(select.empty());
-
 	}
 
 }
