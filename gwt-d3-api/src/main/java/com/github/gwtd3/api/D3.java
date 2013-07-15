@@ -52,6 +52,7 @@ import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.dsv.Dsv;
 import com.github.gwtd3.api.dsv.DsvCallback;
 import com.github.gwtd3.api.dsv.DsvObjectAccessor;
+import com.github.gwtd3.api.functions.TimerFunction;
 import com.github.gwtd3.api.interpolators.Interpolator;
 import com.github.gwtd3.api.interpolators.InterpolatorFactory;
 import com.github.gwtd3.api.interpolators.JavascriptFunctionInterpolator;
@@ -973,6 +974,95 @@ public class D3 extends JavaScriptObject {
 	 */
 	public static final native Array<InterpolatorFactory<?>> interpolators()/*-{
 		return $wnd.d3.interpolators;
+	}-*/;
+
+	// =========== timer ==============
+
+	/**
+	 * Alias for {@link #timer(TimerFunction, int)} with a delay equals to 0.
+	 * 
+	 * @param command
+	 *            the command to be executed until it returns true.
+	 * @param delayMillis
+	 *            the delay to expires before the command should start being invoked (may be negative if markMillis is in the future)
+	 */
+	public static final native void timer(TimerFunction command) /*-{
+		return $wnd.d3
+				.timer(function() {
+					return command.@com.github.gwtd3.api.functions.TimerFunction::execute()();
+				});
+	}-*/;
+
+	/**
+	 * Alias for {@link #timer(TimerFunction, int, int)} with a mark equals to the "now" timestamp (i.e <code>new Date().getTime()</code>).
+	 * 
+	 * @param command
+	 *            the command to be executed until it returns true.
+	 * @param delayMillis
+	 *            the delay to expires before the command should start being invoked (may be negative if markMillis is in the future)
+	 */
+	public static final native void timer(TimerFunction command, int delayMillis) /*-{
+		return $wnd.d3
+				.timer(
+						function() {
+							return command.@com.github.gwtd3.api.functions.TimerFunction::execute()();
+						}, delayMillis);
+	}-*/;
+
+	/**
+	 * Start a custom animation timer, invoking the specified {@link TimerFunction} repeatedly until it returns true.
+	 * <p>
+	 * There is no way to cancel the timer after it starts, so make sure your timer function returns true when done!
+	 * 
+	 * The optional numeric delay [unit: integer, millisecond] may be specified when the given function should only start to be invoked
+	 * after delay milliseconds have expired after the specified mark timestamp [unit: integer, milliseconds since epoch].
+	 * <p>
+	 * When mark is omitted, Date.now() is assumed instead. Otherwise, you may use Date.getTime to convert your Date object to a suitable
+	 * mark timestamp.
+	 * <p>
+	 * You may use delay and mark to specify relative and absolute moments in time when the function should start being invoked, e.g. a
+	 * calendar-based event might be coded as
+	 * 
+	 * <pre>
+	 * {@code
+	 * 	Date appointment = new Date(2012, 09, 29, 14, 0, 0); // @ 29/sep/2012, 1400 hours
+	 * ...
+	 * // flash appointment on screen when it's due in 4 hours or less: note that negative (delay) is okay!
+	 * d3.timer(flash_appointments_due, -4 * 3600 * 1000, appointment);
+	 * }
+	 * </pre>
+	 * 
+	 * @param command
+	 *            the command to be executed until it returns true.
+	 * @param delayMillis
+	 *            the delay to expires before the command should start being invoked (may be negative if markMillis is in the future)
+	 * @param markMillis
+	 *            the timestamp from which the delay starts
+	 */
+	public static final native void timer(TimerFunction command, int delayMillis, int markMillis) /*-{
+		return $wnd.d3
+				.timer(
+						function() {
+							return command.@com.github.gwtd3.api.functions.TimerFunction::execute()();
+						}, delayMillis, markMillis);
+	}-*/;
+
+	/**
+	 * Immediately execute (invoke once) any active timers.
+	 * <p>
+	 * Normally, zero-delay transitions are executed after an instantaneous delay (<10ms).
+	 * <p>
+	 * This can cause a brief flicker if the browser renders the page twice: once at the end of the first event loop, then again immediately
+	 * on the first timer callback.
+	 * <p>
+	 * By flushing the timer queue at the end of the first event loop, you can run any zero-delay transitions immediately and avoid the
+	 * flicker.
+	 * <p>
+	 * Note: the original method is d3.timer.flush() but has been pushed here because the timer API is limited to this method
+	 * 
+	 */
+	public static final native void timerFlush()/*-{
+		return $wnd.d3.timer.flush();
 	}-*/;
 
 	// =========== time ==============
