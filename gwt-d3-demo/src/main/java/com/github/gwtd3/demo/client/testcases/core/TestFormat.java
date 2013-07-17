@@ -26,23 +26,18 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.demo.client.testcases.core;
+package com.github.gwtd3.demo.client.testcases.time;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Prefix;
+import com.github.gwtd3.api.JsArrays;
+import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
 import com.google.gwt.user.client.ui.ComplexPanel;
 
-public class TestFormat extends AbstractTestCase {
+public class TestTimeScales extends AbstractTestCase {
 
-	@Override
-	public void doTest(final ComplexPanel sandbox) {
-		D3.format("%s").format(456.34);
-		assertEquals(123.12,D3.round(123.1234,2));
-		assertEquals("This is a 'quoted' string, yes \\? And the dots, like \\. are counted as \\{literals\\}",D3.requote("This is a 'quoted' string, yes ? And the dots, like . are counted as {literals}"));
-		Prefix prefix = D3.formatPrefix(123456.12345, 1);
-		assertEquals("k",prefix.symbol());
-		assertEquals(1000.0,prefix.scale(1000000));
-
-	}
+    @Override
+    public void doTest(final ComplexPanel sandbox) {
+        Array<?> range = D3.time().scale().range(JsArrays.asJsArray(0, 5)).range();
+    }
 }

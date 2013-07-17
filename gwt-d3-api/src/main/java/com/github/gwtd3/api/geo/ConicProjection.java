@@ -26,11 +26,10 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.geo;
+package com.github.gwtd3.ui.model;
 
-public class ConicProjection extends Projection<ConicProjection> {
+public interface DomainFilter<T> {
 
-	protected ConicProjection() {
+	public boolean accept(T value);
 
-	}
 }

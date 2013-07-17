@@ -89,7 +89,7 @@ public class TestSelectionControls extends AbstractSelectionTest {
 		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
 		assertEquals("1", selection.node().getInnerText());
 		selection = selection.selectAll("unknown");
-		assertNull(selection.node());
+		assertNull(selection.node()); 
 	}
 
 	protected void testEmpty() {

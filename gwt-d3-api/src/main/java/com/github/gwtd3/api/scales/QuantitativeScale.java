@@ -26,27 +26,23 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * 
- */
-package com.github.gwtd3.api.scales;
+package com.github.gwtd3.ui.svg;
+
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.resources.client.CssResource.Shared;
 
 /**
- * Quantitative scales have a continuous domain:
- * <ul>
- * <li>{@link ContinuousQuantitativeScale} have a continuous output range
- * <li>{@link DiscreteQuantitativeScale} have a discrete output range
- * </ul>
+ * Style to be applied on a svg document.
  * 
- * 
- * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+ * @author SCHIOCA
  * 
  */
-public abstract class QuantitativeScale<S extends QuantitativeScale<S>> extends
-		Scale<S> {
-
-	protected QuantitativeScale() {
-
-	}
-
+@Shared
+public interface SVGStyles extends CssResource {
+    /**
+     * The class to apply to the svg element
+     * 
+     * @return the class name
+     */
+    public String svg();
 }

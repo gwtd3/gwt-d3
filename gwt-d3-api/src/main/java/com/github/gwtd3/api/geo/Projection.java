@@ -26,34 +26,55 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.geo;
+@external .major, .minor, .tick;
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
 
-import com.google.gwt.core.client.JavaScriptObject;
+.x path {
+  display: none;
+}
+.y path {
+}
 
-//TODO: conic projection subclass with parallels() accessors
-public class Projection<P extends Projection<P>> extends JavaScriptObject {
+.y text{
+	text-anchor: end;
+}
 
-	protected Projection() {
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1px;
+}
 
-	}
+.label{
+	
+}
 
-	public final native P rotate(double longitude, double latitude)/*-{
-		return this.rotate([ longitude, latitude ]);
-	}-*/;
+.svg{
+	
+}
 
-	public final native P center(double longitude, double latitude)/*-{
-		return this.center([ longitude, latitude ]);
-	}-*/;
+.major{
+}
 
-	/**
-	 * Sets the projection’s scale factor to the specified value and returns the
-	 * projection.
-	 * 
-	 * @param factor
-	 *            the scale
-	 * @return the projection
-	 */
-	public final native P scale(double factor)/*-{
-		return this.scale(factor);
-	}-*/;
+.minor{
+}
+
+.tick{
+	
+}
+
+.serie{
+}
+
+.namedRange{
+	stroke-width: 2px;
+}
+
+.namedRange:hover{
+	stroke-width: 3px;
 }

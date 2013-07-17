@@ -26,45 +26,52 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package com.github.gwtd3.ui.model;
+
+import com.github.gwtd3.api.scales.Scale;
+import com.github.gwtd3.ui.chart.LineChart;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HasHandlers;
+
 /**
+ * Model for a {@link LineChart}.
+ * <p>
+ * A model is constituted of a list of {@link Serie} that represents the same kind of data in one single universe.
+ * <p>
+ * D
  * 
- */
-package com.github.gwtd3.api.core;
-
-import com.github.gwtd3.api.D3;
-import com.google.gwt.core.client.JavaScriptObject;
-
-/**
- * Constructing visualizations often involves working with colors.
- * <p>
- * Even though your browser understands a lot about colors, it doesn't offer
- * much help in manipulating colors through JavaScript.
- * <p>
- * So D3 provides representations for both RGB and HSL colors, allowing
- * interpolation in both color spaces, and making colors brighter or darker. For
- * more about color manipulation, see the Wikipedia entries on RGB and HSL.
- * <p>
- * Note: while you can work with colors directly, you might also want to take a
- * look at D3's built-in {@link D3#interpolateRgb}, {@link D3#interpolateHsl} and {@link D3#scale}.
- * <p>
- * If you are looking for color palettes, see the ordinal scales reference.
- * <p>
+ * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
+ * @param <T>
  */
-public class Color extends JavaScriptObject {
+public class BaseChartModel<T, S extends Scale<S>> implements HasHandlers {
 
-	protected Color() {
-		super();
-	}
+    private final AxisModel<S> xModel;
+    private final AxisModel<S> yModel;
 
-	/**
-	 * Converts to a RGB hexadecimal string, such as "#f7eaba".
-	 * 
-	 * @return hexa representation of the color
-	 */
-	public final native String toHexaString()/*-{
-		return this.toString();
-	}-*/;
+    protected final HandlerManager eventManager = new HandlerManager(this);
+
+    public BaseChartModel(final AxisModel<S> xModel, final AxisModel<S> yModel) {
+        super();
+        this.xModel = xModel;
+        this.yModel = yModel;
+    }
+
+    // =========== delegate models ================
+
+    public AxisModel<S> xModel() {
+        return xModel;
+    }
+
+    public AxisModel<S> yModel() {
+        return yModel;
+    }
+
+    @Override
+    public void fireEvent(final GwtEvent<?> event) {
+        eventManager.fireEvent(event);
+    }
 
 }

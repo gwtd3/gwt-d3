@@ -26,51 +26,38 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.geo;
+package com.github.gwtd3.ui;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import static org.assertj.core.api.Assertions.*;
 
-public class Geography extends JavaScriptObject {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-	protected Geography() {
+import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.ui.svg.Transform;
+import com.github.gwtd3.ui.svg.TransformList;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ Selection.class })
+public class TestTransform {
+
+	@Test
+	public void testTransform() {
+		TransformList l = new TransformList();
+		TransformList.parse(l, "");
+		assertThat(l.isEmpty()).isTrue();
+		assertThat(l.toString()).isEqualTo(null);
+		//
+		l.push(Transform.translate(5, 4));
+		assertThat(l.toString()).isEqualTo("translate(5,4)");
+		//
+		l.push(Transform.translate(10));
+		assertThat(l.toString()).isEqualTo("translate(5,4) translate(10)");
+
+		l.clear();
+		assertThat(l.isEmpty()).isTrue();
 
 	}
-
-	/**
-	 * An alias for {@link #conicEqualArea()}, with USA-centric defaults:
-	 * <ul>
-	 * <li>scale 1000,
-	 * <li>translate [480, 250],
-	 * <li>rotation [96°, 0°],
-	 * <li>center ⟨-0.6°, 38.7°⟩
-	 * <li>parallels [29.5°, 45.5°],
-	 * </ul>
-	 * making it suitable for displaying the United States, centered around <a
-	 * href="https://maps.google.com/maps?q=Hutchinson,+Kansas&z=5">Hutchinson,
-	 * Kansas</a> in a 960×500 area.
-	 * <p>
-	 * The central meridian and parallels are specified by the <a
-	 * href="http://www.usgs.gov/">USGS</a> in the 1970 <a
-	 * href="http://www.nationalatlas.gov/">National Atlas</a>.
-	 * <p>
-	 * 
-	 * @return the projection
-	 */
-	public native final ConicProjection albers()/*-{
-		return this.albers();
-	}-*/;
-
-	/**
-	 * The Albers projection, as an <a
-	 * href="http://en.wikipedia.org/wiki/Map_projection#Equal-area">equal-area
-	 * projection</a>, is recommended for <a
-	 * href="http://mbostock.github.com/d3/ex/choropleth.html">choropleths</a>
-	 * as it preserves the relative areas of geographic features.
-	 * <p>
-	 * 
-	 * @return the projection
-	 */
-	public native final ConicProjection conicEqualArea()/*-{
-		return this.conicEqualArea();
-	}-*/;
 }

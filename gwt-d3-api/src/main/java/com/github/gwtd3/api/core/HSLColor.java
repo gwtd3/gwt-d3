@@ -26,95 +26,83 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * 
- */
-package com.github.gwtd3.api.core;
+package com.github.gwtd3.ui.svg;
+
+import java.util.Stack;
 
 /**
+ * A Transform .
+ * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class HSLColor extends Color {
+public class TransformList {
 
-	protected HSLColor() {
-		super();
+	/**
+	 * 
+	 */
+	private static final String TRANSFORM_SEPARATOR = " ";
+	private final Stack<Transform> transforms = new Stack<Transform>();
+
+	/**
+	 * Build and return the transform attribute.
+	 * 
+	 * @return the transform attribute
+	 */
+	@Override
+	public String toString() {
+		String attribute = null;
+		if (transforms.size() > 0) {
+			attribute = "";
+			for (Transform transform : transforms) {
+				attribute += transform.command + TransformList.TRANSFORM_SEPARATOR;
+			}
+			attribute = attribute.trim();
+		}
+		return attribute;
 	}
 
 	/**
-	 * @return the hue component in the range [0;360]
+	 * Parse the transform attribute into {@link Transform} instances
+	 * and populate the given {@link TransformList}.
+	 * 
+	 * @param transformAttribute
 	 */
-	public native final int h()/*-{
-		return this.h;
-	}-*/;
+	public static void parse(final TransformList list, final String transformAttribute) {
+		String attribute = transformAttribute == null ? "" : transformAttribute.trim();
+		String[] split = attribute.split(TransformList.TRANSFORM_SEPARATOR);
+		for (String transform : split) {
+			transform = transform == null ? "" : transform.trim();
+			if (transform.length() > 0) {
+				list.transforms.push(new Transform(transform));
+			}
+		}
+	}
 
 	/**
-	 * @return the saturation component in the range [0;1]
+	 * Push the given transform command in the stack
+	 * 
+	 * @param transform
+	 * @return
 	 */
-	public native final double s()/*-{
-		return this.s;
-	}-*/;
+	public void push(final Transform transform) {
+		transforms.push(transform);
+	}
 
 	/**
-	 * @return the lightness component in the range [0;1]
-	 */
-	public native final double l()/*-{
-		return this.l;
-	}-*/;
-
-	/**
-	 * Returns the equivalent color in RGB space; see d3.rgb for details on the
-	 * returned object. The conversion from HSL to RGB is described in CSS3
-	 * Color Module Level 3.
+	 * Remove all the
 	 * 
 	 * @return
 	 */
-	public native final RGBColor rgb()/*-{
-		return this.rgb();
-	}-*/;
+	public void clear() {
+		transforms.clear();
+	}
 
 	/**
-	 * Returns a brighter copy of this color yith a gamme of 1.
-	 * 
-	 * @return the new copy
+	 * @return true if the transforms does not contains any command
 	 */
-	public native final HSLColor brighter()/*-{
-		return this.brighter();
-	}-*/;
-
-	/**
-	 * Returns a brighter copy of this color.
-	 * <p>
-	 * The lightness channel is multiplied by 0.7 ^ -k.
-	 * 
-	 * @param k
-	 *            the gamma value
-	 * @return the new copy
-	 */
-	public native final HSLColor brighter(int k)/*-{
-		return this.brighter(k);
-	}-*/;
-
-	/**
-	 * Returns a darker copy of this color yith a gamme of 1.
-	 * 
-	 * @return the new copy
-	 */
-	public native final HSLColor darker()/*-{
-		return this.darker();
-	}-*/;
-
-	/**
-	 * Returns a darker copy of this color.
-	 * <p>
-	 * The lightness channel is multiplied by 0.7 ^ k.
-	 * 
-	 * @param k
-	 *            the gamma value
-	 * @return the new copy
-	 */
-	public native final HSLColor darker(int k)/*-{
-		return this.darker(k);
-	}-*/;
+	public boolean isEmpty() {
+		return transforms.isEmpty();
+	}
 
 }

@@ -26,51 +26,40 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * 
- */
-package com.github.gwtd3.demo.client.testcases.arrays;
+package com.github.gwtd3.ui.model;
 
 import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
 import com.github.gwtd3.api.core.Value;
 
 /**
- * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+ * Provides base for a {@link PointBuilder}.
  * 
+ * @author SCHIOCA
+ * 
+ * @param <T>
  */
-public class Callbacks {
+public abstract class BasePointBuilder<T> implements PointBuilder<T> {
 
-    /**
-     * Return a callback that return true only if the element is greater than the given value.
-     * 
-     * @param than
-     * @return
-     */
-    public static ForEachCallback<Boolean> greaterThan(final double than) {
-        return new ForEachCallback<Boolean>() {
-            @Override
-            public Boolean forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
-                System.out.println("received " + element.asDouble() + " > " + than + " : "
-                        + (element.asDouble() > than));
-                return element.asDouble() > than;
-            }
-        };
+    private final NumericForEachCallback xAccessor = new NumericForEachCallback() {
+        @Override
+        public double forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
+            return x(element.<T> as());
+        }
+    };
+
+    private final NumericForEachCallback yAccessor = new NumericForEachCallback() {
+        @Override
+        public double forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
+            return y(element.<T> as());
+        }
+    };
+
+    public NumericForEachCallback getXAccessor() {
+        return xAccessor;
     }
 
-    /**
-     * Return a callback that add the given int to each numeric element
-     * 
-     * @param i the number to add
-     * @return the callback
-     */
-    public static NumericForEachCallback add(final int i) {
-        return new NumericForEachCallback() {
-            @Override
-            public double forEach(final Object thisArg, final Value element, final int index, final Array<?> array) {
-                return element.asDouble() + i;
-            }
-        };
+    public NumericForEachCallback getYAccessor() {
+        return yAccessor;
     }
 }

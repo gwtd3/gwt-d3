@@ -85,19 +85,19 @@ public class TestSelectionData extends AbstractSelectionTest {
 		Selection td =
 				tr.selectAll("td")
 						.data(new DatumFunction<JavaScriptObject>() {
-			@Override
+							@Override
 							public JavaScriptObject apply(final Element context, final Value d, final int index) {
 								int[] as = d.as();
 								return JsArrayUtils.readOnlyJsArray(as);
-			}
+							}
 						})
 						.enter().append("td")
 						.text(new DatumFunction<String>() {
-			@Override
+							@Override
 							public String apply(final Element context, final Value d, final int index) {
-				return d.asString();
-			}
-		});
+								return d.asString();
+							}
+						});
 		return td;
 	}
 
@@ -162,10 +162,10 @@ public class TestSelectionData extends AbstractSelectionTest {
 		assertDataPropertyEqualsTo(103, selection, 2);
 
 		// long
-//		selection.data(new long[] { 64l, 9l, 104l });
-//		assertDataPropertyEqualsTo(64, selection, 0);
-//		assertDataPropertyEqualsTo(9, selection, 1);
-//		assertDataPropertyEqualsTo(104, selection, 2);
+		selection.data(new long[] { 64l, 9l, 104l });
+		assertDataPropertyEqualsTo(64, selection, 0);
+		assertDataPropertyEqualsTo(9, selection, 1);
+		assertDataPropertyEqualsTo(104, selection, 2);
 
 		// short
 		selection.data(new short[] { 65, 10, 105 });
@@ -297,7 +297,7 @@ public class TestSelectionData extends AbstractSelectionTest {
 		assertEquals(MATRIX[0][0], (int) data.getNumber(0));
 		assertEquals(MATRIX[0][1], (int) data.getNumber(1));
 
-			}
+	}
 
 	private void testNestedSelection() {
 		clearSandbox();
@@ -315,22 +315,22 @@ public class TestSelectionData extends AbstractSelectionTest {
 							 * 
 							 * @see com.github.gwtd3.api.functions.DatumFunction#apply(com.google.gwt.dom.client.Element, com.github.gwtd3.api.core.Datum, int)
 							 */
-			@Override
+							@Override
 							public Array<?> apply(final Element context, final Value d, final int index) {
 								System.out.println(context + " " + d.asString() + " " + index);
 								int[] as = d.as();
 								System.out.println(as);
 								return JsArrayUtils.readOnlyJsArray(as).cast();
 								// return JsArrays.asJsArray(Arrays.asList("J", "K", "L"));
-			}
+							}
 						})
 						.enter().append("td")
 						.text(new DatumFunction<String>() {
-			@Override
+							@Override
 							public String apply(final Element context, final Value d, final int index) {
-				return d.asString();
-			}
-		});
+								return d.asString();
+							}
+						});
 
 	}
 }

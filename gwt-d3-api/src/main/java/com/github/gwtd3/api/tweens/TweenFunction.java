@@ -28,26 +28,18 @@
  */
 package com.github.gwtd3.api.tweens;
 
-import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.interpolators.Interpolator;
 import com.google.gwt.dom.client.Element;
 
 /**
- * A function returning an {@link Interpolator} used to tween elements attribute or styles within {@link Transition}s.
- * <p>
+ * A tween function used.
+ * 
  * @see <a href="https://github.com/mbostock/d3/wiki/Transitions#wiki-attrTween">Official attrTween function</a>
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
 public interface TweenFunction<T> {
 
-	/**
-	 * @param context
-	 * @param datum
-	 * @param index
-	 * @param attributeValue
-	 * @return
-	 */
-	Interpolator<T> apply(Element context, Value datum, int index, Value value);
+	Interpolator<T> apply(Element context, Value datum, int index, Value attributeValue);
 }

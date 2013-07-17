@@ -26,23 +26,19 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.functions;
+package com.github.gwtd3.ui.model;
 
-import com.github.gwtd3.api.D3;
+import java.util.List;
 
 /**
- * A function to be used with {@link D3#timer()}.
- * <p>
+ * Interface for objects able to provide a list of values T.
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
+ * @param <T>
+ *            the type of produced value
  */
-public interface TimerFunction {
+public interface ValueProvider<T> {
 
-	/**
-	 * Return true to stop the timer, false to continue.
-	 * 
-	 * @return true to stop the timer, false to continue.
-	 */
-	boolean execute();
+	List<T> getValues();
 }

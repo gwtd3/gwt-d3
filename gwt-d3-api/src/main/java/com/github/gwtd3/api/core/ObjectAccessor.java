@@ -26,20 +26,22 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.core;
+package com.github.gwtd3.ui;
 
-import com.github.gwtd3.api.dsv.DsvRow;
+import com.github.gwtd3.api.core.Selection;
 
-public interface ObjectAccessor<D, T> {
+/**
+ * A component that can draw in any provided {@link Selection}.
+ * 
+ * @author SCHIOCA
+ * 
+ */
+public interface SelectionDrawable {
+
     /**
-     * The accessor function which transform a {@link DsvRow} in an other type
-     * T.
+     * Draw in any selection.
      * 
-     * @param row
-     *            the current DSV row
-     * @param index
-     *            index of the current DSV row
-     * @return
+     * @param selection
      */
-    T apply(D data, int index);
+    public void redraw(Selection selection);
 }

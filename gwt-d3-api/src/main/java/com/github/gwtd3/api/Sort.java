@@ -26,12 +26,12 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api;
+package com.github.gwtd3.ui.chart;
 
-import com.google.gwt.core.client.JavaScriptObject;
+public interface ChartContext {
 
-public class Sort extends JavaScriptObject {
-	protected Sort() {
-		super();
-	}
+    /**
+     * #return the clippath of this chart
+     */
+    public ClipPath getSerieClipPath();
 }

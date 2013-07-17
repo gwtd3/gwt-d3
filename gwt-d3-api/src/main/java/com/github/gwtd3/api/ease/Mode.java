@@ -26,37 +26,22 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.ease;
+package com.github.gwtd3.ui.model;
 
-public enum Mode {
 
-	/**
-	 * The identity function
-	 */
-	IN("in"),
+public class RangeDomainFilter<T> implements DomainFilter<T> {
 
-	/**
-	 * reverses the easing direction [1,0]
-	 */
-	OUT("out"),
+	private final PointBuilder<T> builder;
+	private final AxisModel<?> acceptRange;
 
-	/**
-	 * copies and mirrors the easing function from [0,.5] and [.5,1].
-	 */
-	IN_OUT("in-out"),
-
-	/**
-	 * copies and mirrors the easing function from [1,.5] and [.5,0].
-	 */
-	OUT_IN("out-in");
-
-	private String value;
-
-	private Mode(final String value) {
-		this.value = value;
+	public RangeDomainFilter(PointBuilder<T> builder, AxisModel<?> acceptRange) {
+		super();
+		this.builder = builder;
+		this.acceptRange = acceptRange;
 	}
 
-	public String getValue() {
-		return value;
+	@Override
+	public boolean accept(T value) {
+		return acceptRange.visibleDomain().contains(builder.x(value));
 	}
 }

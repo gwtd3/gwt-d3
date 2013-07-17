@@ -26,39 +26,37 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.interpolators;
-
-import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Value;
-import com.google.gwt.core.client.JavaScriptObject;
+package com.github.gwtd3.ui.model;
 
 /**
- * An interpolator used when the interpolation function is provided by JSNI.
- * <p>
- * This class is used by {@link D3} to allow java code to invoke built-in
- * interpolators. You should not instanciate this object unless you know what
- * you are doing.
- * <p>
+ * Converts an arbytrary T object into a pixel distance on an axis, using a
+ * delegate {@link PointBuilder} that can convert a object T into domain double
+ * values.
  * 
- * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+ * @author SCHIOCA
  * 
+ * @param <T>
  */
-public class JavascriptFunctionInterpolator extends JavaScriptObject implements Interpolator<Value> {
+public class AxisCoordsBuilder<T> implements PointBuilder<T> {
 
-	protected JavascriptFunctionInterpolator() {
+	private final AxisModel<?> xModel;
+	private final AxisModel<?> yModel;
+	private final PointBuilder<T> domainBuilder;
+
+	public AxisCoordsBuilder(final AxisModel<?> xModel, final AxisModel<?> yModel, final PointBuilder<T> domainBuilder) {
 		super();
+		this.xModel = xModel;
+		this.yModel = yModel;
+		this.domainBuilder = domainBuilder;
 	}
 
 	@Override
-	public final native Value interpolate(final double t)/*-{
-		return {
-			datum : this(t)
-		};
-	}-*/;
-
-	@Override
-	public final JavaScriptObject asJSOFunction() {
-		return this;
+	public double x(final T value) {
+		return xModel.toPixel(domainBuilder.x(value));
 	}
 
+	@Override
+	public double y(final T value) {
+		return yModel.toPixel(domainBuilder.y(value));
+	}
 }

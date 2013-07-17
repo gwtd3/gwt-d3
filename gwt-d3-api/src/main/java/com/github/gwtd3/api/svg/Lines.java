@@ -26,31 +26,36 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.svg;
+package com.github.gwtd3.ui.model;
 
 /**
- * Factory class for lines.
+ * Interface for an object that can generate x and y values to construct a point
+ * from a value.
+ * <p>
+ * The result of {@link #x()} and {@link #y()} functions are not necessarily
+ * coordinates in terms of pixel space, but may represents coords in terms of
+ * domain space.
+ * <p>
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class Lines {
-	/**
-	 * Constructs a new radial line generator with the default radius- and
-	 * angle-accessor functions (that assume the input data is a two-element
-	 * array of numbers; see below for details), and linear interpolation.
-	 * <p>
-	 * The returned function generates path data for an open piecewise linear
-	 * curve, or polyline, as with the Cartesian line generator.
-	 * <p>
-	 * 
-	 * @return the {@link RadialLine}.
-	 */
-	public final native RadialLine radial()/*-{
-		return this.radial();
-	}-*/;
+public interface PointBuilder<T> {
 
-	public static final native Lines get()/*-{
-		return D3.svg.line;
-	}-*/;
+	/**
+	 * Convert an object into an x.
+	 * 
+	 * @param value
+	 * @return
+	 */
+	double x(T value);
+
+	/**
+	 * Convert an object into an y.
+	 * 
+	 * @param value
+	 * @return
+	 */
+	double y(T value);
+
 }

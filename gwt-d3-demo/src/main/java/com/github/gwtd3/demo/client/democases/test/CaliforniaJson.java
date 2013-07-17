@@ -26,10 +26,10 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.demo.client.democases.test;
+package com.github.gwtd3.ui;
 
-import com.google.gwt.resources.client.TextResource;
+import com.google.gwt.user.client.ui.IsWidget;
 
-public interface CaliforniaJson extends TextResource {
+public interface DrawableWidget extends Drawable, IsWidget {
 
 }

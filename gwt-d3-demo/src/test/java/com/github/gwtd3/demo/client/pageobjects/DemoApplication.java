@@ -45,51 +45,52 @@ import org.openqa.selenium.support.ui.Sleeper;
  */
 public class DemoApplication extends PageObject<DemoApplication> {
 
-    private static DemoApplication INSTANCE;
+	private static DemoApplication INSTANCE;
 
-    private DemoApplication(final WebDriver driver) {
-        super(driver);
+	private DemoApplication(final WebDriver driver) {
+		super(driver);
 		try {
 			Sleeper.SYSTEM_SLEEPER.sleep(new Duration(5, TimeUnit.SECONDS));
 		} catch (InterruptedException e) {
 			throw new RuntimeException("cannot wait", e);
-    }
+		}
 	}
 
-    /**
-     * @param driver
-     * @return the instance
-     */
-    public static DemoApplication getInstance(final WebDriver driver) {
+	/**
+	 * @param driver
+	 * @return the instance
+	 */
+	public static DemoApplication getInstance(final WebDriver driver) {
 		if (DemoApplication.INSTANCE == null) {
 			DemoApplication.INSTANCE = new DemoApplication(driver);
-        }
-        DemoApplication.INSTANCE.driver = driver;
+		}
+		DemoApplication.INSTANCE.driver = driver;
 		return DemoApplication.INSTANCE;
-    }
+	}
 
-    /**
-     * @return the button "Test cases"
-     */
-    public TestCaseButton testCaseButton() {
-        return new TestCaseButton(this);
-    }
+	/**
+	 * @return the button "Test cases"
+	 */
+	public TestCaseButton testCaseButton() {
 
-    public DemoDragMultiple revealDemoDragMultiple() {
+		return new TestCaseButton(this);
+	}
+
+	public DemoDragMultiple revealDemoDragMultiple() {
 		try {
 			Sleeper.SYSTEM_SLEEPER.sleep(new Duration(5, TimeUnit.SECONDS));
-        return new DemoDragMultiple(driver, this).reveal();
+			return new DemoDragMultiple(driver, this).reveal();
 		} catch (InterruptedException e) {
 			throw new RuntimeException("do the thing ");
 		}
-    }
+	}
 
-    public WebElement getDemoContainer() {
-        return findById("demoContainer");
-    }
+	public WebElement getDemoContainer() {
+		return findById("demoContainer");
+	}
 
-    public WebElement getCurrentDemo() {
-        return getDemoContainer().findElement(By.cssSelector(":first-child"));
-    }
+	public WebElement getCurrentDemo() {
+		return getDemoContainer().findElement(By.cssSelector(":first-child"));
+	}
 
 }
