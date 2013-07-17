@@ -38,6 +38,8 @@ import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern3;
 import com.github.gwtd3.demo.client.democases.LorenzSystem;
 import com.github.gwtd3.demo.client.democases.StupidExample;
 import com.github.gwtd3.demo.client.democases.StupidExample2;
+import com.github.gwtd3.demo.client.democases.TreeDemo;
+import com.github.gwtd3.demo.client.democases.arcs.ArcDemo;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.democases.geom.HullDemo;
@@ -66,7 +68,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class D3Demo implements EntryPoint {
+public class D3Demo
+    implements EntryPoint {
 
 	public static final String DEMO_CONTAINER_ID = "demoContainer";
 	private ComplexPanel demoContainer;
@@ -127,6 +130,7 @@ public class D3Demo implements EntryPoint {
 		buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples
 				.factory()));
 		buttonContainer.add(new DemoButton("Zoom", ZoomDemo.factory()));
+		buttonContainer.add(new DemoButton("Tree Layout", TreeDemo.factory()));
 
 		p.add(buttonContainer);
 		container.addWest(p, 200);
@@ -212,5 +216,4 @@ public class D3Demo implements EntryPoint {
 		}
 
 	}
-
 }

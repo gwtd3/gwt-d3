@@ -98,6 +98,13 @@ public class SVG extends JavaScriptObject {
 	public final native Chord chord() /*-{
 		return this.chord();
 	}-*/;
+<<<<<<< HEAD
+=======
+	
+	public final native Diagonal diagonal() /*-{
+	    return this.diagonal();
+	}-*/;
+>>>>>>> Added basic tree layout functions and demo
 
 	/**
 	 * Create a new default {@link Symbol}.
@@ -107,5 +114,8 @@ public class SVG extends JavaScriptObject {
 	public final native Symbol symbol() /*-{
 		return this.symbol();
 	}-*/;
+<<<<<<< HEAD
 
+=======
+>>>>>>> Added basic tree layout functions and demo
 }
