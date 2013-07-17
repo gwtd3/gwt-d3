@@ -26,19 +26,22 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.dsv;
+package com.github.gwtd3.api.core;
 
-import com.github.gwtd3.api.arrays.Array;
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * A {@link DsvRows} represent the array of parsed rows in a DSV file.
- * 
- * @author <a href="mailto:eric.citaire@gmail.com">Eric Citaire</a>
+ * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  *
- * @param <T>
  */
-public class DsvRows<T> extends Array<T> {
-    protected DsvRows() {
-        super();
-    }
+public class Random extends JavaScriptObject{
+
+	protected Random() {
+	}
+	
+	public static final native Random get()/*-{
+		return $wnd.d3.random;
+	}-*/;
+	
+	
 }

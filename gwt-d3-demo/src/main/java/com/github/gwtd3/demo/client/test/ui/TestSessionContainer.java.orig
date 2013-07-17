@@ -53,15 +53,43 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class TestSessionContainer extends Composite {
 
+<<<<<<< HEAD
+	public static final String RUN_BUTTON_ID = "runTestButton";
+	public static final String STOP_BUTTON_ID = "stopTestButton";
+	public static final String ID = "testSessionContainer";
+
+	private static TestSessionContainerUiBinder uiBinder = GWT.create(TestSessionContainerUiBinder.class);
+=======
     public static final String RUN_BUTTON_ID = "runTestButton";
     public static final String STOP_BUTTON_ID = "stopTestButton";
 	public static final String ID = "testSessionContainer";
 
     private static TestSessionContainerUiBinder uiBinder = GWT.create(TestSessionContainerUiBinder.class);
+>>>>>>> upstream/master
 
 	interface TestSessionContainerUiBinder extends UiBinder<Widget, TestSessionContainer> {
 	}
 
+<<<<<<< HEAD
+	private RunUiHandlers uiHandlers;
+
+	@UiField
+	HasWidgets container;
+	@UiField
+	HeaderPanel leftPanel;
+	@UiField
+	HasWidgets toolbar;
+	@UiField
+	ComplexPanel testCaseContainer;
+
+	// toolbar
+	@UiField
+	HasClickHandlers stopButton;
+	@UiField
+	HasClickHandlers runButton;
+	@UiField
+	AbsolutePanel sandbox;
+=======
     private RunUiHandlers uiHandlers;
 
     @UiField
@@ -80,16 +108,54 @@ public class TestSessionContainer extends Composite {
 	HasClickHandlers runButton;
     @UiField
     AbsolutePanel sandbox;
+>>>>>>> upstream/master
 
 	@UiField
 	TextArea consoleField;
 
+<<<<<<< HEAD
+	public TestSessionContainer() {
+		initWidget(TestSessionContainer.uiBinder.createAndBindUi(this));
+=======
     public TestSessionContainer() {
         initWidget(TestSessionContainer.uiBinder.createAndBindUi(this));
+>>>>>>> upstream/master
 		((UIObject) testCaseContainer).ensureDebugId(TestSessionContainer.ID);
 
 		((UIObject) runButton).ensureDebugId(TestSessionContainer.RUN_BUTTON_ID);
 		((UIObject) stopButton).ensureDebugId(TestSessionContainer.STOP_BUTTON_ID);
+<<<<<<< HEAD
+	}
+
+	public ComplexPanel getSandbox() {
+		return sandbox;
+	}
+
+	@UiHandler("stopButton")
+	void onStopClick(final ClickEvent e) {
+		uiHandlers.stop();
+	}
+
+	@UiHandler("runButton")
+	void onRunClick(final ClickEvent e) {
+		uiHandlers.start();
+	}
+
+	/**
+	 * @param widget
+	 */
+	public void addUnitTestWidget(final TestCaseWidget widget) {
+		testCaseContainer.add(widget);
+	}
+
+	/**
+	 * @param uiHandlers
+	 *            the uiHandlers to set
+	 */
+	public void setUiHandlers(final RunUiHandlers uiHandlers) {
+		this.uiHandlers = uiHandlers;
+	}
+=======
     }
 
     public ComplexPanel getSandbox() {
@@ -120,12 +186,24 @@ public class TestSessionContainer extends Composite {
     public void setUiHandlers(final RunUiHandlers uiHandlers) {
         this.uiHandlers = uiHandlers;
     }
+>>>>>>> upstream/master
 
 	public void started(final boolean f) {
 		((HasEnabled) runButton).setEnabled(!f);
 		((HasEnabled) stopButton).setEnabled(f);
 	}
 
+<<<<<<< HEAD
+	/**
+	 * @param i
+	 * @param testExecution
+	 */
+	public void setTestExecution(final int i, final TestExecution testExecution) {
+		((TestCaseWidget) testCaseContainer.getWidget(i)).setTestExecution(testExecution);
+	}
+
+	public void openDetails(final int index) {
+=======
     /**
      * @param i
      * @param testExecution
@@ -135,6 +213,7 @@ public class TestSessionContainer extends Composite {
     }
 
     public void openDetails(final int index) {
+>>>>>>> upstream/master
 		String detailsString = ((TestCaseWidget) testCaseContainer.getWidget(index)).getDetailsString();
 		showDetails(detailsString);
 	}
@@ -144,5 +223,9 @@ public class TestSessionContainer extends Composite {
 	 */
 	public void showDetails(final String results) {
 		consoleField.setText(results);
+<<<<<<< HEAD
+	}
+=======
     }
+>>>>>>> upstream/master
 }

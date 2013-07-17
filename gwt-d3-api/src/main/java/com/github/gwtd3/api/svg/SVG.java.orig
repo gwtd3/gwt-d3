@@ -26,19 +26,92 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.dsv;
+/**
+ * 
+ */
+package com.github.gwtd3.api.svg;
 
-import com.github.gwtd3.api.arrays.Array;
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * A {@link DsvRows} represent the array of parsed rows in a DSV file.
+ * Provide access to svg routines.
  * 
- * @author <a href="mailto:eric.citaire@gmail.com">Eric Citaire</a>
- *
- * @param <T>
+ * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+ * 
  */
-public class DsvRows<T> extends Array<T> {
-    protected DsvRows() {
-        super();
-    }
+public class SVG extends JavaScriptObject {
+
+	protected SVG() {
+	}
+
+	/**
+	 * Create a new arc with default accessor functions.
+	 * See {@link Arc} for details.
+	 * 
+	 * @return the arc
+	 */
+	public final native Arc arc()/*-{
+		return this.arc();
+	}-*/;
+
+	/**
+	 * Create a new default axis.
+	 * 
+	 * @return the axis
+	 */
+	public final native Axis axis()/*-{
+		return this.axis();
+	}-*/;
+
+	/**
+	 * Create a new default line.
+	 * 
+	 * @return the line
+	 */
+	public final native Line line()/*-{
+		return this.line();
+	}-*/;
+
+	/**
+	 * Create a new default area.
+	 * 
+	 * @return the area
+	 */
+	public final native Area area()/*-{
+		return this.area();
+	}-*/;
+
+	/**
+	 * Create a new default brush.
+	 * 
+	 * @return the brush
+	 */
+	public final native Brush brush() /*-{
+		return this.brush();
+	}-*/;
+
+	/**
+	 * Create a new default chord.
+	 * 
+	 * @return the chord
+	 */
+	public final native Chord chord() /*-{
+		return this.chord();
+	}-*/;
+<<<<<<< HEAD
+	
+	public final native Diagonal diagonal() /*-{
+	    return this.diagonal();
+	}-*/;
+=======
+>>>>>>> upstream/master
+
+	/**
+	 * Create a new default {@link Symbol}.
+	 * 
+	 * @return the symbol
+	 */
+	public final native Symbol symbol() /*-{
+		return this.symbol();
+	}-*/;
 }

@@ -61,60 +61,60 @@ public class EnteringSelection extends JavaScriptObject {
 	protected EnteringSelection() {
 	}
 
-	/**
-	 * Appends a new element with the specified name as the last child of each
-	 * element in the current selection.
-	 * <p>
-	 * Returns a new selection containing the appended elements.
-	 * <p>
+    /**
+     * Appends a new element with the specified name as the last child of each
+     * element in the current selection.
+     * <p>
+     * Returns a new selection containing the appended elements.
+     * <p>
 	 * Each new element inherits the data of the current elements, if any, in the same manner as select for subselections.
-	 * <p>
+     * <p>
 	 * The name must be specified as a constant, though in the future we might allow appending of existing elements or a function to generate the name dynamically.
-	 * 
+     * 
 	 * The element's tag name may have a namespace prefix, such as "svg:text" to create a "text" element in the SVG namespace. By default, D3 supports svg, xhtml, xlink, xml and
 	 * xmlns namespaces. Additional namespaces can be registered by adding to d3.ns.prefix.
-	 * 
+     * 
 	 * @param name
 	 *            the name of the new element to append
 	 * @return a new selection containing the appended elements
-	 */
-	public native final Selection append(String name)/*-{
+     */
+    public native final Selection append(String name)/*-{
 		return this.append(name);
-	}-*/;
+    }-*/;
 
-	/**
-	 * Insert a new element before any other existing children.
-	 * <p>
-	 * The method returns a new Selection containing the inserted element.
-	 * 
-	 * @param string
-	 * @return a new selection containing the inserted element
-	 */
-	public final Selection prepend(final String name) {
-		return insert(name, ":first-child");
-	}
+    /**
+     * Insert a new element before any other existing children.
+     * <p>
+     * The method returns a new Selection containing the inserted element.
+     * 
+     * @param string
+     * @return a new selection containing the inserted element
+     */
+    public final Selection prepend(final String name) {
+        return insert(name, ":first-child");
+    }
 
-	/**
-	 * For each element in the current selection, selects the first descendant
-	 * element that matches the specified selector string.
-	 * <p>
+    /**
+     * For each element in the current selection, selects the first descendant
+     * element that matches the specified selector string.
+     * <p>
 	 * If no element matches the specified selector for the current element, the element at the current index will be null in the returned selection; operators (with the exception
 	 * of {@link Selection#data}) automatically skip null elements, thereby preserving the index of the existing selection.
-	 * <p>
+     * <p>
 	 * If the current element has associated data, this data is inherited by the returned subselection, and automatically bound to the newly selected elements.
-	 * <p>
+     * <p>
 	 * If multiple elements match the selector, only the first matching element in document traversal order will be selected.
-	 * <p>
-	 * 
-	 * @param selector
+     * <p>
+     * 
+     * @param selector
 	 *            the selector
 	 * @return the returned selection, containing at most only one element
-	 */
-	public final native Selection select(String selector)/*-{
+     */
+    public final native Selection select(String selector)/*-{
 		return this.select(selector);
-	}-*/;
+    }-*/;
 
-	/**
+    /**
 	 * Creates a new selection containing the first non-null element returned by the given function.
 	 * <p>
 	 * The function is evaluated for each element in the current selection (in order), being passed the current datum d and the current index i.
@@ -131,39 +131,39 @@ public class EnteringSelection extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Inserts a new element with the specified name before the element matching
-	 * the specified before selector, for each element in the current selection.
-	 * <p>
-	 * Returns a new selection containing the inserted elements.
-	 * <p>
+     * Inserts a new element with the specified name before the element matching
+     * the specified before selector, for each element in the current selection.
+     * <p>
+     * Returns a new selection containing the inserted elements.
+     * <p>
 	 * If the before selector does not match any elements, then the new element will be the last child as with {@link #append(String)}.
-	 * <p>
+     * <p>
 	 * Each new element inherits the data of the current elements (if any), in the same manner as select for subselections. The name and before selector must be specified as
 	 * constants, though in the future we might allow inserting of existing elements or a function to generate the name or selector dynamically.
-	 * <p>
-	 * For instance, insert("div", ":first-child") will prepend child div nodes to the current selection.
-	 * <p>
+     * <p>
+     * For instance, insert("div", ":first-child") will prepend child div nodes to the current selection.
+     * <p>
 	 * The element's tag name may have a namespace prefix, such as "svg:text" to create a "text" element in the SVG namespace. By default, D3 supports svg, xhtml, xlink, xml and
 	 * xmlns namespaces. Additional namespaces can be registered by adding to d3.ns.prefix.
-	 * 
-	 * @param name
-	 * @param beforeSelector
-	 *            a selector to select element to insert the new element before
-	 * @return a new selection containing the inserted elements
-	 */
-	public native final Selection insert(String name, String beforeSelector)/*-{
+     * 
+     * @param name
+     * @param beforeSelector
+     *            a selector to select element to insert the new element before
+     * @return a new selection containing the inserted elements
+     */
+    public native final Selection insert(String name, String beforeSelector)/*-{
 		return this.insert(name, beforeSelector);
-	}-*/;
+    }-*/;
 
-	/**
-	 * Returns true if the current selection is empty; a selection is empty if
-	 * it contains no non-null elements.
-	 * 
-	 * @return true if selection is empty, false otherwise.
-	 */
-	public final native boolean empty()/*-{
+    /**
+     * Returns true if the current selection is empty; a selection is empty if
+     * it contains no non-null elements.
+     * 
+     * @return true if selection is empty, false otherwise.
+     */
+    public final native boolean empty()/*-{
 		return this.empty();
-	}-*/;
+    }-*/;
 
 	/**
 	 * Return the parentNode property of the i-th group of the selection.

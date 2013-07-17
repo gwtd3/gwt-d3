@@ -128,7 +128,7 @@ public class Selection extends EnteringSelection {
 	 * <p>
 	 * Grouping by selectAll also affects subsequent entering placeholder nodes. Thus, to specify the parent node when appending entering nodes, use select followed by selectAll:
 	 * <code>
-	 * d3.select("body").selectAll("div") 
+	 * d3.select("body").selectAll("div")
 	 * </code>
 	 * <p>
 	 * You can see the parent node of each group by inspecting the parentNode property of each group array, such as selection[0].parentNode, or by using the
@@ -354,7 +354,7 @@ public class Selection extends EnteringSelection {
 				.style(
 						name,
 						function(d, i) {
-							var r = 
+							var r =
 							callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)
 								(this,{datum:d},i);
 							return r?r.@java.lang.Object::toString()():null;

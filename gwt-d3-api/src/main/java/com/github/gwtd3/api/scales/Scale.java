@@ -40,16 +40,16 @@ public class Scale<S extends Scale<S>> extends JavaScriptObject {
 	protected Scale() {
 	};
 
-	// ========= Domain functions ===============
+    // ========= Domain functions ===============
 
 	/**
 	 * Returns the scale's current input domain.
 	 * 
 	 * @return the scale current input domain
-	 */
-	public native final <T> Array<T> domain()/*-{
+     */
+    public native final <T> Array<T> domain()/*-{
 		return this.domain();
-	}-*/;
+    }-*/;
 
 	/**
 	 * Sets the scale's input domain to the specified array of numbers.
@@ -90,7 +90,7 @@ public class Scale<S extends Scale<S>> extends JavaScriptObject {
 	 */
 	public native final S domain(JavaScriptObject array) /*-{
 		return this.domain(array);
-	}-*/;
+    }-*/;
 
 	/**
 	 * Shortcut to {@link #domain(JavaScriptObject)} for 2 numbers.
@@ -102,9 +102,9 @@ public class Scale<S extends Scale<S>> extends JavaScriptObject {
 	 *            the last bound of the domain
 	 * @return this scale instance for chaining
 	 */
-	public native final S domain(double a, double b) /*-{
+    public native final S domain(double a, double b) /*-{
 		return this.domain([ a, b ]);
-	}-*/;
+    }-*/;
 
 	/**
 	 * Shortcut to {@link #domain(JavaScriptObject)} for 2 number-coercable strings,
@@ -117,48 +117,48 @@ public class Scale<S extends Scale<S>> extends JavaScriptObject {
 	 *            the last bound of the domain
 	 * @return this scale instance for chaining
 	 */
-	public native final S domain(String a, String b) /*-{
+    public native final S domain(String a, String b) /*-{
 		return this.domain([ a, b ]);
-	}-*/;
+    }-*/;
 
-	/**
+    /**
 	 * Shortcut to {@link #domain(JavaScriptObject)} for an array of double.
-	 * <p>
-	 * 
+     * <p>
+     * 
 	 * @param numbers
 	 *            an array of numbers
 	 * @return this scale instance for chaining
-	 */
+     */
 	public final S domain(final double... numbers) {
 		return this.domain(JsArrayUtils.readOnlyJsArray(numbers));
 	}
 
-	// ========= Range functions ===============
+    // ========= Range functions ===============
 
-	/**
-	 * Returns the scale's current output range.
+    /**
+     * Returns the scale's current output range.
 	 * 
-	 * @return the range
-	 */
-	public native final <T> Array<T> range()/*-{
+     * @return the range
+     */
+    public native final <T> Array<T> range()/*-{
 		return this.range();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Set the scale's output range.
-	 * <p>
+    /**
+     * Set the scale's output range.
+     * <p>
 	 * Sets the scale's output range to the specified array of values. The array must contain two or more values, to match the cardinality of the input domain. The elements in the
 	 * given array need not be numbers; any value that is supported by the underlying interpolator will work. However, numeric ranges are required for the invert operator.
-	 * 
-	 * @param values
-	 *            the array of values.
+     * 
+     * @param values
+     *            the array of values.
 	 * @return the current scale for chaining
-	 */
-	public final native S range(JavaScriptObject values) /*-{
+     */
+    public final native S range(JavaScriptObject values) /*-{
 		return this.range(values);
-	}-*/;
+    }-*/;
 
-	/**
+    /**
 	 * See {@link #range(JavaScriptObject)}.
 	 * 
 	 * @param numbers
@@ -170,67 +170,67 @@ public class Scale<S extends Scale<S>> extends JavaScriptObject {
 
 	/**
 	 * See {@link #range(JavaScriptObject)}.
-	 * 
+     * 
 	 * @param numbers
 	 * @return the current scale for chaining
-	 */
+     */
 	public final S range(final String... numbers) {
 		return this.range(JsArrays.asJsArray(numbers));
 	}
 
-	// ========= Copy functions ===============
+    // ========= Copy functions ===============
 
-	/**
-	 * Returns an exact copy of this scale.
-	 * <p>
-	 * Changes to this scale will not affect the returned scale, and vice versa.
-	 * 
-	 * @return the copy
-	 */
-	public native final S copy()/*-{
+    /**
+     * Returns an exact copy of this scale.
+     * <p>
+     * Changes to this scale will not affect the returned scale, and vice versa.
+     * 
+     * @return the copy
+     */
+    public native final S copy()/*-{
 		return this.copy();
-	}-*/;
+    }-*/;
 
-	// ========= Apply functions ===============
+    // ========= Apply functions ===============
 
-	/**
-	 * Given a value x in the input domain, returns the corresponding value in
-	 * the output range.
-	 * 
-	 * @param d
-	 *            the input value
-	 * @return the output value
-	 */
-	public native final Value apply(JavaScriptObject d)/*-{
+    /**
+     * Given a value x in the input domain, returns the corresponding value in
+     * the output range.
+     * 
+     * @param d
+     *            the input value
+     * @return the output value
+     */
+    public native final Value apply(JavaScriptObject d)/*-{
 		return {
 			datum : this(d)
 		};
-	}-*/;
+    }-*/;
 
-	/**
-	 * Given a value x in the input domain, returns the corresponding value in
-	 * the output range.
-	 * 
-	 * @see #apply(JavaScriptObject)
-	 * @param d
-	 *            the input value
-	 * @return the output value
-	 */
-	public native final Value apply(double d)/*-{
+    /**
+     * Given a value x in the input domain, returns the corresponding value in
+     * the output range.
+     * 
+     * @see #apply(JavaScriptObject)
+     * @param d
+     *            the input value
+     * @return the output value
+     */
+    public native final Value apply(double d)/*-{
 		return {
 			datum : this(d)
 		};
-	}-*/;
+    }-*/;
 
-	/**
-	 * @see #apply(JavaScriptObject)
-	 * @param d
-	 *            the input value
-	 * @return the output value
-	 */
-	public native final Value apply(String d)/*-{
+    /**
+     * @see #apply(JavaScriptObject)
+     * @param d
+     *            the input value
+     * @return the output value
+     */
+    public native final Value apply(String d)/*-{
 		return {
 			datum : this(d)
 		};
-	}-*/;
+    }-*/;
 }

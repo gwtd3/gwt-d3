@@ -167,7 +167,7 @@ public abstract class ComponentSelector extends SVGDocumentContainer implements 
 	private void position(final double y) {
 
 		componentSymbol
-				.attr("transform", "translate(" + (Integer.parseInt(rectangleSelector.attr("width")) + 4) + "," + y + ") rotate(-90)");
+		.attr("transform", "translate(" + (Integer.parseInt(rectangleSelector.attr("width")) + 4) + "," + y + ") rotate(-90)");
 
 	}
 

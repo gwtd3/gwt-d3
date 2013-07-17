@@ -76,8 +76,10 @@ import com.google.gwt.user.client.ui.WidgetCollection;
  * Entry point for D3 api modules. A lot of methods of this class allow access
  * to other classes:
  * <ul>
- * <li>  {@link D3#select(Element)} methods and {@link Selection} - manipulate elements in the current document.
- * <li> {@link Transition} - interpolate attributes and styles smoothly over time.
+ * <li>  {@link D3#select(Element)} methods and {@link Selection} - manipulate
+ * elements in the current document.
+ * <li> {@link Transition} - interpolate attributes and styles smoothly over
+ * time.
  * <li> {@link Array} manipulate arrays and objects with ease.
  * <li> {@link Color} - parse and manipulate colors; work with color spaces.
  * <p>
@@ -91,13 +93,16 @@ public class D3 extends JavaScriptObject {
 	static {
 
 		// inject the script according to the compiler mode
-		// FIXME: rely on deferred binding to not include both script in the compiled application
+		// FIXME: rely on deferred binding to not include both script in the
+		// compiled application
 		// if (GWT.isProdMode()) {
-		// ScriptInjector.fromString(((D3Bundle) GWT.create(D3Bundle.class)).mainJs().getText());
+		// ScriptInjector.fromString(((D3Bundle)
+		// GWT.create(D3Bundle.class)).mainJs().getText());
 		//
 		// }
 		// else {
-		// ScriptInjector.fromString(((D3PrettyBundle) GWT.create(D3PrettyBundle.class)).mainJs().getText());
+		// ScriptInjector.fromString(((D3PrettyBundle)
+		// GWT.create(D3PrettyBundle.class)).mainJs().getText());
 		// }
 
 	}
@@ -125,8 +130,11 @@ public class D3 extends JavaScriptObject {
 	 * multiple elements match the selector, only the first matching element (in
 	 * document traversal order) will be selected.
 	 * <p>
-	 * The selector is a valid CSS3 selector. For example, you can select by tag ("div"), class (".awesome"), unique identifier ("#foo"), attribute ("[color=red]"), or containment
-	 * ("parent child"). Selectors can also be intersected (".this.that" for logical AND) or unioned (".this, .that" for logical OR)
+	 * The selector is a valid CSS3 selector. For example, you can select by tag
+	 * ("div"), class (".awesome"), unique identifier ("#foo"), attribute
+	 * ("[color=red]"), or containment ("parent child"). Selectors can also be
+	 * intersected (".this.that" for logical AND) or unioned (".this, .that" for
+	 * logical OR)
 	 * 
 	 * @param selector
 	 *            a CSS3 selector
@@ -249,6 +257,16 @@ public class D3 extends JavaScriptObject {
 		return selectAll(elements);
 	}
 
+
+
+	// =========== Math ==============
+	
+	public static final com.github.gwtd3.api.core.Random random = com.github.gwtd3.api.core.Random.get();
+
+	
+	
+
+
 	// =========== shuffle ==============
 
 	/**
@@ -265,7 +283,8 @@ public class D3 extends JavaScriptObject {
 		}
 	}
 
-	private static final <T> void swap(final List<T> list, final int idx1, final int idx2) {
+	private static final <T> void swap(final List<T> list, final int idx1,
+			final int idx2) {
 		T temp = list.get(idx1);
 		list.set(idx1, list.get(idx2));
 		list.set(idx2, temp);
@@ -312,7 +331,7 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Constructs a new HSL color by parsing the specified color string. The
+	 * Constructs a new RGB color by parsing the specified color string. The
 	 * color string may be in a variety of formats:
 	 * <ul>
 	 * <li>rgb decimal - "rgb(255,255,255)"
@@ -327,6 +346,17 @@ public class D3 extends JavaScriptObject {
 	 * @return the new color
 	 */
 	public static final native RGBColor rgb(final String color)/*-{
+		return $wnd.d3.rgb(color);
+	}-*/;
+
+	/**
+	 * Construct a new RGB color from the existing color object.
+	 * <p>
+	 * 
+	 * @param color the existing color object
+	 * @return the new color
+	 */
+	public static final native RGBColor rgb(final Color color)/*-{
 		return $wnd.d3.rgb(color);
 	}-*/;
 
@@ -367,6 +397,18 @@ public class D3 extends JavaScriptObject {
 		return $wnd.d3.hsl(color);
 	}-*/;
 
+	/**
+	 * Constructs a new HSL color from an existing color object.
+	 * <p>
+	 * 
+	 * @param color
+	 *            the existing color object
+	 * @return the new color
+	 */
+	public static final native HSLColor hsl(final RGBColor color)/*-{
+		return $wnd.d3.hsl(color);
+	}-*/;
+
 	// =========== svg ==============
 	/**
 	 * @return the svg module
@@ -391,12 +433,16 @@ public class D3 extends JavaScriptObject {
 	 * @param b
 	 * @return
 	 */
-	public static final Interpolator<String> interpolate(final String a, final String b) {
-		return new JavascriptFunctionInterpolatorDecorator<String>(interpolate0(a, b));
+	public static final Interpolator<String> interpolate(final String a,
+			final String b) {
+		return new JavascriptFunctionInterpolatorDecorator<String>(
+				interpolate0(a, b));
 	}
 
-	public static final Interpolator<Integer> interpolate(final int a, final int b) {
-		return new JavascriptFunctionInterpolatorDecorator<Integer>(interpolateNumber0(a, b)) {
+	public static final Interpolator<Integer> interpolate(final int a,
+			final int b) {
+		return new JavascriptFunctionInterpolatorDecorator<Integer>(
+				interpolateNumber0(a, b)) {
 			@Override
 			public Integer cast(final Value v) {
 				return new Integer(v.asInt());
@@ -410,8 +456,10 @@ public class D3 extends JavaScriptObject {
 	 * @param b
 	 * @return
 	 */
-	public static final Interpolator<Boolean> interpolate(final boolean a, final boolean b) {
-		return new JavascriptFunctionInterpolatorDecorator<Boolean>(interpolateNumber0(a ? 1.0 : 0.0, b ? 1.0 : 0.0)) {
+	public static final Interpolator<Boolean> interpolate(final boolean a,
+			final boolean b) {
+		return new JavascriptFunctionInterpolatorDecorator<Boolean>(
+				interpolateNumber0(a ? 1.0 : 0.0, b ? 1.0 : 0.0)) {
 			@Override
 			public Boolean cast(final Value v) {
 				return new Boolean(v.asInt() == 1 ? true : false);
@@ -419,8 +467,10 @@ public class D3 extends JavaScriptObject {
 		};
 	}
 
-	public static final Interpolator<Byte> interpolate(final byte a, final byte b) {
-		return new JavascriptFunctionInterpolatorDecorator<Byte>(interpolateNumber0(a, b)) {
+	public static final Interpolator<Byte> interpolate(final byte a,
+			final byte b) {
+		return new JavascriptFunctionInterpolatorDecorator<Byte>(
+				interpolateNumber0(a, b)) {
 			@Override
 			public Byte cast(final Value v) {
 				return new Byte(v.asByte());
@@ -428,8 +478,10 @@ public class D3 extends JavaScriptObject {
 		};
 	}
 
-	public static final Interpolator<Character> interpolate(final char a, final char b) {
-		return new JavascriptFunctionInterpolatorDecorator<Character>(interpolateNumber0(a, b)) {
+	public static final Interpolator<Character> interpolate(final char a,
+			final char b) {
+		return new JavascriptFunctionInterpolatorDecorator<Character>(
+				interpolateNumber0(a, b)) {
 			@Override
 			public Character cast(final Value v) {
 				return new Character(v.asChar());
@@ -437,8 +489,10 @@ public class D3 extends JavaScriptObject {
 		};
 	}
 
-	public static final Interpolator<Double> interpolate(final double a, final double b) {
-		return new JavascriptFunctionInterpolatorDecorator<Double>(interpolateNumber0(a, b)) {
+	public static final Interpolator<Double> interpolate(final double a,
+			final double b) {
+		return new JavascriptFunctionInterpolatorDecorator<Double>(
+				interpolateNumber0(a, b)) {
 			@Override
 			public Double cast(final Value v) {
 				return new Double(v.asDouble());
@@ -446,8 +500,10 @@ public class D3 extends JavaScriptObject {
 		};
 	}
 
-	public static final Interpolator<Float> interpolate(final float a, final float b) {
-		return new JavascriptFunctionInterpolatorDecorator<Float>(interpolateNumber0(a, b)) {
+	public static final Interpolator<Float> interpolate(final float a,
+			final float b) {
+		return new JavascriptFunctionInterpolatorDecorator<Float>(
+				interpolateNumber0(a, b)) {
 			@Override
 			public Float cast(final Value v) {
 				return new Float(v.asFloat());
@@ -455,8 +511,10 @@ public class D3 extends JavaScriptObject {
 		};
 	}
 
-	public static final Interpolator<Long> interpolate(final long a, final long b) {
-		return new JavascriptFunctionInterpolatorDecorator<Long>(interpolateNumber0(a, b)) {
+	public static final Interpolator<Long> interpolate(final long a,
+			final long b) {
+		return new JavascriptFunctionInterpolatorDecorator<Long>(
+				interpolateNumber0(a, b)) {
 			@Override
 			public Long cast(final Value v) {
 				// this will not work !!!
@@ -468,8 +526,10 @@ public class D3 extends JavaScriptObject {
 		};
 	}
 
-	public static final Interpolator<Short> interpolate(final short a, final short b) {
-		return new JavascriptFunctionInterpolatorDecorator<Short>(interpolateNumber0(a, b)) {
+	public static final Interpolator<Short> interpolate(final short a,
+			final short b) {
+		return new JavascriptFunctionInterpolatorDecorator<Short>(
+				interpolateNumber0(a, b)) {
 			@Override
 			public Short cast(final Value v) {
 				return new Short(v.asShort());
@@ -478,7 +538,8 @@ public class D3 extends JavaScriptObject {
 	}
 
 	public static final <T> Interpolator<T> interpolate(final T a, final T b) {
-		return new JavascriptFunctionInterpolatorDecorator<T>(interpolate0(a, b)) {
+		return new JavascriptFunctionInterpolatorDecorator<T>(
+				interpolate0(a, b)) {
 			@Override
 			public T interpolate(final double t) {
 				return delegate.interpolate(t).as();
@@ -487,8 +548,8 @@ public class D3 extends JavaScriptObject {
 	}
 
 	/**
-	 * Actual JSNI implementation; the result is auto-casted to a {@link JavascriptFunctionInterpolator} and can be used
-	 * by more specific
+	 * Actual JSNI implementation; the result is auto-casted to a
+	 * {@link JavascriptFunctionInterpolator} and can be used by more specific
 	 * versions of the
 	 * 
 	 * @param a
@@ -496,13 +557,15 @@ public class D3 extends JavaScriptObject {
 	 * @return
 	 */
 	@UnsafeNativeLong
-	private static final native <T> JavascriptFunctionInterpolator interpolate0(T a, T b) /*-{
+	private static final native <T> JavascriptFunctionInterpolator interpolate0(
+			T a, T b) /*-{
 		var result = $wnd.d3.interpolate(a, b);
 		return result;
 	}-*/;
 
 	@UnsafeNativeLong
-	private static final native JavascriptFunctionInterpolator interpolateNumber0(double a, double b) /*-{
+	private static final native JavascriptFunctionInterpolator interpolateNumber0(
+			double a, double b) /*-{
 		var result = $wnd.d3.interpolateNumber(a, b);
 		return result;
 	}-*/;
@@ -520,15 +583,24 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Retrieve the current event, if any.
 	 * <p>
-	 * This global variable exists during an event listener callback registered with the on operator. The current event is reset after the listener is notified in a finally block.
-	 * This allows the listener function to have the same form as other operator functions, being passed the current datum d and index i.
+	 * This global variable exists during an event listener callback registered
+	 * with the on operator. The current event is reset after the listener is
+	 * notified in a finally block. This allows the listener function to have
+	 * the same form as other operator functions, being passed the current datum
+	 * d and index i.
 	 * <p>
-	 * The {@link D3#event()} object is a DOM event and implements the standard event fields like timeStamp and keyCode as well as methods like preventDefault() and
-	 * stopPropagation(). While you can use the native event's pageX and pageY, it is often more convenient to transform the event position to the local coordinate system of the
-	 * container that received the event. For example, if you embed an SVG in the normal flow of your page, you may want the event position relative to the top-left corner of the
-	 * SVG image. If your SVG contains transforms, you might also want to know the position of the event relative to those transforms.
+	 * The {@link D3#event()} object is a DOM event and implements the standard
+	 * event fields like timeStamp and keyCode as well as methods like
+	 * preventDefault() and stopPropagation(). While you can use the native
+	 * event's pageX and pageY, it is often more convenient to transform the
+	 * event position to the local coordinate system of the container that
+	 * received the event. For example, if you embed an SVG in the normal flow
+	 * of your page, you may want the event position relative to the top-left
+	 * corner of the SVG image. If your SVG contains transforms, you might also
+	 * want to know the position of the event relative to those transforms.
 	 * <p>
-	 * Use the d3.mouse operator for the standard mouse pointer, and use d3.touches for multitouch events on iOS.
+	 * Use the d3.mouse operator for the standard mouse pointer, and use
+	 * d3.touches for multitouch events on iOS.
 	 * 
 	 * @return
 	 */
@@ -538,7 +610,8 @@ public class D3 extends JavaScriptObject {
 
 	/**
 	 * Retrieve the current event if any, as a {@link Coords} object containing
-	 * the x and y of the mouse. This is useful when using {@link Drag} behavior.
+	 * the x and y of the mouse. This is useful when using {@link Drag}
+	 * behavior.
 	 * 
 	 * @return the current event as a Coords object
 	 */
@@ -549,7 +622,8 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Retrieve the current event if any, as a {@link Coords} object containing
 	 * the dx and dy representing the element's coordinates relative to its
-	 * position at the beginning of the gesture. This is useful when using {@link Drag} behavior.
+	 * position at the beginning of the gesture. This is useful when using
+	 * {@link Drag} behavior.
 	 * 
 	 * @return the current event as a Coords object
 	 */
@@ -600,12 +674,15 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Returns the x and y coordinates of each touch associated with the current d3.event,
-	 * based on the touches attribute, relative to the specified container.
+	 * Returns the x and y coordinates of each touch associated with the current
+	 * d3.event, based on the touches attribute, relative to the specified
+	 * container.
 	 * <p>
-	 * The container may be an HTML or SVG container element, such as an svg:g or svg:svg.
+	 * The container may be an HTML or SVG container element, such as an svg:g
+	 * or svg:svg.
 	 * <p>
-	 * The coordinates are returned as an array of two-element arrays [ [ x1, y1], [ x2, y2], … ].
+	 * The coordinates are returned as an array of two-element arrays [ [ x1,
+	 * y1], [ x2, y2], … ].
 	 * <p>
 	 * 
 	 * @param container
@@ -629,11 +706,15 @@ public class D3 extends JavaScriptObject {
 	 * Issues an HTTP GET request for the comma-separated values (CSV) file at
 	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/csv". The request is processed asynchronously, such that this method
-	 * returns immediately after opening the request. When the CSV data is available, the specified callback will be invoked with the parsed rows as the argument. If an error
-	 * occurs, the callback function will instead be invoked with null.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/csv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the CSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null.
 	 */
-	public static final native <T> Dsv<T> csv(String url, DsvCallback<T> callback) /*-{
+	public static final native <T> Dsv<T> csv(String url,
+			DsvCallback<T> callback) /*-{
 		return $wnd.d3
 				.csv(
 						url,
@@ -646,12 +727,17 @@ public class D3 extends JavaScriptObject {
 	 * Issues an HTTP GET request for the comma-separated values (CSV) file at
 	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/csv". The request is processed asynchronously, such that this method
-	 * returns immediately after opening the request. When the CSV data is available, the specified callback will be invoked with the parsed rows as the argument. If an error
-	 * occurs, the callback function will instead be invoked with null. The accessor may be specified, which is then passed to d3.csv.parse; the accessor may also be specified by
-	 * using the return request object’s row function.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/csv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the CSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null. The accessor may be
+	 * specified, which is then passed to d3.csv.parse; the accessor may also be
+	 * specified by using the return request object’s row function.
 	 */
-	public static final native <T> Dsv<T> csv(String url, DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
+	public static final native <T> Dsv<T> csv(String url,
+			DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
 		return $wnd.d3
 				.csv(
 						url,
@@ -667,12 +753,17 @@ public class D3 extends JavaScriptObject {
 	 * Issues an HTTP GET request for the comma-separated values (CSV) file at
 	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/csv". The request is processed asynchronously, such that this method
-	 * returns immediately after opening the request. When the CSV data is available, the specified callback will be invoked with the parsed rows as the argument. If an error
-	 * occurs, the callback function will instead be invoked with null. The accessor may be specified, which is then passed to d3.csv.parse; the accessor may also be specified by
-	 * using the return request object’s row function.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/csv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the CSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null. The accessor may be
+	 * specified, which is then passed to d3.csv.parse; the accessor may also be
+	 * specified by using the return request object’s row function.
 	 */
-	public static final native <T> Dsv<T> csv(String url, DsvObjectAccessor<T> accessor)/*-{
+	public static final native <T> Dsv<T> csv(String url,
+			DsvObjectAccessor<T> accessor)/*-{
 		return $wnd.d3
 				.csv(
 						url,
@@ -685,8 +776,9 @@ public class D3 extends JavaScriptObject {
 	 * Issues an HTTP GET request for the comma-separated values (CSV) file at
 	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/csv". The request is processed asynchronously, such that this method
-	 * returns immediately after opening the request.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/csv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request.
 	 */
 	public static final native <T> Dsv<T> csv(String url)/*-{
 		return $wnd.d3.csv(url);
@@ -705,11 +797,15 @@ public class D3 extends JavaScriptObject {
 	 * Issues an HTTP GET request for the comma-separated values (TSV) file at
 	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/tsv". The request is processed asynchronously, such that this method
-	 * returns immediately after opening the request. When the TSV data is available, the specified callback will be invoked with the parsed rows as the argument. If an error
-	 * occurs, the callback function will instead be invoked with null.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/tsv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the TSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null.
 	 */
-	public static final native <T> Dsv<T> tsv(String url, DsvCallback<T> callback) /*-{
+	public static final native <T> Dsv<T> tsv(String url,
+			DsvCallback<T> callback) /*-{
 		return $wnd.d3
 				.tsv(
 						url,
@@ -722,12 +818,17 @@ public class D3 extends JavaScriptObject {
 	 * Issues an HTTP GET request for the comma-separated values (TSV) file at
 	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/tsv". The request is processed asynchronously, such that this method
-	 * returns immediately after opening the request. When the TSV data is available, the specified callback will be invoked with the parsed rows as the argument. If an error
-	 * occurs, the callback function will instead be invoked with null. The accessor may be specified, which is then passed to d3.tsv.parse; the accessor may also be specified by
-	 * using the return request object’s row function.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/tsv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the TSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null. The accessor may be
+	 * specified, which is then passed to d3.tsv.parse; the accessor may also be
+	 * specified by using the return request object’s row function.
 	 */
-	public static final native <T> Dsv<T> tsv(String url, DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
+	public static final native <T> Dsv<T> tsv(String url,
+			DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
 		return $wnd.d3
 				.tsv(
 						url,
@@ -743,12 +844,17 @@ public class D3 extends JavaScriptObject {
 	 * Issues an HTTP GET request for the comma-separated values (TSV) file at
 	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/tsv". The request is processed asynchronously, such that this method
-	 * returns immediately after opening the request. When the TSV data is available, the specified callback will be invoked with the parsed rows as the argument. If an error
-	 * occurs, the callback function will instead be invoked with null. The accessor may be specified, which is then passed to d3.tsv.parse; the accessor may also be specified by
-	 * using the return request object’s row function.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/tsv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the TSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null. The accessor may be
+	 * specified, which is then passed to d3.tsv.parse; the accessor may also be
+	 * specified by using the return request object’s row function.
 	 */
-	public static final native <T> Dsv<T> tsv(String url, DsvObjectAccessor<T> accessor)/*-{
+	public static final native <T> Dsv<T> tsv(String url,
+			DsvObjectAccessor<T> accessor)/*-{
 		return $wnd.d3
 				.tsv(
 						url,
@@ -761,8 +867,9 @@ public class D3 extends JavaScriptObject {
 	 * Issues an HTTP GET request for the comma-separated values (TSV) file at
 	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/tsv". The request is processed asynchronously, such that this method
-	 * returns immediately after opening the request.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/tsv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request.
 	 */
 	public static final native <T> Dsv<T> tsv(String url)/*-{
 		return $wnd.d3.tsv(url);
@@ -775,10 +882,13 @@ public class D3 extends JavaScriptObject {
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#max}, this method ignores undefined values; this is useful for computing the domain of a scale while only considering the defined region of
-	 * the data.
+	 * Unlike the built-in {@link Math#max}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
-	 * In addition, elements are compared using natural order rather than numeric order. For example, the maximum of ["20", "3"] is "3", while the maximum of [20, 3] is 20.
+	 * In addition, elements are compared using natural order rather than
+	 * numeric order. For example, the maximum of ["20", "3"] is "3", while the
+	 * maximum of [20, 3] is 20.
 	 * 
 	 * @param array
 	 *            the array to be evaluated
@@ -791,18 +901,21 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Transform the values in the given array using the specified {@link ForEachCallback} and returns the maximum value
-	 * in the transformed
+	 * Transform the values in the given array using the specified
+	 * {@link ForEachCallback} and returns the maximum value in the transformed
 	 * values using natural order. For example, the maximum of ["20", "3"] is
 	 * "3", while the maximum of [20, 3] is 20. If you want to ensure the
-	 * numeric order, please consider using {@link #max(JavaScriptObject, NumericForEachCallback)}.
+	 * numeric order, please consider using
+	 * {@link #max(JavaScriptObject, NumericForEachCallback)}.
 	 * <p>
-	 * The given {@link ForEachCallback} is equivalent to calling array.map(accessor) before computing the maximum value.
+	 * The given {@link ForEachCallback} is equivalent to calling
+	 * array.map(accessor) before computing the maximum value.
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#max}, this method ignores undefined values; this is useful for computing the domain of a scale while only considering the defined region of
-	 * the data.
+	 * Unlike the built-in {@link Math#max}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
 	 * 
 	 * @param array
@@ -812,7 +925,8 @@ public class D3 extends JavaScriptObject {
 	 *            array to a transformed value
 	 * @return the maximum of the transformed values as a {@link Value} object
 	 */
-	public static final native Value max(JavaScriptObject array, ForEachCallback<?> accessor) /*-{
+	public static final native Value max(JavaScriptObject array,
+			ForEachCallback<?> accessor) /*-{
 		var rs = $wnd.d3
 				.max(
 						array,
@@ -825,16 +939,18 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Transform the values in the given array using the specified {@link ForEachCallback} and returns the maximum value
-	 * in the transformed
+	 * Transform the values in the given array using the specified
+	 * {@link ForEachCallback} and returns the maximum value in the transformed
 	 * values using natural order.
 	 * <p>
-	 * The given {@link NumericForEachCallback} is equivalent to calling array.map(accessor) before computing the maximum value.
+	 * The given {@link NumericForEachCallback} is equivalent to calling
+	 * array.map(accessor) before computing the maximum value.
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#max}, this method ignores undefined values; this is useful for computing the domain of a scale while only considering the defined region of
-	 * the data.
+	 * Unlike the built-in {@link Math#max}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
 	 * In addition, elements are compared using numeric order.
 	 * 
@@ -845,7 +961,8 @@ public class D3 extends JavaScriptObject {
 	 *            array to a transformed value
 	 * @return the maximum of the transformed values as a {@link Value} object
 	 */
-	public static final native Value max(JavaScriptObject array, NumericForEachCallback accessor) /*-{
+	public static final native Value max(JavaScriptObject array,
+			NumericForEachCallback accessor) /*-{
 		var rs = $wnd.d3
 				.max(
 						array,
@@ -862,10 +979,13 @@ public class D3 extends JavaScriptObject {
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#min}, this method ignores undefined values; this is useful for computing the domain of a scale while only considering the defined region of
-	 * the data.
+	 * Unlike the built-in {@link Math#min}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
-	 * In addition, elements are compared using natural order rather than numeric order. For example, the minimum of ["20", "3"] is "20", while the minimum of [20, 3] is 3.
+	 * In addition, elements are compared using natural order rather than
+	 * numeric order. For example, the minimum of ["20", "3"] is "20", while the
+	 * minimum of [20, 3] is 3.
 	 * 
 	 * @param array
 	 *            the array to be evaluated
@@ -878,20 +998,24 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Transform the values in the given array using the specified {@link ForEachCallback} and returns the minimum value
-	 * in the transformed
+	 * Transform the values in the given array using the specified
+	 * {@link ForEachCallback} and returns the minimum value in the transformed
 	 * values using natural order. For example, the minimum of ["20", "3"] is
 	 * "20", while the minimum of [20, 3] is 3. If you want to ensure the
-	 * numeric order, please consider using {@link #max(JavaScriptObject, NumericForEachCallback)}.
+	 * numeric order, please consider using
+	 * {@link #max(JavaScriptObject, NumericForEachCallback)}.
 	 * <p>
-	 * The given {@link ForEachCallback} is equivalent to calling array.map(accessor) before computing the minimum value.
+	 * The given {@link ForEachCallback} is equivalent to calling
+	 * array.map(accessor) before computing the minimum value.
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#min}, this method ignores undefined values; this is useful for computing the domain of a scale while only considering the defined region of
-	 * the data.
+	 * Unlike the built-in {@link Math#min}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
-	 * In addition, elements are compared using natural order rather than numeric order.
+	 * In addition, elements are compared using natural order rather than
+	 * numeric order.
 	 * 
 	 * @param array
 	 *            the array to be transformed
@@ -900,7 +1024,8 @@ public class D3 extends JavaScriptObject {
 	 *            array to a transformed value
 	 * @return the minimum of the transformed values as a {@link Value} object
 	 */
-	public static final native Value min(JavaScriptObject array, ForEachCallback<?> accessor) /*-{
+	public static final native Value min(JavaScriptObject array,
+			ForEachCallback<?> accessor) /*-{
 		var rs = $wnd.d3
 				.min(
 						array,
@@ -913,16 +1038,18 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Transform the values in the given array using the specified {@link ForEachCallback} and returns the minimum value
-	 * in the transformed
+	 * Transform the values in the given array using the specified
+	 * {@link ForEachCallback} and returns the minimum value in the transformed
 	 * values using numeric order.
 	 * <p>
-	 * The given {@link NumericForEachCallback} is equivalent to calling array.map(accessor) before computing the minimum value.
+	 * The given {@link NumericForEachCallback} is equivalent to calling
+	 * array.map(accessor) before computing the minimum value.
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#min}, this method ignores undefined values; this is useful for computing the domain of a scale while only considering the defined region of
-	 * the data.
+	 * Unlike the built-in {@link Math#min}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
 	 * 
 	 * @param array
@@ -932,7 +1059,8 @@ public class D3 extends JavaScriptObject {
 	 *            array to a transformed value
 	 * @return the minimum of the transformed values as a {@link Value} object
 	 */
-	public static final native Value min(JavaScriptObject array, NumericForEachCallback accessor) /*-{
+	public static final native Value min(JavaScriptObject array,
+			NumericForEachCallback accessor) /*-{
 		var rs = $wnd.d3
 				.min(
 						array,
@@ -966,7 +1094,8 @@ public class D3 extends JavaScriptObject {
 	 * @return the minimum and maximum value in the given array using natural
 	 *         order.
 	 */
-	public static final native <D, R> JsArrayMixed extent(JavaScriptObject array, ObjectAccessor<D, R> accessor) /*-{
+	public static final native <D, R> JsArrayMixed extent(
+			JavaScriptObject array, ObjectAccessor<D, R> accessor) /*-{
         var accessor = accessor.@com.github.gwtd3.api.core.ObjectAccessor::apply(Ljava/lang/Object;I);
         return $wnd.d3.extent(array, function(d, i) {
             return accessor.@com.github.gwtd3.api.core.ObjectAccessor::apply(Ljava/lang/Object;I)(d, i);
@@ -1029,12 +1158,19 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Generate a range of numeric values.
 	 * <p>
-	 * Generates an array containing an arithmetic progression, similar to the Python built-in range. This method is often used to iterate over a sequence of numeric or integer
-	 * values, such as the indexes into an array. Unlike the Python version, the arguments are not required to be integers, though the results are more predictable if they are due
-	 * to floating point precision. If step is omitted, it defaults to 1. If start is omitted, it defaults to 0. The stop value is not included in the result. The full form returns
-	 * an array of numbers [*start*, start + step, start + 2 * step, ...]. If step is positive, the last element is the largest start + i * step less than stop; if step is
-	 * negative, the last element is the smallest start + i * step greater than stop. If the returned array would contain an infinite number of values, an error is thrown rather
-	 * than causing an infinite loop.
+	 * Generates an array containing an arithmetic progression, similar to the
+	 * Python built-in range. This method is often used to iterate over a
+	 * sequence of numeric or integer values, such as the indexes into an array.
+	 * Unlike the Python version, the arguments are not required to be integers,
+	 * though the results are more predictable if they are due to floating point
+	 * precision. If step is omitted, it defaults to 1. If start is omitted, it
+	 * defaults to 0. The stop value is not included in the result. The full
+	 * form returns an array of numbers [*start*, start + step, start + 2 *
+	 * step, ...]. If step is positive, the last element is the largest start +
+	 * i * step less than stop; if step is negative, the last element is the
+	 * smallest start + i * step greater than stop. If the returned array would
+	 * contain an infinite number of values, an error is thrown rather than
+	 * causing an infinite loop.
 	 * 
 	 * @param start
 	 *            the first value-
@@ -1044,7 +1180,8 @@ public class D3 extends JavaScriptObject {
 	 *            the step between each value
 	 * @return
 	 */
-	public static final native JavaScriptObject range(double start, double stop, double step) /*-{
+	public static final native JavaScriptObject range(double start,
+			double stop, double step) /*-{
 		return $wnd.d3.range(start, stop, step);
 	}-*/;
 
@@ -1053,9 +1190,12 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Returns a new {@link Formatter} function with the given string specifier.
 	 * A format function takes a number as the only argument, and returns a
-	 * string representing the formatted number. Please see {@link Formatter} javadoc for the specifier specification.
+	 * string representing the formatted number. Please see {@link Formatter}
+	 * javadoc for the specifier specification.
 	 * 
-	 * @see <a href="https://github.com/mbostock/d3/wiki/Formatting#wiki-d3_format">D3.js official documentation</a>
+	 * @see <a
+	 *      href="https://github.com/mbostock/d3/wiki/Formatting#wiki-d3_format">D3.js
+	 *      official documentation</a>
 	 * @param specifier
 	 *            the given string specifier.
 	 * @return the format function.

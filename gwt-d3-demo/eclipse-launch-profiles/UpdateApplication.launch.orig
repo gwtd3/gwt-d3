@@ -9,6 +9,12 @@
     <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
     <booleanAttribute key="M2_SKIP_TESTS" value="false"/>
 <<<<<<< HEAD
+    <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="false"/>
+    <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
+    <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${project_loc}"/>
+</launchConfiguration>
+=======
+<<<<<<< HEAD
 <intAttribute key="M2_THREADS" value="1"/>
 =======
 >>>>>>> refs/heads/colors-api
@@ -16,3 +22,4 @@
     <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
     <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${project_loc}"/>
 </launchConfiguration>
+>>>>>>> upstream/master

@@ -127,10 +127,10 @@ public class GradientBuilder {
 		stopSelection.exit().remove();
 		// add new ones
 		stopSelection.enter()
-				.append("stop")
-				.attr("offset", offsetAccessor)
-				.attr("stop-color", colorFunction)
-				.attr("stop-opacity", 1.0);
+		.append("stop")
+		.attr("offset", offsetAccessor)
+		.attr("stop-color", colorFunction)
+		.attr("stop-opacity", 1.0);
 
 		return this;
 	}
@@ -154,9 +154,9 @@ public class GradientBuilder {
 
 	public GradientBuilder appendStop(final int offsetPercent, final Color stopColor, final double stopOpacity) {
 		this.gradientSelection.append("stop")
-				.attr("offset", offsetPercent + "%")
-				.attr("stop-color", stopColor.toHexaString())
-				.attr("stop-opacity", stopOpacity);
+		.attr("offset", offsetPercent + "%")
+		.attr("stop-color", stopColor.toHexaString())
+		.attr("stop-opacity", stopOpacity);
 		return this;
 	}
 

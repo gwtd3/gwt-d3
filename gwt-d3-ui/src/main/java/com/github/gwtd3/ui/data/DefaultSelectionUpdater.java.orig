@@ -26,54 +26,72 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.arrays;
+package com.github.gwtd3.ui.data;
 
-import java.util.Iterator;
+import com.github.gwtd3.api.core.Selection;
 
 /**
- * Internal iterator from a JsArray.
- * 
- * The access method is abstract to allow casting
- * the returned type.
- * 
+ * Base implementation of {@link SelectionUpdater} that always append new elements and always remove old elements.
+ * <p>
  * 
  * @author SCHIOCA
  * 
- * @param <S>
  */
-public abstract class ArrayIterator<T> implements Iterator<T> {
-    /**
-     * 
-     */
-    private final Array<T> array;
+public abstract class DefaultSelectionUpdater<T> implements SelectionUpdater<T> {
+
+    private final String selector;
 
     /**
-     * @param array
+     * Specify the selector that will be used to select the right elements
+     * in the parent.
+     * Note: class or id selectors are advised compare to tag names
+     * @param selector
      */
-    public ArrayIterator(final Array<T> array) {
-        this.array = array;
-    }
-
-    private int index = 0;
-    private int lastReturnedIndex;
-
-    @Override
-    public boolean hasNext() {
-        return index < this.array.length();
+    public DefaultSelectionUpdater(final String selector) {
+        super();
+        this.selector = selector;
     }
 
     @Override
-    public T next() {
-        lastReturnedIndex = index;
-        return accessObject(array, index++);
+    public String getSelector() {
+        return selector;
     }
 
     @Override
-    public void remove() {
-        if ((lastReturnedIndex >= 0) && (lastReturnedIndex < this.array.length())) {
-            this.array.splice(lastReturnedIndex, 1);
-        }
+    public boolean beforeEnter(final Selection selection) {
+        return true;
     }
 
-    public abstract T accessObject(Array<T> array, int index);
+    @Override
+    public void afterEnter(final Selection selection) {}
+
+    @Override
+    public boolean beforeExit(final Selection selection) {
+        return true;
+    }
+
+    @Override
+    public void afterExit(final Selection selection) {}
+
+    @Override
+    public void onJoinStart(final Selection selection) {}
+
+    @Override
+    public void onJoinEnd(final Selection selection) {
+
+    }
+
+    @Override
+    public String getKey(final T datum, final int index) {
+<<<<<<< HEAD
+        return Integer.toString(index); 
+=======
+        return Integer.toString(index);
+>>>>>>> upstream/master
+    }
+
+    public static final void debugSelection(final String message, final Selection selection) {
+        System.out.println(message + ": " + selection.size());
+    }
+
 }

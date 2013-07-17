@@ -36,16 +36,16 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 
 public class TestLinearScale extends AbstractTestCase {
 
-	@Override
-	public void doTest(final ComplexPanel sandbox) {
-		LinearScale scale = D3.scale.linear();
-		// get default domain
+    @Override
+    public void doTest(final ComplexPanel sandbox) {
+        LinearScale scale = D3.scale.linear();
+        // get default domain
 		assertEquals(2, scale.domain().length());
 		assertEquals(0, scale.domain().getValue(0).asInt());
 		assertEquals(1, scale.domain().getValue(1).asInt());
 
-		// set the domain, keep the default range [0,1]
-		scale.domain(0, 10);
+        // set the domain, keep the default range [0,1]
+        scale.domain(0, 10);
 		assertEquals(2, scale.domain().length());
 		assertEquals(0, scale.domain().getValue(0).asInt());
 		assertEquals(10, scale.domain().getValue(1).asInt());
@@ -61,15 +61,15 @@ public class TestLinearScale extends AbstractTestCase {
 		assertEquals(0, scale.domain().getValue(1).asInt());
 		assertEquals(1, scale.domain().getValue(2).asInt());
 
-		// default range
+        // default range
 		scale = D3.scale.linear();
-		assertEquals(0.0, scale.range().getNumber(0));
-		assertEquals(1.0, scale.range().getNumber(1));
+        assertEquals(0.0, scale.range().getNumber(0));
+        assertEquals(1.0, scale.range().getNumber(1));
 
-		// set the range
-		scale.range(0, 100);
-		assertEquals(0.0, scale.range().getNumber(0));
-		assertEquals(100.0, scale.range().getNumber(1));
+        // set the range
+        scale.range(0, 100);
+        assertEquals(0.0, scale.range().getNumber(0));
+        assertEquals(100.0, scale.range().getNumber(1));
 
 		scale.range(0, 100, 200);
 		assertEquals(0.0, scale.range().getNumber(0));
@@ -157,13 +157,13 @@ public class TestLinearScale extends AbstractTestCase {
 		// why: 2.90000000000004 ??
 		// assertEquals(2.9, scale.domain().getNumber(1));
 
-		// apply the function
+        // apply the function
 		scale = D3.scale.linear();
 		scale.domain(0, 1).range(0, 10);
-		assertEquals(0, scale.apply(0).asInt());
-		assertEquals(100, scale.apply(10).asInt());
-		assertEquals(1000, scale.apply(100).asInt());
-		assertEquals(-100, scale.apply(-10).asInt());
+        assertEquals(0, scale.apply(0).asInt());
+        assertEquals(100, scale.apply(10).asInt());
+        assertEquals(1000, scale.apply(100).asInt());
+        assertEquals(-100, scale.apply(-10).asInt());
 
 		// invert
 		assertEquals(10, scale.invert(100).asInt());
@@ -176,5 +176,5 @@ public class TestLinearScale extends AbstractTestCase {
 		assertEquals(1.0, scale.domain().getNumber(0));
 		assertEquals(2.0, scale.domain().getNumber(1));
 
-	}
+    }
 }

@@ -26,80 +26,90 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.demo.client.testcases.selection;
+package com.github.gwtd3.ui.chart;
 
-import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Label;
 
-public class TestSelectionControls extends AbstractSelectionTest {
+/**
+ * Represent a clip path in a SVG document.
+ * <p>
+ * 
+ * 
+ * @author SCHIOCA
+ * 
+ */
+public class ClipPath {
 
-	private static final String ATTRIBUTE = "myattr";
+<<<<<<< HEAD
+	private final String id;
 
-	@Override
-	public void doTest(final ComplexPanel sandbox) {
-		testEmpty();// 1
-		testNode();// 2
-		testEach();
-		testCount();
-		testCall();
+	public ClipPath(final String id) {
+		super();
+		this.id = id;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	/**
+	 * Apply the clip path on the given node.
 	 * 
+	 * @param e
 	 */
-	private void testCall() {
-		// nothing to test before any other use cases of using selection.call-
-		// maybe by providing a SelectionCallback interface with one method call(Selection) ?
-
+	public void apply(final Element e) {
+		e.setAttribute("clip-path", "url(#" + getId() + ")");
 	}
 
 	/**
+	 * Apply the clip path on the elements of the selection.
 	 * 
+	 * @param e
 	 */
-	private void testEach() {
-		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
-		final StringBuilder sb = new StringBuilder();
-		selection.each(new DatumFunction<Void>() {
+	public void apply(final Selection s) {
+		s.attr("clip-path", new DatumFunction<String>() {
 			@Override
-			public Void apply(final Element context, final Value d, final int index) {
-				sb.append(context.getInnerText());
-				return null;
+			public String apply(final Element context, final Value d, final int index) {
+				return "url(#" + getId() + ")";
 			}
 		});
-		assertEquals("12", sb.toString());
 	}
+=======
+    private final String id;
 
-	/**
-	 * 
-	 */
-	private void testCount() {
-		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
-		assertEquals(2, selection.size());
-	}
+    public ClipPath(final String id) {
+        super();
+        this.id = id;
+    }
 
-	/**
-	 * 
-	 */
-	private void testNode() {
-		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
-		assertEquals("1", selection.node().getInnerText());
-		selection = selection.selectAll("unknown");
-		assertNull(selection.node());
-	}
+    public String getId() {
+        return id;
+    }
 
-	protected void testEmpty() {
-		Selection selection = D3.select(sandbox);
+    /**
+     * Apply the clip path on the given node.
+     * 
+     * @param e
+     */
+    public void apply(final Element e) {
+        e.setAttribute("clip-path", "url(#" + getId() + ")");
+    }
 
-		selection.append("myelement");
-
-		assertEquals(false, selection.select("myelement").empty());
-		assertEquals(true, selection.select("unknown").empty());
-
-	}
-
+    /**
+     * Apply the clip path on the elements of the selection.
+     * 
+     * @param e
+     */
+    public void apply(final Selection s) {
+        s.attr("clip-path", new DatumFunction<String>() {
+            @Override
+			public String apply(final Element context, final Value d, final int index) {
+                return "url(#" + getId() + ")";
+            }
+        });
+    }
+>>>>>>> upstream/master
 }

@@ -82,9 +82,9 @@ public class AbstractSeleniumTest {
     @After
     public void tearDown() throws Exception {
         if (driver != null) {
-            driver.quit();
-            driver = null;
-        }
+        driver.quit();
+        driver = null;
+    }
     }
 
     protected ColorAssert assertThat(final Color color) {

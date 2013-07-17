@@ -76,7 +76,7 @@ public class RGBColor extends Color {
 	}-*/;
 
 	/**
-	 * Returns a brighter copy of this color yith a gamme of 1.
+	 * Returns a brighter copy of this color with a gamma of 1.
 	 * 
 	 * @return the new copy
 	 */
@@ -98,7 +98,7 @@ public class RGBColor extends Color {
 	}-*/;
 
 	/**
-	 * Returns a darker copy of this color yith a gamma of 1.
+	 * Returns a darker copy of this color with a gamma of 1.
 	 * 
 	 * @return the new copy
 	 */

@@ -30,6 +30,7 @@ package com.github.gwtd3.api.core;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
