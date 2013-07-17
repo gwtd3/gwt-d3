@@ -5,3 +5,5 @@
 /target
 /pom.xml.next
 /pom.xml.tag
+/gwt-d3-demo/src/main/webapp
+/gwt-d3-demo/src/main/gwt-unitCache
