@@ -1,14 +1,17 @@
 package com.github.gwtd3.api.svg;
 
+import com.github.gwtd3.api.Coords;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
-import com.google.gwt.core.client.JsArrayNumber;
 
 public class Diagonal extends PathDataGenerator{
     protected Diagonal() {
         super();
     }
+    
+    public final native String apply(Coords x, Coords y) /*-{
+        return this.call(this, { source : x, target : y });
+    }-*/;
     
     public final native Diagonal projection(JavaScriptObject proj) /*-{
         return this.projection(proj);
