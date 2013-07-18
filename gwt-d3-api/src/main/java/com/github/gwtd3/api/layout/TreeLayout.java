@@ -2,8 +2,8 @@ package com.github.gwtd3.api.layout;
 
 import com.github.gwtd3.api.Size;
 import com.github.gwtd3.api.Sort;
+import com.github.gwtd3.api.arrays.Array;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
 
 public class TreeLayout
     extends Layout<TreeLayout> {
@@ -31,11 +31,11 @@ public class TreeLayout
                                                                        return this.children(f);
                                                                        }-*/;
 
-    public final native JsArray<Node> nodes(Node r) /*-{
+    public final native Array<Node> nodes(Node r) /*-{
                                                      return this.nodes(r);
                                                      }-*/;
 
-    public final native JsArray<Link> links(JsArray<Node> n) /*-{
+    public final native Array<Link> links(Array<Node> n) /*-{
                                                               return this.links(n);
                                                               }-*/;
 

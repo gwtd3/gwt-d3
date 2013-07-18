@@ -7,4 +7,8 @@ public class Link
     protected Link() {
         super();
     }
+    
+    public final native Node getTarget() /*-{
+        return this.target;
+    }-*/;
 }

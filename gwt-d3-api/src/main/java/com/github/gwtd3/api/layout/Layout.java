@@ -26,16 +26,20 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.ui.model;
+package com.github.gwtd3.api.layout;
 
-public interface RectBuilder<T> {
+import com.google.gwt.core.client.JavaScriptObject;
 
-    public double x(T value);
+public class Layout<L extends Layout<L>> extends JavaScriptObject {
+	protected Layout() {
+		super();
+	}
 
-    public double y(T value);
-
-    public double width(T value);
-
-    public double height(T value);
-
+	public final native ChordLayout chord() /*-{
+		return this.chord();
+	}-*/;
+	
+	public final native TreeLayout tree() /*-{
+	    return this.tree();
+	}-*/;
 }
