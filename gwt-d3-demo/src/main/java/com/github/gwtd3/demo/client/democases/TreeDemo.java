@@ -24,19 +24,27 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.user.client.ui.FlowPanel;
 
+/**
+ * A demonstration of how to build a d3js tree from simple JSON data with
+ * collapse functionality and transitions
+ * 
+ * @author <a href="mailto:evanshi09@gmail.com">Evan Shi </a>
+ * 
+ */
 public class TreeDemo
     extends FlowPanel
     implements DemoCase {
 
     final int width = 960;
     final int height = 600;
-    static int i = 0;
     final int duration = 750;
+    final MyResources css = Bundle.INSTANCE.css();
+
+    static int i = 0;
     static Node root = null;
+    static Selection svg = null;
     static TreeLayout tree = null;
     static Diagonal diagonal = null;
-    static Selection svg = null;
-    final MyResources css = Bundle.INSTANCE.css();
 
     public interface Bundle
         extends ClientBundle {
