@@ -1224,4 +1224,15 @@ public class D3 extends JavaScriptObject {
 			return d;
 		};
 	}-*/;
+	
+	/**
+	 * Converts a javascript object of attributes and values to an associative array for
+	 * use with the data function
+	 * 
+	 * @param a javascript object with attributes and values
+	 * @return an associative array of javascript objects for each attribute of the form { key : value }
+	 */
+	public static final native Array<JavaScriptObject> entries(JavaScriptObject obj) /*-{
+	    return $wnd.d3.entries(obj);
+	}-*/;
 }

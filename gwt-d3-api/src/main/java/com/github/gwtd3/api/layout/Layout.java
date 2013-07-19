@@ -38,4 +38,8 @@ public class Layout<L extends Layout<L>> extends JavaScriptObject {
 	public final native ChordLayout chord() /*-{
 		return this.chord();
 	}-*/;
+	
+	public final native TreeLayout tree() /*-{
+	    return this.tree();
+	}-*/;
 }

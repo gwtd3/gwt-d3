@@ -98,6 +98,10 @@ public class SVG extends JavaScriptObject {
 	public final native Chord chord() /*-{
 		return this.chord();
 	}-*/;
+	
+	public final native Diagonal diagonal() /*-{
+	    return this.diagonal();
+	}-*/;
 
 	/**
 	 * Create a new default {@link Symbol}.

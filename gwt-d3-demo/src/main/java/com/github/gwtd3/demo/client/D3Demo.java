@@ -39,6 +39,7 @@ import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern2;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern3;
 import com.github.gwtd3.demo.client.democases.StupidExample;
 import com.github.gwtd3.demo.client.democases.StupidExample2;
+import com.github.gwtd3.demo.client.democases.TreeDemo;
 import com.github.gwtd3.demo.client.democases.arcs.ArcDemo;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.charts.AxisDemo;
@@ -65,7 +66,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class D3Demo implements EntryPoint {
+public class D3Demo
+    implements EntryPoint {
 
     public static final String DEMO_CONTAINER_ID = "demoContainer";
     private ComplexPanel demoContainer;
@@ -111,6 +113,7 @@ public class D3Demo implements EntryPoint {
         buttonContainer.add(new DemoButton("Axis Demo", AxisDemo.factory()));
 
         buttonContainer.add(new DemoButton("Line Chart", LineChartDemo.factory()));
+        buttonContainer.add(new DemoButton("Tree Layout", TreeDemo.factory()));
 
         p.add(buttonContainer);
         container.addWest(p, 200);
@@ -125,7 +128,8 @@ public class D3Demo implements EntryPoint {
         container.forceLayout();
     }
 
-    public class DemoButton extends Button {
+    public class DemoButton
+        extends Button {
 
         public DemoButton(final String title, final Factory demoClass) {
             super(title, new DemoClickHandler(demoClass));
@@ -134,7 +138,8 @@ public class D3Demo implements EntryPoint {
 
     }
 
-    public class DemoClickHandler implements ClickHandler {
+    public class DemoClickHandler
+        implements ClickHandler {
         private final Factory demoClass;
 
         public DemoClickHandler(final Factory demoClass) {
@@ -161,7 +166,8 @@ public class D3Demo implements EntryPoint {
 
     }
 
-    public class TestButton extends Button {
+    public class TestButton
+        extends Button {
         public static final String ID = "testSuiteButton";
 
         public TestButton() {
@@ -190,7 +196,8 @@ public class D3Demo implements EntryPoint {
             currentDemo.stop();
             demoContainer.remove(currentDemo);
             currentDemo = null;
-        } else if ((testContainer != null) && testContainer.getParent().equals(demoContainer)) {
+        }
+        else if ((testContainer != null) && testContainer.getParent().equals(demoContainer)) {
             demoContainer.remove(testContainer);
         }
 
