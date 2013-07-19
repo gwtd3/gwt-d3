@@ -4,8 +4,7 @@ gwt-d3 GWT wrapper around d3.js.
 This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
 
 It is still in a developpement phase. We are paying efforts on covering almost 100% of relevant d3 API.
-
-You should not use it for production purpose since it's API is still experimental and may change unexpectedly.
+You should not use it for production purpose since it's still experimental and may change unexpectedly.
 
 You can see a demo with the test cases (for API coverage) and some exemples:
 http://gwt-d3.appspot.com/
