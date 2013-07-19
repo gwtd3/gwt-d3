@@ -35,11 +35,13 @@ public class TreeDemo
     extends FlowPanel
     implements DemoCase {
 
+    // constants of tree
     final int width = 960;
     final int height = 600;
     final int duration = 750;
     final MyResources css = Bundle.INSTANCE.css();
 
+    // global references for demo
     static int i = 0;
     static Node root = null;
     static Selection svg = null;
@@ -69,6 +71,7 @@ public class TreeDemo
         Bundle.INSTANCE.css().ensureInjected();
     }
 
+    // plug into gwt-d3 demo case framework
     public static Factory factory() {
         return new Factory() {
             @Override
@@ -81,11 +84,15 @@ public class TreeDemo
     @Override
     public void start() {
 
+        // dummy data
         String data = "{\n\"children\": [\n{\n\"children\": [\n{},\n{},\n{\n\"children\": [\n{}\n]\n},\n{}\n]\n},\n{}\n]\n}";
 
+        // get a size obj
         Size size = Size.create(width, height);
 
+        // get tree layout
         tree = D3.layout().tree().size(size);
+        // set the global way to draw paths
         diagonal = D3.svg().diagonal()
                 .projection(new DatumFunction<Array<JsArrayNumber>>() {
                     @Override
@@ -95,12 +102,14 @@ public class TreeDemo
                     }
                 });
 
+        // add the SVG
         svg = D3.select(this).append("svg")
                 .attr("width", width + 20)
                 .attr("height", height + 280)
                 .append("g")
                 .attr("transform", "translate(10, 140)");
 
+        // get the root of the tree and initialize it
         root = JSONParser.parseLenient(data).isObject().getJavaScriptObject().<Node> cast();
         root.setAttr("x0", (width - 20) / 2);
         root.setAttr("y0", 0);
@@ -114,10 +123,12 @@ public class TreeDemo
     public void stop() {
     }
 
+    // follows d3 general update pattern for handling exiting and entering nodes/paths
     private void update(final Node source) {
         Array<Node> nodes = tree.nodes(root).reverse();
         Array<Link> links = tree.links(nodes);
 
+        // normalize depth
         nodes.forEach(new ForEachCallback<Void>() {
             @Override
             public Void forEach(Object thisArg, Value element, int index, Array<?> array) {
@@ -127,6 +138,7 @@ public class TreeDemo
             }
         });
 
+        // assign ids to nodes
         UpdateSelection node = svg.selectAll("g." + css.node())
                 .data(nodes, new KeyFunction<Integer>() {
                     @Override
@@ -136,11 +148,13 @@ public class TreeDemo
                     }
                 });
 
+        // add click function on node click
         Selection nodeEnter = node.enter().append("g")
                 .attr("class", css.node())
                 .attr("transform", "translate(" + source.getNumAttr("x0") + "," + source.getNumAttr("x0") + ")")
                 .on("click", new Click());
 
+        // add circles to all entering nodes
         nodeEnter.append("circle")
                 .attr("r", 1e-6)
                 .style("fill", new DatumFunction<String>() {
@@ -150,6 +164,7 @@ public class TreeDemo
                     }
                 });
 
+        // transition entering nodes
         Selection nodeUpdate = node.transition()
                 .duration(duration)
                 .attr("transform", new DatumFunction<String>() {
@@ -169,6 +184,7 @@ public class TreeDemo
                     }
                 });
 
+        // transition exiting nodes
         Selection nodeExit = node.exit().transition()
                 .duration(duration)
                 .attr("transform", new DatumFunction<String>() {
@@ -182,6 +198,7 @@ public class TreeDemo
         nodeExit.select("circle")
                 .attr("r", 1e-6);
 
+        // update svg paths for new node locations
         UpdateSelection link = svg.selectAll("path." + css.link())
                 .data(links, new KeyFunction<Integer>() {
                     @Override
@@ -215,6 +232,7 @@ public class TreeDemo
                 })
                 .remove();
 
+        // update locations on node
         nodes.forEach(new ForEachCallback<Void>() {
             @Override
             public Void forEach(Object thisArg, Value element, int index, Array<?> array) {
