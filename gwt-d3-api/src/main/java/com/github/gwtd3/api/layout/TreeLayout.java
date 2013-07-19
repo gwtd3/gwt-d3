@@ -9,7 +9,7 @@ import com.github.gwtd3.api.functions.DatumFunction;
  * Provides Java access to d3js' tree layout and its customization options
  * 
  * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
- *
+ * 
  */
 public class TreeLayout
     extends Layout<TreeLayout> {
@@ -22,7 +22,7 @@ public class TreeLayout
      * @return array of nodes in the tree stemming from root
      */
     public final native Array<Node> nodes(Node r) /*-{
-        return this.nodes(r);
+		return this.nodes(r);
     }-*/;
 
     /**
@@ -30,7 +30,7 @@ public class TreeLayout
      * @return array of links connecting nodes
      */
     public final native Array<Link> links(Array<Node> n) /*-{
-        return this.links(n);
+		return this.links(n);
     }-*/;
 
     /**
@@ -38,7 +38,7 @@ public class TreeLayout
      * @return this tree object
      */
     public final native TreeLayout size(Size s) /*-{
-        return this.size(s);
+		return this.size(s);
     }-*/;
 
     /**
@@ -46,7 +46,7 @@ public class TreeLayout
      * @return this tree object
      */
     public final native TreeLayout nodeSize(Size s) /*-{
-        return this.nodeSize(s);
+		return this.nodeSize(s);
     }-*/;
 
     /**
@@ -54,18 +54,18 @@ public class TreeLayout
      * @return this tree object
      */
     public final native TreeLayout sort(Sort sort) /*-{
-        return this.sort(sort);
+		return this.sort(sort);
     }-*/;
-    
+
     /**
      * @param df a datum function describing how the tree will be traversed
      * @return this tree object
      */
     public final native TreeLayout sort(DatumFunction<?> df) /*-{
-        return this.sort(
-                function(d, i) {
-                       return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
-                   });
+		return this
+				.sort(function(d, i) {
+					return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
+				});
     }-*/;
 
     /**
@@ -73,21 +73,21 @@ public class TreeLayout
      * @return this tree object
      */
     public final native TreeLayout separation(DatumFunction<?> df) /*-{
-        return this.separation(
-                    function(d, i) {
-                           return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
-                       });
+		return this
+				.separation(function(d, i) {
+					return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
+				});
     }-*/;
-    
+
     /**
      * @param df a datum function describing how to compute children
      * @return this tree object
      */
     public final native TreeLayout children(DatumFunction<?> df) /*-{
-        return this.children(
-                    function(d, i) {
-                           return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
-                       });
+		return this
+				.children(function(d, i) {
+					return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
+				});
     }-*/;
 
     /**
@@ -95,9 +95,9 @@ public class TreeLayout
      * @return this tree object
      */
     public final native TreeLayout value(DatumFunction<?> df) /*-{
-        return this.value(
-                    function(d, i) {
-                           return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
-                       });
+		return this
+				.value(function(d, i) {
+					return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
+				});
     }-*/;
 }

@@ -7,3 +7,5 @@
 /pom.xml.tag
 /gwt-d3-demo/src/main/webapp
 /gwt-d3-demo/src/main/gwt-unitCache
+*.orig
+.DS_Store
