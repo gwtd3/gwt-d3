@@ -57,23 +57,45 @@ public class TestTimeIntervals extends AbstractTestCase {
 	}
 	
 	private void test(Interval interval, String givenDateStr, String expectedFloorDateStr, String expectedCeilDateStr, String expectedRoundDateStr, String expectedOffset3DateStr) {
-		// Given
-		JsDate givenJsDate = JsDate.create(JsDate.parse(givenDateStr));
-		Date givenDate = new Date((long) JsDate.parse(givenDateStr));
+		double givenDoubleDate = JsDate.parse(givenDateStr);
+		JsDate givenJsDate = JsDate.create(givenDoubleDate);
+		Date givenDate = new Date((long) givenDoubleDate);
 		
-		assertDateEquals("apply on JsDate", JsDate.parse(expectedFloorDateStr), interval.apply(givenJsDate).getTime());
-		assertDateEquals("apply on Date", JsDate.parse(expectedFloorDateStr), interval.apply(givenDate).getTime());
+		double expectedFloorDate = JsDate.parse(expectedFloorDateStr);
+		assertDateEquals("apply on double", expectedFloorDate, interval.apply(givenDoubleDate));
+		assertDateEquals("apply on JsDate", expectedFloorDate, interval.apply(givenJsDate).getTime());
+		assertDateEquals("apply on Date", expectedFloorDate, interval.apply(givenDate).getTime());
 		
-		assertDateEquals("floor on JsDate", JsDate.parse(expectedFloorDateStr), interval.floor(givenJsDate).getTime());
-		assertDateEquals("floor on Date", JsDate.parse(expectedFloorDateStr), interval.floor(givenDate).getTime());
+		assertDateEquals("floor on double", expectedFloorDate, interval.floor(givenDoubleDate));
+		assertDateEquals("floor on JsDate", expectedFloorDate, interval.floor(givenJsDate).getTime());
+		assertDateEquals("floor on Date", expectedFloorDate, interval.floor(givenDate).getTime());
 		
-		assertDateEquals("ceil on JsDate", JsDate.parse(expectedCeilDateStr), interval.ceil(givenJsDate).getTime());
-		assertDateEquals("ceil on Date", JsDate.parse(expectedCeilDateStr), interval.ceil(givenDate).getTime());
+		double expectedCeilDate = JsDate.parse(expectedCeilDateStr);
+		assertDateEquals("ceil on double", expectedCeilDate, interval.ceil(givenDoubleDate));
+		assertDateEquals("ceil on JsDate", expectedCeilDate, interval.ceil(givenJsDate).getTime());
+		assertDateEquals("ceil on Date", expectedCeilDate, interval.ceil(givenDate).getTime());
 		
-		assertDateEquals("round on JsDate", JsDate.parse(expectedRoundDateStr), interval.round(givenJsDate).getTime());
-		assertDateEquals("round on Date", JsDate.parse(expectedRoundDateStr), interval.round(givenDate).getTime());
+		double expectedRoundDate = JsDate.parse(expectedRoundDateStr);
+		assertDateEquals("round on double", expectedRoundDate, interval.round(givenDoubleDate));
+		assertDateEquals("round on JsDate", expectedRoundDate, interval.round(givenJsDate).getTime());
+		assertDateEquals("round on Date", expectedRoundDate, interval.round(givenDate).getTime());
 		
-		assertDateEquals("offset 3 on JsDate", JsDate.parse(expectedOffset3DateStr), interval.offset(givenJsDate, 3).getTime());
-		assertDateEquals("offset 3 on Date", JsDate.parse(expectedOffset3DateStr), interval.offset(givenDate, 3).getTime());
+		double expectedOffset3Date = JsDate.parse(expectedOffset3DateStr);
+		assertDateEquals("offset 3 on double", expectedOffset3Date, interval.offset(givenDoubleDate, 3));
+		assertDateEquals("offset 3 on JsDate", expectedOffset3Date, interval.offset(givenJsDate, 3).getTime());
+		assertDateEquals("offset 3 on Date", expectedOffset3Date, interval.offset(givenDate, 3).getTime());
+		
+		JsDate givenJsStart = givenJsDate;
+		JsDate givenJsEnd = JsDate.create(expectedOffset3Date);
+		assertEquals("range 3 on double", 3, interval.range(givenJsStart.getTime(), givenJsEnd.getTime()).length());
+		assertEquals("range 3 on JsDate", 3, interval.range(givenJsStart, givenJsEnd).length());
+		Date givenStart = givenDate;
+		Date givenEnd = new Date((long) expectedOffset3Date);
+		assertEquals("range 3 on Date", 3, interval.range(givenStart, givenEnd).length());
+		
+		// FIXME : very strange behaviour on this one
+//		assertEquals("range 3 with step on double", 2, interval.range(givenJsStart.getTime(), givenJsEnd.getTime(), 2).length());
+//		assertEquals("range 3 with step on JsDate", 2, interval.range(givenJsStart, givenJsEnd, 2).length());
+//		assertEquals("range 3 with step on Date", 2, interval.range(givenStart, givenEnd, 2).length());
 	}
 }
