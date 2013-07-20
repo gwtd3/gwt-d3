@@ -26,18 +26,32 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.demo.client.testcases.time;
+/**
+ * 
+ */
+package com.github.gwtd3.api.interpolators;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.demo.client.test.AbstractTestCase;
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.core.client.JavaScriptObject;
 
-public class TestTimeScales extends AbstractTestCase {
+/**
+ * Use this class as a base class to create {@link InterpolatorFactory} implementations that can be passed to {@link D3#interpolators()
+ * D3.interpolators().push()}.
+ * <p>
+ * 
+ * 
+ * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+ * 
+ */
+public abstract class AbstractInterpolatorFactory<O> implements InterpolatorFactory<O> {
 
-    @Override
-    public void doTest(final ComplexPanel sandbox) {
-        Array<?> range = D3.time().scale().range(JsArrays.asJsArray(0, 5)).range();
-    }
+	@Override
+	public abstract <I> Interpolator<O> create(final I a, final I b);
+
+	@Override
+	public final native JavaScriptObject asJSOFunction()/*-{
+		return function(a, b) {
+			return this.@com.github.gwtd3.api.interpolators.AbstractInterpolatorFactory::create(Ljava/lang/Object;Ljava/lang/Object;)();
+		}
+	}-*/;
 }

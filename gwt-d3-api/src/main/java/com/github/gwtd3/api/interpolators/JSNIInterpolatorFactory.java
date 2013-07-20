@@ -26,28 +26,45 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.tweens;
+package com.github.gwtd3.api.interpolators;
 
-import com.github.gwtd3.api.core.Transition;
+import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Value;
-import com.github.gwtd3.api.interpolators.Interpolator;
-import com.google.gwt.dom.client.Element;
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * A function returning an {@link Interpolator} used to tween elements attribute or styles within {@link Transition}s.
+ * An interpolator factory returned by JSNI.
  * <p>
- * @see <a href="https://github.com/mbostock/d3/wiki/Transitions#wiki-attrTween">Official attrTween function</a>
+ * This class is used by {@link D3} to allow java code to invoke built-in interpolator factories. You should not instanciate this object
+ * unless you know what you are doing.
+ * <p>
+ * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public interface TweenFunction<T> {
+public class JSNIInterpolatorFactory<O> extends JavaScriptObject implements InterpolatorFactory<O> {
 
-	/**
-	 * @param context
-	 * @param datum
-	 * @param index
-	 * @param attributeValue
-	 * @return
-	 */
-	Interpolator<T> apply(Element context, Value datum, int index, Value value);
+	protected JSNIInterpolatorFactory() {
+		super();
+	}
+
+	@Override
+	public final JavaScriptObject asJSOFunction() {
+		return this;
+	}
+
+	@Override
+	public final <I> Interpolator<O> create(final I a, final I b) {
+		return new JavascriptFunctionInterpolatorDecorator<O>(createInterpolator(a, b)) {
+			@Override
+			public O cast(final Value v) {
+				return v.as();
+			}
+		};
+	}
+
+	public final native <I> JavascriptFunctionInterpolator createInterpolator(final I a, final I b)/*-{
+		return this(a, b);
+	}-*/;
+
 }
