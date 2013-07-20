@@ -34,6 +34,7 @@ package com.github.gwtd3.demo.client.test;
 import junit.framework.Assert;
 
 import com.github.gwtd3.api.core.Value;
+import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -107,5 +108,17 @@ public abstract class AbstractTestCase extends Assert implements TestCase {
 	public void setUp(final ComplexPanel sandbox) {
 		this.sandbox = sandbox;
 
+	}
+
+	public void assertDateEquals(double expected, double actual) {
+		assertDateEquals(null, expected, actual);
+	}
+
+	public void assertDateEquals(String message, double expected, double actual) {
+		double delta = .01;
+		if (Double.compare(expected, actual) == 0)
+			return;
+		if (!(Math.abs(expected-actual) <= delta))
+			failNotEquals(message, JsDate.create(expected), JsDate.create(actual));
 	}
 }

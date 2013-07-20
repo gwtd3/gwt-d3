@@ -76,12 +76,4 @@ public class TestTimeIntervals extends AbstractTestCase {
 		assertDateEquals("offset 3 on JsDate", JsDate.parse(expectedOffset3DateStr), interval.offset(givenJsDate, 3).getTime());
 		assertDateEquals("offset 3 on Date", JsDate.parse(expectedOffset3DateStr), interval.offset(givenDate, 3).getTime());
 	}
-
-	private void assertDateEquals(String message, double expected, double actual) {
-		double delta = .01;
-		if (Double.compare(expected, actual) == 0)
-			return;
-		if (!(Math.abs(expected-actual) <= delta))
-			failNotEquals(message, JsDate.create(expected), JsDate.create(actual));
-	}
 }
