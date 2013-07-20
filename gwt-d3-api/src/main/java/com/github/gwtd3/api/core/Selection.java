@@ -87,7 +87,7 @@ import com.google.gwt.dom.client.Element;
  * ("p") element. Subselecting via {@link #selectAll(String)} groups elements by ancestor. Thus, d3.selectAll("p").selectAll("b") groups by paragraph, while d3.selectAll("p b")
  * returns a flat selection. Subselecting via select is similar, but preserves groups and propagates data. Grouping plays an important role in the data join, and functional
  * operators may depend on the numeric index of the current element within its group.
- * 
+ * <p>
  * 
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
@@ -1150,10 +1150,17 @@ public class Selection extends EnteringSelection {
 
 	// ==================== TRANSITION =======
 	/**
-	 * Starts a transition for the current selection. Transitions behave much
+	 * Starts a {@link Transition} for the current selection. Transitions behave much
 	 * like selections, except operators animate smoothly over time rather than
 	 * applying instantaneously.
-	 * 
+	 * <p>
+	 * When this instance is a {@link Transition} instance,
+	 * this method creates a new transition on the same selected elements that starts with this transition ends.
+	 * <p>
+	 * The new transition inherits this transition’s duration and easing.
+	 * <p>
+	 * This can be used to define chained transitions without needing to listen for "end" events.
+	 * <p>
 	 * @return the new transition
 	 */
 	public native final Transition transition()/*-{

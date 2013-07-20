@@ -243,15 +243,15 @@ public class Easing {
 		return ease("bounce-" + mode.getValue());
 	}
 
-	private static final native EasingFunction ease(String type)/*-{
+	private static final native JavascriptEasingFunction ease(String type)/*-{
 		return $wnd.d3.ease(type);
 	}-*/;
 
-	private static final native EasingFunction ease(String type, double a)/*-{
+	private static final native JavascriptEasingFunction ease(String type, double a)/*-{
 		return $wnd.d3.ease(type, a);
 	}-*/;
 
-	private static final native EasingFunction ease(String type, double a, double b)/*-{
+	private static final native JavascriptEasingFunction ease(String type, double a, double b)/*-{
 		return $wnd.d3.ease(type, a, b);
 	}-*/;
 }
