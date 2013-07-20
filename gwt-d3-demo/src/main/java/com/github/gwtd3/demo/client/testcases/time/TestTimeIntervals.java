@@ -31,221 +31,57 @@ package com.github.gwtd3.demo.client.testcases.time;
 import java.util.Date;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.time.Interval;
-import com.github.gwtd3.api.time.Time;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.datepicker.client.CalendarUtil;
 
 public class TestTimeIntervals extends AbstractTestCase {
-	
-	private static final int TEST_SECOND = 18;
-	private static final int TEST_MINUTE = 5;
-	private static final int TEST_HOUR = 9;
-	private static final int TEST_DATE = 11;
-	private static final int TEST_MONTH = 0;
-	private static final int TEST_YEAR = 1979;
-	private static final int TEST_MILLISECOND = 123;
-	
-	private enum Field {
-		MONTH,
-		DAY_OF_MONTH,
-		HOUR_OF_DAY,
-		MINUTE,
-		SECOND,
-		MILLISECOND
-	};
-	private Date date = new Date();
-
-	private static final long SECOND = 1000;// millis
-	private static final long MINUTE = 60 * SECOND;// 60 000
-	private static final long HOUR = 60 * MINUTE;// 3 600 000
-	private static final long DAY = 24 * HOUR;// 86 400 000
-	private static final long WEEK = 7 * DAY;//
-	private static final long MONTH = 7 * DAY;
-	private static final long YEAR = 7 * DAY;
 
 	@Override
 	public void doTest(ComplexPanel sandbox) {
-		testInterval(SECOND, D3.time().second());
-		testInterval(MINUTE, D3.time().minute());
-		testInterval(HOUR, D3.time().hour());
-		// testIntervalDay(DAY, D3.time().day());
-		// testInterval(WEEK, D3.time().week());
-		// testInterval(WEEK, D3.time().sunday());
-		// testInterval(WEEK, D3.time().monday());
-		// testInterval(WEEK, D3.time().tueday());
-		// testInterval(WEEK, D3.time().wednesday());
-		// testInterval(WEEK, D3.time().thursday());
-		// testInterval(WEEK, D3.time().friday());
-		// testInterval(WEEK, D3.time().saturday());
-		// testInterval(MONTH, D3.time().month());
-		// testInterval(YEAR, D3.time().year());
-    	
-		Time time = D3.time();
-		testInterval(time.second(), Field.MILLISECOND);
-		testInterval(time.minute(), Field.SECOND);
-		testInterval(time.hour(), Field.MINUTE);
-		testInterval(time.day(), Field.HOUR_OF_DAY);
-		testInterval(time.month(), Field.DAY_OF_MONTH);
-		testInterval(time.year(), Field.MONTH);
+		test(D3.time().year(),      "1979-01-11 09:05:18.125", "1979-01-01 00:00:00.000", "1980-01-01 00:00:00.000", "1979-01-01 00:00:00.000", "1982-01-11 09:05:18.125");
+		test(D3.time().month(),     "1979-01-11 09:05:18.125", "1979-01-01 00:00:00.000", "1979-02-01 00:00:00.000", "1979-01-01 00:00:00.000", "1979-04-11 09:05:18.125");
+		test(D3.time().hour(),      "1979-01-11 09:05:18.125", "1979-01-11 09:00:00.000", "1979-01-11 10:00:00.000", "1979-01-11 09:00:00.000", "1979-01-11 12:05:18.125");
+		test(D3.time().minute(),    "1979-01-11 09:05:18.125", "1979-01-11 09:05:00.000", "1979-01-11 09:06:00.000", "1979-01-11 09:05:00.000", "1979-01-11 09:08:18.125");
+		test(D3.time().second(),    "1979-01-11 09:05:18.125", "1979-01-11 09:05:18.000", "1979-01-11 09:05:19.000", "1979-01-11 09:05:18.000", "1979-01-11 09:05:21.125");
+		test(D3.time().day(),       "1979-01-11 09:05:18.125", "1979-01-11 00:00:00.000", "1979-01-12 00:00:00.000", "1979-01-11 00:00:00.000", "1979-01-14 09:05:18.125");
+		test(D3.time().week(),      "1979-01-11 09:05:18.125", "1979-01-07 00:00:00.000", "1979-01-14 00:00:00.000", "1979-01-14 00:00:00.000", "1979-02-01 09:05:18.125");
+		test(D3.time().sunday(),    "1979-01-11 09:05:18.125", "1979-01-07 00:00:00.000", "1979-01-14 00:00:00.000", "1979-01-14 00:00:00.000", "1979-02-01 09:05:18.125");
+		test(D3.time().monday(),    "1979-01-11 09:05:18.125", "1979-01-08 00:00:00.000", "1979-01-15 00:00:00.000", "1979-01-08 00:00:00.000", "1979-02-01 09:05:18.125");
+		test(D3.time().tuesday(),   "1979-01-11 09:05:18.125", "1979-01-09 00:00:00.000", "1979-01-16 00:00:00.000", "1979-01-09 00:00:00.000", "1979-02-01 09:05:18.125");
+		test(D3.time().wednesday(), "1979-01-11 09:05:18.125", "1979-01-10 00:00:00.000", "1979-01-17 00:00:00.000", "1979-01-10 00:00:00.000", "1979-02-01 09:05:18.125");
+		test(D3.time().thursday(),  "1979-01-11 09:05:18.125", "1979-01-11 00:00:00.000", "1979-01-18 00:00:00.000", "1979-01-11 00:00:00.000", "1979-02-01 09:05:18.125");
+		test(D3.time().friday(),    "1979-01-11 09:05:18.125", "1979-01-05 00:00:00.000", "1979-01-12 00:00:00.000", "1979-01-12 00:00:00.000", "1979-02-01 09:05:18.125");
+		test(D3.time().saturday(),  "1979-01-11 09:05:18.125", "1979-01-06 00:00:00.000", "1979-01-13 00:00:00.000", "1979-01-13 00:00:00.000", "1979-02-01 09:05:18.125");
+	}
+	
+	private void test(Interval interval, String givenDateStr, String expectedFloorDateStr, String expectedCeilDateStr, String expectedRoundDateStr, String expectedOffset3DateStr) {
+		// Given
+		JsDate givenJsDate = JsDate.create(JsDate.parse(givenDateStr));
+		Date givenDate = new Date((long) JsDate.parse(givenDateStr));
+		
+		assertDateEquals("apply on JsDate", JsDate.parse(expectedFloorDateStr), interval.apply(givenJsDate).getTime());
+		assertDateEquals("apply on Date", JsDate.parse(expectedFloorDateStr), interval.apply(givenDate).getTime());
+		
+		assertDateEquals("floor on JsDate", JsDate.parse(expectedFloorDateStr), interval.floor(givenJsDate).getTime());
+		assertDateEquals("floor on Date", JsDate.parse(expectedFloorDateStr), interval.floor(givenDate).getTime());
+		
+		assertDateEquals("ceil on JsDate", JsDate.parse(expectedCeilDateStr), interval.ceil(givenJsDate).getTime());
+		assertDateEquals("ceil on Date", JsDate.parse(expectedCeilDateStr), interval.ceil(givenDate).getTime());
+		
+		assertDateEquals("round on JsDate", JsDate.parse(expectedRoundDateStr), interval.round(givenJsDate).getTime());
+		assertDateEquals("round on Date", JsDate.parse(expectedRoundDateStr), interval.round(givenDate).getTime());
+		
+		assertDateEquals("offset 3 on JsDate", JsDate.parse(expectedOffset3DateStr), interval.offset(givenJsDate, 3).getTime());
+		assertDateEquals("offset 3 on Date", JsDate.parse(expectedOffset3DateStr), interval.offset(givenDate, 3).getTime());
 	}
 
-	private void testIntervalDay(long period, Interval interval) {
-		System.out.println("period:" + period);
-		long now = new Date().getTime();
-		// remove millis
-		now = now - (now % 1000);
-		// remove hours, min, sec
-		Date nowDate = new Date(now);
-		nowDate.setSeconds(0);
-		nowDate.setMinutes(0);
-		nowDate.setHours(0);
-		long floor = nowDate.getTime();
-		System.out.println(floor);
-		long ceil = floor + period;
-		System.out.println(ceil);
-		long startWillFloor = floor + 490;
-		System.out.println(startWillFloor);
-		long startWillCeil = floor + (long) (period * 0.7);
-		System.out.println(startWillCeil);
-		testFloor(interval, startWillFloor, floor);
-		testApply(interval, now, floor);
-		testCeil(interval, startWillFloor, ceil);
-		testRound(interval, startWillFloor, floor);
-		testRound(interval, startWillCeil, ceil);
-		testOffset(interval, startWillFloor, period);
-		testOffset(interval, startWillCeil, period);
-		// testRange(interval, floor, startWillFloor, period);
-		// testRange(interval, floor, startWillCeil, period);
-	}
-
-	private void testInterval(long period, Interval interval) {
-		System.out.println("period:" + period);
-		long now = new Date().getTime();
-		System.out.println(now);
-		// 86 400 000
-		// 82 800 000
-		long floor = now - (now % period);
-		System.out.println(floor);
-		long ceil = floor + period;
-		System.out.println(ceil);
-		long startWillFloor = floor + 490;
-		System.out.println(startWillFloor);
-		long startWillCeil = floor + (long) (period * 0.7);
-		System.out.println(startWillCeil);
-		testFloor(interval, startWillFloor, floor);
-		testApply(interval, now, floor);
-		testCeil(interval, startWillFloor, ceil);
-		testRound(interval, startWillFloor, floor);
-		testRound(interval, startWillCeil, ceil);
-		testOffset(interval, startWillFloor, period);
-		testOffset(interval, startWillCeil, period);
-		// testRange(interval, floor, startWillFloor, period);
-		// testRange(interval, floor, startWillCeil, period);
-	}
-
-	private void testRange(Interval interval, long base, long start, long period) {
-		// init stop = start + a bit less than 5 period more
-		double stop = start + (5 * period);
-		Array<JsDate> result = interval.range(JsDate.create(start), JsDate.create(stop));
-		assertEquals(5, result.length());
-		assertEquals((double) base + (1 * period), result.getObject(0).getTime());
-		assertEquals((double) base + (2 * period), result.getObject(1).getTime());
-		assertEquals((double) base + (3 * period), result.getObject(2).getTime());
-		assertEquals((double) base + (4 * period), result.getObject(3).getTime());
-		assertEquals((double) base + (5 * period), result.getObject(4).getTime());
-
-		result = interval.range(JsDate.create(start), JsDate.create(stop), 2);
-		assertEquals((double) base + (2 * period), result.getObject(0).getTime());
-		assertEquals((double) base + (4 * period), result.getObject(1).getTime());
-		assertEquals((double) base + (5 * period), result.getObject(2).getTime());
-		assertEquals(3, result.length());
-
-	}
-
-	private void testOffset(Interval interval, long start, long period) {
-		assertEquals(start + (3 * period), interval.offset(new Date(start), 3).getTime());
-		assertEquals(start - (2 * period), interval.offset(new Date(start), -2).getTime());
-		assertEquals((double) start + (3 * period), interval.offset(start, 3));
-		assertEquals((double) start - (2 * period), interval.offset(start, -2));
-		assertEquals((double) start + (3 * period), interval.offset(JsDate.create(start), 3).getTime());
-		assertEquals((double) start - (2 * period), interval.offset(JsDate.create(start), -2).getTime());
-	}
-
-	private void testCeil(Interval interval, long timestamp, long expected) {
-		assertEquals((double) expected, interval.ceil(timestamp));
-		assertEquals(expected, interval.ceil(new Date(timestamp)).getTime());
-		assertEquals((double) expected, interval.ceil(JsDate.create(timestamp)).getTime());
-
-	}
-
-	private void testRound(Interval interval, long timestamp, long expected) {
-		assertEquals((double) expected, interval.round(timestamp));
-		assertEquals(expected, interval.round(new Date(timestamp)).getTime());
-		assertEquals((double) expected, interval.round(JsDate.create(timestamp)).getTime());
-	}
-
-	private void testApply(Interval interval, long timestamp, long expected) {
-		assertEquals((double) expected, interval.apply(timestamp));
-		assertEquals(expected, interval.apply(new Date(timestamp)).getTime());
-		assertEquals((double) expected, interval.apply(JsDate.create(timestamp)).getTime());
-	}
-
-	private void testFloor(Interval interval, long timestamp, long expected) {
-		assertEquals((double) expected, interval.floor(timestamp));
-		assertEquals(expected, interval.floor(new Date(timestamp)).getTime());
-		assertEquals((double) expected, interval.floor(JsDate.create(timestamp)).getTime());
-
-	}
-
-	@SuppressWarnings("deprecation")
-	private void truncateCalendar(Field field) {
-			switch (field) {
-			case MONTH:
-				date.setMonth(0);
-			case DAY_OF_MONTH:
-				date.setDate(1);
-			case HOUR_OF_DAY:
-				date.setHours(0);
-			case MINUTE:
-				date.setMinutes(0);
-			case SECOND:
-				date.setSeconds(0);
-			case MILLISECOND:
-				long t = date.getTime();
-				t -= t % 1000;
-				date.setTime(t);
-				break;
-			default:
-				throw new IllegalArgumentException("Unsupported field: " + field.name());
-			}
-	}
-
-	@SuppressWarnings("deprecation")
-	private void resetCalendar() {
-		date.setYear(TEST_YEAR);
-		date.setMonth(TEST_MONTH);
-		date.setDate(TEST_DATE);
-		date.setHours(TEST_HOUR);
-		date.setMinutes(TEST_MINUTE);
-		date.setSeconds(TEST_SECOND);
-    	long t = date.getTime();
-    	t -= t % 1000;
-    	date.setTime(t + TEST_MILLISECOND);
-	}
-
-	private void testInterval(Interval interval, Field field) {
-    	resetCalendar();
-    	Date someDate = CalendarUtil.copyDate(date);
-    	
-    	truncateCalendar(field);
-    	Date expectedDate = CalendarUtil.copyDate(date);
-    	
-		Date actualDate = interval.apply(someDate);
-    	
-		assertEquals(expectedDate.getTime(), actualDate.getTime());
+	private void assertDateEquals(String message, double expected, double actual) {
+		double delta = .01;
+		if (Double.compare(expected, actual) == 0)
+			return;
+		if (!(Math.abs(expected-actual) <= delta))
+			failNotEquals(message, JsDate.create(expected), JsDate.create(actual));
 	}
 }
