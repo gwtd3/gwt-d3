@@ -38,6 +38,7 @@ import java.util.List;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
 import com.github.gwtd3.demo.client.testcases.arrays.TestArrays;
 import com.github.gwtd3.demo.client.testcases.arrays.TestD3Arrays;
+import com.github.gwtd3.demo.client.testcases.core.TestMath;
 import com.github.gwtd3.demo.client.testcases.csv.TestCsv;
 import com.github.gwtd3.demo.client.testcases.d3.TestColors;
 import com.github.gwtd3.demo.client.testcases.d3.TestD3;
@@ -91,10 +92,10 @@ public class D3TestSuite {
 				new TestSelectionData(), new TestSelectionData2(), new TestSelectionProperty(), new TestSelectionText(),
 				new TestSelectionHtml(), new TestSelectionControls(), new TestSelectionStyle(),
 				//Transitions
-				new TestTransition(),
-				new TestInterpolators(),
-				new TestEasing(),
-				// scales
+				new TestTransition(), new TestInterpolators(),new TestEasing(),
+				//Math
+				new TestMath(),
+				// Scales
 				new TestLinearScale(), new TestLogScale(), new TestPowScale(), new TestThresholdScale(), new TestTimeScale(),
 				// svg
 				new TestAxis(), new TestLine(), new TestArea(), new TestArc(),

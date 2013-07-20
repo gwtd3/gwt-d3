@@ -33,6 +33,7 @@ import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.HSLColor;
 import com.github.gwtd3.api.core.RGBColor;
+import com.github.gwtd3.api.core.Transform;
 import com.github.gwtd3.api.interpolators.AbstractInterpolatorFactory;
 import com.github.gwtd3.api.interpolators.CallableInterpolator;
 import com.github.gwtd3.api.interpolators.Interpolator;
@@ -53,9 +54,16 @@ public class TestInterpolators extends AbstractTestCase {
 		// testD3InterpolateLab();
 		testD3InterpolateObject();
 		testD3InterpolateArray();
-		// testD3InterpolateTransform();
+		testD3InterpolateTransform();
 
 		testD3Interpolators();
+	}
+
+	private void testD3InterpolateTransform() {
+		Interpolator<Transform> interpolator = D3.interpolateTransform(Transform.parse("rotate(40)"),Transform.parse("rotate(80)"));
+		assertEquals(40d, interpolator.interpolate(0).rotate(), 0.0001d);
+		assertEquals(60d, interpolator.interpolate(0.5).rotate(), 0.0001d);
+		assertEquals(80d, interpolator.interpolate(1).rotate(), 0.0001d);
 	}
 
 	private void testD3InterpolateArray() {

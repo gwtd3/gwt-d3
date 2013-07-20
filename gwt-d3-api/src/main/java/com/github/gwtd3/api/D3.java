@@ -47,6 +47,7 @@ import com.github.gwtd3.api.core.HSLColor;
 import com.github.gwtd3.api.core.ObjectAccessor;
 import com.github.gwtd3.api.core.RGBColor;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Transform;
 import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.dsv.Dsv;
@@ -75,10 +76,13 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.WidgetCollection;
 
 /**
- * Entry point for D3 api modules. A lot of methods of this class allow access to other classes:
+ * Entry point for D3 api modules. A lot of methods of this class allow access
+ * to other classes:
  * <ul>
- * <li>  {@link D3#select(Element)} methods and {@link Selection} - manipulate elements in the current document.
- * <li> {@link Transition} - interpolate attributes and styles smoothly over time.
+ * <li>  {@link D3#select(Element)} methods and {@link Selection} - manipulate
+ * elements in the current document.
+ * <li> {@link Transition} - interpolate attributes and styles smoothly over
+ * time.
  * <li> {@link Array} manipulate arrays and objects with ease.
  * <li> {@link Color} - parse and manipulate colors; work with color spaces.
  * <p>
@@ -123,13 +127,17 @@ public class D3 extends JavaScriptObject {
 
 	// =========== select ==============
 	/**
-	 * Selects the first element that matches the specified selector string, returning a single-element selection. If no elements in the
-	 * current document match the specified selector, returns the empty selection. If multiple elements match the selector, only the first
-	 * matching element (in document traversal order) will be selected.
+	 * Selects the first element that matches the specified selector string,
+	 * returning a single-element selection. If no elements in the current
+	 * document match the specified selector, returns the empty selection. If
+	 * multiple elements match the selector, only the first matching element (in
+	 * document traversal order) will be selected.
 	 * <p>
-	 * The selector is a valid CSS3 selector. For example, you can select by tag ("div"), class (".awesome"), unique identifier ("#foo"),
-	 * attribute ("[color=red]"), or containment ("parent child"). Selectors can also be intersected (".this.that" for logical AND) or
-	 * unioned (".this, .that" for logical OR)
+	 * The selector is a valid CSS3 selector. For example, you can select by tag
+	 * ("div"), class (".awesome"), unique identifier ("#foo"), attribute
+	 * ("[color=red]"), or containment ("parent child"). Selectors can also be
+	 * intersected (".this.that" for logical AND) or unioned (".this, .that" for
+	 * logical OR)
 	 * 
 	 * @param selector
 	 *            a CSS3 selector
@@ -140,8 +148,8 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Selects the specified element. This is useful if you already have a reference to an element, or a global such as
-	 * {@link Document#getBody()}
+	 * Selects the specified element. This is useful if you already have a
+	 * reference to an element, or a global such as {@link Document#getBody()}
 	 * 
 	 * @param element
 	 *            the element to select
@@ -152,7 +160,8 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Selects the specified widget. This is useful if you already have a reference to a widget, or a global such as {@link RootPanel#get()}
+	 * Selects the specified widget. This is useful if you already have a
+	 * reference to a widget, or a global such as {@link RootPanel#get()}
 	 * 
 	 * @param widget
 	 *            the widget to select
@@ -164,8 +173,10 @@ public class D3 extends JavaScriptObject {
 
 	// ================ selectAll ================
 	/**
-	 * Selects all elements that match the specified selector. The elements will be selected in document traversal order (top-to-bottom). If
-	 * no elements in the current document match the specified selector, returns the empty selection.
+	 * Selects all elements that match the specified selector. The elements will
+	 * be selected in document traversal order (top-to-bottom). If no elements
+	 * in the current document match the specified selector, returns the empty
+	 * selection.
 	 * 
 	 * @param selector
 	 * @return
@@ -219,7 +230,8 @@ public class D3 extends JavaScriptObject {
 	}
 
 	/**
-	 * Selects the elements corresponding to the root elements of the widgets in the specified array.
+	 * Selects the elements corresponding to the root elements of the widgets in
+	 * the specified array.
 	 * 
 	 * @param nodes
 	 *            the elements
@@ -249,8 +261,6 @@ public class D3 extends JavaScriptObject {
 	}
 
 	// =========== Math ==============
-
-	public static final com.github.gwtd3.api.core.Random random = com.github.gwtd3.api.core.Random.get();
 
 	// =========== shuffle ==============
 
@@ -297,8 +307,10 @@ public class D3 extends JavaScriptObject {
 	// ================ Colors ================
 
 	/**
-	 * Constructs a new RGB color with the specified r, g and b channel values. Each channel must be specified as an integer in the range
-	 * [0,255]. The channels are available as the r, g and b attributes of the returned object.
+	 * Constructs a new RGB color with the specified r, g and b channel values.
+	 * Each channel must be specified as an integer in the range [0,255]. The
+	 * channels are available as the r, g and b attributes of the returned
+	 * object.
 	 * 
 	 * @param r
 	 *            the red channel
@@ -313,7 +325,8 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Constructs a new RGB color by parsing the specified color string. The color string may be in a variety of formats:
+	 * Constructs a new RGB color by parsing the specified color string. The
+	 * color string may be in a variety of formats:
 	 * <ul>
 	 * <li>rgb decimal - "rgb(255,255,255)"
 	 * <li>hsl decimal - "hsl(120,50%,20%)"
@@ -343,8 +356,10 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Constructs a new HSL color with the specified hue h, saturation s and lightness l. The hue must be a number in the range [0,360]. The
-	 * saturation and lightness must be in the range 0,1. These values are available as the h, s and l attributes of the returned object.
+	 * Constructs a new HSL color with the specified hue h, saturation s and
+	 * lightness l. The hue must be a number in the range [0,360]. The
+	 * saturation and lightness must be in the range 0,1. These values are
+	 * available as the h, s and l attributes of the returned object.
 	 * 
 	 * @param h
 	 *            the hue channel [0;360]
@@ -359,7 +374,8 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Constructs a new HSL color by parsing the specified color string. The color string may be in a variety of formats:
+	 * Constructs a new HSL color by parsing the specified color string. The
+	 * color string may be in a variety of formats:
 	 * <ul>
 	 * <li>rgb decimal - "rgb(255,255,255)"
 	 * <li>hsl decimal - "hsl(120,50%,20%)"
@@ -409,7 +425,8 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Returns a string interpolator between the two strings a and b.
 	 * <p>
-	 * The string interpolator finds numbers embedded in a and b, where each number is of the form:
+	 * The string interpolator finds numbers embedded in a and b, where each
+	 * number is of the form:
 	 * 
 	 * <pre>
 	 * {@code
@@ -417,12 +434,17 @@ public class D3 extends JavaScriptObject {
 	 * }
 	 * </pre>
 	 * <p>
-	 * For each number embedded in b, the interpolator will attempt to find a corresponding number in a. If a corresponding number is found,
-	 * a numeric interpolator is created using interpolateNumber. The remaining parts of the string b are used as a template: the static
-	 * parts of the string b remain constant for the interpolation, with the interpolated numeric values embedded in the template.
+	 * For each number embedded in b, the interpolator will attempt to find a
+	 * corresponding number in a. If a corresponding number is found, a numeric
+	 * interpolator is created using interpolateNumber. The remaining parts of
+	 * the string b are used as a template: the static parts of the string b
+	 * remain constant for the interpolation, with the interpolated numeric
+	 * values embedded in the template.
 	 * <p>
-	 * For example, if a is "300 12px sans-serif", and b is "500 36px Comic-Sans", two embedded numbers are found. The remaining static
-	 * parts of the string are a space between the two numbers (" "), and the suffix ("px Comic-Sans").
+	 * For example, if a is "300 12px sans-serif", and b is
+	 * "500 36px Comic-Sans", two embedded numbers are found. The remaining
+	 * static parts of the string are a space between the two numbers (" "), and
+	 * the suffix ("px Comic-Sans").
 	 * 
 	 * The result of the interpolator at t = .5 is "400 24px Comic-Sans".
 	 * 
@@ -439,12 +461,15 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Returns an RGB color space interpolator between the two colors a and b.
 	 * <p>
-	 * The colors a and b need not be in RGB, but they will be converted to RGB using {@link D3#rgb(String)}.
+	 * The colors a and b need not be in RGB, but they will be converted to RGB
+	 * using {@link D3#rgb(String)}.
 	 * <p>
-	 * The red, green and blue channels are interpolated linearly in a manner equivalent to interpolateRound, as fractional channel values
-	 * are not allowed.
+	 * The red, green and blue channels are interpolated linearly in a manner
+	 * equivalent to interpolateRound, as fractional channel values are not
+	 * allowed.
 	 * <p>
-	 * Also note that the interpolator modifies the returned color instance, and thus a copy must be made if you wish to avoid modification.
+	 * Also note that the interpolator modifies the returned color instance, and
+	 * thus a copy must be made if you wish to avoid modification.
 	 * 
 	 * @param a
 	 *            the start color
@@ -464,12 +489,15 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Returns an RGB color space interpolator between the two colors a and b.
 	 * <p>
-	 * The colors a and b need not be in RGB, but they will be converted to RGB using {@link D3#rgb(String)}.
+	 * The colors a and b need not be in RGB, but they will be converted to RGB
+	 * using {@link D3#rgb(String)}.
 	 * <p>
-	 * The red, green and blue channels are interpolated linearly in a manner equivalent to interpolateRound, as fractional channel values
-	 * are not allowed.
+	 * The red, green and blue channels are interpolated linearly in a manner
+	 * equivalent to interpolateRound, as fractional channel values are not
+	 * allowed.
 	 * <p>
-	 * Also note that the interpolator modifies the returned color instance, and thus a copy must be made if you wish to avoid modification.
+	 * Also note that the interpolator modifies the returned color instance, and
+	 * thus a copy must be made if you wish to avoid modification.
 	 * 
 	 * @param a
 	 *            the start color
@@ -489,12 +517,15 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Returns an HSL color space interpolator between the two colors a and b.
 	 * <p>
-	 * The colors a and b need not be in HSL, but they will be converted to HSL using {@link D3#hsl(String)}.
+	 * The colors a and b need not be in HSL, but they will be converted to HSL
+	 * using {@link D3#hsl(String)}.
 	 * <p>
-	 * The hue, saturation and lightness are interpolated linearly in a manner equivalent to interpolateNumber. (The shortest path between
-	 * the start and end hue is used.)
+	 * The hue, saturation and lightness are interpolated linearly in a manner
+	 * equivalent to interpolateNumber. (The shortest path between the start and
+	 * end hue is used.)
 	 * <p>
-	 * Also note that the interpolator modifies the returned color instance, and thus a copy must be made if you wish to avoid modification.
+	 * Also note that the interpolator modifies the returned color instance, and
+	 * thus a copy must be made if you wish to avoid modification.
 	 * 
 	 * @param a
 	 *            the start color
@@ -514,12 +545,15 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Returns an RGB color space interpolator between the two colors a and b.
 	 * <p>
-	 * The colors a and b need not be in RGB, but they will be converted to RGB using {@link D3#rgb(String)}.
+	 * The colors a and b need not be in RGB, but they will be converted to RGB
+	 * using {@link D3#rgb(String)}.
 	 * <p>
-	 * The red, green and blue channels are interpolated linearly in a manner equivalent to interpolateRound, as fractional channel values
-	 * are not allowed.
+	 * The red, green and blue channels are interpolated linearly in a manner
+	 * equivalent to interpolateRound, as fractional channel values are not
+	 * allowed.
 	 * <p>
-	 * Also note that the interpolator modifies the returned color instance, and thus a copy must be made if you wish to avoid modification.
+	 * Also note that the interpolator modifies the returned color instance, and
+	 * thus a copy must be made if you wish to avoid modification.
 	 * 
 	 * @param a
 	 *            the start color
@@ -537,7 +571,8 @@ public class D3 extends JavaScriptObject {
 	}
 
 	/**
-	 * Returns a numeric interpolator between the two numbers a and b. The returned interpolator is equivalent to:
+	 * Returns a numeric interpolator between the two numbers a and b. The
+	 * returned interpolator is equivalent to:
 	 * 
 	 * <pre>
 	 * {@code
@@ -547,11 +582,14 @@ public class D3 extends JavaScriptObject {
 	 * }
 	 * </pre>
 	 * <p>
-	 * Caution: avoid interpolating to or from the number zero when the interpolator is used to generate a string (such as with attr). Very
-	 * small values, when stringified, may be converted to scientific notation and cause a temporarily invalid attribute or style property
-	 * value. For example, the number 0.0000001 is converted to the string "1e-7". This is particularly noticeable when interpolating
-	 * opacity values. To avoid scientific notation, start or end the transition at 1e-6, which is the smallest value that is not
-	 * stringified in exponential notation.
+	 * Caution: avoid interpolating to or from the number zero when the
+	 * interpolator is used to generate a string (such as with attr). Very small
+	 * values, when stringified, may be converted to scientific notation and
+	 * cause a temporarily invalid attribute or style property value. For
+	 * example, the number 0.0000001 is converted to the string "1e-7". This is
+	 * particularly noticeable when interpolating opacity values. To avoid
+	 * scientific notation, start or end the transition at 1e-6, which is the
+	 * smallest value that is not stringified in exponential notation.
 	 * 
 	 * @param a
 	 *            the start
@@ -573,21 +611,25 @@ public class D3 extends JavaScriptObject {
 	 * <p>
 	 * Internally, an array template is created that is the same length in b.
 	 * 
-	 * For each element in b, if there exists a corresponding element in a, a generic interpolator is created for the two elements using
-	 * interpolate.
+	 * For each element in b, if there exists a corresponding element in a, a
+	 * generic interpolator is created for the two elements using interpolate.
 	 * 
-	 * If there is no such element, the static value from b is used in the template.
+	 * If there is no such element, the static value from b is used in the
+	 * template.
 	 * 
-	 * Then, for the given parameter t, the template's embedded interpolators are evaluated. The updated array template is then returned.
+	 * Then, for the given parameter t, the template's embedded interpolators
+	 * are evaluated. The updated array template is then returned.
 	 * <p>
 	 * For example, if a is the array [0, 1] and b is the array [1, 10, 100],
 	 * 
-	 * then the result of the interpolator for t = .5 is the array [.5, 5.5, 100].
+	 * then the result of the interpolator for t = .5 is the array [.5, 5.5,
+	 * 100].
 	 * 
 	 * <p>
-	 * Note: no defensive copy of the template array is created; modifications of the returned array may adversely affect subsequent
-	 * evaluation of the interpolator. No copy is made because interpolators should be fast, as they are part of the inner loop of
-	 * animation.
+	 * Note: no defensive copy of the template array is created; modifications
+	 * of the returned array may adversely affect subsequent evaluation of the
+	 * interpolator. No copy is made because interpolators should be fast, as
+	 * they are part of the inner loop of animation.
 	 * 
 	 * @param a
 	 *            the array a
@@ -607,26 +649,31 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Returns an object interpolator between the two objects a and b.
 	 * <p>
-	 * Internally, an object template is created that has the same properties as b.
+	 * Internally, an object template is created that has the same properties as
+	 * b.
 	 * <p>
-	 * For each property in b, if there exists a corresponding property in a, a generic interpolator is created for the two elements using
-	 * interpolate.
+	 * For each property in b, if there exists a corresponding property in a, a
+	 * generic interpolator is created for the two elements using interpolate.
 	 * <p>
-	 * If there is no such property, the static value from b is used in the template.
+	 * If there is no such property, the static value from b is used in the
+	 * template.
 	 * <p>
-	 * Then, for the given parameter t, the template's embedded interpolators are evaluated and the updated object template is then
-	 * returned.
+	 * Then, for the given parameter t, the template's embedded interpolators
+	 * are evaluated and the updated object template is then returned.
 	 * <p>
-	 * For example, if a is the object {x: 0, y: 1} and b is the object {x: 1, y: 10, z: 100}, the result of the interpolator for t = .5 is
-	 * the object {x: .5, y: 5.5, z: 100}.
+	 * For example, if a is the object {x: 0, y: 1} and b is the object {x: 1,
+	 * y: 10, z: 100}, the result of the interpolator for t = .5 is the object
+	 * {x: .5, y: 5.5, z: 100}.
 	 * <p>
-	 * Object interpolation is particularly useful for dataspace interpolation, where data is interpolated rather than attribute values. For
-	 * example, you can interpolate an object which describes an arc in a pie chart, and then use d3.svg.arc to compute the new SVG path
-	 * data.
+	 * Object interpolation is particularly useful for dataspace interpolation,
+	 * where data is interpolated rather than attribute values. For example, you
+	 * can interpolate an object which describes an arc in a pie chart, and then
+	 * use d3.svg.arc to compute the new SVG path data.
 	 * <p>
-	 * Note: no defensive copy of the template object is created; modifications of the returned object may adversely affect subsequent
-	 * evaluation of the interpolator. No copy is made because interpolators should be fast, as they are part of the inner loop of
-	 * animation.
+	 * Note: no defensive copy of the template object is created; modifications
+	 * of the returned object may adversely affect subsequent evaluation of the
+	 * interpolator. No copy is made because interpolators should be fast, as
+	 * they are part of the inner loop of animation.
 	 * 
 	 * @param a
 	 *            the object a
@@ -639,6 +686,28 @@ public class D3 extends JavaScriptObject {
 			@Override
 			public T cast(final Value v) {
 				return v.<T> as();
+			}
+		};
+	}
+
+	/**
+	 * Returns an interpolator between the two 2D affine transforms represented
+	 * by a and b. Each transform is decomposed to a standard representation of
+	 * translate, rotate, x-skew and scale; these component transformations are
+	 * then interpolated. This behavior is standardized by CSS: see matrix
+	 * decomposition for animation.
+	 * 
+	 * @param a
+	 *            the object a
+	 * @param b
+	 *            the object b
+	 * @return the interpolator
+	 */
+	public static final Interpolator<Transform> interpolateTransform(final Transform a, final Transform b) {
+		return new JavascriptFunctionInterpolatorDecorator<Transform>(interpolateTransform0(a, b)) {
+			@Override
+			public Transform cast(final Value v) {
+				return Transform.parse(v.asString());
 			}
 		};
 	}
@@ -709,8 +778,9 @@ public class D3 extends JavaScriptObject {
 	}
 
 	/**
-	 * Returns a numeric interpolator between the two numbers a and b; the interpolator is similar to {@link #interpolate(double, double)},
-	 * except it will round the resulting value to the nearest integer.
+	 * Returns a numeric interpolator between the two numbers a and b; the
+	 * interpolator is similar to {@link #interpolate(double, double)}, except
+	 * it will round the resulting value to the nearest integer.
 	 * <p>
 	 * 
 	 * @param a
@@ -834,7 +904,8 @@ public class D3 extends JavaScriptObject {
 	// }
 
 	/**
-	 * Actual JSNI implementation; the result is auto-casted to a {@link JavascriptFunctionInterpolator} and can be used by more specific
+	 * Actual JSNI implementation; the result is auto-casted to a
+	 * {@link JavascriptFunctionInterpolator} and can be used by more specific
 	 * versions of the
 	 * 
 	 * @param a
@@ -866,11 +937,13 @@ public class D3 extends JavaScriptObject {
 		return $wnd.d3.interpolateHsl(a, b);
 	}-*/;
 
-	// private static final native JavascriptFunctionInterpolator interpolateHcl0(String a, String b) /*-{
+	// private static final native JavascriptFunctionInterpolator
+	// interpolateHcl0(String a, String b) /*-{
 	// return $wnd.d3.interpolateHcl(a, b);
 	// }-*/;
 	//
-	// private static final native JavascriptFunctionInterpolator interpolateLab0(String a, String b) /*-{
+	// private static final native JavascriptFunctionInterpolator
+	// interpolateLab0(String a, String b) /*-{
 	// return $wnd.d3.interpolateLab(a, b);
 	// }-*/;
 
@@ -882,93 +955,125 @@ public class D3 extends JavaScriptObject {
 		return $wnd.d3.interpolateArray(a, b);
 	}-*/;
 
+	private static final native JavascriptFunctionInterpolator interpolateTransform0(Transform a, Transform b) /*-{
+		return $wnd.d3.interpolateTransform(a, b);
+	}-*/;
+
 	// FIXME access to interpolators does not work as expected
 	// see issue #42
 
-	// private static final native JavascriptFunctionInterpolator interpolateTransform0(String a, String b) /*-{
+	// private static final native JavascriptFunctionInterpolator
+	// interpolateTransform0(String a, String b) /*-{
 	// return $wnd.d3.interpolateTransform(a, b);
 	// }-*/;
 	/**
-	 * The interpolator factory used by {@link #interpolateNumber(double, double)}
+	 * The interpolator factory used by
+	 * {@link #interpolateNumber(double, double)}
 	 */
-	// public static final InterpolatorFactory<Double> interpolateNumber = interpolateNumberFactory();
+	// public static final InterpolatorFactory<Double> interpolateNumber =
+	// interpolateNumberFactory();
 	/**
-	 * The interpolator factory used by {@link #interpolateRound(double, double)}
+	 * The interpolator factory used by
+	 * {@link #interpolateRound(double, double)}
 	 */
-	// public static final InterpolatorFactory<Long> interpolateRound = interpolateRoundFactory();
+	// public static final InterpolatorFactory<Long> interpolateRound =
+	// interpolateRoundFactory();
 	/**
-	 * The interpolator factory used by {@link #interpolateString(String, String)}
+	 * The interpolator factory used by
+	 * {@link #interpolateString(String, String)}
 	 */
-	// public static final InterpolatorFactory<String> interpolateString = interpolateStringFactory();
+	// public static final InterpolatorFactory<String> interpolateString =
+	// interpolateStringFactory();
 	/**
 	 * The interpolator factory used by {@link #interpolateRgb(Color, Color)}
 	 */
-	// FIXME: providing access to the interpolator factory does not work as is since it
-	// public static final InterpolatorFactory<RGBColor> interpolateRgb = interpolateRgbFactory();
-	// public static final InterpolatorFactory<HCLColor> interpolateHcl = interpolateHclFactory();
+	// FIXME: providing access to the interpolator factory does not work as is
+	// since it
+	// public static final InterpolatorFactory<RGBColor> interpolateRgb =
+	// interpolateRgbFactory();
+	// public static final InterpolatorFactory<HCLColor> interpolateHcl =
+	// interpolateHclFactory();
 	/**
 	 * The interpolator factory used by {@link #interpolateHsl(Color, Color)}
 	 */
-	// public static final InterpolatorFactory<HSLColor> interpolateHsl = interpolateHslFactory();
-	// public static final InterpolatorFactory<LabColor> interpolateLab = interpolateLabFactory();
+	// public static final InterpolatorFactory<HSLColor> interpolateHsl =
+	// interpolateHslFactory();
+	// public static final InterpolatorFactory<LabColor> interpolateLab =
+	// interpolateLabFactory();
 	/**
 	 * The interpolator factory used by {@link #interpolateArray(Array, Array)}
 	 */
-	// public static final InterpolatorFactory<Array<?>> interpolateArray = interpolateArrayFactory();
+	// public static final InterpolatorFactory<Array<?>> interpolateArray =
+	// interpolateArrayFactory();
 	/**
-	 * The interpolator factory used by {@link #interpolateObject(JavaScriptObject, JavaScriptObject)}
+	 * The interpolator factory used by
+	 * {@link #interpolateObject(JavaScriptObject, JavaScriptObject)}
 	 */
-	// public static final InterpolatorFactory<JavaScriptObject> interpolateObject = interpolateObjectFactory();
+	// public static final InterpolatorFactory<JavaScriptObject>
+	// interpolateObject = interpolateObjectFactory();
 
-	// public static final InterpolatorFactory<String> interpolateTransform = interpolateTransformFactory();
+	// public static final InterpolatorFactory<String> interpolateTransform =
+	// interpolateTransformFactory();
 
-	// private static final native JSNIInterpolatorFactory<Double> interpolateNumberFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<Double>
+	// interpolateNumberFactory()/*-{
 	// return $wnd.d3.interpolateNumber;
 	// }-*/;
 	//
-	// private static final native JSNIInterpolatorFactory<Long> interpolateRoundFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<Long>
+	// interpolateRoundFactory()/*-{
 	// return $wnd.d3.interpolateRound;
 	// }-*/;
 	//
-	// private static final native JSNIInterpolatorFactory<String> interpolateStringFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<String>
+	// interpolateStringFactory()/*-{
 	// return $wnd.d3.interpolateString;
 	// }-*/;
 	//
-	// private static final native JSNIInterpolatorFactory<RGBColor> interpolateRgbFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<RGBColor>
+	// interpolateRgbFactory()/*-{
 	// return $wnd.d3.interpolateRgb;
 	// }-*/;
 	//
-	// private static final native JSNIInterpolatorFactory<HSLColor> interpolateHslFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<HSLColor>
+	// interpolateHslFactory()/*-{
 	// return $wnd.d3.interpolateHsl;
 	// }-*/;
 
-	// private static final native JSNIInterpolatorFactory<HCLColor> interpolateHclFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<HCLColor>
+	// interpolateHclFactory()/*-{
 	// return $wnd.d3.interpolateHcl;
 	// }-*/;
 	//
-	// private static final native JSNIInterpolatorFactory<LabColor> interpolatLabFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<LabColor>
+	// interpolatLabFactory()/*-{
 	// return $wnd.d3.interpolateLab;
 	// }-*/;
 
-	// private static final native JSNIInterpolatorFactory<Array<?>> interpolateArrayFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<Array<?>>
+	// interpolateArrayFactory()/*-{
 	// return $wnd.d3.interpolateArray;
 	// }-*/;
 	//
-	// private static final native JSNIInterpolatorFactory<JavaScriptObject> interpolateObjectFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<JavaScriptObject>
+	// interpolateObjectFactory()/*-{
 	// return $wnd.d3.interpolateObject;
 	// }-*/;
 
-	// private static final native JSNIInterpolatorFactory<Transform> interpolateTransformFactory()/*-{
+	// private static final native JSNIInterpolatorFactory<Transform>
+	// interpolateTransformFactory()/*-{
 	// return $wnd.d3.interpolateTransform;
 	// }-*/;
 
 	/**
 	 * The array of built-in interpolator factories, as used by #interpolate().
 	 * <p>
-	 * Additional interpolator factories may be pushed onto the end of this array.
+	 * Additional interpolator factories may be pushed onto the end of this
+	 * array.
 	 * <p>
-	 * Each factory may return an interpolator, if it supports interpolating the two specified input values; otherwise, the factory should
-	 * return a falsey value and other interpolators will be tried.
+	 * Each factory may return an interpolator, if it supports interpolating the
+	 * two specified input values; otherwise, the factory should return a falsey
+	 * value and other interpolators will be tried.
 	 * 
 	 * @return the array of interpolator factories
 	 */
@@ -977,7 +1082,7 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	// =========== ease ==============
-	//cf Easing
+	// cf Easing
 
 	// =========== timer ==============
 
@@ -987,7 +1092,8 @@ public class D3 extends JavaScriptObject {
 	 * @param command
 	 *            the command to be executed until it returns true.
 	 * @param delayMillis
-	 *            the delay to expires before the command should start being invoked (may be negative if markMillis is in the future)
+	 *            the delay to expires before the command should start being
+	 *            invoked (may be negative if markMillis is in the future)
 	 */
 	public static final native void timer(TimerFunction command) /*-{
 		return $wnd.d3
@@ -997,12 +1103,14 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Alias for {@link #timer(TimerFunction, int, int)} with a mark equals to the "now" timestamp (i.e <code>new Date().getTime()</code>).
+	 * Alias for {@link #timer(TimerFunction, int, int)} with a mark equals to
+	 * the "now" timestamp (i.e <code>new Date().getTime()</code>).
 	 * 
 	 * @param command
 	 *            the command to be executed until it returns true.
 	 * @param delayMillis
-	 *            the delay to expires before the command should start being invoked (may be negative if markMillis is in the future)
+	 *            the delay to expires before the command should start being
+	 *            invoked (may be negative if markMillis is in the future)
 	 */
 	public static final native void timer(TimerFunction command, int delayMillis) /*-{
 		return $wnd.d3
@@ -1013,18 +1121,24 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Start a custom animation timer, invoking the specified {@link TimerFunction} repeatedly until it returns true.
+	 * Start a custom animation timer, invoking the specified
+	 * {@link TimerFunction} repeatedly until it returns true.
 	 * <p>
-	 * There is no way to cancel the timer after it starts, so make sure your timer function returns true when done!
+	 * There is no way to cancel the timer after it starts, so make sure your
+	 * timer function returns true when done!
 	 * 
-	 * The optional numeric delay [unit: integer, millisecond] may be specified when the given function should only start to be invoked
-	 * after delay milliseconds have expired after the specified mark timestamp [unit: integer, milliseconds since epoch].
+	 * The optional numeric delay [unit: integer, millisecond] may be specified
+	 * when the given function should only start to be invoked after delay
+	 * milliseconds have expired after the specified mark timestamp [unit:
+	 * integer, milliseconds since epoch].
 	 * <p>
-	 * When mark is omitted, Date.now() is assumed instead. Otherwise, you may use Date.getTime to convert your Date object to a suitable
-	 * mark timestamp.
+	 * When mark is omitted, Date.now() is assumed instead. Otherwise, you may
+	 * use Date.getTime to convert your Date object to a suitable mark
+	 * timestamp.
 	 * <p>
-	 * You may use delay and mark to specify relative and absolute moments in time when the function should start being invoked, e.g. a
-	 * calendar-based event might be coded as
+	 * You may use delay and mark to specify relative and absolute moments in
+	 * time when the function should start being invoked, e.g. a calendar-based
+	 * event might be coded as
 	 * 
 	 * <pre>
 	 * {@code
@@ -1038,7 +1152,8 @@ public class D3 extends JavaScriptObject {
 	 * @param command
 	 *            the command to be executed until it returns true.
 	 * @param delayMillis
-	 *            the delay to expires before the command should start being invoked (may be negative if markMillis is in the future)
+	 *            the delay to expires before the command should start being
+	 *            invoked (may be negative if markMillis is in the future)
 	 * @param markMillis
 	 *            the timestamp from which the delay starts
 	 */
@@ -1053,15 +1168,18 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Immediately execute (invoke once) any active timers.
 	 * <p>
-	 * Normally, zero-delay transitions are executed after an instantaneous delay (<10ms).
+	 * Normally, zero-delay transitions are executed after an instantaneous
+	 * delay (<10ms).
 	 * <p>
-	 * This can cause a brief flicker if the browser renders the page twice: once at the end of the first event loop, then again immediately
-	 * on the first timer callback.
+	 * This can cause a brief flicker if the browser renders the page twice:
+	 * once at the end of the first event loop, then again immediately on the
+	 * first timer callback.
 	 * <p>
-	 * By flushing the timer queue at the end of the first event loop, you can run any zero-delay transitions immediately and avoid the
-	 * flicker.
+	 * By flushing the timer queue at the end of the first event loop, you can
+	 * run any zero-delay transitions immediately and avoid the flicker.
 	 * <p>
-	 * Note: the original method is d3.timer.flush() but has been pushed here because the timer API is limited to this method
+	 * Note: the original method is d3.timer.flush() but has been pushed here
+	 * because the timer API is limited to this method
 	 * 
 	 */
 	public static final native void timerFlush()/*-{
@@ -1077,24 +1195,28 @@ public class D3 extends JavaScriptObject {
 		return $wnd.d3.time;
 	}-*/;
 
-
-
-
 	// ========= events and interactions ============
 	/**
 	 * Retrieve the current event, if any.
 	 * <p>
-	 * This global variable exists during an event listener callback registered with the on operator. The current event is reset after the
-	 * listener is notified in a finally block. This allows the listener function to have the same form as other operator functions, being
-	 * passed the current datum d and index i.
+	 * This global variable exists during an event listener callback registered
+	 * with the on operator. The current event is reset after the listener is
+	 * notified in a finally block. This allows the listener function to have
+	 * the same form as other operator functions, being passed the current datum
+	 * d and index i.
 	 * <p>
-	 * The {@link D3#event()} object is a DOM event and implements the standard event fields like timeStamp and keyCode as well as methods
-	 * like preventDefault() and stopPropagation(). While you can use the native event's pageX and pageY, it is often more convenient to
-	 * transform the event position to the local coordinate system of the container that received the event. For example, if you embed an
-	 * SVG in the normal flow of your page, you may want the event position relative to the top-left corner of the SVG image. If your SVG
-	 * contains transforms, you might also want to know the position of the event relative to those transforms.
+	 * The {@link D3#event()} object is a DOM event and implements the standard
+	 * event fields like timeStamp and keyCode as well as methods like
+	 * preventDefault() and stopPropagation(). While you can use the native
+	 * event's pageX and pageY, it is often more convenient to transform the
+	 * event position to the local coordinate system of the container that
+	 * received the event. For example, if you embed an SVG in the normal flow
+	 * of your page, you may want the event position relative to the top-left
+	 * corner of the SVG image. If your SVG contains transforms, you might also
+	 * want to know the position of the event relative to those transforms.
 	 * <p>
-	 * Use the d3.mouse operator for the standard mouse pointer, and use d3.touches for multitouch events on iOS.
+	 * Use the d3.mouse operator for the standard mouse pointer, and use
+	 * d3.touches for multitouch events on iOS.
 	 * 
 	 * @return
 	 */
@@ -1103,8 +1225,9 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Retrieve the current event if any, as a {@link Coords} object containing the x and y of the mouse. This is useful when using
-	 * {@link Drag} behavior.
+	 * Retrieve the current event if any, as a {@link Coords} object containing
+	 * the x and y of the mouse. This is useful when using {@link Drag}
+	 * behavior.
 	 * 
 	 * @return the current event as a Coords object
 	 */
@@ -1113,8 +1236,10 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Retrieve the current event if any, as a {@link Coords} object containing the dx and dy representing the element's coordinates
-	 * relative to its position at the beginning of the gesture. This is useful when using {@link Drag} behavior.
+	 * Retrieve the current event if any, as a {@link Coords} object containing
+	 * the dx and dy representing the element's coordinates relative to its
+	 * position at the beginning of the gesture. This is useful when using
+	 * {@link Drag} behavior.
 	 * 
 	 * @return the current event as a Coords object
 	 */
@@ -1126,8 +1251,10 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Returns the x and y coordinates of the current d3.event, relative to the specified container. The container may be an HTML or SVG
-	 * container element, such as an svg:g or svg:svg. The coordinates are returned as a two-element array [ x, y].
+	 * Returns the x and y coordinates of the current d3.event, relative to the
+	 * specified container. The container may be an HTML or SVG container
+	 * element, such as an svg:g or svg:svg. The coordinates are returned as a
+	 * two-element array [ x, y].
 	 * 
 	 * @param container
 	 * @return
@@ -1137,8 +1264,10 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Returns the x coordinate of the current d3.event, relative to the specified container. The container may be an HTML or SVG container
-	 * element, such as an svg:g or svg:svg. The coordinates are returned as a two-element array [ x, y].
+	 * Returns the x coordinate of the current d3.event, relative to the
+	 * specified container. The container may be an HTML or SVG container
+	 * element, such as an svg:g or svg:svg. The coordinates are returned as a
+	 * two-element array [ x, y].
 	 * 
 	 * @param container
 	 * @return
@@ -1148,8 +1277,10 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Returns the y coordinate of the current d3.event, relative to the specified container. The container may be an HTML or SVG container
-	 * element, such as an svg:g or svg:svg. The coordinates are returned as a two-element array [ x, y].
+	 * Returns the y coordinate of the current d3.event, relative to the
+	 * specified container. The container may be an HTML or SVG container
+	 * element, such as an svg:g or svg:svg. The coordinates are returned as a
+	 * two-element array [ x, y].
 	 * 
 	 * @param container
 	 * @return
@@ -1159,12 +1290,15 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Returns the x and y coordinates of each touch associated with the current d3.event, based on the touches attribute, relative to the
-	 * specified container.
+	 * Returns the x and y coordinates of each touch associated with the current
+	 * d3.event, based on the touches attribute, relative to the specified
+	 * container.
 	 * <p>
-	 * The container may be an HTML or SVG container element, such as an svg:g or svg:svg.
+	 * The container may be an HTML or SVG container element, such as an svg:g
+	 * or svg:svg.
 	 * <p>
-	 * The coordinates are returned as an array of two-element arrays [ [ x1, y1], [ x2, y2], … ].
+	 * The coordinates are returned as an array of two-element arrays [ [ x1,
+	 * y1], [ x2, y2], … ].
 	 * <p>
 	 * 
 	 * @param container
@@ -1185,12 +1319,15 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Issues an HTTP GET request for the comma-separated values (CSV) file at the specified url.
+	 * Issues an HTTP GET request for the comma-separated values (CSV) file at
+	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/csv". The request is processed
-	 * asynchronously, such that this method returns immediately after opening the request. When the CSV data is available, the specified
-	 * callback will be invoked with the parsed rows as the argument. If an error occurs, the callback function will instead be invoked with
-	 * null.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/csv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the CSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null.
 	 */
 	public static final native <T> Dsv<T> csv(String url, DsvCallback<T> callback) /*-{
 		return $wnd.d3
@@ -1202,13 +1339,17 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Issues an HTTP GET request for the comma-separated values (CSV) file at the specified url.
+	 * Issues an HTTP GET request for the comma-separated values (CSV) file at
+	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/csv". The request is processed
-	 * asynchronously, such that this method returns immediately after opening the request. When the CSV data is available, the specified
-	 * callback will be invoked with the parsed rows as the argument. If an error occurs, the callback function will instead be invoked with
-	 * null. The accessor may be specified, which is then passed to d3.csv.parse; the accessor may also be specified by using the return
-	 * request object’s row function.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/csv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the CSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null. The accessor may be
+	 * specified, which is then passed to d3.csv.parse; the accessor may also be
+	 * specified by using the return request object’s row function.
 	 */
 	public static final native <T> Dsv<T> csv(String url, DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
 		return $wnd.d3
@@ -1223,13 +1364,17 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Issues an HTTP GET request for the comma-separated values (CSV) file at the specified url.
+	 * Issues an HTTP GET request for the comma-separated values (CSV) file at
+	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/csv". The request is processed
-	 * asynchronously, such that this method returns immediately after opening the request. When the CSV data is available, the specified
-	 * callback will be invoked with the parsed rows as the argument. If an error occurs, the callback function will instead be invoked with
-	 * null. The accessor may be specified, which is then passed to d3.csv.parse; the accessor may also be specified by using the return
-	 * request object’s row function.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/csv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the CSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null. The accessor may be
+	 * specified, which is then passed to d3.csv.parse; the accessor may also be
+	 * specified by using the return request object’s row function.
 	 */
 	public static final native <T> Dsv<T> csv(String url, DsvObjectAccessor<T> accessor)/*-{
 		return $wnd.d3
@@ -1241,10 +1386,12 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Issues an HTTP GET request for the comma-separated values (CSV) file at the specified url.
+	 * Issues an HTTP GET request for the comma-separated values (CSV) file at
+	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/csv". The request is processed
-	 * asynchronously, such that this method returns immediately after opening the request.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/csv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request.
 	 */
 	public static final native <T> Dsv<T> csv(String url)/*-{
 		return $wnd.d3.csv(url);
@@ -1260,12 +1407,15 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Issues an HTTP GET request for the comma-separated values (TSV) file at the specified url.
+	 * Issues an HTTP GET request for the comma-separated values (TSV) file at
+	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/tsv". The request is processed
-	 * asynchronously, such that this method returns immediately after opening the request. When the TSV data is available, the specified
-	 * callback will be invoked with the parsed rows as the argument. If an error occurs, the callback function will instead be invoked with
-	 * null.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/tsv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the TSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null.
 	 */
 	public static final native <T> Dsv<T> tsv(String url, DsvCallback<T> callback) /*-{
 		return $wnd.d3
@@ -1277,13 +1427,17 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Issues an HTTP GET request for the comma-separated values (TSV) file at the specified url.
+	 * Issues an HTTP GET request for the comma-separated values (TSV) file at
+	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/tsv". The request is processed
-	 * asynchronously, such that this method returns immediately after opening the request. When the TSV data is available, the specified
-	 * callback will be invoked with the parsed rows as the argument. If an error occurs, the callback function will instead be invoked with
-	 * null. The accessor may be specified, which is then passed to d3.tsv.parse; the accessor may also be specified by using the return
-	 * request object’s row function.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/tsv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the TSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null. The accessor may be
+	 * specified, which is then passed to d3.tsv.parse; the accessor may also be
+	 * specified by using the return request object’s row function.
 	 */
 	public static final native <T> Dsv<T> tsv(String url, DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
 		return $wnd.d3
@@ -1298,13 +1452,17 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Issues an HTTP GET request for the comma-separated values (TSV) file at the specified url.
+	 * Issues an HTTP GET request for the comma-separated values (TSV) file at
+	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/tsv". The request is processed
-	 * asynchronously, such that this method returns immediately after opening the request. When the TSV data is available, the specified
-	 * callback will be invoked with the parsed rows as the argument. If an error occurs, the callback function will instead be invoked with
-	 * null. The accessor may be specified, which is then passed to d3.tsv.parse; the accessor may also be specified by using the return
-	 * request object’s row function.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/tsv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request. When
+	 * the TSV data is available, the specified callback will be invoked with
+	 * the parsed rows as the argument. If an error occurs, the callback
+	 * function will instead be invoked with null. The accessor may be
+	 * specified, which is then passed to d3.tsv.parse; the accessor may also be
+	 * specified by using the return request object’s row function.
 	 */
 	public static final native <T> Dsv<T> tsv(String url, DsvObjectAccessor<T> accessor)/*-{
 		return $wnd.d3
@@ -1316,10 +1474,12 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Issues an HTTP GET request for the comma-separated values (TSV) file at the specified url.
+	 * Issues an HTTP GET request for the comma-separated values (TSV) file at
+	 * the specified url.
 	 * <p>
-	 * The file contents are assumed to be RFC4180-compliant. The mime type of the request will be "text/tsv". The request is processed
-	 * asynchronously, such that this method returns immediately after opening the request.
+	 * The file contents are assumed to be RFC4180-compliant. The mime type of
+	 * the request will be "text/tsv". The request is processed asynchronously,
+	 * such that this method returns immediately after opening the request.
 	 */
 	public static final native <T> Dsv<T> tsv(String url)/*-{
 		return $wnd.d3.tsv(url);
@@ -1332,11 +1492,13 @@ public class D3 extends JavaScriptObject {
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#max}, this method ignores undefined values; this is useful for computing the domain of a scale while
-	 * only considering the defined region of the data.
+	 * Unlike the built-in {@link Math#max}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
-	 * In addition, elements are compared using natural order rather than numeric order. For example, the maximum of ["20", "3"] is "3",
-	 * while the maximum of [20, 3] is 20.
+	 * In addition, elements are compared using natural order rather than
+	 * numeric order. For example, the maximum of ["20", "3"] is "3", while the
+	 * maximum of [20, 3] is 20.
 	 * 
 	 * @param array
 	 *            the array to be evaluated
@@ -1349,22 +1511,28 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Transform the values in the given array using the specified {@link ForEachCallback} and returns the maximum value in the transformed
-	 * values using natural order. For example, the maximum of ["20", "3"] is "3", while the maximum of [20, 3] is 20. If you want to ensure
-	 * the numeric order, please consider using {@link #max(JavaScriptObject, NumericForEachCallback)}.
+	 * Transform the values in the given array using the specified
+	 * {@link ForEachCallback} and returns the maximum value in the transformed
+	 * values using natural order. For example, the maximum of ["20", "3"] is
+	 * "3", while the maximum of [20, 3] is 20. If you want to ensure the
+	 * numeric order, please consider using
+	 * {@link #max(JavaScriptObject, NumericForEachCallback)}.
 	 * <p>
-	 * The given {@link ForEachCallback} is equivalent to calling array.map(accessor) before computing the maximum value.
+	 * The given {@link ForEachCallback} is equivalent to calling
+	 * array.map(accessor) before computing the maximum value.
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#max}, this method ignores undefined values; this is useful for computing the domain of a scale while
-	 * only considering the defined region of the data.
+	 * Unlike the built-in {@link Math#max}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
 	 * 
 	 * @param array
 	 *            the array to be transformed
 	 * @param accessor
-	 *            the function used to convert each element in the original array to a transformed value
+	 *            the function used to convert each element in the original
+	 *            array to a transformed value
 	 * @return the maximum of the transformed values as a {@link Value} object
 	 */
 	public static final native Value max(JavaScriptObject array, ForEachCallback<?> accessor) /*-{
@@ -1380,22 +1548,26 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Transform the values in the given array using the specified {@link ForEachCallback} and returns the maximum value in the transformed
+	 * Transform the values in the given array using the specified
+	 * {@link ForEachCallback} and returns the maximum value in the transformed
 	 * values using natural order.
 	 * <p>
-	 * The given {@link NumericForEachCallback} is equivalent to calling array.map(accessor) before computing the maximum value.
+	 * The given {@link NumericForEachCallback} is equivalent to calling
+	 * array.map(accessor) before computing the maximum value.
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#max}, this method ignores undefined values; this is useful for computing the domain of a scale while
-	 * only considering the defined region of the data.
+	 * Unlike the built-in {@link Math#max}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
 	 * In addition, elements are compared using numeric order.
 	 * 
 	 * @param array
 	 *            the array to be transformed
 	 * @param accessor
-	 *            the function used to convert each element in the original array to a transformed value
+	 *            the function used to convert each element in the original
+	 *            array to a transformed value
 	 * @return the maximum of the transformed values as a {@link Value} object
 	 */
 	public static final native Value max(JavaScriptObject array, NumericForEachCallback accessor) /*-{
@@ -1415,11 +1587,13 @@ public class D3 extends JavaScriptObject {
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#min}, this method ignores undefined values; this is useful for computing the domain of a scale while
-	 * only considering the defined region of the data.
+	 * Unlike the built-in {@link Math#min}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
-	 * In addition, elements are compared using natural order rather than numeric order. For example, the minimum of ["20", "3"] is "20",
-	 * while the minimum of [20, 3] is 3.
+	 * In addition, elements are compared using natural order rather than
+	 * numeric order. For example, the minimum of ["20", "3"] is "20", while the
+	 * minimum of [20, 3] is 3.
 	 * 
 	 * @param array
 	 *            the array to be evaluated
@@ -1432,23 +1606,30 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Transform the values in the given array using the specified {@link ForEachCallback} and returns the minimum value in the transformed
-	 * values using natural order. For example, the minimum of ["20", "3"] is "20", while the minimum of [20, 3] is 3. If you want to ensure
-	 * the numeric order, please consider using {@link #max(JavaScriptObject, NumericForEachCallback)}.
+	 * Transform the values in the given array using the specified
+	 * {@link ForEachCallback} and returns the minimum value in the transformed
+	 * values using natural order. For example, the minimum of ["20", "3"] is
+	 * "20", while the minimum of [20, 3] is 3. If you want to ensure the
+	 * numeric order, please consider using
+	 * {@link #max(JavaScriptObject, NumericForEachCallback)}.
 	 * <p>
-	 * The given {@link ForEachCallback} is equivalent to calling array.map(accessor) before computing the minimum value.
+	 * The given {@link ForEachCallback} is equivalent to calling
+	 * array.map(accessor) before computing the minimum value.
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#min}, this method ignores undefined values; this is useful for computing the domain of a scale while
-	 * only considering the defined region of the data.
+	 * Unlike the built-in {@link Math#min}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
-	 * In addition, elements are compared using natural order rather than numeric order.
+	 * In addition, elements are compared using natural order rather than
+	 * numeric order.
 	 * 
 	 * @param array
 	 *            the array to be transformed
 	 * @param accessor
-	 *            the function used to convert each element in the original array to a transformed value
+	 *            the function used to convert each element in the original
+	 *            array to a transformed value
 	 * @return the minimum of the transformed values as a {@link Value} object
 	 */
 	public static final native Value min(JavaScriptObject array, ForEachCallback<?> accessor) /*-{
@@ -1464,21 +1645,25 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Transform the values in the given array using the specified {@link ForEachCallback} and returns the minimum value in the transformed
+	 * Transform the values in the given array using the specified
+	 * {@link ForEachCallback} and returns the minimum value in the transformed
 	 * values using numeric order.
 	 * <p>
-	 * The given {@link NumericForEachCallback} is equivalent to calling array.map(accessor) before computing the minimum value.
+	 * The given {@link NumericForEachCallback} is equivalent to calling
+	 * array.map(accessor) before computing the minimum value.
 	 * <p>
 	 * If the array is empty, returns undefined.
 	 * <p>
-	 * Unlike the built-in {@link Math#min}, this method ignores undefined values; this is useful for computing the domain of a scale while
-	 * only considering the defined region of the data.
+	 * Unlike the built-in {@link Math#min}, this method ignores undefined
+	 * values; this is useful for computing the domain of a scale while only
+	 * considering the defined region of the data.
 	 * <p>
 	 * 
 	 * @param array
 	 *            the array to be transformed
 	 * @param accessor
-	 *            the function used to convert each element in the original array to a transformed value
+	 *            the function used to convert each element in the original
+	 *            array to a transformed value
 	 * @return the minimum of the transformed values as a {@link Value} object
 	 */
 	public static final native Value min(JavaScriptObject array, NumericForEachCallback accessor) /*-{
@@ -1494,29 +1679,33 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Find the minimum and maximum value in an array. This is equivalent to calling d3.min and d3.max simultaneously.
+	 * Find the minimum and maximum value in an array. This is equivalent to
+	 * calling d3.min and d3.max simultaneously.
 	 * 
 	 * @param array
 	 *            the given array.
-	 * @return the minimum and maximum value in the given array using natural order.
+	 * @return the minimum and maximum value in the given array using natural
+	 *         order.
 	 */
 	public static final native JsArrayMixed extent(JavaScriptObject array) /*-{
 		return $wnd.d3.extent(array);
 	}-*/;
 
 	/**
-	 * Find the minimum and maximum value in an array. This is equivalent to calling d3.min and d3.max simultaneously.
+	 * Find the minimum and maximum value in an array. This is equivalent to
+	 * calling d3.min and d3.max simultaneously.
 	 * 
 	 * @param array
 	 *            the given array.
-	 * @return the minimum and maximum value in the given array using natural order.
+	 * @return the minimum and maximum value in the given array using natural
+	 *         order.
 	 */
 	public static final native <D, R> JsArrayMixed extent(JavaScriptObject array, ObjectAccessor<D, R> accessor) /*-{
-        var accessor = accessor.@com.github.gwtd3.api.core.ObjectAccessor::apply(Ljava/lang/Object;I);
-        return $wnd.d3.extent(array, function(d, i) {
-            return accessor.@com.github.gwtd3.api.core.ObjectAccessor::apply(Ljava/lang/Object;I)(d, i);
-        });
-    }-*/;
+																													var accessor = accessor.@com.github.gwtd3.api.core.ObjectAccessor::apply(Ljava/lang/Object;I);
+																													return $wnd.d3.extent(array, function(d, i) {
+																													return accessor.@com.github.gwtd3.api.core.ObjectAccessor::apply(Ljava/lang/Object;I)(d, i);
+																													});
+																													}-*/;
 
 	/**
 	 * Compare two values for sorting.
@@ -1541,7 +1730,8 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Generate a range of <code>stop-1</code> numeric values, stored in an array, going from 0 to stop (excluded).
+	 * Generate a range of <code>stop-1</code> numeric values, stored in an
+	 * array, going from 0 to stop (excluded).
 	 * 
 	 * @see D3#range(double, double, double)
 	 * @param stop
@@ -1553,7 +1743,8 @@ public class D3 extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Generate a range of numeric values, stored in an array, going from 0 to stop (exluded), separated by step (>0).
+	 * Generate a range of numeric values, stored in an array, going from 0 to
+	 * stop (exluded), separated by step (>0).
 	 * <p>
 	 * For instance, range(10, 3) would produce the array [0,3,6,9].
 	 * 
@@ -1572,13 +1763,19 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * Generate a range of numeric values.
 	 * <p>
-	 * Generates an array containing an arithmetic progression, similar to the Python built-in range. This method is often used to iterate
-	 * over a sequence of numeric or integer values, such as the indexes into an array. Unlike the Python version, the arguments are not
-	 * required to be integers, though the results are more predictable if they are due to floating point precision. If step is omitted, it
-	 * defaults to 1. If start is omitted, it defaults to 0. The stop value is not included in the result. The full form returns an array of
-	 * numbers [*start*, start + step, start + 2 * step, ...]. If step is positive, the last element is the largest start + i * step less
-	 * than stop; if step is negative, the last element is the smallest start + i * step greater than stop. If the returned array would
-	 * contain an infinite number of values, an error is thrown rather than causing an infinite loop.
+	 * Generates an array containing an arithmetic progression, similar to the
+	 * Python built-in range. This method is often used to iterate over a
+	 * sequence of numeric or integer values, such as the indexes into an array.
+	 * Unlike the Python version, the arguments are not required to be integers,
+	 * though the results are more predictable if they are due to floating point
+	 * precision. If step is omitted, it defaults to 1. If start is omitted, it
+	 * defaults to 0. The stop value is not included in the result. The full
+	 * form returns an array of numbers [*start*, start + step, start + 2 *
+	 * step, ...]. If step is positive, the last element is the largest start +
+	 * i * step less than stop; if step is negative, the last element is the
+	 * smallest start + i * step greater than stop. If the returned array would
+	 * contain an infinite number of values, an error is thrown rather than
+	 * causing an infinite loop.
 	 * 
 	 * @param start
 	 *            the first value-
@@ -1595,10 +1792,14 @@ public class D3 extends JavaScriptObject {
 	// =================== format methods ====================
 
 	/**
-	 * Returns a new {@link Formatter} function with the given string specifier. A format function takes a number as the only argument, and
-	 * returns a string representing the formatted number. Please see {@link Formatter} javadoc for the specifier specification.
+	 * Returns a new {@link Formatter} function with the given string specifier.
+	 * A format function takes a number as the only argument, and returns a
+	 * string representing the formatted number. Please see {@link Formatter}
+	 * javadoc for the specifier specification.
 	 * 
-	 * @see <a href="https://github.com/mbostock/d3/wiki/Formatting#wiki-d3_format">D3.js official documentation</a>
+	 * @see <a
+	 *      href="https://github.com/mbostock/d3/wiki/Formatting#wiki-d3_format">D3.js
+	 *      official documentation</a>
 	 * @param specifier
 	 *            the given string specifier.
 	 * @return the format function.

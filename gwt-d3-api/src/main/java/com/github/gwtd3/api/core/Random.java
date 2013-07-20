@@ -31,17 +31,131 @@ package com.github.gwtd3.api.core;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
+ * A pseudorandom number generation function.
+ * <p>
+ * Random instances are created using static factory methods of this class, such
+ * as {@link #normal()}.
+ * <p>
+ * The {@link #generate()} method is then used to generate numbers.
+ * <p>
+ * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
- *
+ * 
  */
-public class Random extends JavaScriptObject{
+public class Random extends JavaScriptObject {
 
 	protected Random() {
 	}
-	
-	public static final native Random get()/*-{
-		return $wnd.d3.random;
+
+	/**
+	 * Returns a function for generating random number with a <a
+	 * href="http://en.wikipedia.org/wiki/Irwin%E2%80%93Hall_distribution"
+	 * >Irwin-Hall</a> distribution.
+	 * <p>
+	 * 
+	 * @param count
+	 *            the number of independant variables
+	 * @return the generator
+	 */
+	public static final native Random irwinHall(int count)/*-{
+		return $wnd.d3.random.irwinHall(count);
 	}-*/;
-	
-	
+
+	/**
+	 * Returns a function for generating random number with a <a
+	 * href="http://en.wikipedia.org/wiki/Normal_distribution">normal (Gaussian)
+	 * distribution</a>, with a mean of 0 and a deviation of 1.
+	 * <p>
+	 * 
+	 * @return the generator
+	 */
+	public static final native Random normal()/*-{
+		return $wnd.d3.random.normal();
+	}-*/;
+
+	/**
+	 * Returns a function for generating random number with a <a
+	 * href="http://en.wikipedia.org/wiki/Normal_distribution">normal (Gaussian)
+	 * distribution</a>, with the given mean, and a deviation of 1.
+	 * <p>
+	 * The expected value of the generated pseudorandom numbers is mean, with
+	 * the standard deviation of 1.
+	 * 
+	 * @param mean
+	 *            the mean
+	 * @return the generator
+	 */
+	public static final native Random normal(double mean)/*-{
+		return $wnd.d3.random.normal(mean);
+	}-*/;
+
+	/**
+	 * Returns a function for generating random number with a <a
+	 * href="http://en.wikipedia.org/wiki/Normal_distribution">normal (Gaussian)
+	 * distribution</a>, with the given mean, and the given deviation.
+	 * <p>
+	 * 
+	 * @param mean
+	 *            the mean
+	 * @param deviation
+	 *            the deviation
+	 * @return the generator
+	 */
+	public static final native Random normal(double mean, double deviation)/*-{
+		return $wnd.d3.random.normal(mean, deviation);
+	}-*/;
+
+	/**
+	 * Returns a function for generating random number with a <a
+	 * href="http://en.wikipedia.org/wiki/Log-normal_distribution">log-normal
+	 * distribution</a>, with a mean of 0 and a deviation of 1.
+	 * <p>
+	 * 
+	 * @return the generator
+	 */
+	public static final native Random logNormal()/*-{
+		return $wnd.d3.random.logNormal();
+	}-*/;
+
+	/**
+	 * Returns a function for generating random number with a <a
+	 * href="http://en.wikipedia.org/wiki/Log-normal_distribution">log-normal
+	 * distribution</a>, with the given mean, and a deviation of 1.
+	 * <p>
+	 * The expected value of the generated pseudorandom numbers is mean, with
+	 * the standard deviation of 1.
+	 * 
+	 * @param mean
+	 *            the mean
+	 * @return the generator
+	 */
+	public static final native Random logNormal(double mean)/*-{
+		return $wnd.d3.random.logNormal(mean);
+	}-*/;
+
+	/**
+	 * Returns a function for generating random number with a <a
+	 * href="http://en.wikipedia.org/wiki/Log-normal_distribution">log-normal
+	 * distribution</a>, with the given mean, and the given deviation.
+	 * <p>
+	 * 
+	 * @param mean
+	 *            the mean
+	 * @param deviation
+	 *            the deviation
+	 * @return the generator
+	 */
+	public static final native Random logNormal(double mean, double deviation)/*-{
+		return $wnd.d3.random.logNormal(mean, deviation);
+	}-*/;
+
+	/**
+	 * Generate a new number with this distribution.
+	 * 
+	 * @return the new generated number.
+	 */
+	public native final double generate()/*-{
+		return this();
+	}-*/;
+
 }
