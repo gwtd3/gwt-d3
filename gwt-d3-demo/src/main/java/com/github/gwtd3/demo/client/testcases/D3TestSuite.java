@@ -65,6 +65,7 @@ import com.github.gwtd3.demo.client.testcases.time.TestTimeFormat;
 import com.github.gwtd3.demo.client.testcases.time.TestTimeIntervals;
 import com.github.gwtd3.demo.client.testcases.transition.TestEasing;
 import com.github.gwtd3.demo.client.testcases.transition.TestInterpolators;
+import com.github.gwtd3.demo.client.testcases.transition.TestTransition;
 import com.github.gwtd3.demo.client.testcases.tsv.TestTsv;
 
 /**
@@ -90,6 +91,7 @@ public class D3TestSuite {
 				new TestSelectionData(), new TestSelectionData2(), new TestSelectionProperty(), new TestSelectionText(),
 				new TestSelectionHtml(), new TestSelectionControls(), new TestSelectionStyle(),
 				//Transitions
+				new TestTransition(),
 				new TestInterpolators(),
 				new TestEasing(),
 				// scales

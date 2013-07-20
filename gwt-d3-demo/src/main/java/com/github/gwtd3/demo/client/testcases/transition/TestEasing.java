@@ -1,6 +1,7 @@
 package com.github.gwtd3.demo.client.testcases.transition;
 
 import com.github.gwtd3.api.D3;
+import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.ease.Easing;
 import com.github.gwtd3.api.ease.EasingFunction;
 import com.github.gwtd3.api.ease.Mode;
@@ -63,14 +64,13 @@ public class TestEasing extends AbstractTestCase {
 		assertEquals(0.0, e2.ease(0));
 		assertEquals(1.0, e2.ease(1));
 
-		// pass it to Transition.ease
-		D3.select(cobaye)
-		.transition()
-		.duration(100)
-		.ease(e1)
+		Selection selection = D3.select(sandbox).append("div");
+		// pass it to Transition.ease1
+		//		D3.select(sandbox).append("div")
+		//		.attr("foo", "stuff")
+		selection.transition().duration(1000).ease(e1)
 		.attr("foobar", Integer.toString(Random.nextInt()))
 		.transition()
-		.duration(100)
 		.ease(e2)
 		.attr("foobar", Integer.toString(Random.nextInt()));
 	}
