@@ -45,6 +45,7 @@ import com.github.gwtd3.api.core.Color;
 import com.github.gwtd3.api.core.Formatter;
 import com.github.gwtd3.api.core.HSLColor;
 import com.github.gwtd3.api.core.ObjectAccessor;
+import com.github.gwtd3.api.core.Prefix;
 import com.github.gwtd3.api.core.RGBColor;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Transform;
@@ -1806,6 +1807,50 @@ public class D3 extends JavaScriptObject {
 	 */
 	public static final native Formatter format(String specifier) /*-{
 		return $wnd.d3.format(specifier);
+	}-*/;
+
+	/**
+	 * Return the SI Prefix for the specified value at the specified precision.
+	 * <p>
+	 * This method is used by {@link #format(String)} for the %s format.
+	 * 
+	 * @param value
+	 *            the value to be prefixed
+	 * @param precision
+	 *            the precision
+	 * @return the prefix
+	 */
+	public static final native Prefix formatPrefix(double value, double precision)/*-{
+		return $wnd.d3.formatPrefix(value, precision);
+	}-*/;
+
+	/**
+	 * Returns the value x rounded to n digits after the decimal point. If n is
+	 * omitted, it defaults to zero. The result is a number. Values are rounded
+	 * to the closest multiple of 10 to the power minus n; if two multiples are
+	 * equally close, the value is rounded up in accordance with the built-in
+	 * round function. Note that the resulting number when converted to a string
+	 * may be imprecise due to IEEE floating point precision; to format a number
+	 * to a string with a fixed number of decimal points, use d3.format instead.
+	 * 
+	 * @param value
+	 * @param digits
+	 * @return
+	 */
+	public static final native double round(double value, int digits)/*-{
+		return $wnd.d3.round(value, digits);
+	}-*/;
+
+	/**
+	 * Returns a quoted (escaped) version of the specified string such that the
+	 * string may be embedded in a regular expression as a string literal.
+	 * 
+	 * @param string
+	 *            the input string
+	 * @return the regexp escaped string
+	 */
+	public static final native String requote(String string)/*-{
+		return $wnd.d3.requote(string);
 	}-*/;
 
 	// =========== behaviours ==============
