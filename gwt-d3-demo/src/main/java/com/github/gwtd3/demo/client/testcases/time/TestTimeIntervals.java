@@ -33,12 +33,31 @@ import java.util.Date;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.time.Interval;
+import com.github.gwtd3.api.time.Time;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
-
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.datepicker.client.CalendarUtil;
 
 public class TestTimeIntervals extends AbstractTestCase {
+	
+	private static final int TEST_SECOND = 18;
+	private static final int TEST_MINUTE = 5;
+	private static final int TEST_HOUR = 9;
+	private static final int TEST_DATE = 11;
+	private static final int TEST_MONTH = 0;
+	private static final int TEST_YEAR = 1979;
+	private static final int TEST_MILLISECOND = 123;
+	
+	private enum Field {
+		MONTH,
+		DAY_OF_MONTH,
+		HOUR_OF_DAY,
+		MINUTE,
+		SECOND,
+		MILLISECOND
+	};
+	private Date date = new Date();
 
 	private static final long SECOND = 1000;// millis
 	private static final long MINUTE = 60 * SECOND;// 60 000
@@ -64,6 +83,14 @@ public class TestTimeIntervals extends AbstractTestCase {
 		// testInterval(WEEK, D3.time().saturday());
 		// testInterval(MONTH, D3.time().month());
 		// testInterval(YEAR, D3.time().year());
+    	
+		Time time = D3.time();
+		testInterval(time.second(), Field.MILLISECOND);
+		testInterval(time.minute(), Field.SECOND);
+		testInterval(time.hour(), Field.MINUTE);
+		testInterval(time.day(), Field.HOUR_OF_DAY);
+		testInterval(time.month(), Field.DAY_OF_MONTH);
+		testInterval(time.year(), Field.MONTH);
 	}
 
 	private void testIntervalDay(long period, Interval interval) {
@@ -172,5 +199,53 @@ public class TestTimeIntervals extends AbstractTestCase {
 		assertEquals(expected, interval.floor(new Date(timestamp)).getTime());
 		assertEquals((double) expected, interval.floor(JsDate.create(timestamp)).getTime());
 
+	}
+
+	@SuppressWarnings("deprecation")
+	private void truncateCalendar(Field field) {
+			switch (field) {
+			case MONTH:
+				date.setMonth(0);
+			case DAY_OF_MONTH:
+				date.setDate(1);
+			case HOUR_OF_DAY:
+				date.setHours(0);
+			case MINUTE:
+				date.setMinutes(0);
+			case SECOND:
+				date.setSeconds(0);
+			case MILLISECOND:
+				long t = date.getTime();
+				t -= t % 1000;
+				date.setTime(t);
+				break;
+			default:
+				throw new IllegalArgumentException("Unsupported field: " + field.name());
+			}
+	}
+
+	@SuppressWarnings("deprecation")
+	private void resetCalendar() {
+		date.setYear(TEST_YEAR);
+		date.setMonth(TEST_MONTH);
+		date.setDate(TEST_DATE);
+		date.setHours(TEST_HOUR);
+		date.setMinutes(TEST_MINUTE);
+		date.setSeconds(TEST_SECOND);
+    	long t = date.getTime();
+    	t -= t % 1000;
+    	date.setTime(t + TEST_MILLISECOND);
+	}
+
+	private void testInterval(Interval interval, Field field) {
+    	resetCalendar();
+    	Date someDate = CalendarUtil.copyDate(date);
+    	
+    	truncateCalendar(field);
+    	Date expectedDate = CalendarUtil.copyDate(date);
+    	
+		Date actualDate = interval.apply(someDate);
+    	
+		assertEquals(expectedDate.getTime(), actualDate.getTime());
 	}
 }
