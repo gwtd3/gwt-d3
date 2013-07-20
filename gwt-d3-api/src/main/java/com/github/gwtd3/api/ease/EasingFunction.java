@@ -15,6 +15,8 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class EasingFunction extends JavaScriptObject{
 
+	protected EasingFunction() {
+	}
 	/**
 	 * Given a parametric time t in the range [0,1], returns the eased time.
 	 * <p>

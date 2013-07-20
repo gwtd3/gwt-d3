@@ -976,6 +976,9 @@ public class D3 extends JavaScriptObject {
 		return $wnd.d3.interpolators;
 	}-*/;
 
+	// =========== ease ==============
+	//cf Easing
+
 	// =========== timer ==============
 
 	/**
@@ -1073,6 +1076,9 @@ public class D3 extends JavaScriptObject {
 	public static final native Time time() /*-{
 		return $wnd.d3.time;
 	}-*/;
+
+
+
 
 	// ========= events and interactions ============
 	/**

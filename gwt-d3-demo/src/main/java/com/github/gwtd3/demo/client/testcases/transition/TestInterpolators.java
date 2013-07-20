@@ -26,7 +26,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.demo.client.testcases.d3;
+package com.github.gwtd3.demo.client.testcases.transition;
 
 import com.github.gwtd3.api.Coords;
 import com.github.gwtd3.api.D3;
