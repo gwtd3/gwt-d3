@@ -1213,4 +1213,308 @@ public class Time extends JavaScriptObject {
     public final Array<JsDate> years(double start, double stop, double step) {
     	return year().range(start, stop, step);
     }
+
+	/**
+	 * Returns the day number for the given date. The first day of the year
+	 * (January 1) is always the 0th day. Unlike the d3.time.format's %j
+	 * directive, dayOfYear is 0-based rather than 1-based.
+	 * 
+	 * @param date the given date
+	 * @return the day number
+	 */
+	public final native int dayOfYear(JsDate date) /*-{
+		return this.dayOfYear(date);
+	}-*/;
+	
+	/**
+	 * Alias for {@link #dayOfYear(JsDate)} for a Java date.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int dayOfYear(Date date) {
+		return this.dayOfYear(JsDate.create(date.getTime()));
+	}
+	
+	/**
+	 * Alias for {@link #dayOfYear(JsDate)} for a double.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int dayOfYear(double date) {
+		return this.dayOfYear(JsDate.create(date));
+	}
+
+	/**
+	 * Returns the week number for the given date, where weeks start with the
+	 * given day. The first day of the year (January 1) is always the 0th week.
+	 * weekOfYear is an alias for sundayOfYear, which is equivalent to
+	 * d3.time.format's %U directive. mondayOfYear is equivalent to
+	 * d3.time.format's %W directive.
+	 * 
+	 * @param date the given date
+	 * @return the week number
+	 */
+	public final native int weekOfYear(JsDate date) /*-{
+		return this.weekOfYear(date);
+	}-*/;
+	
+	/**
+	 * Alias for {@link #weekOfYear(JsDate)} for a Java date.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int weekOfYear(Date date) {
+		return this.weekOfYear(JsDate.create(date.getTime()));
+	}
+	
+	/**
+	 * Alias for {@link #weekOfYear(JsDate)} for a double.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int weekOfYear(double date) {
+		return this.weekOfYear(JsDate.create(date));
+	}
+
+	/**
+	 * Returns the week number for the given date, where weeks start with the
+	 * given day. The first day of the year (January 1) is always the 0th week.
+	 * weekOfYear is an alias for sundayOfYear, which is equivalent to
+	 * d3.time.format's %U directive. mondayOfYear is equivalent to
+	 * d3.time.format's %W directive.
+	 * 
+	 * @param date the given date
+	 * @return the week number
+	 */
+	public final native int sundayOfYear(JsDate date) /*-{
+		return this.sundayOfYear(date);
+	}-*/;
+	
+	/**
+	 * Alias for {@link #sundayOfYear(JsDate)} for a Java date.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int sundayOfYear(Date date) {
+		return this.sundayOfYear(JsDate.create(date.getTime()));
+	}
+	
+	/**
+	 * Alias for {@link #sundayOfYear(JsDate)} for a double.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int sundayOfYear(double date) {
+		return this.sundayOfYear(JsDate.create(date));
+	}
+
+	/**
+	 * Returns the week number for the given date, where weeks start with the
+	 * given day. The first day of the year (January 1) is always the 0th week.
+	 * weekOfYear is an alias for sundayOfYear, which is equivalent to
+	 * d3.time.format's %U directive. mondayOfYear is equivalent to
+	 * d3.time.format's %W directive.
+	 * 
+	 * @param date the given date
+	 * @return the week number
+	 */
+	public final native int mondayOfYear(JsDate date) /*-{
+		return this.mondayOfYear(date);
+	}-*/;
+	
+	/**
+	 * Alias for {@link #mondayOfYear(JsDate)} for a Java date.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int mondayOfYear(Date date) {
+		return this.mondayOfYear(JsDate.create(date.getTime()));
+	}
+	
+	/**
+	 * Alias for {@link #mondayOfYear(JsDate)} for a double.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int mondayOfYear(double date) {
+		return this.mondayOfYear(JsDate.create(date));
+	}
+
+	/**
+	 * Returns the week number for the given date, where weeks start with the
+	 * given day. The first day of the year (January 1) is always the 0th week.
+	 * weekOfYear is an alias for sundayOfYear, which is equivalent to
+	 * d3.time.format's %U directive. mondayOfYear is equivalent to
+	 * d3.time.format's %W directive.
+	 * 
+	 * @param date the given date
+	 * @return the week number
+	 */
+	public final native int tuesdayOfYear(JsDate date) /*-{
+		return this.tuesdayOfYear(date);
+	}-*/;
+	
+	/**
+	 * Alias for {@link #tuesdayOfYear(JsDate)} for a Java date.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int tuesdayOfYear(Date date) {
+		return this.tuesdayOfYear(JsDate.create(date.getTime()));
+	}
+	
+	/**
+	 * Alias for {@link #tuesdayOfYear(JsDate)} for a double.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int tuesdayOfYear(double date) {
+		return this.tuesdayOfYear(JsDate.create(date));
+	}
+
+	/**
+	 * Returns the week number for the given date, where weeks start with the
+	 * given day. The first day of the year (January 1) is always the 0th week.
+	 * weekOfYear is an alias for sundayOfYear, which is equivalent to
+	 * d3.time.format's %U directive. mondayOfYear is equivalent to
+	 * d3.time.format's %W directive.
+	 * 
+	 * @param date the given date
+	 * @return the week number
+	 */
+	public final native int wednesdayOfYear(JsDate date) /*-{
+		return this.wednesdayOfYear(date);
+	}-*/;
+	
+	/**
+	 * Alias for {@link #wednesdayOfYear(JsDate)} for a Java date.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int wednesdayOfYear(Date date) {
+		return this.wednesdayOfYear(JsDate.create(date.getTime()));
+	}
+	
+	/**
+	 * Alias for {@link #wednesdayOfYear(JsDate)} for a double.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int wednesdayOfYear(double date) {
+		return this.wednesdayOfYear(JsDate.create(date));
+	}
+
+	/**
+	 * Returns the week number for the given date, where weeks start with the
+	 * given day. The first day of the year (January 1) is always the 0th week.
+	 * weekOfYear is an alias for sundayOfYear, which is equivalent to
+	 * d3.time.format's %U directive. mondayOfYear is equivalent to
+	 * d3.time.format's %W directive.
+	 * 
+	 * @param date the given date
+	 * @return the week number
+	 */
+	public final native int thursdayOfYear(JsDate date) /*-{
+		return this.thursdayOfYear(date);
+	}-*/;
+	
+	/**
+	 * Alias for {@link #thursdayOfYear(JsDate)} for a Java date.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int thursdayOfYear(Date date) {
+		return this.thursdayOfYear(JsDate.create(date.getTime()));
+	}
+	
+	/**
+	 * Alias for {@link #thursdayOfYear(JsDate)} for a double.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int thursdayOfYear(double date) {
+		return this.thursdayOfYear(JsDate.create(date));
+	}
+
+	/**
+	 * Returns the week number for the given date, where weeks start with the
+	 * given day. The first day of the year (January 1) is always the 0th week.
+	 * weekOfYear is an alias for sundayOfYear, which is equivalent to
+	 * d3.time.format's %U directive. mondayOfYear is equivalent to
+	 * d3.time.format's %W directive.
+	 * 
+	 * @param date the given date
+	 * @return the week number
+	 */
+	public final native int fridayOfYear(JsDate date) /*-{
+		return this.fridayOfYear(date);
+	}-*/;
+	
+	/**
+	 * Alias for {@link #fridayOfYear(JsDate)} for a Java date.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int fridayOfYear(Date date) {
+		return this.fridayOfYear(JsDate.create(date.getTime()));
+	}
+	
+	/**
+	 * Alias for {@link #fridayOfYear(JsDate)} for a double.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int fridayOfYear(double date) {
+		return this.fridayOfYear(JsDate.create(date));
+	}
+
+	/**
+	 * Returns the week number for the given date, where weeks start with the
+	 * given day. The first day of the year (January 1) is always the 0th week.
+	 * weekOfYear is an alias for sundayOfYear, which is equivalent to
+	 * d3.time.format's %U directive. mondayOfYear is equivalent to
+	 * d3.time.format's %W directive.
+	 * 
+	 * @param date the given date
+	 * @return the week number
+	 */
+	public final native int saturdayOfYear(JsDate date) /*-{
+		return this.saturdayOfYear(date);
+	}-*/;
+	
+	/**
+	 * Alias for {@link #saturdayOfYear(JsDate)} for a Java date.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int saturdayOfYear(Date date) {
+		return this.saturdayOfYear(JsDate.create(date.getTime()));
+	}
+	
+	/**
+	 * Alias for {@link #saturdayOfYear(JsDate)} for a double.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public final int saturdayOfYear(double date) {
+		return this.saturdayOfYear(JsDate.create(date));
+	}
 }
