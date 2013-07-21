@@ -80,7 +80,7 @@ public class Interval extends JavaScriptObject {
 	 * @return the UTC interval
 	 */
 	public final native Interval utc()/*-{
-		return this.utc();
+		return this.utc;
 	}-*/;
 
 	// ============= apply ============================
@@ -292,6 +292,34 @@ public class Interval extends JavaScriptObject {
 	}-*/;
 
 	/**
+	 * Alias for {@link #range(JsDate start, JsDate stop)} for java Date.
+	 * <p>
+	 * 
+	 * @param start
+	 *            the start time
+	 * @param stop
+	 *            the stop time
+	 * @return the interval
+	 */
+	public final Array<JsDate> range(Date start, Date stop) {
+		return this.range(start.getTime(), stop.getTime());
+	}
+
+	/**
+	 * Alias for {@link #range(JsDate start, JsDate stop)} for double.
+	 * <p>
+	 * 
+	 * @param start
+	 *            the start time
+	 * @param stop
+	 *            the stop time
+	 * @return the interval
+	 */
+	public final Array<JsDate> range(double start, double stop) {
+		return this.range(JsDate.create(start), JsDate.create(stop));
+	}
+
+	/**
 	 * Returns every time interval after or equal to start and before stop.
 	 * <p>
 	 * 
@@ -304,5 +332,33 @@ public class Interval extends JavaScriptObject {
 	public final native Array<JsDate> range(JsDate start, JsDate stop, double step)/*-{
 		return this.range(start, stop, step);
 	}-*/;
+
+	/**
+	 * Alias for {@link #range(JsDate start, JsDate stop, double step)} for java Date.
+	 * <p>
+	 * 
+	 * @param start
+	 *            the start time
+	 * @param stop
+	 *            the stop time
+	 * @return the interval
+	 */
+	public final Array<JsDate> range(Date start, Date stop, double step) {
+		return this.range(start.getTime(), stop.getTime(), step);
+	}
+
+	/**
+	 * Alias for {@link #range(JsDate start, JsDate stop, double step)} for double.
+	 * <p>
+	 * 
+	 * @param start
+	 *            the start time
+	 * @param stop
+	 *            the stop time
+	 * @return the interval
+	 */
+	public final Array<JsDate> range(double start, double stop, double step) {
+		return this.range(JsDate.create(start), JsDate.create(stop), step);
+	}
 
 }
