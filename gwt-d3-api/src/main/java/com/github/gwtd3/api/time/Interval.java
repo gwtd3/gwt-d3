@@ -80,7 +80,7 @@ public class Interval extends JavaScriptObject {
 	 * @return the UTC interval
 	 */
 	public final native Interval utc()/*-{
-		return this.utc();
+		return this.utc;
 	}-*/;
 
 	// ============= apply ============================
