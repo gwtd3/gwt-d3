@@ -16,7 +16,6 @@ import com.github.gwtd3.api.layout.TreeLayout;
 import com.github.gwtd3.api.svg.Diagonal;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
-import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.json.client.JSONParser;
@@ -94,9 +93,9 @@ public class TreeDemo
         tree = D3.layout().tree().size(size);
         // set the global way to draw paths
         diagonal = D3.svg().diagonal()
-                .projection(new DatumFunction<Array<JsArrayNumber>>() {
+                .projection(new DatumFunction<Array<Double>>() {
                     @Override
-                    public Array<JsArrayNumber> apply(Element context, Value d, int index) {
+                    public Array<Double> apply(Element context, Value d, int index) {
                         Node data = d.<Node> as();
                         return data.getCoords();
                     }
@@ -113,8 +112,8 @@ public class TreeDemo
         root = JSONParser.parseLenient(data).isObject().getJavaScriptObject().<Node> cast();
         root.setAttr("x0", (width - 20) / 2);
         root.setAttr("y0", 0);
-        if (root.hasChildren() != null) {
-            root.hasChildren().forEach(new Collapse());
+        if (root.children() != null) {
+            root.children().forEach(new Collapse());
         }
         update(root);
     }
@@ -133,7 +132,7 @@ public class TreeDemo
             @Override
             public Void forEach(Object thisArg, Value element, int index, Array<?> array) {
                 Node datum = element.<Node> as();
-                datum.setAttr("y", datum.getDepth() * 180);
+                datum.setAttr("y", datum.depth() * 180);
                 return null;
             }
         });
@@ -143,8 +142,8 @@ public class TreeDemo
                 .data(nodes, new KeyFunction<Integer>() {
                     @Override
                     public Integer map(Element context, Array<?> newDataArray, Value datum, int index) {
-                        Node d = datum.<Node> as();
-                        return (d.hasId() == -1) ? d.setAttr("id", ++i) : d.hasId();
+                        TreeDemoNode d = datum.<TreeDemoNode> as();
+                        return (d.id() == -1) ? d.setAttr("id", ++i) : d.id();
                     }
                 });
 
@@ -203,7 +202,7 @@ public class TreeDemo
                 .data(links, new KeyFunction<Integer>() {
                     @Override
                     public Integer map(Element context, Array<?> newDataArray, Value datum, int index) {
-                        return datum.<Link> as().getTarget().hasId();
+                        return datum.<Link> as().target().<TreeDemoNode> cast().id();
                     }
                 });
 
@@ -213,7 +212,7 @@ public class TreeDemo
                     @Override
                     public String apply(Element context, Value d, int index) {
                         Coords o = Coords.create(source.getNumAttr("x0"), source.getNumAttr("y0"));
-                        return diagonal.apply(o, o);
+                        return diagonal.apply(Link.create(o, o));
                     }
                 });
 
@@ -227,7 +226,7 @@ public class TreeDemo
                     @Override
                     public String apply(Element context, Value d, int index) {
                         Coords o = Coords.create(source.x(), source.y());
-                        return diagonal.apply(o, o);
+                        return diagonal.apply(Link.create(o, o));
                     }
                 })
                 .remove();
@@ -249,7 +248,7 @@ public class TreeDemo
         @Override
         public Void forEach(Object thisArg, Value element, int index, Array<?> array) {
             Node datum = element.<Node> as();
-            Array<Node> children = datum.hasChildren();
+            Array<Node> children = datum.children();
             if (children != null) {
                 datum.setAttr("_children", children);
                 datum.getObjAttr("_children").<Array<Node>> cast().forEach(this);
@@ -264,8 +263,8 @@ public class TreeDemo
         @Override
         public Void apply(Element context, Value d, int index) {
             Node node = d.<Node> as();
-            if (node.hasChildren() != null) {
-                node.setAttr("_children", node.hasChildren());
+            if (node.children() != null) {
+                node.setAttr("_children", node.children());
                 node.setAttr("children", null);
             }
             else {
@@ -275,5 +274,16 @@ public class TreeDemo
             update(node);
             return null;
         }
+    }
+
+    private static class TreeDemoNode
+        extends Node {
+        protected TreeDemoNode() {
+            super();
+        }
+
+        protected final native int id() /*-{
+			return this.id || -1;
+        }-*/;
     }
 }

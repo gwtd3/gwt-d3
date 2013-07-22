@@ -100,4 +100,11 @@ public class TreeLayout
 					return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
     }-*/;
+
+    /**
+     * @return the datum function registered for calculating node values
+     */
+    public final native DatumFunction<?> value() /*-{
+		return this.value();
+    }-*/;
 }
