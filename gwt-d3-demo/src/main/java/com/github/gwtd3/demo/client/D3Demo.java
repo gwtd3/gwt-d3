@@ -41,6 +41,7 @@ import com.github.gwtd3.demo.client.democases.StupidExample;
 import com.github.gwtd3.demo.client.democases.StupidExample2;
 import com.github.gwtd3.demo.client.democases.arcs.ArcDemo;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
+import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.democases.charts.AxisDemo;
 import com.github.gwtd3.demo.client.democases.charts.LineChartDemo;
 import com.github.gwtd3.demo.client.test.ui.TestRunner;
@@ -111,7 +112,9 @@ public class D3Demo implements EntryPoint {
         buttonContainer.add(new DemoButton("Axis Demo", AxisDemo.factory()));
 
         buttonContainer.add(new DemoButton("Line Chart", LineChartDemo.factory()));
-
+        
+        buttonContainer.add(new DemoButton("Zoom", ZoomDemo.factory()));
+        
         p.add(buttonContainer);
         container.addWest(p, 200);
 
