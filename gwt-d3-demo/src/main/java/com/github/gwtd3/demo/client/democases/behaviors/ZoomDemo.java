@@ -1,6 +1,5 @@
 package com.github.gwtd3.demo.client.democases.behaviors;
 
-import com.github.gwtd3.api.Coords;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.behaviour.Zoom;
@@ -24,6 +23,7 @@ public class ZoomDemo extends FlowPanel implements DemoCase {
 	}
 
 	private void init() {
+		// create zoom behavior
 		Zoom zoom = D3.behavior().zoom().on(ZoomEventType.zoom, new OnZoom());
 
 		Selection selection = D3.select(this);
@@ -58,11 +58,15 @@ public class ZoomDemo extends FlowPanel implements DemoCase {
 	public class OnZoom implements DatumFunction<Void> {
 		@Override
 		public Void apply(final Element context, final Value d, final int index) {
-			Coords datum = d.as();
 
 			System.out.println("Scale: " + D3.event().getScale());
 
+			// Currently this selects the div outside and makes it pan smoothly
+			// but in the wrong place...
 			JsArrayNumber translate = D3.mouse(getElement());
+
+			// I originally tried this but it glitches a lot
+			// JsArrayNumber translate = D3.mouse(context);
 
 			System.out.println("x: " + translate.get(0) + ", y: "
 					+ translate.get(1));
@@ -74,6 +78,9 @@ public class ZoomDemo extends FlowPanel implements DemoCase {
 			double[] newTranslate = {
 					(translate.get(0)) * D3.event().getScale(),
 					(translate.get(1)) * D3.event().getScale() };
+
+			// I apply the zoom to the <g> element but it only allows me to zoom
+			// when hovering over the circles as opposed to the whole group...
 
 			svg.attr("transform",
 					"translate(" + JsArrays.asJsArray(newTranslate) + ")"
