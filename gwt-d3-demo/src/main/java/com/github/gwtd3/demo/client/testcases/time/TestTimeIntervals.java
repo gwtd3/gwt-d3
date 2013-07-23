@@ -40,20 +40,20 @@ public class TestTimeIntervals extends AbstractTestCase {
 
 	@Override
 	public void doTest(ComplexPanel sandbox) {
-		test(D3.time().year(),      "1979-01-11 09:05:18.125", "1979-01-01 00:00:00.000", "1980-01-01 00:00:00.000", "1979-01-01 00:00:00.000", "1982-01-11 09:05:18.125");
-		test(D3.time().month(),     "1979-01-11 09:05:18.125", "1979-01-01 00:00:00.000", "1979-02-01 00:00:00.000", "1979-01-01 00:00:00.000", "1979-04-11 09:05:18.125");
-		test(D3.time().hour(),      "1979-01-11 09:05:18.125", "1979-01-11 09:00:00.000", "1979-01-11 10:00:00.000", "1979-01-11 09:00:00.000", "1979-01-11 12:05:18.125");
-		test(D3.time().minute(),    "1979-01-11 09:05:18.125", "1979-01-11 09:05:00.000", "1979-01-11 09:06:00.000", "1979-01-11 09:05:00.000", "1979-01-11 09:08:18.125");
-		test(D3.time().second(),    "1979-01-11 09:05:18.125", "1979-01-11 09:05:18.000", "1979-01-11 09:05:19.000", "1979-01-11 09:05:18.000", "1979-01-11 09:05:21.125");
-		test(D3.time().day(),       "1979-01-11 09:05:18.125", "1979-01-11 00:00:00.000", "1979-01-12 00:00:00.000", "1979-01-11 00:00:00.000", "1979-01-14 09:05:18.125");
-		test(D3.time().week(),      "1979-01-11 09:05:18.125", "1979-01-07 00:00:00.000", "1979-01-14 00:00:00.000", "1979-01-14 00:00:00.000", "1979-02-01 09:05:18.125");
-		test(D3.time().sunday(),    "1979-01-11 09:05:18.125", "1979-01-07 00:00:00.000", "1979-01-14 00:00:00.000", "1979-01-14 00:00:00.000", "1979-02-01 09:05:18.125");
-		test(D3.time().monday(),    "1979-01-11 09:05:18.125", "1979-01-08 00:00:00.000", "1979-01-15 00:00:00.000", "1979-01-08 00:00:00.000", "1979-02-01 09:05:18.125");
-		test(D3.time().tuesday(),   "1979-01-11 09:05:18.125", "1979-01-09 00:00:00.000", "1979-01-16 00:00:00.000", "1979-01-09 00:00:00.000", "1979-02-01 09:05:18.125");
-		test(D3.time().wednesday(), "1979-01-11 09:05:18.125", "1979-01-10 00:00:00.000", "1979-01-17 00:00:00.000", "1979-01-10 00:00:00.000", "1979-02-01 09:05:18.125");
-		test(D3.time().thursday(),  "1979-01-11 09:05:18.125", "1979-01-11 00:00:00.000", "1979-01-18 00:00:00.000", "1979-01-11 00:00:00.000", "1979-02-01 09:05:18.125");
-		test(D3.time().friday(),    "1979-01-11 09:05:18.125", "1979-01-05 00:00:00.000", "1979-01-12 00:00:00.000", "1979-01-12 00:00:00.000", "1979-02-01 09:05:18.125");
-		test(D3.time().saturday(),  "1979-01-11 09:05:18.125", "1979-01-06 00:00:00.000", "1979-01-13 00:00:00.000", "1979-01-13 00:00:00.000", "1979-02-01 09:05:18.125");
+		test(D3.time().year(),      "January 11, 1979 09:05:18", "January 1, 1979 00:00:00", "January 1, 1980 00:00:00", "January 1, 1979 00:00:00", "January 11, 1982 09:05:18");
+		test(D3.time().month(),     "January 11, 1979 09:05:18", "January 1, 1979 00:00:00", "February 1, 1979 00:00:00", "January 1, 1979 00:00:00", "April 11, 1979 09:05:18");
+		test(D3.time().hour(),      "January 11, 1979 09:05:18", "January 11, 1979 09:00:00", "January 11, 1979 10:00:00", "January 11, 1979 09:00:00", "January 11, 1979 12:05:18");
+		test(D3.time().minute(),    "January 11, 1979 09:05:18", "January 11, 1979 09:05:00", "January 11, 1979 09:06:00", "January 11, 1979 09:05:00", "January 11, 1979 09:08:18");
+		test(D3.time().second(),    "January 11, 1979 09:05:18", "January 11, 1979 09:05:18", "January 11, 1979 09:05:18", "January 11, 1979 09:05:18", "January 11, 1979 09:05:21");
+		test(D3.time().day(),       "January 11, 1979 09:05:18", "January 11, 1979 00:00:00", "January 12, 1979 00:00:00", "January 11, 1979 00:00:00", "January 14, 1979 09:05:18");
+		test(D3.time().week(),      "January 11, 1979 09:05:18", "January 7, 1979 00:00:00", "January 14, 1979 00:00:00", "January 14, 1979 00:00:00", "February 1, 1979 09:05:18");
+		test(D3.time().sunday(),    "January 11, 1979 09:05:18", "January 7, 1979 00:00:00", "January 14, 1979 00:00:00", "January 14, 1979 00:00:00", "February 1, 1979 09:05:18");
+		test(D3.time().monday(),    "January 11, 1979 09:05:18", "January 8, 1979 00:00:00", "January 15, 1979 00:00:00", "January 8, 1979 00:00:00", "February 1, 1979 09:05:18");
+		test(D3.time().tuesday(),   "January 11, 1979 09:05:18", "January 9, 1979 00:00:00", "January 16, 1979 00:00:00", "January 9, 1979 00:00:00", "February 1, 1979 09:05:18");
+		test(D3.time().wednesday(), "January 11, 1979 09:05:18", "January 10, 1979 00:00:00", "January 17, 1979 00:00:00", "January 10, 1979 00:00:00", "February 1, 1979 09:05:18");
+		test(D3.time().thursday(),  "January 11, 1979 09:05:18", "January 11, 1979 00:00:00", "January 18, 1979 00:00:00", "January 11, 1979 00:00:00", "February 1, 1979 09:05:18");
+		test(D3.time().friday(),    "January 11, 1979 09:05:18", "January 5, 1979 00:00:00", "January 12, 1979 00:00:00", "January 12, 1979 00:00:00", "February 1, 1979 09:05:18");
+		test(D3.time().saturday(),  "January 11, 1979 09:05:18", "January 6, 1979 00:00:00", "January 13, 1979 00:00:00", "January 13, 1979 00:00:00", "February 1, 1979 09:05:18");
 	}
 	
 	private void test(Interval interval, String givenDateStr, String expectedFloorDateStr, String expectedCeilDateStr, String expectedRoundDateStr, String expectedOffset3DateStr) {
@@ -68,11 +68,11 @@ public class TestTimeIntervals extends AbstractTestCase {
 	private void testLocalTime(Interval interval, String givenDateStr,
 			String expectedFloorDateStr, String expectedCeilDateStr,
 			String expectedRoundDateStr, String expectedOffset3DateStr) {
-		double givenDoubleDate = JsDate.parse(givenDateStr);
+		double givenDoubleDate = parseDate(givenDateStr);
 		JsDate givenJsDate = JsDate.create(givenDoubleDate);
 		Date givenDate = new Date((long) givenDoubleDate);
 		
-		double expectedFloorDate = JsDate.parse(expectedFloorDateStr);
+		double expectedFloorDate = parseDate(expectedFloorDateStr);
 		assertDateEquals("apply on double", expectedFloorDate, interval.apply(givenDoubleDate));
 		assertDateEquals("apply on JsDate", expectedFloorDate, interval.apply(givenJsDate).getTime());
 		assertDateEquals("apply on Date", expectedFloorDate, interval.apply(givenDate).getTime());
@@ -81,17 +81,17 @@ public class TestTimeIntervals extends AbstractTestCase {
 		assertDateEquals("floor on JsDate", expectedFloorDate, interval.floor(givenJsDate).getTime());
 		assertDateEquals("floor on Date", expectedFloorDate, interval.floor(givenDate).getTime());
 		
-		double expectedCeilDate = JsDate.parse(expectedCeilDateStr);
+		double expectedCeilDate = parseDate(expectedCeilDateStr);
 		assertDateEquals("ceil on double", expectedCeilDate, interval.ceil(givenDoubleDate));
 		assertDateEquals("ceil on JsDate", expectedCeilDate, interval.ceil(givenJsDate).getTime());
 		assertDateEquals("ceil on Date", expectedCeilDate, interval.ceil(givenDate).getTime());
 		
-		double expectedRoundDate = JsDate.parse(expectedRoundDateStr);
+		double expectedRoundDate = parseDate(expectedRoundDateStr);
 		assertDateEquals("round on double", expectedRoundDate, interval.round(givenDoubleDate));
 		assertDateEquals("round on JsDate", expectedRoundDate, interval.round(givenJsDate).getTime());
 		assertDateEquals("round on Date", expectedRoundDate, interval.round(givenDate).getTime());
 		
-		double expectedOffset3Date = JsDate.parse(expectedOffset3DateStr);
+		double expectedOffset3Date = parseDate(expectedOffset3DateStr);
 		assertDateEquals("offset 3 on double", expectedOffset3Date, interval.offset(givenDoubleDate, 3));
 		assertDateEquals("offset 3 on JsDate", expectedOffset3Date, interval.offset(givenJsDate, 3).getTime());
 		assertDateEquals("offset 3 on Date", expectedOffset3Date, interval.offset(givenDate, 3).getTime());
@@ -113,11 +113,11 @@ public class TestTimeIntervals extends AbstractTestCase {
 	private void testUTC(Interval interval, String givenDateStr,
 			String expectedFloorDateStr, String expectedCeilDateStr,
 			String expectedRoundDateStr, String expectedOffset3DateStr) {
-		double givenDoubleDate = JsDate.parse(givenDateStr + " GMT+0000");
+		double givenDoubleDate = parseDate(givenDateStr + " GMT+0000");
 		JsDate givenJsDate = JsDate.create(givenDoubleDate);
 		Date givenDate = new Date((long) givenDoubleDate);
 		
-		double expectedFloorDate = JsDate.parse(expectedFloorDateStr + " GMT+0000");
+		double expectedFloorDate = parseDate(expectedFloorDateStr + " GMT+0000");
 		assertDateEquals("apply on double", expectedFloorDate, interval.utc().apply(givenDoubleDate));
 		assertDateEquals("apply on JsDate", expectedFloorDate, interval.utc().apply(givenJsDate).getTime());
 		assertDateEquals("apply on Date", expectedFloorDate, interval.utc().apply(givenDate).getTime());
@@ -126,17 +126,17 @@ public class TestTimeIntervals extends AbstractTestCase {
 		assertDateEquals("floor on JsDate", expectedFloorDate, interval.utc().floor(givenJsDate).getTime());
 		assertDateEquals("floor on Date", expectedFloorDate, interval.utc().floor(givenDate).getTime());
 		
-		double expectedCeilDate = JsDate.parse(expectedCeilDateStr + " GMT+0000");
+		double expectedCeilDate = parseDate(expectedCeilDateStr + " GMT+0000");
 		assertDateEquals("ceil on double", expectedCeilDate, interval.utc().ceil(givenDoubleDate));
 		assertDateEquals("ceil on JsDate", expectedCeilDate, interval.utc().ceil(givenJsDate).getTime());
 		assertDateEquals("ceil on Date", expectedCeilDate, interval.utc().ceil(givenDate).getTime());
 		
-		double expectedRoundDate = JsDate.parse(expectedRoundDateStr + " GMT+0000");
+		double expectedRoundDate = parseDate(expectedRoundDateStr + " GMT+0000");
 		assertDateEquals("round on double", expectedRoundDate, interval.utc().round(givenDoubleDate));
 		assertDateEquals("round on JsDate", expectedRoundDate, interval.utc().round(givenJsDate).getTime());
 		assertDateEquals("round on Date", expectedRoundDate, interval.utc().round(givenDate).getTime());
 		
-		double expectedOffset3Date = JsDate.parse(expectedOffset3DateStr + " GMT+0000");
+		double expectedOffset3Date = parseDate(expectedOffset3DateStr + " GMT+0000");
 		assertDateEquals("offset 3 on double", expectedOffset3Date, interval.utc().offset(givenDoubleDate, 3));
 		assertDateEquals("offset 3 on JsDate", expectedOffset3Date, interval.utc().offset(givenJsDate, 3).getTime());
 		assertDateEquals("offset 3 on Date", expectedOffset3Date, interval.utc().offset(givenDate, 3).getTime());
@@ -153,5 +153,13 @@ public class TestTimeIntervals extends AbstractTestCase {
 //		assertEquals("range 3 with step on double", 2, interval.utc().range(givenJsStart.getTime(), givenJsEnd.getTime(), 2).length());
 //		assertEquals("range 3 with step on JsDate", 2, interval.utc().range(givenJsStart, givenJsEnd, 2).length());
 //		assertEquals("range 3 with step on Date", 2, interval.utc().range(givenStart, givenEnd, 2).length());
+	}
+	
+	private double parseDate(String dateString) {
+		double d = JsDate.parse(dateString);
+		if (Double.isNaN(d)) {
+			throw new IllegalArgumentException("Invalid date : " + dateString);
+		}
+		return d;
 	}
 }
