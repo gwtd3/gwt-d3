@@ -41,6 +41,8 @@ import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
 import com.github.gwtd3.api.behaviour.Behavior;
 import com.github.gwtd3.api.behaviour.Drag;
+import com.github.gwtd3.api.behaviour.Zoom;
+import com.github.gwtd3.api.behaviour.Zoom.ZoomEvent;
 import com.github.gwtd3.api.core.Color;
 import com.github.gwtd3.api.core.Formatter;
 import com.github.gwtd3.api.core.HSLColor;
@@ -227,8 +229,8 @@ public class D3 extends JavaScriptObject {
 	}
 
 	/**
-	 * Selects the elements corresponding to the root elements of the widgets
-	 * in the specified array.
+	 * Selects the elements corresponding to the root elements of the widgets in
+	 * the specified array.
 	 * 
 	 * @param nodes
 	 *            the elements
@@ -257,15 +259,10 @@ public class D3 extends JavaScriptObject {
 		return selectAll(elements);
 	}
 
-
-
 	// =========== Math ==============
-	
-	public static final com.github.gwtd3.api.core.Random random = com.github.gwtd3.api.core.Random.get();
 
-	
-	
-
+	public static final com.github.gwtd3.api.core.Random random = com.github.gwtd3.api.core.Random
+			.get();
 
 	// =========== shuffle ==============
 
@@ -353,7 +350,8 @@ public class D3 extends JavaScriptObject {
 	 * Construct a new RGB color from the existing color object.
 	 * <p>
 	 * 
-	 * @param color the existing color object
+	 * @param color
+	 *            the existing color object
 	 * @return the new color
 	 */
 	public static final native RGBColor rgb(final Color color)/*-{
@@ -1224,4 +1222,17 @@ public class D3 extends JavaScriptObject {
 			return d;
 		};
 	}-*/;
+
+	/**
+	 * 
+	 * Get the ZoomEvent from within a {@link Zoom} listener.
+	 * 
+	 * @return the zoom event
+	 */
+
+	public static final ZoomEvent zoomEvent() {
+
+		return event().cast();
+
+	}
 }
