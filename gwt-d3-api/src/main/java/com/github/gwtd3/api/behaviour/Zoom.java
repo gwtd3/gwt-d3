@@ -1,10 +1,61 @@
+/**
+ * Copyright (c) 2013, Anthony Schiochet and Eric Citaire
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * * The names Anthony Schiochet and Eric Citaire may not be used to endorse or promote products
+ *   derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL MICHAEL BOSTOCK BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+ * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ */
+
 package com.github.gwtd3.api.behaviour;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.functions.DatumFunction;
+import com.github.gwtd3.api.scales.LinearScale;
 import com.google.gwt.core.client.JavaScriptObject;
+
+/**
+ * This behavior automatically creates event listeners to handle scroll gestures
+ * and click gestures on an element. Both mouse events and touch events are
+ * supported.
+ * <p>
+ * Usage:
+ * 
+ * <pre>
+ * {
+ * 	&#064;code
+ * 	Zoom zoom = D3.behavior.zoom().on(ZoomEventType.zoom, new MyZoomListener());
+ * 	mySelection.call(drag);
+ * }
+ * </pre>
+ * 
+ * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a> <br />
+ *         <a href="https://github.com/augbog">Augustus Yuan</a>
+ * 
+ */
 
 public class Zoom extends JavaScriptObject implements IsFunction {
 
@@ -52,7 +103,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * @param o
 	 * @return
 	 */
-	public final native Zoom x(int scale)/*-{
+	public final native Zoom x(LinearScale scale)/*-{
 		return this.x(scale);
 	}-*/;
 
@@ -66,7 +117,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * @return Zoom object
 	 */
 
-	public final native Zoom y(int scale)/*-{
+	public final native Zoom y(LinearScale scale)/*-{
 		return this.y(scale);
 	}-*/;
 
@@ -89,7 +140,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * @param o
 	 * @return Zoom object
 	 */
-	public final native Zoom scale(int scale)/*-{
+	public final native Zoom scale(LinearScale scale)/*-{
 		return this.scale(scale);
 	}-*/;
 
@@ -144,7 +195,6 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 
 		/**
 		 * Shortcut to translate().getNumber(0).
-		 * <p>
 		 * 
 		 * @return the translation x coord
 		 */
@@ -156,12 +206,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 		}-*/;
 
 		/**
-		 * 
 		 * Shortcut to translate().getNumber(1).
-		 * 
-		 * <p>
-		 * 
-		 * 
 		 * 
 		 * @return the translation y coord
 		 */
