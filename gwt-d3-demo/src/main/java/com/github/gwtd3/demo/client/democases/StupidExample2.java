@@ -31,14 +31,15 @@
  */
 package com.github.gwtd3.demo.client.democases;
 
+import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
-import com.github.gwtd3.ui.svg.SVGDocumentContainer;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -47,14 +48,14 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class StupidExample2 implements DemoCase {
 
-	private final SVGDocumentContainer widget;
+	private final AbsolutePanel widget;
 
 	/**
 	 * 
 	 */
 	public StupidExample2() {
-		widget = new SVGDocumentContainer();
-		widget.setSize("900", "400");
+		widget = new AbsolutePanel();
+		widget.setSize("900px", "400px");
 	}
 
 	/*
@@ -75,7 +76,7 @@ public class StupidExample2 implements DemoCase {
 	 */
 	@Override
 	public void start() {
-		Selection svg = widget.select();
+		Selection svg = D3.select(widget);
 
 		svg.selectAll("circle").data(JsArrays.asJsArray(32, 57, 112, 293))
 				.enter()

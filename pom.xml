@@ -10,7 +10,6 @@
 	<modules>
 		<module>gwt-d3-api</module>
 		<module>gwt-d3-demo</module>
-		<module>gwt-d3-ui</module>
 	</modules>
 
 	<properties>
