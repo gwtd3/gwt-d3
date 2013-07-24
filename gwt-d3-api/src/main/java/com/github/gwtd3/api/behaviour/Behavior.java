@@ -55,4 +55,8 @@ public class Behavior extends JavaScriptObject {
 		return this.drag();
 	}-*/;
 
+	public final native Zoom zoom()/*-{
+		return this.zoom();
+	}-*/;
+	
 }

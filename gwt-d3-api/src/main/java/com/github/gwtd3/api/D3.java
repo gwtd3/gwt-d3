@@ -41,6 +41,8 @@ import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
 import com.github.gwtd3.api.behaviour.Behavior;
 import com.github.gwtd3.api.behaviour.Drag;
+import com.github.gwtd3.api.behaviour.Zoom;
+import com.github.gwtd3.api.behaviour.Zoom.ZoomEvent;
 import com.github.gwtd3.api.core.Color;
 import com.github.gwtd3.api.core.Formatter;
 import com.github.gwtd3.api.core.HSLColor;
@@ -279,7 +281,8 @@ public class D3 extends JavaScriptObject {
 		}
 	}
 
-	private static final <T> void swap(final List<T> list, final int idx1, final int idx2) {
+	private static final <T> void swap(final List<T> list, final int idx1,
+			final int idx2) {
 		T temp = list.get(idx1);
 		list.set(idx1, list.get(idx2));
 		list.set(idx2, temp);
@@ -455,8 +458,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<String> interpolateString(final String a, final String b) {
-		return new JavascriptFunctionInterpolatorDecorator<String>(interpolate0(a, b));
+	public static final Interpolator<String> interpolateString(final String a,
+			final String b) {
+		return new JavascriptFunctionInterpolatorDecorator<String>(
+				interpolate0(a, b));
 	}
 
 	/**
@@ -478,8 +483,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end color
 	 * @return the interpolator
 	 */
-	public static final Interpolator<RGBColor> interpolateRgb(final String a, final String b) {
-		return new JavascriptFunctionInterpolatorDecorator<RGBColor>(interpolateRgb0(D3.rgb(a), D3.rgb(b))) {
+	public static final Interpolator<RGBColor> interpolateRgb(final String a,
+			final String b) {
+		return new JavascriptFunctionInterpolatorDecorator<RGBColor>(
+				interpolateRgb0(D3.rgb(a), D3.rgb(b))) {
 			@Override
 			public RGBColor cast(final Value v) {
 				return D3.rgb(v.asString());
@@ -506,8 +513,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end color
 	 * @return the interpolator
 	 */
-	public static final Interpolator<RGBColor> interpolateRgb(final Color a, final Color b) {
-		return new JavascriptFunctionInterpolatorDecorator<RGBColor>(interpolateRgb0(a, b)) {
+	public static final Interpolator<RGBColor> interpolateRgb(final Color a,
+			final Color b) {
+		return new JavascriptFunctionInterpolatorDecorator<RGBColor>(
+				interpolateRgb0(a, b)) {
 			@Override
 			public RGBColor cast(final Value v) {
 				return D3.rgb(v.asString());
@@ -534,8 +543,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end color
 	 * @return the interpolator
 	 */
-	public static final Interpolator<HSLColor> interpolateHsl(final String a, final String b) {
-		return new JavascriptFunctionInterpolatorDecorator<HSLColor>(interpolateHsl0(D3.hsl(a), D3.hsl(b))) {
+	public static final Interpolator<HSLColor> interpolateHsl(final String a,
+			final String b) {
+		return new JavascriptFunctionInterpolatorDecorator<HSLColor>(
+				interpolateHsl0(D3.hsl(a), D3.hsl(b))) {
 			@Override
 			public HSLColor cast(final Value v) {
 				return D3.hsl(v.asString());
@@ -562,8 +573,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end color
 	 * @return the interpolator
 	 */
-	public static final Interpolator<HSLColor> interpolateHsl(final Color a, final Color b) {
-		return new JavascriptFunctionInterpolatorDecorator<HSLColor>(interpolateHsl0(a, b)) {
+	public static final Interpolator<HSLColor> interpolateHsl(final Color a,
+			final Color b) {
+		return new JavascriptFunctionInterpolatorDecorator<HSLColor>(
+				interpolateHsl0(a, b)) {
 			@Override
 			public HSLColor cast(final Value v) {
 				return D3.hsl(v.asString());
@@ -598,8 +611,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Double> interpolateNumber(final double a, final double b) {
-		return new JavascriptFunctionInterpolatorDecorator<Double>(interpolateNumber0(a, b)) {
+	public static final Interpolator<Double> interpolateNumber(final double a,
+			final double b) {
+		return new JavascriptFunctionInterpolatorDecorator<Double>(
+				interpolateNumber0(a, b)) {
 			@Override
 			public Double cast(final Value v) {
 				return new Double(v.asDouble());
@@ -638,8 +653,10 @@ public class D3 extends JavaScriptObject {
 	 *            the array b
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Array<?>> interpolateArray(final Array<?> a, final Array<?> b) {
-		return new JavascriptFunctionInterpolatorDecorator<Array<?>>(interpolateArray0(a, b)) {
+	public static final Interpolator<Array<?>> interpolateArray(
+			final Array<?> a, final Array<?> b) {
+		return new JavascriptFunctionInterpolatorDecorator<Array<?>>(
+				interpolateArray0(a, b)) {
 			@Override
 			public Array<?> cast(final Value v) {
 				return v.as();
@@ -682,8 +699,10 @@ public class D3 extends JavaScriptObject {
 	 *            the object b
 	 * @return the interpolator
 	 */
-	public static final <T extends JavaScriptObject> Interpolator<T> interpolateObject(final T a, final T b) {
-		return new JavascriptFunctionInterpolatorDecorator<T>(interpolateObject0(a, b)) {
+	public static final <T extends JavaScriptObject> Interpolator<T> interpolateObject(
+			final T a, final T b) {
+		return new JavascriptFunctionInterpolatorDecorator<T>(
+				interpolateObject0(a, b)) {
 			@Override
 			public T cast(final Value v) {
 				return v.<T> as();
@@ -704,8 +723,10 @@ public class D3 extends JavaScriptObject {
 	 *            the object b
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Transform> interpolateTransform(final Transform a, final Transform b) {
-		return new JavascriptFunctionInterpolatorDecorator<Transform>(interpolateTransform0(a, b)) {
+	public static final Interpolator<Transform> interpolateTransform(
+			final Transform a, final Transform b) {
+		return new JavascriptFunctionInterpolatorDecorator<Transform>(
+				interpolateTransform0(a, b)) {
 			@Override
 			public Transform cast(final Value v) {
 				return Transform.parse(v.asString());
@@ -722,7 +743,8 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Double> interpolateNumber(final int a, final int b) {
+	public static final Interpolator<Double> interpolateNumber(final int a,
+			final int b) {
 		return interpolateNumber((double) a, (double) b);
 	}
 
@@ -735,7 +757,8 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Double> interpolateNumber(final byte a, final byte b) {
+	public static final Interpolator<Double> interpolateNumber(final byte a,
+			final byte b) {
 		return interpolateNumber((double) a, (double) b);
 	}
 
@@ -748,7 +771,8 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Double> interpolateNumber(final float a, final float b) {
+	public static final Interpolator<Double> interpolateNumber(final float a,
+			final float b) {
 		return interpolateNumber((double) a, (double) b);
 	}
 
@@ -761,7 +785,8 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Double> interpolateNumber(final long a, final long b) {
+	public static final Interpolator<Double> interpolateNumber(final long a,
+			final long b) {
 		return interpolateNumber((double) a, (double) b);
 	}
 
@@ -774,7 +799,8 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Double> interpolateNumber(final short a, final short b) {
+	public static final Interpolator<Double> interpolateNumber(final short a,
+			final short b) {
 		return interpolateNumber((double) a, (double) b);
 	}
 
@@ -790,8 +816,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Long> interpolateRound(final double a, final double b) {
-		return new JavascriptFunctionInterpolatorDecorator<Long>(interpolateRound0(a, b)) {
+	public static final Interpolator<Long> interpolateRound(final double a,
+			final double b) {
+		return new JavascriptFunctionInterpolatorDecorator<Long>(
+				interpolateRound0(a, b)) {
 			@Override
 			public Long cast(final Value v) {
 				return new Long((long) v.asDouble());
@@ -808,8 +836,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Byte> interpolateRound(final byte a, final byte b) {
-		return new JavascriptFunctionInterpolatorDecorator<Byte>(interpolateRound0(a, b)) {
+	public static final Interpolator<Byte> interpolateRound(final byte a,
+			final byte b) {
+		return new JavascriptFunctionInterpolatorDecorator<Byte>(
+				interpolateRound0(a, b)) {
 			@Override
 			public Byte cast(final Value v) {
 				return new Byte(v.asByte());
@@ -826,8 +856,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Character> interpolateRound(final char a, final char b) {
-		return new JavascriptFunctionInterpolatorDecorator<Character>(interpolateRound0(a, b)) {
+	public static final Interpolator<Character> interpolateRound(final char a,
+			final char b) {
+		return new JavascriptFunctionInterpolatorDecorator<Character>(
+				interpolateRound0(a, b)) {
 			@Override
 			public Character cast(final Value v) {
 				return new Character(v.asChar());
@@ -844,8 +876,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Integer> interpolateRound(final int a, final int b) {
-		return new JavascriptFunctionInterpolatorDecorator<Integer>(interpolateRound0(a, b)) {
+	public static final Interpolator<Integer> interpolateRound(final int a,
+			final int b) {
+		return new JavascriptFunctionInterpolatorDecorator<Integer>(
+				interpolateRound0(a, b)) {
 			@Override
 			public Integer cast(final Value v) {
 				return new Integer(v.asInt());
@@ -862,8 +896,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Long> interpolateRound(final long a, final long b) {
-		return new JavascriptFunctionInterpolatorDecorator<Long>(interpolateRound0(a, b)) {
+	public static final Interpolator<Long> interpolateRound(final long a,
+			final long b) {
+		return new JavascriptFunctionInterpolatorDecorator<Long>(
+				interpolateRound0(a, b)) {
 			@Override
 			public Long cast(final Value v) {
 				// this will not work !!!
@@ -884,8 +920,10 @@ public class D3 extends JavaScriptObject {
 	 *            the end
 	 * @return the interpolator
 	 */
-	public static final Interpolator<Short> interpolateRound(final short a, final short b) {
-		return new JavascriptFunctionInterpolatorDecorator<Short>(interpolateRound0(a, b)) {
+	public static final Interpolator<Short> interpolateRound(final short a,
+			final short b) {
+		return new JavascriptFunctionInterpolatorDecorator<Short>(
+				interpolateRound0(a, b)) {
 			@Override
 			public Short cast(final Value v) {
 				return new Short(v.asShort());
@@ -914,27 +952,32 @@ public class D3 extends JavaScriptObject {
 	 * @return
 	 */
 	@UnsafeNativeLong
-	private static final native <T> JavascriptFunctionInterpolator interpolate0(T a, T b) /*-{
+	private static final native <T> JavascriptFunctionInterpolator interpolate0(
+			T a, T b) /*-{
 		var result = $wnd.d3.interpolate(a, b);
 		return result;
 	}-*/;
 
 	@UnsafeNativeLong
-	private static final native JavascriptFunctionInterpolator interpolateNumber0(double a, double b) /*-{
+	private static final native JavascriptFunctionInterpolator interpolateNumber0(
+			double a, double b) /*-{
 		return $wnd.d3.interpolateNumber(a, b);
 	}-*/;
 
 	@UnsafeNativeLong
-	private static final native JavascriptFunctionInterpolator interpolateRound0(double a, double b) /*-{
+	private static final native JavascriptFunctionInterpolator interpolateRound0(
+			double a, double b) /*-{
 		return $wnd.d3.interpolateRound(a, b);
 	}-*/;
 
 	@UnsafeNativeLong
-	private static final native JavascriptFunctionInterpolator interpolateRgb0(Color a, Color b) /*-{
+	private static final native JavascriptFunctionInterpolator interpolateRgb0(
+			Color a, Color b) /*-{
 		return $wnd.d3.interpolateRgb(a, b);
 	}-*/;
 
-	private static final native JavascriptFunctionInterpolator interpolateHsl0(Color a, Color b) /*-{
+	private static final native JavascriptFunctionInterpolator interpolateHsl0(
+			Color a, Color b) /*-{
 		return $wnd.d3.interpolateHsl(a, b);
 	}-*/;
 
@@ -948,15 +991,18 @@ public class D3 extends JavaScriptObject {
 	// return $wnd.d3.interpolateLab(a, b);
 	// }-*/;
 
-	private static final native JavascriptFunctionInterpolator interpolateObject0(JavaScriptObject a, JavaScriptObject b) /*-{
+	private static final native JavascriptFunctionInterpolator interpolateObject0(
+			JavaScriptObject a, JavaScriptObject b) /*-{
 		return $wnd.d3.interpolateObject(a, b);
 	}-*/;
 
-	private static final native JavascriptFunctionInterpolator interpolateArray0(Array<?> a, Array<?> b) /*-{
+	private static final native JavascriptFunctionInterpolator interpolateArray0(
+			Array<?> a, Array<?> b) /*-{
 		return $wnd.d3.interpolateArray(a, b);
 	}-*/;
 
-	private static final native JavascriptFunctionInterpolator interpolateTransform0(Transform a, Transform b) /*-{
+	private static final native JavascriptFunctionInterpolator interpolateTransform0(
+			Transform a, Transform b) /*-{
 		return $wnd.d3.interpolateTransform(a, b);
 	}-*/;
 
@@ -1158,7 +1204,8 @@ public class D3 extends JavaScriptObject {
 	 * @param markMillis
 	 *            the timestamp from which the delay starts
 	 */
-	public static final native void timer(TimerFunction command, int delayMillis, int markMillis) /*-{
+	public static final native void timer(TimerFunction command,
+			int delayMillis, int markMillis) /*-{
 		return $wnd.d3
 				.timer(
 						function() {
@@ -1330,7 +1377,8 @@ public class D3 extends JavaScriptObject {
 	 * the parsed rows as the argument. If an error occurs, the callback
 	 * function will instead be invoked with null.
 	 */
-	public static final native <T> Dsv<T> csv(String url, DsvCallback<T> callback) /*-{
+	public static final native <T> Dsv<T> csv(String url,
+			DsvCallback<T> callback) /*-{
 		return $wnd.d3
 				.csv(
 						url,
@@ -1352,7 +1400,8 @@ public class D3 extends JavaScriptObject {
 	 * specified, which is then passed to d3.csv.parse; the accessor may also be
 	 * specified by using the return request object’s row function.
 	 */
-	public static final native <T> Dsv<T> csv(String url, DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
+	public static final native <T> Dsv<T> csv(String url,
+			DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
 		return $wnd.d3
 				.csv(
 						url,
@@ -1377,7 +1426,8 @@ public class D3 extends JavaScriptObject {
 	 * specified, which is then passed to d3.csv.parse; the accessor may also be
 	 * specified by using the return request object’s row function.
 	 */
-	public static final native <T> Dsv<T> csv(String url, DsvObjectAccessor<T> accessor)/*-{
+	public static final native <T> Dsv<T> csv(String url,
+			DsvObjectAccessor<T> accessor)/*-{
 		return $wnd.d3
 				.csv(
 						url,
@@ -1418,7 +1468,8 @@ public class D3 extends JavaScriptObject {
 	 * the parsed rows as the argument. If an error occurs, the callback
 	 * function will instead be invoked with null.
 	 */
-	public static final native <T> Dsv<T> tsv(String url, DsvCallback<T> callback) /*-{
+	public static final native <T> Dsv<T> tsv(String url,
+			DsvCallback<T> callback) /*-{
 		return $wnd.d3
 				.tsv(
 						url,
@@ -1440,7 +1491,8 @@ public class D3 extends JavaScriptObject {
 	 * specified, which is then passed to d3.tsv.parse; the accessor may also be
 	 * specified by using the return request object’s row function.
 	 */
-	public static final native <T> Dsv<T> tsv(String url, DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
+	public static final native <T> Dsv<T> tsv(String url,
+			DsvObjectAccessor<T> accessor, DsvCallback<T> callback)/*-{
 		return $wnd.d3
 				.tsv(
 						url,
@@ -1465,7 +1517,8 @@ public class D3 extends JavaScriptObject {
 	 * specified, which is then passed to d3.tsv.parse; the accessor may also be
 	 * specified by using the return request object’s row function.
 	 */
-	public static final native <T> Dsv<T> tsv(String url, DsvObjectAccessor<T> accessor)/*-{
+	public static final native <T> Dsv<T> tsv(String url,
+			DsvObjectAccessor<T> accessor)/*-{
 		return $wnd.d3
 				.tsv(
 						url,
@@ -1536,7 +1589,8 @@ public class D3 extends JavaScriptObject {
 	 *            array to a transformed value
 	 * @return the maximum of the transformed values as a {@link Value} object
 	 */
-	public static final native Value max(JavaScriptObject array, ForEachCallback<?> accessor) /*-{
+	public static final native Value max(JavaScriptObject array,
+			ForEachCallback<?> accessor) /*-{
 		var rs = $wnd.d3
 				.max(
 						array,
@@ -1571,7 +1625,8 @@ public class D3 extends JavaScriptObject {
 	 *            array to a transformed value
 	 * @return the maximum of the transformed values as a {@link Value} object
 	 */
-	public static final native Value max(JavaScriptObject array, NumericForEachCallback accessor) /*-{
+	public static final native Value max(JavaScriptObject array,
+			NumericForEachCallback accessor) /*-{
 		var rs = $wnd.d3
 				.max(
 						array,
@@ -1633,7 +1688,8 @@ public class D3 extends JavaScriptObject {
 	 *            array to a transformed value
 	 * @return the minimum of the transformed values as a {@link Value} object
 	 */
-	public static final native Value min(JavaScriptObject array, ForEachCallback<?> accessor) /*-{
+	public static final native Value min(JavaScriptObject array,
+			ForEachCallback<?> accessor) /*-{
 		var rs = $wnd.d3
 				.min(
 						array,
@@ -1667,7 +1723,8 @@ public class D3 extends JavaScriptObject {
 	 *            array to a transformed value
 	 * @return the minimum of the transformed values as a {@link Value} object
 	 */
-	public static final native Value min(JavaScriptObject array, NumericForEachCallback accessor) /*-{
+	public static final native Value min(JavaScriptObject array,
+			NumericForEachCallback accessor) /*-{
 		var rs = $wnd.d3
 				.min(
 						array,
@@ -1701,7 +1758,8 @@ public class D3 extends JavaScriptObject {
 	 * @return the minimum and maximum value in the given array using natural
 	 *         order.
 	 */
-	public static final native <D, R> JsArrayMixed extent(JavaScriptObject array, ObjectAccessor<D, R> accessor) /*-{
+	public static final native <D, R> JsArrayMixed extent(
+			JavaScriptObject array, ObjectAccessor<D, R> accessor) /*-{
 																													var accessor = accessor.@com.github.gwtd3.api.core.ObjectAccessor::apply(Ljava/lang/Object;I);
 																													return $wnd.d3.extent(array, function(d, i) {
 																													return accessor.@com.github.gwtd3.api.core.ObjectAccessor::apply(Ljava/lang/Object;I)(d, i);
@@ -1786,7 +1844,8 @@ public class D3 extends JavaScriptObject {
 	 *            the step between each value
 	 * @return
 	 */
-	public static final native JavaScriptObject range(double start, double stop, double step) /*-{
+	public static final native JavaScriptObject range(double start,
+			double stop, double step) /*-{
 		return $wnd.d3.range(start, stop, step);
 	}-*/;
 
@@ -1820,7 +1879,8 @@ public class D3 extends JavaScriptObject {
 	 *            the precision
 	 * @return the prefix
 	 */
-	public static final native Prefix formatPrefix(double value, double precision)/*-{
+	public static final native Prefix formatPrefix(double value,
+			double precision)/*-{
 		return $wnd.d3.formatPrefix(value, precision);
 	}-*/;
 
@@ -1873,4 +1933,17 @@ public class D3 extends JavaScriptObject {
 			return d;
 		};
 	}-*/;
+
+	/**
+	 * 
+	 * Get the ZoomEvent from within a {@link Zoom} listener.
+	 * 
+	 * @return the zoom event
+	 */
+
+	public static final ZoomEvent zoomEvent() {
+
+		return event().cast();
+
+	}
 }
