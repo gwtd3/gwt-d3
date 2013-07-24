@@ -39,7 +39,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * This behavior automatically creates event listeners to handle scroll gestures
- * and click gestures on an element. Both mouse events and touch events are
+ * and pan gestures on an element. Events including mouse, touch, and scroll are
  * supported.
  * <p>
  * Usage:
@@ -47,8 +47,8 @@ import com.google.gwt.core.client.JavaScriptObject;
  * <pre>
  * {
  * 	&#064;code
- * 	Zoom zoom = D3.behavior.zoom().on(ZoomEventType.zoom, new MyZoomListener());
- * 	mySelection.call(drag);
+ * 	Zoom zoom = D3.behavior.zoom().on(ZoomEventType.Zoom, new MyZoomListener());
+ * 	mySelection.call(zoom);
  * }
  * </pre>
  * 
@@ -72,7 +72,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 		 * type from the zoom behavior. Currently, only the "zoom" event is
 		 * supported.
 		 */
-		zoom
+		Zoom
 	}
 
 	/**
@@ -88,7 +88,8 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	public final native Zoom on(ZoomEventType type, DatumFunction<Void> listener)/*-{
 		return this
 				.on(
-						type.@com.github.gwtd3.api.behaviour.Zoom.ZoomEventType::name()(),
+						type.@com.github.gwtd3.api.behaviour.Zoom.ZoomEventType::name()()
+								.toLowerCase(),
 						function(d, index) {
 							listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},index);
 						});
@@ -216,6 +217,5 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 			return this.translate[1];
 
 		}-*/;
-
 	}
 }
