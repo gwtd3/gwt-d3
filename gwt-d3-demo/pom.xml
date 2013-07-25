@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.github.gwtd3</groupId>
 		<artifactId>gwt-d3</artifactId>
-		<version>0.0.14-SNAPSHOT</version>
+		<version>0.0.15-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -27,20 +27,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.gwtd3</groupId>
-			<artifactId>gwt-d3-ui</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.gwtd3</groupId>
 			<artifactId>gwt-d3-api</artifactId>
-			<version>${project.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.gwtd3</groupId>
-			<artifactId>gwt-d3-ui</artifactId>
 			<version>${project.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>

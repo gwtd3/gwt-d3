@@ -146,19 +146,15 @@ public class TestArrayList extends AbstractTestCase {
 	}
 
 	private void testLastIndexOf() {
-		List<String> fruits =
-				new ArrayList<String>(Array.<String> create(Arrays.asList("Banana", "Orange", "Apple", "Mango",
-						"Orange",
-						"Lemon")));
+		List<String> fruits = new ArrayList<String>(Array.<String> create(Arrays.asList("Banana", "Orange", "Apple", "Mango", "Orange",
+				"Lemon")));
 		assertEquals(4, fruits.lastIndexOf("Orange"));
 		assertEquals(-1, fruits.lastIndexOf("blah"));
 	}
 
 	private void testIndexOf() {
-		List<String> fruits =
-				new ArrayList<String>(Array.<String> create(Arrays.asList("Banana", "Orange", "Apple", "Mango",
-						"Orange",
-						"Lemon")));
+		List<String> fruits = new ArrayList<String>(Array.<String> create(Arrays.asList("Banana", "Orange", "Apple", "Mango", "Orange",
+				"Lemon")));
 		assertEquals(1, fruits.indexOf("Orange"));
 		assertEquals(-1, fruits.indexOf("blah"));
 	}
@@ -188,16 +184,14 @@ public class TestArrayList extends AbstractTestCase {
 	}
 
 	private void testSet() {
-		List<String> fruits = new ArrayList<String>(
-				Array.create(Arrays.asList("Banana", "Orange", "Apple", "Mango", "Orange", "Lemon"))
-				);
+		List<String> fruits = new ArrayList<String>(Array.create(Arrays.asList("Banana", "Orange", "Apple", "Mango", "Orange", "Lemon")));
 		fruits.set(0, "Other");
 		assertEquals(6, fruits.size());
 		assertEquals("Other", fruits.get(0));
 	}
 
 	private void testGet() {
-		Array<String> fruits = Array.create("blah", "blih", "bloh", "bluh");
+		Array<String> fruits = Array.fromObjects("blah", "blih", "bloh", "bluh");
 		List<String> list = new ArrayList<String>(fruits);
 		assertEquals("blah", list.get(0));
 		assertEquals("blih", list.get(1));

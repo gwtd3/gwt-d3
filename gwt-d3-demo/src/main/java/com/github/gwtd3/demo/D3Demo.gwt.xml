@@ -37,7 +37,6 @@
 	<!-- Inherit the core Web Toolkit stuff. -->
 	<inherits name='com.google.gwt.user.User' />
 	<inherits name='com.github.gwtd3.D3' />
-	<inherits name='com.github.gwtd3.D3UI' />
 	<inherits name='com.google.gwt.junit.JUnit3' />
 
 	<inherits name="javax.validation.Validation" />

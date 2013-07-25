@@ -1,16 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.gwtd3</groupId>
 	<artifactId>gwt-d3</artifactId>
-	<version>0.0.14-SNAPSHOT</version>
+	<version>0.0.15-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>gwt-d3 Parent project</name>
 
 	<modules>
 		<module>gwt-d3-api</module>
 		<module>gwt-d3-demo</module>
-		<module>gwt-d3-ui</module>
 	</modules>
 
 	<properties>

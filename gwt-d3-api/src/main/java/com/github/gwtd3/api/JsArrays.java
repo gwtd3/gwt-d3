@@ -50,6 +50,12 @@ import com.google.gwt.core.client.JsArrayUtils;
  */
 public class JsArrays {
 
+	//=============== D3 API =======================
+
+
+
+	//=========== creation =======================
+
 	public static native JsArrayString asJsArray(String str1) /*-{
 		return [ str1 ];
 	}-*/;

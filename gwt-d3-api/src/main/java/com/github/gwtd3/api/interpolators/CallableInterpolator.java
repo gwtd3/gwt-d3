@@ -33,28 +33,25 @@ import com.google.gwt.core.client.JavaScriptObject;
 /**
  * An interpolator that can be passed to JSNI.
  * <p>
- * This is useful when implementing an interpolator in Java and passed to a JSNI framework that's gonna invoke the
- * interpolation.
+ * This is useful when you want to create an implementation of {@link Interpolator} in Java that must be used in JSNI side.
+ * <p>
  * 
- * 
- * It returns
  * @author Anthony Schiochet (schiochetanthoni@gmail.com)
  * 
  * @param <T>
+ *            the type to be interpolated
  */
 public abstract class CallableInterpolator<T> implements Interpolator<T> {
 
-    @Override
-    public abstract T interpolate(double t);
+	@Override
+	public abstract T interpolate(double t);
 
-    @Override
-    public native final JavaScriptObject asJSOFunction() /*-{
+	@Override
+	public native final JavaScriptObject asJSOFunction() /*-{
 		var self = this;
-		//alert('yes');
 		return function(t) {
 			return self.@com.github.gwtd3.api.interpolators.CallableInterpolator::interpolate(D)(t);
-			//return 0;
 		}
-    }-*/;
+	}-*/;
 
 }
