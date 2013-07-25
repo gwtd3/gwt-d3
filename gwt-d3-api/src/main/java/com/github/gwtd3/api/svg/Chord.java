@@ -26,18 +26,28 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.svg;
-
-import com.github.gwtd3.api.IsFunction;
+package com.github.gwtd3.api.layout;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class Chord extends PathDataGenerator {
-	protected Chord() {
-		super();
-	}
+public class Layout<L extends Layout<L>>
+    extends JavaScriptObject {
+    protected Layout() {
+        super();
+    }
 
-	public final native Chord radius(double radius) /*-{
-		return this.radius(radius);
-	}-*/;
+    public final native ChordLayout chord() /*-{
+		return this.chord();
+    }-*/;
+
+    /**
+     * Creates a new tree layout with the default settings: the default sort order is null; the default children
+     * accessor assumes each input data is an object with a children array; the default separation function uses one
+     * node width for siblings, and two node widths for non-siblings; the default size is 1×1.
+     * 
+     * @return the tree layout object
+     */
+    public final native TreeLayout tree() /*-{
+		return this.tree();
+    }-*/;
 }
