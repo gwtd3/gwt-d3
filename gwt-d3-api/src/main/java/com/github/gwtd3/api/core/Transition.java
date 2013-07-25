@@ -238,6 +238,16 @@ public class Transition
 		return this.attr(name, value);
     }-*/;
 
+    /**
+     * Transitions the attributes with the specified name to the value returned by the {@link PathDataGenerator} for
+     * each selected element.
+     * 
+     * @param name
+     * the name of the attribute
+     * @param value
+     * the {@link PathDataGenerator} used to compute the new value of the attribute
+     * @return the current transition
+     */
     public native final Transition attr(final String name, PathDataGenerator value) /*-{
 		return this.attr(name, value);
     }-*/;
