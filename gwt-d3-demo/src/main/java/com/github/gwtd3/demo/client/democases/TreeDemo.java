@@ -150,7 +150,7 @@ public class TreeDemo
         // add click function on node click
         Selection nodeEnter = node.enter().append("g")
                 .attr("class", css.node())
-                .attr("transform", "translate(" + source.getNumAttr("x0") + "," + source.getNumAttr("x0") + ")")
+                .attr("transform", "translate(" + source.getNumAttr("x0") + "," + source.getNumAttr("y0") + ")")
                 .on("click", new Click());
 
         // add circles to all entering nodes
