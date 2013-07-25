@@ -5,8 +5,8 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * A node in d3j's tree layout, see <a href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-nodes">d3 docs on
- * node</a>.The class provides accessors and setters for the nodes key attributes, such as its position, children,
- * parent, and depth.
+ * node</a>. The node class is used in {@link TreeLayout}, cluster, and partitions. The class provides accessors for the
+ * nodes key attributes, its position, children, parent, and depth.
  * 
  * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
  * 
@@ -32,38 +32,7 @@ public class Node
     }-*/;
 
     /**
-     * @return the coordinates as a 2 element array
-     */
-    public final native Array<Double> getCoords() /*-{
-		return [ this.x, this.y ];
-    }-*/;
-
-    /**
-     * Sets the attribute of the underlying JavaScript Object
-     * 
-     * @param name of attribute as a string
-     * @param value of any javascript object
-     */
-    public final native void setAttr(String name, JavaScriptObject value) /*-{
-		this[name] = value;
-    }-*/;
-
-    /**
-     * Sets the attribute of the underlying JavaScript Object
-     * 
-     * @param name of attribute as a string
-     * @param value as a double
-     */
-    public final native int setAttr(String name, int value) /*-{
-		return this[name] = value;
-    }-*/;
-
-    public final native double setAttr(String name, double value) /*-{
-		return this[name] = value;
-    }-*/;
-
-    /**
-     * @return array of node objects or null
+     * @return array of {@link Node} objects or null
      */
     public final native Array<Node> children() /*-{
 		return this.children;
@@ -74,22 +43,6 @@ public class Node
      */
     public final native Node parent() /*-{
 		return this.parent;
-    }-*/;
-
-    /**
-     * @param name of attribute as a string
-     * @return javascript object corresponding to attribute
-     */
-    public final native JavaScriptObject getObjAttr(String name) /*-{
-		return this[name];
-    }-*/;
-
-    /**
-     * @param name of attribute as a string
-     * @return javascript number corresponding to attribute
-     */
-    public final native double getNumAttr(String name) /*-{
-		return this[name];
     }-*/;
 
     /**
