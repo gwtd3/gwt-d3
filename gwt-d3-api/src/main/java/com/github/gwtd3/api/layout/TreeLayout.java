@@ -42,11 +42,25 @@ public class TreeLayout
     }-*/;
 
     /**
+     * @return a 2 element array representing the current size of the tree
+     */
+    public final native Size size() /*-{
+		return this.size();
+    }-*/;
+
+    /**
      * @param s 2 element array of width, height of nodes
      * @return this tree object
      */
     public final native TreeLayout nodeSize(Size s) /*-{
 		return this.nodeSize(s);
+    }-*/;
+
+    /**
+     * @return a 2 element array representing the current nodeSize of the tree
+     */
+    public final native Size nodeSize() /*-{
+		return this.nodeSize();
     }-*/;
 
     /**

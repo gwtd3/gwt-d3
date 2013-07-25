@@ -8,3 +8,6 @@
 /.factorypath
 /pom.xml.next
 /pom.xml.tag
+src/main/gwt-unitCache
+src/main/webapp
+.DS_Store
