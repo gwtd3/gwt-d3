@@ -54,6 +54,10 @@ public class Node
      * @param name of attribute as a string
      * @param value as a double
      */
+    public final native int setAttr(String name, int value) /*-{
+		return this[name] = value;
+    }-*/;
+
     public final native double setAttr(String name, double value) /*-{
 		return this[name] = value;
     }-*/;
