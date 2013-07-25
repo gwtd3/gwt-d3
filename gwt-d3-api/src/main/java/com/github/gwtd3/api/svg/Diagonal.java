@@ -1,7 +1,6 @@
 package com.github.gwtd3.api.svg;
 
 import com.github.gwtd3.api.functions.DatumFunction;
-import com.github.gwtd3.api.layout.Link;
 import com.github.gwtd3.api.layout.Node;
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -22,27 +21,6 @@ public class Diagonal
     protected Diagonal() {
         super();
     }
-
-    /**
-     * Computes the path data string for the specified datum
-     * 
-     * @param the datum
-     * @return the path data string
-     */
-    public final native String apply(Link datum) /*-{
-		return this.call(this, datum);
-    }-*/;
-
-    /**
-     * Computes the path data string for the specified datum, passing in the specified index to the accessor functions
-     * 
-     * @param the datum
-     * @param index of the datum
-     * @return the path data string
-     */
-    public final native String apply(Link datum, int index) /*-{
-		this.call(this, datum, index);
-    }-*/;
 
     /**
      * @return the callback function registered with the diagonal generator

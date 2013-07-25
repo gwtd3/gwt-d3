@@ -39,7 +39,6 @@ import com.github.gwtd3.demo.client.democases.LorenzSystem;
 import com.github.gwtd3.demo.client.democases.StupidExample;
 import com.github.gwtd3.demo.client.democases.StupidExample2;
 import com.github.gwtd3.demo.client.democases.TreeDemo;
-import com.github.gwtd3.demo.client.democases.arcs.ArcDemo;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.democases.geom.HullDemo;
@@ -71,149 +70,132 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class D3Demo
     implements EntryPoint {
 
-	public static final String DEMO_CONTAINER_ID = "demoContainer";
-	private ComplexPanel demoContainer;
-	private DemoCase currentDemo;
-	private TestSessionContainer testContainer;
+    public static final String DEMO_CONTAINER_ID = "demoContainer";
+    private ComplexPanel demoContainer;
+    private DemoCase currentDemo;
+    private TestSessionContainer testContainer;
 
-	/**
-	 * This is the entry point method.
-	 */
-	@Override
-	public void onModuleLoad() {
-		DebugInfo.setDebugIdPrefix("");
-		GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-			@Override
-			public void onUncaughtException(final Throwable e) {
-				GWT.log("Uncaught error", e);
-				Window.alert("Error. Go to see the logs");
-			}
-		});
+    /**
+     * This is the entry point method.
+     */
+    @Override
+    public void onModuleLoad() {
+        DebugInfo.setDebugIdPrefix("");
+        GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+            @Override
+            public void onUncaughtException(final Throwable e) {
+                GWT.log("Uncaught error", e);
+                Window.alert("Error. Go to see the logs");
+            }
+        });
 
-		DockLayoutPanel container = new DockLayoutPanel(Unit.PX);
-		container.setSize("100%", "100%");
+        DockLayoutPanel container = new DockLayoutPanel(Unit.PX);
+        container.setSize("100%", "100%");
 
-		container.addNorth(new Label("GWT-D3 : A thin GWT wrapper around D3.",
-				false), 20);
-		container.addNorth(new Label("D3 API version: " + D3.version(), false),
-				20);
+        container.addNorth(new Label("GWT-D3 : A thin GWT wrapper around D3.", false), 20);
+        container.addNorth(new Label("D3 API version: " + D3.version(), false), 20);
 
-		FlowPanel p = new FlowPanel();
-		ComplexPanel buttonContainer = new VerticalPanel();
-		buttonContainer.add(new TestButton());
-		// buttonContainer.add(new DemoButton("Arc", ArcDemo.factory()));
-		buttonContainer.add(new DemoButton("Axis Component", AxisComponent
-				.factory()));
-		buttonContainer.add(new DemoButton("Line Demo", LineDemo.factory()));
-		buttonContainer
-				.add(new DemoButton("Symbol Demo", SymbolDemo.factory()));
-		buttonContainer.add(new DemoButton("Stupid example", StupidExample
-				.factory()));
-		buttonContainer.add(new DemoButton("Stupid example 2", StupidExample2
-				.factory()));
-		buttonContainer.add(new DemoButton("General Update Pattern I",
-				GeneralUpdatePattern1.factory()));
-		buttonContainer.add(new DemoButton("General Update Pattern II",
-				GeneralUpdatePattern2.factory()));
-		buttonContainer.add(new DemoButton("General Update Pattern III",
-				GeneralUpdatePattern3.factory()));
-		buttonContainer.add(new DemoButton("Arc Tween", ArcTween.factory()));
-		buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram
-				.factory()));
-		buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem
-				.factory()));
+        FlowPanel p = new FlowPanel();
+        ComplexPanel buttonContainer = new VerticalPanel();
+        buttonContainer.add(new TestButton());
+        // buttonContainer.add(new DemoButton("Arc", ArcDemo.factory()));
+        buttonContainer.add(new DemoButton("Stupid example", StupidExample.factory()));
+        buttonContainer.add(new DemoButton("Stupid example 2", StupidExample2.factory()));
+        buttonContainer.add(new DemoButton("General Update Pattern I", GeneralUpdatePattern1.factory()));
+        buttonContainer.add(new DemoButton("General Update Pattern II", GeneralUpdatePattern2.factory()));
+        buttonContainer.add(new DemoButton("General Update Pattern III", GeneralUpdatePattern3.factory()));
+        buttonContainer.add(new DemoButton("Arc Tween", ArcTween.factory()));
+        buttonContainer.add(new DemoButton("Axis component", AxisComponent.factory()));
+        buttonContainer.add(new DemoButton("Focus and context", FocusAndContext.factory()));
+        buttonContainer.add(new DemoButton("Bar chart", BarChart.factory()));
+        buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram.factory()));
+        buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem.factory()));
+        buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples.factory()));
+        buttonContainer.add(new DemoButton("Collapsible Tree", TreeDemo.factory()));
 
-		buttonContainer.add(new DemoButton("Shape Tweening", ShapeTweeningDemo
-				.factory()));
-		buttonContainer.add(new DemoButton("Convex Hull", HullDemo.factory()));
+        p.add(buttonContainer);
+        container.addWest(p, 200);
 
-		buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples
-				.factory()));
-		buttonContainer.add(new DemoButton("Zoom", ZoomDemo.factory()));
-		buttonContainer.add(new DemoButton("Tree Layout", TreeDemo.factory()));
+        demoContainer = new FlowPanel();
+        demoContainer.ensureDebugId(D3Demo.DEMO_CONTAINER_ID);
+        demoContainer.setSize("100%", "100%");
+        container.add(demoContainer);
 
-		p.add(buttonContainer);
-		container.addWest(p, 200);
+        RootLayoutPanel.get().add(container);
 
-		demoContainer = new FlowPanel();
-		demoContainer.ensureDebugId(D3Demo.DEMO_CONTAINER_ID);
-		demoContainer.setSize("100%", "100%");
-		container.add(demoContainer);
+        container.forceLayout();
+    }
 
-		RootLayoutPanel.get().add(container);
+    public class DemoButton
+        extends Button {
 
-		container.forceLayout();
-	}
+        public DemoButton(final String title, final Factory demoClass) {
+            super(title, new DemoClickHandler(demoClass));
+            ensureDebugId(demoClass.id());
+        }
 
-	public class DemoButton extends Button {
+    }
 
-		public DemoButton(final String title, final Factory demoClass) {
-			super(title, new DemoClickHandler(demoClass));
-			ensureDebugId(demoClass.id());
-		}
+    public class DemoClickHandler
+        implements ClickHandler {
+        private final Factory demoClass;
 
-	}
+        public DemoClickHandler(final Factory demoClass) {
+            super();
+            this.demoClass = demoClass;
+        }
 
-	public class DemoClickHandler implements ClickHandler {
-		private final Factory demoClass;
+        /*
+         * (non-Javadoc)
+         * 
+         * @see com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt .event.dom.client.ClickEvent)
+         */
+        @Override
+        public void onClick(final ClickEvent event) {
+            stopCurrentDemo();
 
-		public DemoClickHandler(final Factory demoClass) {
-			super();
-			this.demoClass = demoClass;
-		}
+            DemoCase demo = demoClass.newInstance();
+            demoContainer.add(demo);
+            currentDemo = demo;
+            demo.start();
+        }
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt
-		 * .event.dom.client.ClickEvent)
-		 */
-		@Override
-		public void onClick(final ClickEvent event) {
-			stopCurrentDemo();
+    }
 
-			DemoCase demo = demoClass.newInstance();
-			demoContainer.add(demo);
-			currentDemo = demo;
-			demo.start();
-		}
+    public class TestButton
+        extends Button {
+        public static final String ID = "testSuiteButton";
 
-	}
+        public TestButton() {
+            super("Test Suite", new ClickHandler() {
+                private boolean firstTime = true;
+                private TestRunner runner;
 
-	public class TestButton extends Button {
-		public static final String ID = "testSuiteButton";
+                @Override
+                public void onClick(final ClickEvent event) {
+                    stopCurrentDemo();
+                    if (firstTime) {
+                        testContainer = new TestSessionContainer();
+                        runner = new TestRunner(testContainer);
+                        runner.setTests(D3TestSuite.get().getTests());
+                        firstTime = false;
+                    }
+                    demoContainer.add(testContainer);
+                }
+            });
+            ensureDebugId(TestButton.ID);
+        }
+    }
 
-		public TestButton() {
-			super("Test Suite", new ClickHandler() {
-				private boolean firstTime = true;
-				private TestRunner runner;
+    private void stopCurrentDemo() {
+        if (currentDemo != null) {
+            currentDemo.stop();
+            demoContainer.remove(currentDemo);
+            currentDemo = null;
+        }
+        else if ((testContainer != null) && testContainer.getParent().equals(demoContainer)) {
+            demoContainer.remove(testContainer);
+        }
 
-				@Override
-				public void onClick(final ClickEvent event) {
-					stopCurrentDemo();
-					if (firstTime) {
-						testContainer = new TestSessionContainer();
-						runner = new TestRunner(testContainer);
-						runner.setTests(D3TestSuite.get().getTests());
-						firstTime = false;
-					}
-					demoContainer.add(testContainer);
-				}
-			});
-			ensureDebugId(TestButton.ID);
-		}
-	}
-
-	private void stopCurrentDemo() {
-		if (currentDemo != null) {
-			currentDemo.stop();
-			demoContainer.remove(currentDemo);
-			currentDemo = null;
-		} else if ((testContainer != null)
-				&& testContainer.getParent().equals(demoContainer)) {
-			demoContainer.remove(testContainer);
-		}
-
-	}
+    }
 }

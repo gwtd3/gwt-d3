@@ -6,6 +6,7 @@ import com.github.gwtd3.api.Size;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.core.UpdateSelection;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
@@ -143,7 +144,7 @@ public class TreeDemo
                     @Override
                     public Integer map(Element context, Array<?> newDataArray, Value datum, int index) {
                         TreeDemoNode d = datum.<TreeDemoNode> as();
-                        return (d.id() == -1) ? d.setAttr("id", ++i) : d.id();
+                        return ((d.id() == -1) ? d.setAttr("id", ++i) : d.id());
                     }
                 });
 
@@ -164,7 +165,7 @@ public class TreeDemo
                 });
 
         // transition entering nodes
-        Selection nodeUpdate = node.transition()
+        Transition nodeUpdate = node.transition()
                 .duration(duration)
                 .attr("transform", new DatumFunction<String>() {
                     @Override
@@ -184,7 +185,7 @@ public class TreeDemo
                 });
 
         // transition exiting nodes
-        Selection nodeExit = node.exit().transition()
+        Transition nodeExit = node.exit().transition()
                 .duration(duration)
                 .attr("transform", new DatumFunction<String>() {
                     @Override
@@ -212,7 +213,7 @@ public class TreeDemo
                     @Override
                     public String apply(Element context, Value d, int index) {
                         Coords o = Coords.create(source.getNumAttr("x0"), source.getNumAttr("y0"));
-                        return diagonal.apply(Link.create(o, o));
+                        return diagonal.generate(Link.create(o, o));
                     }
                 });
 
@@ -226,7 +227,7 @@ public class TreeDemo
                     @Override
                     public String apply(Element context, Value d, int index) {
                         Coords o = Coords.create(source.x(), source.y());
-                        return diagonal.apply(Link.create(o, o));
+                        return diagonal.generate(Link.create(o, o));
                     }
                 })
                 .remove();
