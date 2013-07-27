@@ -28,3 +28,19 @@
  */
 /** Add css rules here for your application. */
 
+/*
+Zoom Demo
+*/
+
+.zoom svg {
+	font: 10px
+}
+
+.zoom rect {
+	fill : #ddd;
+	}
+	
+.zoom .axis path, .zoom .axis line {
+	fill : none;
+	stroke : #fff;
+	}

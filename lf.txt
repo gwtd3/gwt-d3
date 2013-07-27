@@ -1,0 +1,32 @@
+[1mdiff --cc gwt-d3-demo/src/main/java/com/github/gwtd3/demo/client/D3Demo.java[m
+[1mindex 4364796,ec51df8..0000000[m
+[1m--- a/gwt-d3-demo/src/main/java/com/github/gwtd3/demo/client/D3Demo.java[m
+[1m+++ b/gwt-d3-demo/src/main/java/com/github/gwtd3/demo/client/D3Demo.java[m
+[36m@@@ -39,9 -39,9 +39,10 @@@[m [mimport com.github.gwtd3.demo.client.dem[m
+  import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern3;[m
+  import com.github.gwtd3.demo.client.democases.StupidExample;[m
+  import com.github.gwtd3.demo.client.democases.StupidExample2;[m
+[32m+ import com.github.gwtd3.demo.client.democases.TreeDemo;[m
+  import com.github.gwtd3.demo.client.democases.arcs.ArcDemo;[m
+  import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;[m
+[32m +import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;[m
+  import com.github.gwtd3.demo.client.democases.charts.AxisDemo;[m
+  import com.github.gwtd3.demo.client.democases.charts.LineChartDemo;[m
+  import com.github.gwtd3.demo.client.test.ui.TestRunner;[m
+[36m@@@ -112,9 -113,8 +114,14 @@@[m [mpublic class D3Dem[m
+          buttonContainer.add(new DemoButton("Axis Demo", AxisDemo.factory()));[m
+  [m
+          buttonContainer.add(new DemoButton("Line Chart", LineChartDemo.factory()));[m
+[32m++<<<<<<< HEAD[m
+[32m +        [m
+[32m +        buttonContainer.add(new DemoButton("Zoom", ZoomDemo.factory()));[m
+[32m +        [m
+[32m++=======[m
+[32m+         buttonContainer.add(new DemoButton("Tree Layout", TreeDemo.factory()));[m
+[32m+ [m
+[32m++>>>>>>> evanshi/master[m
+          p.add(buttonContainer);[m
+          container.addWest(p, 200);[m
+  [m
+warning: LF will be replaced by CRLF in gwt-d3-demo/src/main/webapp/WEB-INF/deploy/d3demo/rpcPolicyManifest/manifest.txt.
+The file will have its original line endings in your working directory.

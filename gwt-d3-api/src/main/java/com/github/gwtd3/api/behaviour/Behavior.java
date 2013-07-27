@@ -46,13 +46,23 @@ public class Behavior extends JavaScriptObject {
 	}
 
 	/**
-	 * Create a new {@link Drag} behavior, that you will conigure and apply to a
-	 * {@link Selection}.
+	 * Create a new {@link Drag} behavior, that you will configure and apply to
+	 * a {@link Selection}.
 	 * 
 	 * @return the drag behaviour
 	 */
 	public final native Drag drag()/*-{
 		return this.drag();
+	}-*/;
+
+	/**
+	 * Create a new {@link Zoom} behavior, that you will configure and apply to
+	 * a {@link Selection}.
+	 * 
+	 * @return the zoom behaviour
+	 */
+	public final native Zoom zoom()/*-{
+		return this.zoom();
 	}-*/;
 
 }
