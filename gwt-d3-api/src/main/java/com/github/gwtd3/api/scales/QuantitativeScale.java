@@ -42,7 +42,8 @@ package com.github.gwtd3.api.scales;
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class QuantitativeScale<S extends QuantitativeScale<S>> extends Scale<S> {
+public abstract class QuantitativeScale<S extends QuantitativeScale<S>> extends
+		Scale<S> {
 
 	protected QuantitativeScale() {
 

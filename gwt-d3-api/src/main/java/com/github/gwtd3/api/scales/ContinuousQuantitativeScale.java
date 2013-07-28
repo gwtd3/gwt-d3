@@ -34,6 +34,7 @@ package com.github.gwtd3.api.scales;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.time.TimeScale;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayUtils;
 
@@ -50,7 +51,7 @@ import com.google.gwt.core.client.JsArrayUtils;
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class ContinuousQuantitativeScale<S extends ContinuousQuantitativeScale<S>>
+public abstract class ContinuousQuantitativeScale<S extends ContinuousQuantitativeScale<S>>
 		extends QuantitativeScale<S> {
 
 	protected ContinuousQuantitativeScale() {

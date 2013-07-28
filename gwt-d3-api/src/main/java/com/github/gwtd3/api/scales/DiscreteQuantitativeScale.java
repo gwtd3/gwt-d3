@@ -10,7 +10,7 @@ import com.github.gwtd3.api.arrays.Array;
  * 
  * @param <S>
  */
-public class DiscreteQuantitativeScale<S extends DiscreteQuantitativeScale<S>>
+public abstract class DiscreteQuantitativeScale<S extends DiscreteQuantitativeScale<S>>
 		extends QuantitativeScale<S> {
 
 	protected DiscreteQuantitativeScale() {
