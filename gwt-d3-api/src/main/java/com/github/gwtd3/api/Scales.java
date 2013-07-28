@@ -35,6 +35,7 @@ import com.github.gwtd3.api.scales.LinearScale;
 import com.github.gwtd3.api.scales.LogScale;
 import com.github.gwtd3.api.scales.OrdinalScale;
 import com.github.gwtd3.api.scales.PowScale;
+import com.github.gwtd3.api.scales.QuantizeScale;
 import com.github.gwtd3.api.scales.Scale;
 import com.github.gwtd3.api.scales.ThresholdScale;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -117,6 +118,21 @@ public class Scales extends JavaScriptObject {
 	 */
 	public final native PowScale sqrt()/*-{
 		return this.sqrt();
+	}-*/;
+	
+	/**
+	 * Constructs a new quantize scale with the default domain [0,1] 
+	 * and the default range [0,1]. 
+	 * <p>
+	 * Thus, the default quantize scale is equivalent to the round function 
+	 * for numbers; for example quantize(0.49) returns 0, and quantize(0.51) 
+	 * returns 1.
+	 * <p>
+	 * 
+	 * @return the new scale
+	 */
+	public final native QuantizeScale quantize()/*-{
+		return this.quantize();
 	}-*/;
 
 	public final native OrdinalScale ordinal()/*-{

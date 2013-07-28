@@ -30,10 +30,7 @@ package com.github.gwtd3.demo.client;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.demo.client.democases.ArcTween;
-import com.github.gwtd3.demo.client.democases.AxisComponent;
-import com.github.gwtd3.demo.client.democases.BarChart;
 import com.github.gwtd3.demo.client.democases.ChordDiagram;
-import com.github.gwtd3.demo.client.democases.FocusAndContext;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern1;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern2;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern3;
@@ -108,11 +105,6 @@ public class D3Demo implements EntryPoint {
 		buttonContainer.add(new DemoButton("General Update Pattern III",
 				GeneralUpdatePattern3.factory()));
 		buttonContainer.add(new DemoButton("Arc Tween", ArcTween.factory()));
-		buttonContainer.add(new DemoButton("Axis component", AxisComponent
-				.factory()));
-		buttonContainer.add(new DemoButton("Focus and context", FocusAndContext
-				.factory()));
-		buttonContainer.add(new DemoButton("Bar chart", BarChart.factory()));
 		buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram
 				.factory()));
 		buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem

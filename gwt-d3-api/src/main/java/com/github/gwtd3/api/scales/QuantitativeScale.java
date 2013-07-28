@@ -32,6 +32,13 @@
 package com.github.gwtd3.api.scales;
 
 /**
+ * Quantitative scales have a continuous domain:
+ * <ul>
+ * <li>{@link ContinuousQuantitativeScale} have a continuous output range
+ * <li>{@link DiscreteQuantitativeScale} have a discrete output range
+ * </ul>
+ * 
+ * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */

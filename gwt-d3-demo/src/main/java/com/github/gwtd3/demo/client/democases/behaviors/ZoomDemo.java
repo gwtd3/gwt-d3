@@ -80,11 +80,11 @@ public class ZoomDemo extends FlowPanel implements DemoCase {
 
 		// set the x axis
 		xAxis = D3.svg().axis().scale(x).orient(Orientation.BOTTOM)
-				.tickSize((int) -height);
+				.tickSize(-height);
 
 		// set the y axis
 		yAxis = D3.svg().axis().scale(y).orient(Orientation.LEFT).ticks(5)
-				.tickSize((int) -width);
+				.tickSize(-width);
 
 		// create zoom behavior
 		Zoom zoom = D3.behavior().zoom().x(x).y(y)
@@ -140,6 +140,7 @@ public class ZoomDemo extends FlowPanel implements DemoCase {
 	 * 
 	 * @see com.github.gwtd3.demo.client.DemoCase#start()
 	 */
+	@Override
 	public void start() {
 
 	}
