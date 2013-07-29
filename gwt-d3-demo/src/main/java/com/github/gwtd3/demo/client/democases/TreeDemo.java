@@ -286,7 +286,7 @@ public class TreeDemo
         }-*/;
 
         protected final native int id(int id) /*-{
-			return this.id;
+			return this.id = id;
         }-*/;
 
         protected final native void setAttr(String name, JavaScriptObject value) /*-{
