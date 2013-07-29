@@ -241,6 +241,14 @@ public class Transition
     /**
      * Transitions the attributes with the specified name to the value returned by the {@link PathDataGenerator} for
      * each selected element.
+     * <p>
+     * This method should always been used with a selection containing a svg &lt;path&gt; element by specifying "d" for
+     * the name argument.
+     * <p>
+     * The specified name may have a namespace prefix, such as xlink:href, to specify an "href" attribute in the XLink
+     * namespace. By default, D3 supports svg, xhtml, xlink, xml, and xmlns namespaces. Additional namespaces can be
+     * registered by adding to d3.ns.prefix.
+     * <p>
      * 
      * @param name
      * the name of the attribute
