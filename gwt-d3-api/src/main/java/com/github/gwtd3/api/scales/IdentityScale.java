@@ -49,6 +49,9 @@ import com.github.gwtd3.api.core.Formatter;
  */
 public class IdentityScale extends ContinuousQuantitativeScale<IdentityScale> {
 
+	protected IdentityScale(){
+		
+	}
 	// =========== ticks ==========
 
 	/**
