@@ -67,9 +67,9 @@ public class DragMultiples extends FlowPanel implements DemoCase {
 				// the origin will be set with the data of svg
 				// on mousedown
 				.origin(D3.identity())
-				.on(Drag.DragEventType.Drag, new OnDragMove())
-				.on(DragEventType.Dragstart, new OnDragStart())
-				.on(DragEventType.Dragend, new OnDragEnd());
+				.on(Drag.DragEventType.DRAG, new OnDragMove())
+				.on(DragEventType.DRAGSTART, new OnDragStart())
+				.on(DragEventType.DRAGEND, new OnDragEnd());
 		Selection svg = D3
 				.select(this)
 				.selectAll("svg")
