@@ -26,27 +26,40 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * 
- */
 package com.github.gwtd3.api.scales;
 
+import com.github.gwtd3.api.arrays.Array;
+
 /**
- * Quantitative scales have a continuous domain:
- * <ul>
- * <li>{@link ContinuousQuantitativeScale} have a continuous output range
- * <li>{@link DiscreteQuantitativeScale} have a discrete output range
- * </ul>
- * 
+ * {@link QuantitativeScale} with a discrete output range.
+ * <p>
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
+ * @param <S>
  */
-public abstract class QuantitativeScale<S extends QuantitativeScale<S>> extends
-		Scale<S> {
+public abstract class DiscreteQuantitativeScale<S extends DiscreteQuantitativeScale<S>>
+		extends QuantitativeScale<S> {
 
-	protected QuantitativeScale() {
+	protected DiscreteQuantitativeScale() {
 
 	}
+
+	/**
+	 * Returns the extent of values in the input domain [x0, x1] for the
+	 * corresponding value in the output range y, representing the inverse
+	 * mapping from range to domain.
+	 * <p>
+	 * This method is useful for interaction, say to determine the value in the
+	 * input domain that corresponds to the pixel location under the mouse.
+	 * <p>
+	 * 
+	 * @param y
+	 *            the output value to be converted to a domain range
+	 * @return the array of doubles
+	 */
+	public final native Array<Double> invertExtent(double y)/*-{
+		return this.invertExtent(y);
+	}-*/;
 
 }

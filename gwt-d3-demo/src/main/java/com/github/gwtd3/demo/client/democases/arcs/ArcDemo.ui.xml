@@ -38,14 +38,6 @@
 			vertical-align: top;
 			fill: #ff0000;
 		}
-	</ui:style>
-	<g:HTMLPanel>
-		<g:HTMLPanel addStyleNames="{style.inline}">
-<!-- 			innerRadius:<d:Slider 	ui:field="innerRadius"  min="0.0" 	max="100.0" 	value="20.0"/> -->
-<!-- 			outerRadius:<d:Slider 	ui:field="outerRadius" 	min="50.0" 	max="100.0" 	value="40.0"/> -->
-<!-- 			startAngle:<d:Slider 	ui:field="startAngle" 	min="0.0" 	max="6.30" 	value="0.0" /> -->
-<!-- 			endAngle:<d:Slider 		ui:field="endAngle"  	min="0.0" 	max="6.30" 	value="3.14"/> -->
-		</g:HTMLPanel>
-<!-- 		<s:SVGDocumentContainer ui:field="svgWidget" width="960" height="800" addStyleNames="{style.inline}"/> -->
-	</g:HTMLPanel>
+	</ui:style> 
+	<g:FlowPanel></g:FlowPanel>
 </ui:UiBinder> 

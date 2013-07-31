@@ -30,18 +30,15 @@ package com.github.gwtd3.demo.client;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.demo.client.democases.ArcTween;
-import com.github.gwtd3.demo.client.democases.AxisComponent;
-import com.github.gwtd3.demo.client.democases.BarChart;
 import com.github.gwtd3.demo.client.democases.ChordDiagram;
-import com.github.gwtd3.demo.client.democases.FocusAndContext;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern1;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern2;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern3;
 import com.github.gwtd3.demo.client.democases.LorenzSystem;
 import com.github.gwtd3.demo.client.democases.StupidExample;
 import com.github.gwtd3.demo.client.democases.StupidExample2;
-import com.github.gwtd3.demo.client.democases.TreeDemo;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
+import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.test.ui.TestRunner;
 import com.github.gwtd3.demo.client.test.ui.TestSessionContainer;
 import com.github.gwtd3.demo.client.testcases.D3TestSuite;
@@ -89,29 +86,34 @@ public class D3Demo
         DockLayoutPanel container = new DockLayoutPanel(Unit.PX);
         container.setSize("100%", "100%");
 
-        container.addNorth(new Label("GWT-D3 : A thin GWT wrapper around D3.", false), 20);
-        container.addNorth(new Label("D3 API version: " + D3.version(), false), 20);
+        container.addNorth(new Label("GWT-D3 : A thin GWT wrapper around D3.",
+                false), 20);
+        container.addNorth(new Label("D3 API version: " + D3.version(), false),
+                20);
 
         FlowPanel p = new FlowPanel();
         ComplexPanel buttonContainer = new VerticalPanel();
         buttonContainer.add(new TestButton());
         // buttonContainer.add(new DemoButton("Arc", ArcDemo.factory()));
-        buttonContainer.add(new DemoButton("Stupid example", StupidExample.factory()));
-        buttonContainer.add(new DemoButton("Stupid example 2", StupidExample2.factory()));
-        buttonContainer.add(new DemoButton("General Update Pattern I", GeneralUpdatePattern1.factory()));
-        buttonContainer.add(new DemoButton("General Update Pattern II", GeneralUpdatePattern2.factory()));
-        buttonContainer.add(new DemoButton("General Update Pattern III", GeneralUpdatePattern3.factory()));
+        buttonContainer.add(new DemoButton("Stupid example", StupidExample
+                .factory()));
+        buttonContainer.add(new DemoButton("Stupid example 2", StupidExample2
+                .factory()));
+        buttonContainer.add(new DemoButton("General Update Pattern I",
+                GeneralUpdatePattern1.factory()));
+        buttonContainer.add(new DemoButton("General Update Pattern II",
+                GeneralUpdatePattern2.factory()));
+        buttonContainer.add(new DemoButton("General Update Pattern III",
+                GeneralUpdatePattern3.factory()));
         buttonContainer.add(new DemoButton("Arc Tween", ArcTween.factory()));
-        buttonContainer.add(new DemoButton("Axis component", AxisComponent.factory()));
-        buttonContainer.add(new DemoButton("Focus and context", FocusAndContext.factory()));
-        buttonContainer.add(new DemoButton("Bar chart", BarChart.factory()));
-        buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram.factory()));
-        buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem.factory()));
-        buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples.factory()));
-        buttonContainer.add(new DemoButton("Collapsible Tree", TreeDemo.factory()));
+        buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram
+                .factory()));
+        buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem
+                .factory()));
 
-        p.add(buttonContainer);
-        container.addWest(p, 200);
+        buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples
+                .factory()));
+        buttonContainer.add(new DemoButton("Zoom", ZoomDemo.factory()));
 
         demoContainer = new FlowPanel();
         demoContainer.ensureDebugId(D3Demo.DEMO_CONTAINER_ID);
@@ -145,18 +147,15 @@ public class D3Demo
         /*
          * (non-Javadoc)
          * 
-         * @see com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt .event.dom.client.ClickEvent)
+         * @see
+         * com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt
+         * .event.dom.client.ClickEvent)
          */
         @Override
         public void onClick(final ClickEvent event) {
             stopCurrentDemo();
 
-            DemoCase demo = demoClass.newInstance();
-            demoContainer.add(demo);
-            currentDemo = demo;
-            demo.start();
         }
-
     }
 
     public class TestButton
@@ -190,7 +189,8 @@ public class D3Demo
             demoContainer.remove(currentDemo);
             currentDemo = null;
         }
-        else if ((testContainer != null) && testContainer.getParent().equals(demoContainer)) {
+        else if ((testContainer != null)
+                && testContainer.getParent().equals(demoContainer)) {
             demoContainer.remove(testContainer);
         }
 
