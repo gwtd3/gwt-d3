@@ -47,33 +47,43 @@ import com.google.gwt.dom.client.Element;
  * A transition is a special type of selection where the operators apply
  * smoothly over time rather than instantaneously. You derive a transition from
  * a selection using the {@link Selection#transition()} operator. While
- * transitions generally support the same operators as selections (such as {@link #attr(String)} and
- * {@link #style(String)}), not all operators are
+ * transitions generally support the same operators as selections (such as
+ * {@link #attr(String)} and {@link #style(String)}), not all operators are
  * supported; for example, you must {@link #append(String)} elements before a
  * transition starts. A {@link #remove()} operator is provided for convenient
  * removal of elements when the transition ends.
  * <p>
- * Transitions may have per-element #delay and {@link #duration(DatumFunction)}, computed using functions of data
- * similar to other operators. This makes it easy to stagger a transition for different elements, either based on data
- * or index. For example, you can sort elements and then stagger the transition for better perception of element
- * reordering during the transition. For more details on these techniques, see
+ * Transitions may have per-element #delay and {@link #duration(DatumFunction)},
+ * computed using functions of data similar to other operators. This makes it
+ * easy to stagger a transition for different elements, either based on data or
+ * index. For example, you can sort elements and then stagger the transition for
+ * better perception of element reordering during the transition. For more
+ * details on these techniques, see
  * "Animated Transitions in Statistical Data Graphics" by Heer & Robertson.
  * <p>
- * D3 has many built-in interpolators to simplify the transitioning of arbitrary values. For instance, you can
- * transition from the font string "500 12px sans-serif" to "300 42px sans-serif", and D3 will find the numbers embedded
- * within the string, interpolating both font size and weight automatically. You can even interpolate arbitrary nested
- * objects and arrays or SVG path data. D3 allows custom interpolators should you find the built-in ones insufficient,
- * using the attrTween and styleTween operators. D3's interpolators provide the basis for scales and can be used outside
- * of transitions; an interpolator is a function that maps a parametric value t in the domain [0,1] to a color, number
- * or arbitrary value.
+ * D3 has many built-in interpolators to simplify the transitioning of arbitrary
+ * values. For instance, you can transition from the font string
+ * "500 12px sans-serif" to "300 42px sans-serif", and D3 will find the numbers
+ * embedded within the string, interpolating both font size and weight
+ * automatically. You can even interpolate arbitrary nested objects and arrays
+ * or SVG path data. D3 allows custom interpolators should you find the built-in
+ * ones insufficient, using the attrTween and styleTween operators. D3's
+ * interpolators provide the basis for scales and can be used outside of
+ * transitions; an interpolator is a function that maps a parametric value t in
+ * the domain [0,1] to a color, number or arbitrary value.
  * <p>
- * Only one transition may be active on a given element at a given time. However, multiple transitions may be scheduled
- * on the same element; provided they are staggered in time, each transition will run in sequence. If a newer transition
- * runs on a given element, it implicitly cancels any older transitions, including any that were scheduled but not yet
- * run. This allows new transitions, such as those in response to a new user event, to supersede older transitions even
- * if those older transitions are staged or have staggered delays. Multi-stage transitions (transitions that are created
- * during the "end" event of an earlier transition) are considered the same "age" as the original transition; internally
- * this is tracked by monotonically-increasing unique IDs which are inherited when multi-stage transitions are created.
+ * Only one transition may be active on a given element at a given time.
+ * However, multiple transitions may be scheduled on the same element; provided
+ * they are staggered in time, each transition will run in sequence. If a newer
+ * transition runs on a given element, it implicitly cancels any older
+ * transitions, including any that were scheduled but not yet run. This allows
+ * new transitions, such as those in response to a new user event, to supersede
+ * older transitions even if those older transitions are staged or have
+ * staggered delays. Multi-stage transitions (transitions that are created
+ * during the "end" event of an earlier transition) are considered the same
+ * "age" as the original transition; internally this is tracked by
+ * monotonically-increasing unique IDs which are inherited when multi-stage
+ * transitions are created.
  * <p>
  * For more on transitions, read the Working with Transitions tutorial.
  * 
@@ -105,14 +115,17 @@ public class Transition
     /**
      * Specifies the transition delay of each selected element.
      * <p>
-     * The function is evaluated for each selected element (in order), being passed the current datum d and the current
-     * index i, with the this context as the current DOM element.
+     * The function is evaluated for each selected element (in order), being
+     * passed the current datum d and the current index i, with the this context
+     * as the current DOM element.
      * <p>
-     * The function's return value is then used to set each element's delay. The default delay is 0.
+     * The function's return value is then used to set each element's delay. The
+     * default delay is 0.
      * <p>
-     * Setting the delay to be a multiple of the index i is a convenient way to stagger transitions for elements. For
-     * example, if you used a fixed duration of duration, and have n elements in the current selection, you can stagger
-     * the transition over 2 * duration by saying:
+     * Setting the delay to be a multiple of the index i is a convenient way to
+     * stagger transitions for elements. For example, if you used a fixed
+     * duration of duration, and have n elements in the current selection, you
+     * can stagger the transition over 2 * duration by saying:
      * <p>
      * 
      * <pre>
@@ -121,7 +134,8 @@ public class Transition
 	 * }
 	 * </pre>
      * <p>
-     * You may also compute the delay as a function of the data, thereby creating a data-driven animation.
+     * You may also compute the delay as a function of the data, thereby
+     * creating a data-driven animation.
      * 
      * @param milliseconds
      * the transition duration in milliseconds
@@ -164,10 +178,12 @@ public class Transition
     /**
      * Specifies the transition {@link EasingFunction} to be used.
      * <p>
-     * Built-in easing functions can be created using {@link Easing} factory or you may provide a custom implementation.
+     * Built-in easing functions can be created using {@link Easing} factory or
+     * you may provide a custom implementation.
      * <p>
-     * Note that it is not possible to customize the easing function per-element or per-attribute; however, if you use
-     * the "linear" easing function, you can apply custom easing inside your interpolator using
+     * Note that it is not possible to customize the easing function per-element
+     * or per-attribute; however, if you use the "linear" easing function, you
+     * can apply custom easing inside your interpolator using
      * {@link #attrTween(String, TweenFunction)} or {@link #styleTween()}
      * <p>
      * 
@@ -191,7 +207,8 @@ public class Transition
      * @param t
      * @return
      */
-    private static final double trampolineCallEase(final EasingFunction function, final double t) {
+    private static final double trampolineCallEase(final EasingFunction function,
+                                                   final double t) {
         return function.ease(t);
     }
 
@@ -201,15 +218,19 @@ public class Transition
      * Transition the attribute with the specified name to the specified value
      * on all selected elements.
      * <p>
-     * The starting value of the transition is the current attribute value, and the ending value is the specified value.
+     * The starting value of the transition is the current attribute value, and
+     * the ending value is the specified value.
      * <p>
-     * A check is performed to see if the ending value represents a color of the form /^(#|rgb\(|hsl\()/, or one of the
-     * CSS named colors; if so, the starting value is coerced to an RGB color and
-     * {@link D3#interpolateRgb(Color, Color)} is used. Otherwise, interpolateString is used, which interpolates numbers
-     * embedded within strings.
+     * A check is performed to see if the ending value represents a color of the
+     * form /^(#|rgb\(|hsl\()/, or one of the CSS named colors; if so, the
+     * starting value is coerced to an RGB color and
+     * {@link D3#interpolateRgb(Color, Color)} is used. Otherwise,
+     * interpolateString is used, which interpolates numbers embedded within
+     * strings.
      * <p>
-     * null values are not supported because the interpolator would be undefined; if you want to remove the attribute
-     * after the transition finishes, listen to the end event.
+     * null values are not supported because the interpolator would be
+     * undefined; if you want to remove the attribute after the transition
+     * finishes, listen to the end event.
      * <p>
      * 
      * @param name
@@ -226,7 +247,8 @@ public class Transition
     /**
      * See {@link #attr(String, String)}.
      * <p>
-     * The startValue will be coerced to a number and interpolateNumber will be used to transition the attribute value.
+     * The startValue will be coerced to a number and interpolateNumber will be
+     * used to transition the attribute value.
      * <p>
      * 
      * @param name
@@ -239,24 +261,28 @@ public class Transition
     }-*/;
 
     /**
-     * Transitions the attributes with the specified name to the value returned by the {@link PathDataGenerator} for
+     * Transitions the attributes with the specified name to the value returned
+     * by the {@link PathDataGenerator} for
      * each selected element.
      * <p>
-     * This method should always been used with a selection containing a svg &lt;path&gt; element by specifying "d" for
-     * the name argument.
+     * This method should always been used with a selection containing a svg
+     * &lt;path&gt; element by specifying "d" for the name argument.
      * <p>
-     * The specified name may have a namespace prefix, such as xlink:href, to specify an "href" attribute in the XLink
-     * namespace. By default, D3 supports svg, xhtml, xlink, xml, and xmlns namespaces. Additional namespaces can be
-     * registered by adding to d3.ns.prefix.
+     * The specified name may have a namespace prefix, such as xlink:href, to
+     * specify an "href" attribute in the XLink namespace. By default, D3
+     * supports svg, xhtml, xlink, xml, and xmlns namespaces. Additional
+     * namespaces can be registered by adding to d3.ns.prefix.
      * <p>
      * 
      * @param name
      * the name of the attribute
      * @param value
-     * the {@link PathDataGenerator} used to compute the new value of the attribute
+     * the {@link PathDataGenerator} used to compute the new value of the
+     * attribute
      * @return the current transition
      */
-    public native final Transition attr(final String name, PathDataGenerator value) /*-{
+    public native final Transition attr(final String name,
+                                        PathDataGenerator value) /*-{
 		return this.attr(name, value);
     }-*/;
 
@@ -264,17 +290,22 @@ public class Transition
      * Transitions the attribute with the specified name to the value returned
      * by the specified function on all selected elements.
      * <p>
-     * The function is evaluated for each selected element (in order), being passed the current datum d and the current
-     * index i. The function's return value is then used to set each element's attribute.
+     * The function is evaluated for each selected element (in order), being
+     * passed the current datum d and the current index i. The function's return
+     * value is then used to set each element's attribute.
      * <p>
-     * Null values are not supported because the interpolator would be undefined; if you want to remove the attribute
-     * after the transition finishes, listen to the end event.
+     * Null values are not supported because the interpolator would be
+     * undefined; if you want to remove the attribute after the transition
+     * finishes, listen to the end event.
      * <p>
-     * An interpolator is selected automatically based on the ending value. If the ending value is a number, the
-     * starting value is coerced to a number and interpolateNumber is used. If the ending value is a string, a check is
-     * performed to see if the string represents a color of the form /^(#|rgb\(|hsl\()/, or one of the CSS named colors;
-     * if so, the starting value is coerced to an RGB color and interpolateRgb is used. Otherwise, interpolateString is
-     * used, which interpolates numbers embedded within strings.
+     * An interpolator is selected automatically based on the ending value. If
+     * the ending value is a number, the starting value is coerced to a number
+     * and interpolateNumber is used. If the ending value is a string, a check
+     * is performed to see if the string represents a color of the form
+     * /^(#|rgb\(|hsl\()/, or one of the CSS named colors; if so, the starting
+     * value is coerced to an RGB color and interpolateRgb is used. Otherwise,
+     * interpolateString is used, which interpolates numbers embedded within
+     * strings.
      * <p>
      * 
      * @param name
@@ -283,7 +314,8 @@ public class Transition
      * the function used to compute the new value of the attribute
      * @return the current transition
      */
-    public native final Transition attr(final String name, final DatumFunction<?> callback)
+    public native final Transition attr(final String name,
+                                        final DatumFunction<?> callback)
     /*-{
 		return this
 				.attr(
@@ -297,21 +329,26 @@ public class Transition
      * Transitions the value of the attribute with the specified name according
      * to the specified tween function.
      * <p>
-     * The starting and ending value of the transition are determined by tweenFunction; the tween function is invoked
-     * when the transition starts on each element, being passed the current DOM element, the datum d, the current index
-     * i and the current attribute value a.
+     * The starting and ending value of the transition are determined by
+     * tweenFunction; the tween function is invoked when the transition starts
+     * on each element, being passed the current DOM element, the datum d, the
+     * current index i and the current attribute value a.
      * <p>
-     * The return value of tween must be an interpolator: a function that maps a parametric value t in the domain [0,1]
-     * to a color, number or arbitrary value.
+     * The return value of tween must be an interpolator: a function that maps a
+     * parametric value t in the domain [0,1] to a color, number or arbitrary
+     * value.
      * 
-     * @see <a href="https://github.com/mbostock/d3/wiki/Transitions#wiki-attrTween">Offical API</a>
+     * @see <a
+     * href="https://github.com/mbostock/d3/wiki/Transitions#wiki-attrTween">Offical
+     * API</a>
      * 
      * @param name
      * the name of the attribute to transition
      * @param tweenFunction
      * the function used to create an interpolator
      */
-    public native final Transition attrTween(String name, TweenFunction<?> tweenFunction)/*-{
+    public native final Transition attrTween(String name,
+                                             TweenFunction<?> tweenFunction)/*-{
 		return this
 				.attrTween(
 						name,
@@ -327,23 +364,29 @@ public class Transition
      * Transitions the value of the CSS style property with the specified name
      * to the specified value.
      * <p>
-     * The starting value of the transition is the current computed style property value, and the ending value is the
-     * specified value.
+     * The starting value of the transition is the current computed style
+     * property value, and the ending value is the specified value.
      * <p>
-     * All elements are transitioned to the same style property value; Null values are not supported because the
-     * interpolator would be undefined; if you want to remove the style property after the transition finishes, listen
-     * to the end event.
+     * All elements are transitioned to the same style property value; Null
+     * values are not supported because the interpolator would be undefined; if
+     * you want to remove the style property after the transition finishes,
+     * listen to the end event.
      * 
-     * An interpolator is selected automatically based on the ending value. If the ending value is a number, the
-     * starting value is coerced to a number and interpolateNumber is used. If the ending value is a string, a check is
-     * performed to see if the string represents a color of the form /^(#|rgb\(|hsl\()/, or one of the CSS named colors;
-     * if so, the starting value is coerced to an RGB color and interpolateRgb is used. Otherwise, interpolateString is
-     * used, which interpolates numbers embedded within strings.
+     * An interpolator is selected automatically based on the ending value. If
+     * the ending value is a number, the starting value is coerced to a number
+     * and interpolateNumber is used. If the ending value is a string, a check
+     * is performed to see if the string represents a color of the form
+     * /^(#|rgb\(|hsl\()/, or one of the CSS named colors; if so, the starting
+     * value is coerced to an RGB color and interpolateRgb is used. Otherwise,
+     * interpolateString is used, which interpolates numbers embedded within
+     * strings.
      * 
-     * Note that the computed starting value may be different than the value that was previously set, particularly if
-     * the style property was set using a shorthand property (such as the "font" style, which is shorthand for
-     * "font-size", "font-face", etc.). Moreover, computed dimensions such as "font-size" and "line-height" are always
-     * in pixels, so you should specify the ending value in pixels too if appropriate.
+     * Note that the computed starting value may be different than the value
+     * that was previously set, particularly if the style property was set using
+     * a shorthand property (such as the "font" style, which is shorthand for
+     * "font-size", "font-face", etc.). Moreover, computed dimensions such as
+     * "font-size" and "line-height" are always in pixels, so you should specify
+     * the ending value in pixels too if appropriate.
      * <p>
      * 
      * @param name
@@ -402,26 +445,33 @@ public class Transition
      * Transitions the value of the CSS style property with the specified name
      * to the specified value.
      * <p>
-     * The starting value of the transition is the current computed style property value, and the ending value is the
-     * specified value.
+     * The starting value of the transition is the current computed style
+     * property value, and the ending value is the specified value.
      * <p>
-     * The function is evaluated for each selected element (in order), being passed the current datum d and the current
-     * index i, with the this context as the current DOM element.
+     * The function is evaluated for each selected element (in order), being
+     * passed the current datum d and the current index i, with the this context
+     * as the current DOM element.
      * <p>
-     * The function's return value is then used to transition each element's style property. Null values are not
-     * supported because the interpolator would be undefined; if you want to remove the style property after the
+     * The function's return value is then used to transition each element's
+     * style property. Null values are not supported because the interpolator
+     * would be undefined; if you want to remove the style property after the
      * transition finishes, listen to the end event.
      * <p>
-     * An interpolator is selected automatically based on the ending value. If the ending value is a number, the
-     * starting value is coerced to a number and interpolateNumber is used. If the ending value is a string, a check is
-     * performed to see if the string represents a color of the form /^(#|rgb\(|hsl\()/, or one of the CSS named colors;
-     * if so, the starting value is coerced to an RGB color and interpolateRgb is used. Otherwise, interpolateString is
-     * used, which interpolates numbers embedded within strings.
+     * An interpolator is selected automatically based on the ending value. If
+     * the ending value is a number, the starting value is coerced to a number
+     * and interpolateNumber is used. If the ending value is a string, a check
+     * is performed to see if the string represents a color of the form
+     * /^(#|rgb\(|hsl\()/, or one of the CSS named colors; if so, the starting
+     * value is coerced to an RGB color and interpolateRgb is used. Otherwise,
+     * interpolateString is used, which interpolates numbers embedded within
+     * strings.
      * <p>
-     * Note that the computed starting value may be different than the value that was previously set, particularly if
-     * the style property was set using a shorthand property (such as the "font" style, which is shorthand for
-     * "font-size", "font-face", etc.). Moreover, computed dimensions such as "font-size" and "line-height" are always
-     * in pixels, so you should specify the ending value in pixels too if appropriate.
+     * Note that the computed starting value may be different than the value
+     * that was previously set, particularly if the style property was set using
+     * a shorthand property (such as the "font" style, which is shorthand for
+     * "font-size", "font-face", etc.). Moreover, computed dimensions such as
+     * "font-size" and "line-height" are always in pixels, so you should specify
+     * the ending value in pixels too if appropriate.
      * <p>
      * 
      * @param name
@@ -434,7 +484,9 @@ public class Transition
      * otherwise
      * @return the current selection
      */
-    public native final Selection style(String name, DatumFunction<?> callback, boolean important)/*-{
+    public native final Selection style(String name,
+                                        DatumFunction<?> callback,
+                                        boolean important)/*-{
 		var imp = important ? 'important' : null;
 		return this
 				.style(
@@ -451,12 +503,14 @@ public class Transition
      * Transitions the value of the CSS style property with the specified name
      * according to the specified tween function.
      * <p>
-     * The starting and ending value of the transition are determined by tweenFunction; the tween function is invoked
-     * when the transition starts on each element, being passed the current DOM element, the datum d, the current index
-     * i and the current attribute value a.
+     * The starting and ending value of the transition are determined by
+     * tweenFunction; the tween function is invoked when the transition starts
+     * on each element, being passed the current DOM element, the datum d, the
+     * current index i and the current attribute value a.
      * <p>
-     * The return value of tween must be an interpolator: a function that maps a parametric value t in the domain [0,1]
-     * to a color, number or arbitrary value.
+     * The return value of tween must be an interpolator: a function that maps a
+     * parametric value t in the domain [0,1] to a color, number or arbitrary
+     * value.
      * <p>
      * 
      * @param name
@@ -469,7 +523,9 @@ public class Transition
      * otherwise
      * @return the current selection
      */
-    public native final Selection styleTween(String name, TweenFunction<?> tweenFunction, boolean important)/*-{
+    public native final Selection styleTween(String name,
+                                             TweenFunction<?> tweenFunction,
+                                             boolean important)/*-{
 		var imp = important ? 'important' : null;
 		return this
 				.styleTween(
@@ -485,8 +541,9 @@ public class Transition
      * The text operator is based on the textContent property; setting the text
      * content will replace any existing child elements.
      * <p>
-     * Set the text content to the specified value on all selected elements when the transition starts. All elements are
-     * given the same text content; a null value will clear the content.
+     * Set the text content to the specified value on all selected elements when
+     * the transition starts. All elements are given the same text content; a
+     * null value will clear the content.
      * 
      * @param value
      * the new text value to set
@@ -503,10 +560,12 @@ public class Transition
      * Set the text content to the specified value on all selected elements when
      * the transition starts.
      * <p>
-     * The function is evaluated for each selected element (in order), being passed the current datum d and the current
-     * index i, with the this context as the current DOM element.
+     * The function is evaluated for each selected element (in order), being
+     * passed the current datum d and the current index i, with the this context
+     * as the current DOM element.
      * <p>
-     * The function's return value is then used to set each element's text content.
+     * The function's return value is then used to set each element's text
+     * content.
      * <p>
      * A null value will clear the content.
      * <p>
@@ -525,12 +584,13 @@ public class Transition
     /**
      * Registers a custom tween for the specified name.
      * <p>
-     * When the transition starts, the specified factory function will be invoked for each selected element in the
-     * transition, so as to compute the tween function. If the factory returns null, then the tween is not run on the
-     * selected element.
+     * When the transition starts, the specified factory function will be
+     * invoked for each selected element in the transition, so as to compute the
+     * tween function. If the factory returns null, then the tween is not run on
+     * the selected element.
      * <p>
-     * This method is used internally by the attr and style tweens, and can be used to interpolate other document
-     * content.
+     * This method is used internally by the attr and style tweens, and can be
+     * used to interpolate other document content.
      * 
      * @param name
      * the name of the property to register
@@ -538,7 +598,8 @@ public class Transition
      * the function returning an {@link Interpolator}
      * @return the current transition
      */
-    public native final Transition tween(String name, DatumFunction<Interpolator<?>> factory)/*-{
+    public native final Transition tween(String name,
+                                         DatumFunction<Interpolator<?>> factory)/*-{
 		return this
 				.tween(
 						name,
@@ -550,8 +611,9 @@ public class Transition
     /**
      * Remove the selected elements at the end of a transition.
      * <p>
-     * If a newer transition is scheduled on any of the selected elements, these elements will not be removed; however,
-     * the "end" event will still be dispatched.
+     * If a newer transition is scheduled on any of the selected elements, these
+     * elements will not be removed; however, the "end" event will still be
+     * dispatched.
      * 
      * 
      * @return the current transition
@@ -566,17 +628,21 @@ public class Transition
      * For each element in the current selection, selects the first descendant
      * element that matches the specified selector string.
      * <p>
-     * If no element matches the specified selector for the current element, the element at the current index will be
-     * null in the returned transition; operators (with the exception of {@link Selection#data}) automatically skip null
-     * elements, thereby preserving the index of the existing selection.
+     * If no element matches the specified selector for the current element, the
+     * element at the current index will be null in the returned transition;
+     * operators (with the exception of {@link Selection#data}) automatically
+     * skip null elements, thereby preserving the index of the existing
+     * selection.
      * <p>
-     * If the current element has associated data, this data is inherited by the returned subselection, and
-     * automatically bound to the newly selected elements.
+     * If the current element has associated data, this data is inherited by the
+     * returned subselection, and automatically bound to the newly selected
+     * elements.
      * <p>
-     * If multiple elements match the selector, only the first matching element in document traversal order will be
-     * selected.
+     * If multiple elements match the selector, only the first matching element
+     * in document traversal order will be selected.
      * <p>
-     * In addition, the returned new transition inherits easing, duration and delay from the current transition.
+     * In addition, the returned new transition inherits easing, duration and
+     * delay from the current transition.
      * 
      * @param selector
      * the selector
@@ -591,16 +657,19 @@ public class Transition
      * For each element in the current transition, selects descendant elements
      * that match the specified selector string.
      * <p>
-     * The returned selection is grouped by the ancestor node in the current selection. If no element matches the
-     * specified selector for the current element, the group at the current index will be empty in the returned
+     * The returned selection is grouped by the ancestor node in the current
+     * selection. If no element matches the specified selector for the current
+     * element, the group at the current index will be empty in the returned
      * selection.
      * <p>
-     * The subselection does not inherit data from the current selection; however, if data was previously bound to the
-     * selected elements, that data will be available to operators.
+     * The subselection does not inherit data from the current selection;
+     * however, if data was previously bound to the selected elements, that data
+     * will be available to operators.
      * <p>
-     * In addition, the returned new transition inherits easing, duration and delay from the current transition. The
-     * duration and delay for each subelement is inherited from the duration and delay of the parent element in the
-     * current transition.
+     * In addition, the returned new transition inherits easing, duration and
+     * delay from the current transition. The duration and delay for each
+     * subelement is inherited from the duration and delay of the parent element
+     * in the current transition.
      * <p>
      * 
      * @param selector
@@ -616,8 +685,9 @@ public class Transition
      * Filters the transition, returning a new transition that contains only the
      * elements for which the specified selector is true.
      * <p>
-     * Like the built-in array filter method, the returned selection does not preserve the index of the original
-     * selection; it returns a copy with elements removed.
+     * Like the built-in array filter method, the returned selection does not
+     * preserve the index of the original selection; it returns a copy with
+     * elements removed.
      * <p>
      * If you want to preserve the index, use select instead.
      * <p>
@@ -634,11 +704,12 @@ public class Transition
      * Filters the transition, returning a new transition that contains only the
      * elements for which the specified selector is true.
      * <p>
-     * As with other operators, the function is passed the current datum d and index i, with the this context as the
-     * current DOM element.
+     * As with other operators, the function is passed the current datum d and
+     * index i, with the this context as the current DOM element.
      * <p>
-     * Like the built-in array filter method, the returned selection does not preserve the index of the original
-     * selection; it returns a copy with elements removed. If you want to preserve the index, use select instead.
+     * Like the built-in array filter method, the returned selection does not
+     * preserve the index of the original selection; it returns a copy with
+     * elements removed. If you want to preserve the index, use select instead.
      * <p>
      * 
      * @param datumFunction
@@ -710,22 +781,27 @@ public class Transition
      * Adds a listener for transition events. The listener will be invoked for
      * each individual element in the transition.
      * <p>
-     * The start event is invoked during the first asynchronous callback (tick) of the transition, before any tweens are
-     * invoked. For transitions with zero delay, this is typically about 17ms after the transition is scheduled. State
-     * events are useful for triggering instantaneous changes to each element, such as changing attributes that cannot
-     * be interpolated.
+     * The start event is invoked during the first asynchronous callback (tick)
+     * of the transition, before any tweens are invoked. For transitions with
+     * zero delay, this is typically about 17ms after the transition is
+     * scheduled. State events are useful for triggering instantaneous changes
+     * to each element, such as changing attributes that cannot be interpolated.
      * <p>
-     * The end event is invoked during the last asynchronous callback (tick) after the transition duration and delay
-     * expires, after all tweens are invoked with t=1. Note that if the transition is superseded by a later-scheduled
-     * transition on a given element, no end event will be dispatched for that element; interrupted transitions do not
-     * trigger end events. For example, transition.remove schedules each element to be removed when the transition ends,
-     * but if the transition is interrupted, the element will not be removed. End events can be used as an alternative
-     * to transition.transition to create chained transitions by selecting the current element, this, and deriving a new
-     * transition.
+     * The end event is invoked during the last asynchronous callback (tick)
+     * after the transition duration and delay expires, after all tweens are
+     * invoked with t=1. Note that if the transition is superseded by a
+     * later-scheduled transition on a given element, no end event will be
+     * dispatched for that element; interrupted transitions do not trigger end
+     * events. For example, transition.remove schedules each element to be
+     * removed when the transition ends, but if the transition is interrupted,
+     * the element will not be removed. End events can be used as an alternative
+     * to transition.transition to create chained transitions by selecting the
+     * current element, this, and deriving a new transition.
      * <p>
-     * Any transitions created during the end event will inherit the current transition parameters, including ID, time,
-     * easing, delay and duration. Thus, new transitions created within a parent transition.each will not the parent
-     * transition, similar to subtransitions.
+     * Any transitions created during the end event will inherit the current
+     * transition parameters, including ID, time, easing, delay and duration.
+     * Thus, new transitions created within a parent transition.each will not
+     * the parent transition, similar to subtransitions.
      * <p>
      * 
      * @param type
@@ -734,7 +810,8 @@ public class Transition
      * the listener
      * @return the current transition
      */
-    public final native Transition each(EventType type, DatumFunction<Void> listener)/*-{
+    public final native Transition each(EventType type,
+                                        DatumFunction<Void> listener)/*-{
 		return this
 				.each(
 						type.@com.github.gwtd3.api.core.Transition.EventType::getType()(),
@@ -749,13 +826,14 @@ public class Transition
      * transition, passing in the current datum d and index i, with the this
      * context of the current DOM element.
      * <p>
-     * Any transitions created during the end event will inherit the current transition parameters, including ID, time,
-     * easing, delay and duration.
+     * Any transitions created during the end event will inherit the current
+     * transition parameters, including ID, time, easing, delay and duration.
      * <p>
-     * Thus, new transitions created within a parent transition.each will not the parent transition, similar to
-     * subtransitions.
+     * Thus, new transitions created within a parent transition.each will not
+     * the parent transition, similar to subtransitions.
      * 
-     * The transition.each method can be used to chain transitions and apply shared timing across a set of transitions.
+     * The transition.each method can be used to chain transitions and apply
+     * shared timing across a set of transitions.
      * 
      * @param listener
      * @return
