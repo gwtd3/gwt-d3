@@ -4,8 +4,10 @@ import com.github.gwtd3.api.arrays.Array;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * A node in d3j's tree layout, see <a href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-nodes">d3 docs on
- * node</a>. The node class is used in {@link TreeLayout}, cluster, and partitions. The class provides accessors for the
+ * A node in d3j's tree layout, see <a
+ * href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-nodes">d3 docs on
+ * node</a>. The node class is used in {@link TreeLayout}, cluster, and
+ * partitions. The class provides accessors for the
  * nodes key attributes, its position, children, parent, and depth.
  * 
  * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
