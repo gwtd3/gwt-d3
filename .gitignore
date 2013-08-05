@@ -1,0 +1,10 @@
+/.project
+/.settings
+/pom.xml.releaseBackup
+/release.properties
+/target
+/pom.xml.next
+/pom.xml.tag
+gwt-unitCache/
+d3demo/
+/.DS_Store

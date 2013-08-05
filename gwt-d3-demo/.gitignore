@@ -1,0 +1,10 @@
+/.settings
+/target
+/.classpath
+/.project
+/pom.xml.releaseBackup
+/nbactions.xml
+/.gwt
+/.factorypath
+/pom.xml.next
+/pom.xml.tag
