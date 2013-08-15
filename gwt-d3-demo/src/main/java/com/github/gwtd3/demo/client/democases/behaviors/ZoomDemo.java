@@ -88,7 +88,7 @@ public class ZoomDemo extends FlowPanel implements DemoCase {
 
 		// create zoom behavior
 		Zoom zoom = D3.behavior().zoom().x(x).y(y)
-				.on(ZoomEventType.Zoom, new OnZoom());
+				.on(ZoomEventType.ZOOM, new OnZoom());
 
 		Selection selection = D3.select(this);
 

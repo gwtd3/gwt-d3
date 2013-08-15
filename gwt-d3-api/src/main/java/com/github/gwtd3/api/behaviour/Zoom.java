@@ -43,10 +43,12 @@ import com.google.gwt.core.client.JavaScriptObject;
  * Usage:
  * 
  * <pre>
- * {
- * 	&#064;code
+ * {@code
+ * 	
+ * 
  * 	Zoom zoom = D3.behavior.zoom().on(ZoomEventType.Zoom, new MyZoomListener());
  * 	mySelection.call(zoom);
+ * 
  * }
  * </pre>
  * 
@@ -70,7 +72,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 		 * type from the zoom behavior. Currently, only the "zoom" event is
 		 * supported.
 		 */
-		Zoom
+		ZOOM;
 	}
 
 	/**

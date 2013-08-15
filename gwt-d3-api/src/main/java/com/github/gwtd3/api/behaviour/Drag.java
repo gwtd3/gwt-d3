@@ -68,7 +68,7 @@ public class Drag extends JavaScriptObject implements IsFunction {
 		/**
 		 * Fired when a drag gesture is started
 		 */
-		Dragstart,
+		DRAGSTART,
 		/**
 		 * Fired when the element is dragged. d3.event will contain "x" and "y"
 		 * properties representing the current absolute drag coordinates of the
@@ -76,11 +76,11 @@ public class Drag extends JavaScriptObject implements IsFunction {
 		 * the element's coordinates relative to its position at the beginning
 		 * of the gesture.
 		 */
-		Drag,
+		DRAG,
 		/**
 		 * Fired when the drag gesture has finished
 		 */
-		Dragend;
+		DRAGEND;
 	}
 
 	/**
