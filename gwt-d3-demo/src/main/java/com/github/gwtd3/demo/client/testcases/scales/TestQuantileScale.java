@@ -58,5 +58,15 @@ public class TestQuantileScale extends AbstractTestCase {
 		assertEquals("three", quantile.apply(5.01).asString());
 		assertEquals("last one", quantile.apply(6.0).asString());
 		assertEquals("last one", quantile.apply(60.0).asString());
+
+		// FIXME invert extends is in 3.2.x
+		// System.out.println(quantile.invertExtent("two"));
+
+		QuantileScale copy = quantile.copy();
+		copy.domain(1, 2, 3);
+		assertEquals(1.0, quantiles.getNumber(0));
+		assertEquals(1.5, quantiles.getNumber(1));
+		assertEquals(5.25, quantiles.getNumber(2));
+
 	}
 }
