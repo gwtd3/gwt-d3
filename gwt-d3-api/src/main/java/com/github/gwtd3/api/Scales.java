@@ -172,6 +172,15 @@ public class Scales extends JavaScriptObject {
 		return this.quantile();
 	}-*/;
 
+	/**
+	 * Constructs a new ordinal scale with an empty domain and an empty range.
+	 * <p>
+	 * The ordinal scale is invalid (always returning undefined) until an output
+	 * range is specified.
+	 * <p>
+	 * 
+	 * @return the new ordinal scale
+	 */
 	public final native OrdinalScale ordinal()/*-{
 		return this.ordinal();
 	}-*/;

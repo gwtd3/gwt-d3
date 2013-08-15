@@ -46,6 +46,7 @@ import com.github.gwtd3.demo.client.testcases.d3.TestD3;
 import com.github.gwtd3.demo.client.testcases.scales.TestIdentityScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLinearScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLogScale;
+import com.github.gwtd3.demo.client.testcases.scales.TestOrdinalScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestPowScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestQuantileScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestQuantizeScale;
@@ -93,7 +94,8 @@ public class D3TestSuite {
 				new TestD3(),
 				new TestColors(),
 				// selections
-				new TestSubselections(), new TestSelectionContents(),
+				new TestSubselections(),
+				new TestSelectionContents(),
 				new TestSelectionAttr(),
 				new TestSelectionClassed(),
 				new TestSelectionData(),
@@ -115,8 +117,7 @@ public class D3TestSuite {
 				new TestLinearScale(), new TestLogScale(), new TestPowScale(),
 				new TestIdentityScale(), new TestThresholdScale(),
 				new TestQuantizeScale(), new TestQuantileScale(),
-
-				new TestTimeScale(),
+				new TestOrdinalScale(), new TestTimeScale(),
 				// svg
 				new TestAxis(), new TestLine(), new TestArea(), new TestArc(),
 				// time
