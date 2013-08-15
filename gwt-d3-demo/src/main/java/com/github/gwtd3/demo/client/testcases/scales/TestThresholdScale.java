@@ -30,15 +30,45 @@ package com.github.gwtd3.demo.client.testcases.scales;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
+import com.github.gwtd3.api.scales.ThresholdScale;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
 import com.google.gwt.user.client.ui.ComplexPanel;
 
 public class TestThresholdScale extends AbstractTestCase {
 
-    @Override
-    public void doTest(final ComplexPanel sandbox) {
-        Array<?> domain = D3.scale.threshold().domain();
-        assertEquals(1, domain.length());
+	@Override
+	public void doTest(final ComplexPanel sandbox) {
+		// default domain and range, and apply functions
+		ThresholdScale threshold = D3.scale.threshold();
+		Array<?> domain = threshold.domain();
+		assertEquals(1, domain.length());
 		assertEquals(0.5, domain.getNumber(0));
-    }
+
+		Array<?> range = threshold.range();
+		assertEquals(2, range.length());
+		assertEquals(0d, range.getNumber(0));
+		assertEquals(1d, range.getNumber(1));
+
+		assertEquals(0d, threshold.apply(0.49d).asDouble());
+		assertEquals(1d, threshold.apply(0.51d).asDouble());
+		// FIXME: added in v 3.2.x
+		// assertEquals(0d, threshold.invertExtent(0.49d).getNumber(0));
+		// assertEquals(0.5d, threshold.invertExtent(0.49d).getNumber(1));
+		// assertEquals(0.5d, threshold.invertExtent(0.51d).getNumber(0));
+		// assertEquals(1.0d, threshold.invertExtent(0.51d).getNumber(1));
+
+		// change domain and range
+		threshold.domain(0.5, 0.8);
+		assertEquals(0d, threshold.apply(0.48d).asDouble());
+		assertEquals(1d, threshold.apply(0.51d).asDouble());
+		// now undefined values are returned for input > 0.8
+		assertTrue(threshold.apply(0.81).isUndefined());
+
+		// setting range with 3 values
+		threshold.range("a", "b", "c");
+		assertEquals("a", threshold.apply(0.48d).asString());
+		assertEquals("b", threshold.apply(0.51d).asString());
+		assertEquals("c", threshold.apply(0.82d).asString());
+
+	}
 }

@@ -162,6 +162,17 @@ public class Scales extends JavaScriptObject {
 		return this.ordinal();
 	}-*/;
 
+	/**
+	 * Constructs a new threshold scale with the default domain [.5] and the
+	 * default range [0,1].
+	 * <p>
+	 * Thus, the default threshold scale is equivalent to the round function for
+	 * numbers; for example threshold(0.49) returns 0, and threshold(0.51)
+	 * returns 1.
+	 * <p>
+	 * 
+	 * @return the new threshold scale
+	 */
 	public final native ThresholdScale threshold()/*-{
 		return this.threshold();
 	}-*/;
