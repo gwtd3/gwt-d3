@@ -36,6 +36,7 @@ import com.github.gwtd3.api.scales.LinearScale;
 import com.github.gwtd3.api.scales.LogScale;
 import com.github.gwtd3.api.scales.OrdinalScale;
 import com.github.gwtd3.api.scales.PowScale;
+import com.github.gwtd3.api.scales.QuantileScale;
 import com.github.gwtd3.api.scales.QuantizeScale;
 import com.github.gwtd3.api.scales.Scale;
 import com.github.gwtd3.api.scales.ThresholdScale;
@@ -156,6 +157,19 @@ public class Scales extends JavaScriptObject {
 	 */
 	public final native QuantizeScale quantize()/*-{
 		return this.quantize();
+	}-*/;
+
+	/**
+	 * Constructs a new quantile scale with an empty domain and an empty range.
+	 * <p>
+	 * The quantile scale is invalid until both a domain and range are
+	 * specified.
+	 * <p>
+	 * 
+	 * @return the new empty quantile scale
+	 */
+	public final native QuantileScale quantile()/*-{
+		return this.quantile();
 	}-*/;
 
 	public final native OrdinalScale ordinal()/*-{

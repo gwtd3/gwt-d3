@@ -90,7 +90,7 @@ public class QuantileScale extends DiscreteQuantitativeScale<QuantileScale> {
 	 * 
 	 * @return the array of threshold values
 	 */
-	public native final <T> Array<T> quantiles()/*-{
+	public native final Array<Double> quantiles()/*-{
 		return this.quantiles();
 	}-*/;
 }
