@@ -58,11 +58,12 @@ public class TestIdentityScale extends AbstractTestCase {
 		scale.domain(-1, 0, 1).range(
 				JsArrays.asJsArray(new String[] { "red", "white", "blue" }));
 		assertEquals(3, scale.domain().length());
-		assertEquals(-1, scale.domain().getValue(0).asInt());
+		assertEquals(0, scale.domain().getValue(0).asInt());
 		assertEquals(0, scale.domain().getValue(1).asInt());
-		assertEquals(1, scale.domain().getValue(2).asInt());
+		assertEquals(0, scale.domain().getValue(2).asInt());
 
 		// default range
+		scale = D3.scale.identity();
 		assertEquals(0.0, scale.range().getNumber(0));
 		assertEquals(1.0, scale.range().getNumber(1));
 
@@ -75,31 +76,6 @@ public class TestIdentityScale extends AbstractTestCase {
 		assertEquals(0.0, scale.range().getNumber(0));
 		assertEquals(100.0, scale.range().getNumber(1));
 		assertEquals(200.0, scale.range().getNumber(2));
-
-		scale.range("blah", "bloh", "bluh");
-		assertEquals("blah", scale.range().getString(0));
-		assertEquals("bloh", scale.range().getString(1));
-		assertEquals("bluh", scale.range().getString(2));
-
-		// range round
-		scale.rangeRound(0, 100);
-		assertEquals(0.0, scale.range().getNumber(0));
-		assertEquals(100.0, scale.range().getNumber(1));
-
-		scale.rangeRound(0, 100, 200);
-		assertEquals(0.0, scale.range().getNumber(0));
-		assertEquals(100.0, scale.range().getNumber(1));
-		assertEquals(200.0, scale.range().getNumber(2));
-
-		scale.rangeRound("blah", "bloh", "bluh");
-		assertEquals("blah", scale.range().getString(0));
-		assertEquals("bloh", scale.range().getString(1));
-		assertEquals("bluh", scale.range().getString(2));
-
-		// clamp
-		assertEquals(false, scale.clamp());
-		scale.clamp(true);
-		assertEquals(true, scale.clamp());
 
 		// ticks
 		scale.domain(10, 20);
@@ -132,33 +108,16 @@ public class TestIdentityScale extends AbstractTestCase {
 
 		assertEquals("015.00", scale.tickFormat(200, "06f").format(15));
 
-		// nice
-		scale.domain(1.02, 4.98);
-		assertEquals(1.02, scale.domain().getNumber(0));
-		assertEquals(4.98, scale.domain().getNumber(1));
-		assertEquals(1.0, scale.domain().getNumber(0));
-		assertEquals(5.0, scale.domain().getNumber(1));
-
-		// test nice(count) =>
-		scale.domain(2.1, 2.9);
-		assertEquals(2.1, scale.domain().getNumber(0));
-		// why: 2.90000000000004 ??
-		// assertEquals(2.9, scale.domain().getNumber(1));
-		scale.domain(2.1, 2.9);
-		assertEquals(2.1, scale.domain().getNumber(0));
-		// why: 2.90000000000004 ??
-		// assertEquals(2.9, scale.domain().getNumber(1));
-
 		// apply the function
 		scale.domain(0, 1).range(0, 10);
 		assertEquals(0, scale.apply(0).asInt());
-		assertEquals(100, scale.apply(10).asInt());
-		assertEquals(1000, scale.apply(100).asInt());
-		assertEquals(-100, scale.apply(-10).asInt());
+		assertEquals(15, scale.apply(15).asInt());
+		assertEquals(100, scale.apply(100).asInt());
+		assertEquals(-10, scale.apply(-10).asInt());
 
 		// invert
-		assertEquals(10, scale.invert(100).asInt());
-		assertEquals(-10, scale.invert(-100).asInt());
+		assertEquals(100, scale.invert(100).asInt());
+		assertEquals(-100, scale.invert(-100).asInt());
 
 		// copy
 		scale.domain(1, 2);

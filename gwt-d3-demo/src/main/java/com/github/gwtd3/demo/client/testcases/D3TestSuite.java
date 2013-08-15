@@ -43,6 +43,7 @@ import com.github.gwtd3.demo.client.testcases.core.TestMath;
 import com.github.gwtd3.demo.client.testcases.csv.TestCsv;
 import com.github.gwtd3.demo.client.testcases.d3.TestColors;
 import com.github.gwtd3.demo.client.testcases.d3.TestD3;
+import com.github.gwtd3.demo.client.testcases.scales.TestIdentityScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLinearScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLogScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestPowScale;
@@ -87,19 +88,28 @@ public class D3TestSuite {
 				// utils
 				new TestValue(),
 				// D3
-				new TestD3(), new TestColors(),
+				new TestD3(),
+				new TestColors(),
 				// selections
-				new TestSubselections(), new TestSelectionContents(), new TestSelectionAttr(), new TestSelectionClassed(),
-				new TestSelectionData(), new TestSelectionData2(), new TestSelectionProperty(), new TestSelectionText(),
-				new TestSelectionHtml(), new TestSelectionControls(), new TestSelectionStyle(),
-				//Transitions
-				new TestTransition(), new TestInterpolators(),new TestEasing(),
-				//Math
+				new TestSubselections(), new TestSelectionContents(),
+				new TestSelectionAttr(), new TestSelectionClassed(),
+				new TestSelectionData(), new TestSelectionData2(),
+				new TestSelectionProperty(), new TestSelectionText(),
+				new TestSelectionHtml(),
+				new TestSelectionControls(),
+				new TestSelectionStyle(),
+				// Transitions
+				new TestTransition(), new TestInterpolators(),
+				new TestEasing(),
+				// Math
 				new TestMath(),
-				//Format
+				// Format
 				new TestFormat(),
 				// Scales
-				new TestLinearScale(), new TestLogScale(), new TestPowScale(), new TestThresholdScale(), new TestTimeScale(),
+				new TestLinearScale(), new TestLogScale(), new TestPowScale(),
+				new TestIdentityScale(), new TestThresholdScale(),
+
+				new TestTimeScale(),
 				// svg
 				new TestAxis(), new TestLine(), new TestArea(), new TestArc(),
 				// time
