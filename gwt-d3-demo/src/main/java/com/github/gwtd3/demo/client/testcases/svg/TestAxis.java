@@ -56,6 +56,9 @@ public class TestAxis extends AbstractTestCase {
 		axis.orient(Orientation.TOP);
 		assertEquals(Orientation.TOP, axis.orient());
 
+		// set scale
+		axis.scale(D3.scale.log());
+
 		// ticks
 		assertEquals(1, axis.ticks().length());
 		assertEquals(10, axis.ticks().getValue(0).asInt());
