@@ -47,6 +47,7 @@ import com.github.gwtd3.demo.client.testcases.scales.TestIdentityScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLinearScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLogScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestPowScale;
+import com.github.gwtd3.demo.client.testcases.scales.TestQuantizeScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestThresholdScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestTimeScale;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionAttr;
@@ -92,14 +93,18 @@ public class D3TestSuite {
 				new TestColors(),
 				// selections
 				new TestSubselections(), new TestSelectionContents(),
-				new TestSelectionAttr(), new TestSelectionClassed(),
-				new TestSelectionData(), new TestSelectionData2(),
-				new TestSelectionProperty(), new TestSelectionText(),
+				new TestSelectionAttr(),
+				new TestSelectionClassed(),
+				new TestSelectionData(),
+				new TestSelectionData2(),
+				new TestSelectionProperty(),
+				new TestSelectionText(),
 				new TestSelectionHtml(),
 				new TestSelectionControls(),
 				new TestSelectionStyle(),
 				// Transitions
-				new TestTransition(), new TestInterpolators(),
+				new TestTransition(),
+				new TestInterpolators(),
 				new TestEasing(),
 				// Math
 				new TestMath(),
@@ -108,6 +113,7 @@ public class D3TestSuite {
 				// Scales
 				new TestLinearScale(), new TestLogScale(), new TestPowScale(),
 				new TestIdentityScale(), new TestThresholdScale(),
+				new TestQuantizeScale(),
 
 				new TestTimeScale(),
 				// svg
