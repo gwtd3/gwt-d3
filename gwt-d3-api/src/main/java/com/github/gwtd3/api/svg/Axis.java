@@ -68,13 +68,43 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class Axis extends JavaScriptObject implements IsFunction {
 
+	/**
+	 * Orientation of the ticks in relation to the axis.
+	 * <p>
+	 * The choice of the tick orientation induce the orientation of the axis.
+	 * <p>
+	 * 
+	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+	 * 
+	 */
 	public static enum Orientation {
-		TOP, BOTTOM, LEFT, RIGHT;
+		/**
+		 * Ticks as above the horizontal axis.
+		 */
+		TOP,
+		/**
+		 * Ticks as below the horizontal axis.
+		 */
+		BOTTOM,
+		/**
+		 * Ticks as on the left of the vertical axis.
+		 */
+		LEFT,
+		/**
+		 * Ticks as on the right of the vertical axis.
+		 */
+		RIGHT;
 
+		/**
+		 * @return true if the Orientation denote a vertical axis
+		 */
 		public boolean isVerticalAxis() {
 			return (this == LEFT) || (this == RIGHT);
 		}
 
+		/**
+		 * @return true if the Orientation denote a horizontal axis
+		 */
 		public boolean isHorizontalAxis() {
 			return (this == TOP) || (this == BOTTOM);
 		}
