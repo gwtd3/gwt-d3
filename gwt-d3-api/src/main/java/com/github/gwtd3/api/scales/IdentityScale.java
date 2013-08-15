@@ -2,6 +2,8 @@ package com.github.gwtd3.api.scales;
 
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Formatter;
+import com.github.gwtd3.api.svg.Axis;
+import com.github.gwtd3.api.svg.Brush;
 
 /**
  * Identity scales are a special case of linear scales where the domain and
@@ -9,7 +11,7 @@ import com.github.gwtd3.api.core.Formatter;
  * {@link #invert(double)} method are both the identity function.
  * <p>
  * These scales are occasionally useful when working with pixel coordinates, say
- * in conjunction with the axis and brush components.
+ * in conjunction with the {@link Axis} and {@link Brush} components.
  * <p>
  * The methods {@link #domain(double...)} and {@link #range(double...)} have the
  * same effect of setting both the domain and range in the same time.
