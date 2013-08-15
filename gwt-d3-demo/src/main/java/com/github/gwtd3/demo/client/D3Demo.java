@@ -30,6 +30,7 @@ package com.github.gwtd3.demo.client;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.demo.client.democases.ArcTween;
+import com.github.gwtd3.demo.client.democases.AxisComponent;
 import com.github.gwtd3.demo.client.democases.ChordDiagram;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern1;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern2;
@@ -94,6 +95,8 @@ public class D3Demo implements EntryPoint {
 		ComplexPanel buttonContainer = new VerticalPanel();
 		buttonContainer.add(new TestButton());
 		// buttonContainer.add(new DemoButton("Arc", ArcDemo.factory()));
+		buttonContainer.add(new DemoButton("Axis Component", AxisComponent
+				.factory()));
 		buttonContainer.add(new DemoButton("Stupid example", StupidExample
 				.factory()));
 		buttonContainer.add(new DemoButton("Stupid example 2", StupidExample2

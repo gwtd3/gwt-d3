@@ -30,12 +30,14 @@ package com.github.gwtd3.demo.client.testcases.svg;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.LinearScale;
 import com.github.gwtd3.api.svg.Axis;
 import com.github.gwtd3.api.svg.Axis.Orientation;
+import com.github.gwtd3.api.time.Interval;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
-
-import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.dom.client.Element;
 
 public class TestAxis extends AbstractTestCase {
 
@@ -54,24 +56,59 @@ public class TestAxis extends AbstractTestCase {
 		axis.orient(Orientation.TOP);
 		assertEquals(Orientation.TOP, axis.orient());
 
-		// tick size
-		axis.tickSize(6);
-		axis.tickSize(6, 0);
-		axis.tickSize(6, 3, 0);
+		// ticks
+		assertEquals(1, axis.ticks().length());
+		assertEquals(10, axis.ticks().getValue(0).asInt());
+
+		axis.ticks(12);
+		assertEquals(12, axis.ticks().getValue(0).asInt());
+
+		axis.ticks(15, "blah");
+		assertEquals(15, axis.ticks().getValue(0).asInt());
+		assertEquals("blah", axis.ticks().getValue(1).asString());
+
+		Interval interval = D3.time().day();
+		axis.ticks(interval, 10);
+		assertEquals(interval, axis.ticks().getValue(0).as());
+		assertEquals(10, axis.ticks().getValue(1).asInt());
+
+		// FIXME: smoke test to be cross checked
+		DatumFunction<String> f = new DatumFunction<String>() {
+			@Override
+			public String apply(Element context, Value d, int index) {
+				return "index" + index;
+			}
+		};
+		axis.ticks(8, f);
+		assertEquals(8, axis.ticks().getValue(0).asInt());
+		assertEquals(f, axis.ticks().getValue(1).as());
+
+		// tick values
+		assertNull(axis.tickValues());
+		axis.tickValues(1, 2, 3);
+		assertEquals(1, axis.tickValues().getValue(0).asInt());
+		assertEquals(2, axis.tickValues().getValue(1).asInt());
+		assertEquals(3, axis.tickValues().getValue(2).asInt());
 
 		// tick subdivide
 		assertEquals(0, axis.tickSubdivide());
 		axis.tickSubdivide(9);
 		assertEquals(9, axis.tickSubdivide());
 
-		// ticks
-		assertEquals(1, axis.ticks().length());
-		axis.ticks(10);
-		assertEquals(10, axis.ticks().getValue(0).asInt());
-		JavaScriptObject tickFunction = JavaScriptObject.createFunction();
-		axis.ticks(tickFunction, 15);
-		assertEquals(tickFunction, axis.ticks().getValue(0).as());
-		assertEquals(15, axis.ticks().getValue(1).asInt());
+		// tick size
+		axis.tickSize(6);
+		axis.tickSize(6, 0);
+		axis.tickSize(6, 3, 2);
+
+		// tick padding
+		assertEquals(3, axis.tickPadding());
+		axis.tickPadding(5);
+		assertEquals(5, axis.tickPadding());
+
+		// tick format
+		assertNull(axis.tickFormat());
+		axis.tickFormat(D3.format("3"));
+		assertNotNull(axis.tickFormat());
 
 		// apply
 		Selection svg = D3.select(sandbox).append("svg").attr("width", 100)
