@@ -32,7 +32,6 @@
 package com.github.gwtd3.api.svg;
 
 import com.github.gwtd3.api.functions.DatumFunction;
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * Generate a piecewise linear curve, as in a line chart.
@@ -278,30 +277,6 @@ public class Line extends PathDataGenerator {
 						return result.@java.lang.Boolean::booleanValue()();
 					}
 				});
-	}-*/;
-
-	/**
-	 * Generate the path data as String using the given data object in argument.
-	 * <p>
-	 * The data object must contains valid attributes for the corresponding
-	 * generator to work (see each subclass documentation).
-	 * <p>
-	 * 
-	 * Apply the function using the given object in argument.
-	 * <p>
-	 * The object argument must provide missing attributes expected by the path
-	 * generator. For instance, if this path generator is a {@link Line}, the
-	 * provided object could be an array of {x,y} objects. Please refer to
-	 * subclass documentation for more information.
-	 * 
-	 * 
-	 * @param javaScriptObject
-	 * @param index
-	 *            an index to be passed to each accessor functions
-	 * @return the generated path data
-	 */
-	public final native String generate(JavaScriptObject data, int index) /*-{
-		return this(data, index);
 	}-*/;
 
 }
