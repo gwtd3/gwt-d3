@@ -67,6 +67,7 @@ import com.github.gwtd3.demo.client.testcases.svg.TestArc;
 import com.github.gwtd3.demo.client.testcases.svg.TestArea;
 import com.github.gwtd3.demo.client.testcases.svg.TestAxis;
 import com.github.gwtd3.demo.client.testcases.svg.TestLine;
+import com.github.gwtd3.demo.client.testcases.svg.TestSymbol;
 import com.github.gwtd3.demo.client.testcases.time.TestTimeFormat;
 import com.github.gwtd3.demo.client.testcases.time.TestTimeIntervals;
 import com.github.gwtd3.demo.client.testcases.transition.TestEasing;
@@ -117,11 +118,14 @@ public class D3TestSuite {
 				new TestLinearScale(), new TestLogScale(), new TestPowScale(),
 				new TestIdentityScale(), new TestThresholdScale(),
 				new TestQuantizeScale(), new TestQuantileScale(),
-				new TestOrdinalScale(), new TestTimeScale(),
+				new TestOrdinalScale(),
+				new TestTimeScale(),
 				// svg
 				new TestAxis(), new TestLine(), new TestArea(), new TestArc(),
+				new TestSymbol(),
 				// time
 				new TestTimeFormat(), new TestTimeIntervals(),
+				new TestTimeScale(),
 				// csv
 				new TestCsv(),
 				// tsv

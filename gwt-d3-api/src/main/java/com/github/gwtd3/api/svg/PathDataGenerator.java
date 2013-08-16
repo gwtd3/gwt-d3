@@ -123,17 +123,6 @@ public abstract class PathDataGenerator extends JavaScriptObject implements
 	 *            an array of data
 	 * @return the generated path data
 	 */
-	public final <T> String generate(T... data) {
-		return generate(JsArrays.asJsArray(data));
-	}
-
-	/**
-	 * Alias for {@link #generate(JavaScriptObject)}.
-	 * 
-	 * @param data
-	 *            an array of data
-	 * @return the generated path data
-	 */
 	public final String generate(double... data) {
 		return generate(JsArrays.asJsArray(data));
 	}

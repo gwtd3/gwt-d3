@@ -41,6 +41,7 @@ import com.github.gwtd3.demo.client.democases.StupidExample2;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.democases.svg.LineDemo;
+import com.github.gwtd3.demo.client.democases.svg.SymbolDemo;
 import com.github.gwtd3.demo.client.test.ui.TestRunner;
 import com.github.gwtd3.demo.client.test.ui.TestSessionContainer;
 import com.github.gwtd3.demo.client.testcases.D3TestSuite;
@@ -99,6 +100,8 @@ public class D3Demo implements EntryPoint {
 		buttonContainer.add(new DemoButton("Axis Component", AxisComponent
 				.factory()));
 		buttonContainer.add(new DemoButton("Line Demo", LineDemo.factory()));
+		buttonContainer
+				.add(new DemoButton("Symbol Demo", SymbolDemo.factory()));
 		buttonContainer.add(new DemoButton("Stupid example", StupidExample
 				.factory()));
 		buttonContainer.add(new DemoButton("Stupid example 2", StupidExample2

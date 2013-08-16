@@ -107,4 +107,5 @@ public class SVG extends JavaScriptObject {
 	public final native Symbol symbol() /*-{
 		return this.symbol();
 	}-*/;
+
 }
