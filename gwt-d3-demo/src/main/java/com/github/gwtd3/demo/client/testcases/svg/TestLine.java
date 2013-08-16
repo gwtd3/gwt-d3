@@ -37,7 +37,6 @@ import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Line;
 import com.github.gwtd3.api.svg.Line.InterpolationMode;
-import com.github.gwtd3.api.svg.RadialLine;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
 import com.google.gwt.dom.client.Element;
 
@@ -126,9 +125,9 @@ public class TestLine extends AbstractTestCase {
 		// does not assertEquals(2, counter.y);
 		// Smoke test radial line
 
-		RadialLine radial = D3.svg().line.radial();
-		radial.angle(3.5);
-		radial.radius(56);
+		// RadialLine radial = D3.svg().line.radial();
+		// radial.angle(3.5);
+		// radial.radius(56);
 
 	}
 

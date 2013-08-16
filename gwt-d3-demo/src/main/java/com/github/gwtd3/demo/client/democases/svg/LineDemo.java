@@ -29,7 +29,7 @@
 /**
  * 
  */
-package com.github.gwtd3.demo.client.democases;
+package com.github.gwtd3.demo.client.democases.svg;
 
 import java.util.ArrayList;
 import java.util.Stack;
