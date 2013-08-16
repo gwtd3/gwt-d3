@@ -25,7 +25,9 @@
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
  */
+
 package com.github.gwtd3.api.behaviour;
 
 import com.github.gwtd3.api.D3;
@@ -47,7 +49,6 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 	&#064;code
  * 	Zoom zoom = D3.behavior.zoom().on(ZoomEventType.Zoom, new MyZoomListener());
  * 	mySelection.call(zoom);
- * 
  * }
  * </pre>
  * 
