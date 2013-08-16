@@ -72,7 +72,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 		 * type from the zoom behavior. Currently, only the "zoom" event is
 		 * supported.
 		 */
-		Zoom
+		ZOOM
 	}
 
 	/**
@@ -101,8 +101,16 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * null. If the scale's domain or range is modified programmatically, this
 	 * function should be called again.
 	 * 
-	 * @param o
-	 * @return
+	 * @param
+	 * @return LinearScale
+	 */
+	public final native LinearScale x()/*-{
+		return this.x();
+	}-*/;
+
+	/**
+	 * @param LinearScale
+	 * @return Zoom object
 	 */
 	public final native Zoom x(LinearScale scale)/*-{
 		return this.x(scale);
@@ -114,10 +122,17 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * null. If the scale's domain or range is modified programmatically, this
 	 * function should be called again.
 	 * 
-	 * @param o
+	 * @param
+	 * @return LinearScale
+	 */
+	public final native LinearScale y()/*-{
+		return this.y();
+	}-*/;
+
+	/**
+	 * @param LinearScale
 	 * @return Zoom object
 	 */
-
 	public final native Zoom y(LinearScale scale)/*-{
 		return this.y(scale);
 	}-*/;
@@ -128,6 +143,14 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * which defaults to [0, Infinity].
 	 * 
 	 * @param o
+	 * @return Array<Double>
+	 */
+	public final native Array<Double> scaleExtent()/*-{
+		return this.scaleExtent();
+	}-*/;
+
+	/**
+	 * @param double[]
 	 * @return Zoom object
 	 */
 	public final native Zoom scaleExtent(double[] scale)/*-{
@@ -138,7 +161,16 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * Specifies the current zoom scale. If not specified, returns the current
 	 * zoom scale, which defaults to 1.
 	 * 
-	 * @param o
+	 * @param
+	 * @return double
+	 */
+	public final native double scale()/*-{
+		return this.scale();
+	}-*/;
+
+	/**
+	 * 
+	 * @param scale
 	 * @return Zoom object
 	 */
 	public final native Zoom scale(LinearScale scale)/*-{
@@ -149,7 +181,15 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * Specifies the current zoom translation vector. If not specified, returns
 	 * the current translation vector, which defaults to [0, 0].
 	 * 
-	 * @param o
+	 * @param
+	 * @return Array<Double>
+	 */
+	public final native Array<Double> translate()/*-{
+		return this.translate();
+	}-*/;
+
+	/**
+	 * @param double[]
 	 * @return Zoom object
 	 */
 	public final native Zoom translate(double[] vector)/*-{
