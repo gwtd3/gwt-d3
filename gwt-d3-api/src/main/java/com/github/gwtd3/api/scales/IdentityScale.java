@@ -26,130 +26,58 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * 
- */
 package com.github.gwtd3.api.scales;
 
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Formatter;
+import com.github.gwtd3.api.svg.Axis;
+import com.github.gwtd3.api.svg.Brush;
 
 /**
- * Power scales are similar to linear scales, except there's an exponential
- * transform that is applied to the input domain value before the output range
- * value is computed.
+ * Identity scales are a special case of linear scales where the domain and
+ * range are identical; the {@link #apply(double)} and its
+ * {@link #invert(double)} method are both the identity function.
  * <p>
- * The mapping to the output range value y can be expressed as a function of the
- * input domain value x: y = mx^k + b, where k is the exponent value.
+ * These scales are occasionally useful when working with pixel coordinates, say
+ * in conjunction with the {@link Axis} and {@link Brush} components.
  * <p>
- * Power scales also support negative values, in which case the input value is
- * multiplied by -1, and the resulting output value is also multiplied by -1.
+ * The methods {@link #domain(double...)} and {@link #range(double...)} have the
+ * same effect of setting both the domain and range in the same time.
  * <p>
- * As with {@link LinearScale}s, power scales can also accept more than two
- * values for the domain and range, thus resulting in polypower scale.
- * <p>
+ * 
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class PowScale extends ContinuousQuantitativeScale<PowScale> {
+public class IdentityScale extends ContinuousQuantitativeScale<IdentityScale> {
 
-	protected PowScale() {
-
+	protected IdentityScale(){
+		
 	}
-
-	// =========== base ==========
-	/**
-	 * Returns the current exponent, which defaults to 1.
-	 * 
-	 * @return the current exponent
-	 */
-	public native final double exponent()/*-{
-		return this.exponent();
-	}-*/;
-
-	/**
-	 * Sets the current exponent to the given numeric value.
-	 * 
-	 * @return the current scale
-	 */
-	public native final PowScale exponent(double e)/*-{
-		return this.exponent(e);
-	}-*/;
-
-	// =========== nice ==========
-
-	/**
-	 * Extends the domain so that it starts and ends on nice round values.
-	 * <p>
-	 * This method typically modifies the scale's domain, and may only extend
-	 * the bounds to the nearest round value.
-	 * <p>
-	 * The precision of the round value is dependent on the extent of the domain
-	 * dx according to the following formula: exp(round(log(*dx*)) - 1).
-	 * <p>
-	 * Nicing is useful if the domain is computed from data and may be
-	 * irregular.
-	 * <p>
-	 * For example, for a domain of [0.20147987687960267, 0.996679553296417],
-	 * the nice domain is [0.2, 1]. If the domain has more than two values,
-	 * nicing the domain only affects the first and last value.
-	 * <p>
-	 * 
-	 * @return the current scale
-	 */
-	public native final PowScale nice()/*-{
-		return this.nice();
-	}-*/;
-
-	/**
-	 * Same as {@link #nice()} but with more control.
-	 * <p>
-	 * The tick count argument allows greater control over the step size used to
-	 * extend the bounds, guaranteeing that the ticks returned by
-	 * {@link #ticks(int)} will exactly cover the domain.
-	 * <p>
-	 * 
-	 * @return the current scale
-	 */
-	public native final PowScale nice(int count)/*-{
-		return this.nice(count);
-	}-*/;
-
 	// =========== ticks ==========
 
 	/**
 	 * Returns approximately count representative values from the scale's input
-	 * domain.
+	 * domain (or equivalently, output range).
 	 * <p>
 	 * The returned tick values are uniformly spaced, have human-readable values
 	 * (such as multiples of powers of 10), and are guaranteed to be within the
 	 * extent of the input domain.
 	 * <p>
 	 * Ticks are often used to display reference lines, or tick marks, in
-	 * conjunction with the visualized data. The specified count is only a hint;
-	 * the scale may return more or fewer values depending on the input domain.
+	 * conjunction with the visualized data.
+	 * <p>
+	 * The specified count is only a hint; the scale may return more or fewer
+	 * values depending on the input domain.
 	 * <p>
 	 * 
-	 * @return
+	 * @return the array of ticks
 	 */
 	public native final <T> Array<T> ticks(int count)/*-{
 		return this.ticks(count);
 	}-*/;
 
 	// =========== tickFormat ==========
-
-	/**
-	 * Returns a number format function suitable for displaying a tick value.
-	 * <p>
-	 * The returned tick format is implemented as d.toPrecision(1).
-	 * <p>
-	 * 
-	 * @return the number format
-	 */
-	public native final Formatter tickFormat()/*-{
-		return this.tickFormat();
-	}-*/;
 
 	/**
 	 * Returns a number format function suitable for displaying a tick value.
@@ -195,5 +123,4 @@ public class PowScale extends ContinuousQuantitativeScale<PowScale> {
 	public native final Formatter tickFormat(int count, String formatSpecifier)/*-{
 		return this.tickFormat(count, formatSpecifier);
 	}-*/;
-
 }

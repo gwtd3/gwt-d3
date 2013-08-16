@@ -31,9 +31,7 @@ package com.github.gwtd3.demo.client;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.demo.client.democases.ArcTween;
 import com.github.gwtd3.demo.client.democases.AxisComponent;
-import com.github.gwtd3.demo.client.democases.BarChart;
 import com.github.gwtd3.demo.client.democases.ChordDiagram;
-import com.github.gwtd3.demo.client.democases.FocusAndContext;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern1;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern2;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern3;
@@ -42,6 +40,8 @@ import com.github.gwtd3.demo.client.democases.StupidExample;
 import com.github.gwtd3.demo.client.democases.StupidExample2;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
+import com.github.gwtd3.demo.client.democases.svg.LineDemo;
+import com.github.gwtd3.demo.client.democases.svg.SymbolDemo;
 import com.github.gwtd3.demo.client.test.ui.TestRunner;
 import com.github.gwtd3.demo.client.test.ui.TestSessionContainer;
 import com.github.gwtd3.demo.client.testcases.D3TestSuite;
@@ -97,6 +97,11 @@ public class D3Demo implements EntryPoint {
 		ComplexPanel buttonContainer = new VerticalPanel();
 		buttonContainer.add(new TestButton());
 		// buttonContainer.add(new DemoButton("Arc", ArcDemo.factory()));
+		buttonContainer.add(new DemoButton("Axis Component", AxisComponent
+				.factory()));
+		buttonContainer.add(new DemoButton("Line Demo", LineDemo.factory()));
+		buttonContainer
+				.add(new DemoButton("Symbol Demo", SymbolDemo.factory()));
 		buttonContainer.add(new DemoButton("Stupid example", StupidExample
 				.factory()));
 		buttonContainer.add(new DemoButton("Stupid example 2", StupidExample2
@@ -108,11 +113,6 @@ public class D3Demo implements EntryPoint {
 		buttonContainer.add(new DemoButton("General Update Pattern III",
 				GeneralUpdatePattern3.factory()));
 		buttonContainer.add(new DemoButton("Arc Tween", ArcTween.factory()));
-		buttonContainer.add(new DemoButton("Axis component", AxisComponent
-				.factory()));
-		buttonContainer.add(new DemoButton("Focus and context", FocusAndContext
-				.factory()));
-		buttonContainer.add(new DemoButton("Bar chart", BarChart.factory()));
 		buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram
 				.factory()));
 		buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem

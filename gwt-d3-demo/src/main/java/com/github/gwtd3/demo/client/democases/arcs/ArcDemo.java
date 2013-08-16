@@ -31,19 +31,9 @@
  */
 package com.github.gwtd3.demo.client.democases.arcs;
 
-import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Selection;
-import com.github.gwtd3.api.svg.Arc;
 import com.github.gwtd3.demo.client.DemoCase;
-import com.github.gwtd3.demo.client.Factory;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
-
+ 
 /**
  * FIXME find another Slider component
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>

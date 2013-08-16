@@ -26,86 +26,57 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * 
- */
-package com.github.gwtd3.api.svg;
+package com.github.gwtd3.api.scales;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import com.github.gwtd3.api.arrays.Array;
 
 /**
- * Provide access to svg routines.
+ * {@link QuantitativeScale} with a discrete output range.
+ * <p>
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
+ * @param <S>
  */
-public class SVG extends JavaScriptObject {
+public abstract class DiscreteQuantitativeScale<S extends DiscreteQuantitativeScale<S>>
+		extends QuantitativeScale<S> {
 
-	protected SVG() {
+	protected DiscreteQuantitativeScale() {
+
 	}
 
 	/**
-	 * Create a new arc with default accessor functions. See {@link Arc} for
-	 * details.
+	 * Returns the extent of values in the input domain [x0, x1] for the
+	 * corresponding value in the output range y, representing the inverse
+	 * mapping from range to domain.
+	 * <p>
+	 * This method is useful for interaction, say to determine the value in the
+	 * input domain that corresponds to the pixel location under the mouse.
+	 * <p>
 	 * 
-	 * @return the arc
+	 * @param y
+	 *            the output value to be converted to a domain range
+	 * @return the array of doubles
 	 */
-	public final native Arc arc()/*-{
-		return this.arc();
+	public final native Array<Double> invertExtent(double y)/*-{
+		return this.invertExtent(y);
 	}-*/;
 
 	/**
-	 * Create a new default axis.
+	 * Returns the extent of values in the input domain [x0, x1] for the
+	 * corresponding value in the output range y, representing the inverse
+	 * mapping from range to domain.
+	 * <p>
+	 * This method is useful for interaction, say to determine the value in the
+	 * input domain that corresponds to the pixel location under the mouse.
+	 * <p>
 	 * 
-	 * @return the axis
+	 * @param y
+	 *            the output value to be converted to a domain range
+	 * @return the array of doubles
 	 */
-	public final native Axis axis()/*-{
-		return this.axis();
-	}-*/;
-
-	/**
-	 * Create a new default line.
-	 * 
-	 * @return the line
-	 */
-	public final native Line line()/*-{
-		return this.line();
-	}-*/;
-
-	/**
-	 * Create a new default area.
-	 * 
-	 * @return the area
-	 */
-	public final native Area area()/*-{
-		return this.area();
-	}-*/;
-
-	/**
-	 * Create a new default brush.
-	 * 
-	 * @return the brush
-	 */
-	public final native Brush brush() /*-{
-		return this.brush();
-	}-*/;
-
-	/**
-	 * Create a new default chord.
-	 * 
-	 * @return the chord
-	 */
-	public final native Chord chord() /*-{
-		return this.chord();
-	}-*/;
-
-	/**
-	 * Create a new default {@link Symbol}.
-	 * 
-	 * @return the symbol
-	 */
-	public final native Symbol symbol() /*-{
-		return this.symbol();
+	public final native Array<Double> invertExtent(String y)/*-{
+		return this.invertExtent(y);
 	}-*/;
 
 }

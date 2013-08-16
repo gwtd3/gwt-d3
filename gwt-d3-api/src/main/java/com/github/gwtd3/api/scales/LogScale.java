@@ -36,15 +36,21 @@ import com.github.gwtd3.api.core.Formatter;
 import com.github.gwtd3.api.functions.DatumFunction;
 
 /**
- * Log scales are similar to linear scales, except there's a logarithmic transform that is applied to the input domain value
- * before the output range value is computed.
+ * Log scales are similar to linear scales, except there's a logarithmic
+ * transform that is applied to the input domain value before the output range
+ * value is computed.
  * <p>
- * The mapping to the output range value y can be expressed as a function of the input domain value x: y = m log(*x*) + b.
+ * The mapping to the output range value y can be expressed as a function of the
+ * input domain value x: y = m log(*x*) + b.
  * <p>
- * Log scales also support negative values, in which case the input value is multiplied by -1, and the resulting output value is also
- * multiplied by -1.
+ * Log scales also support negative values, in which case the input value is
+ * multiplied by -1, and the resulting output value is also multiplied by -1.
  * <p>
- * However, note that the domain of a log scale should never contain zero, as log(0) is negative infinity.
+ * However, note that the domain of a log scale should never contain zero, as
+ * log(0) is negative infinity.
+ * <p>
+ * As with {@link LinearScale}s, log scales can also accept more than two values
+ * for the domain and range, thus resulting in polylog scale.
  * <p>
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
@@ -61,13 +67,15 @@ public class LogScale extends ContinuousQuantitativeScale<LogScale> {
 	/**
 	 * Returns representative values from the scale's input domain.
 	 * <p>
-	 * The returned tick values are uniformly spaced within each power of ten, and are guaranteed to be within the extent of the input
-	 * domain.
+	 * The returned tick values are uniformly spaced within each power of ten,
+	 * and are guaranteed to be within the extent of the input domain.
 	 * <p>
-	 * Ticks are often used to display reference lines, or tick marks, in conjunction with the visualized data.
+	 * Ticks are often used to display reference lines, or tick marks, in
+	 * conjunction with the visualized data.
 	 * <p>
-	 * Note that the number of ticks cannot be customized (due to the nature of log scales); however, you can filter the returned array of
-	 * values if you want to reduce the number of ticks.
+	 * Note that the number of ticks cannot be customized (due to the nature of
+	 * log scales); however, you can filter the returned array of values if you
+	 * want to reduce the number of ticks.
 	 * 
 	 * @return the current scale
 	 */
@@ -94,13 +102,16 @@ public class LogScale extends ContinuousQuantitativeScale<LogScale> {
 	 * <p>
 	 * The returned tick format is implemented as d.toPrecision(1).
 	 * <p>
-	 * Some of the tick labels may not be displayed; this is useful if there is not enough room to fit all of the tick labels. However, note
-	 * that the tick marks will still be displayed (so that the log scale distortion remains visible).
+	 * Some of the tick labels may not be displayed; this is useful if there is
+	 * not enough room to fit all of the tick labels. However, note that the
+	 * tick marks will still be displayed (so that the log scale distortion
+	 * remains visible).
 	 * <p>
 	 * 
 	 * 
 	 * @param the
-	 *            number of ticks to take into account to create the {@link Formatter}.
+	 *            number of ticks to take into account to create the
+	 *            {@link Formatter}.
 	 * @return a number format
 	 */
 	public native final Formatter tickFormat(int count)/*-{
@@ -114,19 +125,25 @@ public class LogScale extends ContinuousQuantitativeScale<LogScale> {
 	 * <p>
 	 * The returned tick format is implemented as d.toPrecision(1).
 	 * <p>
-	 * Some of the tick labels may not be displayed; this is useful if there is not enough room to fit all of the tick labels. However, note
-	 * that the tick marks will still be displayed (so that the log scale distortion remains visible).
+	 * Some of the tick labels may not be displayed; this is useful if there is
+	 * not enough room to fit all of the tick labels. However, note that the
+	 * tick marks will still be displayed (so that the log scale distortion
+	 * remains visible).
 	 * <p>
-	 * The format argument allow to specify a format as a string. If the format specifier doesn’t have a defined precision, the precision
-	 * will be set automatically by the scale, returning the appropriate format.
+	 * The format argument allow to specify a format as a string. If the format
+	 * specifier doesn’t have a defined precision, the precision will be set
+	 * automatically by the scale, returning the appropriate format.
 	 * <p>
-	 * This provides a convenient, declarative way of specifying a format whose precision will be automatically set by the scale.
+	 * This provides a convenient, declarative way of specifying a format whose
+	 * precision will be automatically set by the scale.
 	 * <p>
 	 * 
 	 * @param the
-	 *            number of ticks to take into account to create the {@link Formatter}.
+	 *            number of ticks to take into account to create the
+	 *            {@link Formatter}.
 	 * @param the
-	 *            format specified, as documented in {@link Formatter}, to be used as a basis of the Formatter.
+	 *            format specified, as documented in {@link Formatter}, to be
+	 *            used as a basis of the Formatter.
 	 * @return a number format
 	 */
 	public native final Formatter tickFormat(int count, String formatSpecifier)/*-{
@@ -140,22 +157,28 @@ public class LogScale extends ContinuousQuantitativeScale<LogScale> {
 	 * <p>
 	 * The returned tick format is implemented as d.toPrecision(1).
 	 * <p>
-	 * Some of the tick labels may not be displayed; this is useful if there is not enough room to fit all of the tick labels. However, note
-	 * that the tick marks will still be displayed (so that the log scale distortion remains visible).
+	 * Some of the tick labels may not be displayed; this is useful if there is
+	 * not enough room to fit all of the tick labels. However, note that the
+	 * tick marks will still be displayed (so that the log scale distortion
+	 * remains visible).
 	 * <p>
-	 * The format argument allow to specify a format as a string. If the format specifier doesn’t have a defined precision, the precision
-	 * will be set automatically by the scale, returning the appropriate format.
+	 * The format argument allow to specify a format as a string. If the format
+	 * specifier doesn’t have a defined precision, the precision will be set
+	 * automatically by the scale, returning the appropriate format.
 	 * <p>
-	 * This provides a convenient, declarative way of specifying a format whose precision will be automatically set by the scale.
+	 * This provides a convenient, declarative way of specifying a format whose
+	 * precision will be automatically set by the scale.
 	 * <p>
 	 * 
 	 * @param count
-	 *            the number of ticks to take into account to create the {@link Formatter}.
+	 *            the number of ticks to take into account to create the
+	 *            {@link Formatter}.
 	 * @param formatFunction
 	 *            the function used to format the tick label
 	 * @return a number format
 	 */
-	public native final Formatter tickFormat(int count, DatumFunction<String> formatFunction)/*-{
+	public native final Formatter tickFormat(int count,
+			DatumFunction<String> formatFunction)/*-{
 		return this
 				.tickFormat(
 						count,
@@ -169,14 +192,17 @@ public class LogScale extends ContinuousQuantitativeScale<LogScale> {
 	/**
 	 * Extends the domain so that it starts and ends on nice round values.
 	 * <p>
-	 * This method typically modifies the scale's domain, and may only extend the bounds to the nearest round value.
+	 * This method typically modifies the scale's domain, and may only extend
+	 * the bounds to the nearest round value.
 	 * <p>
 	 * The nearest round value is based on the nearest power of ten.
 	 * <p>
-	 * Nicing is useful if the domain is computed from data and may be irregular.
+	 * Nicing is useful if the domain is computed from data and may be
+	 * irregular.
 	 * <p>
-	 * For example, for a domain of [0.20147987687960267, 0.996679553296417], the nice domain is [0.1, 1]. If the domain has more than two
-	 * values, nicing the domain only affects the first and last value.
+	 * For example, for a domain of [0.20147987687960267, 0.996679553296417],
+	 * the nice domain is [0.1, 1]. If the domain has more than two values,
+	 * nicing the domain only affects the first and last value.
 	 * <p>
 	 * 
 	 * @return the current scale

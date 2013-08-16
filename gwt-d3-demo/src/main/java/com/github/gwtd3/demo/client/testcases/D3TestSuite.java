@@ -43,9 +43,13 @@ import com.github.gwtd3.demo.client.testcases.core.TestMath;
 import com.github.gwtd3.demo.client.testcases.csv.TestCsv;
 import com.github.gwtd3.demo.client.testcases.d3.TestColors;
 import com.github.gwtd3.demo.client.testcases.d3.TestD3;
+import com.github.gwtd3.demo.client.testcases.scales.TestIdentityScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLinearScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLogScale;
+import com.github.gwtd3.demo.client.testcases.scales.TestOrdinalScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestPowScale;
+import com.github.gwtd3.demo.client.testcases.scales.TestQuantileScale;
+import com.github.gwtd3.demo.client.testcases.scales.TestQuantizeScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestThresholdScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestTimeScale;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionAttr;
@@ -63,6 +67,7 @@ import com.github.gwtd3.demo.client.testcases.svg.TestArc;
 import com.github.gwtd3.demo.client.testcases.svg.TestArea;
 import com.github.gwtd3.demo.client.testcases.svg.TestAxis;
 import com.github.gwtd3.demo.client.testcases.svg.TestLine;
+import com.github.gwtd3.demo.client.testcases.svg.TestSymbol;
 import com.github.gwtd3.demo.client.testcases.time.TestTimeFormat;
 import com.github.gwtd3.demo.client.testcases.time.TestTimeIntervals;
 import com.github.gwtd3.demo.client.testcases.transition.TestEasing;
@@ -87,23 +92,40 @@ public class D3TestSuite {
 				// utils
 				new TestValue(),
 				// D3
-				new TestD3(), new TestColors(),
+				new TestD3(),
+				new TestColors(),
 				// selections
-				new TestSubselections(), new TestSelectionContents(), new TestSelectionAttr(), new TestSelectionClassed(),
-				new TestSelectionData(), new TestSelectionData2(), new TestSelectionProperty(), new TestSelectionText(),
-				new TestSelectionHtml(), new TestSelectionControls(), new TestSelectionStyle(),
-				//Transitions
-				new TestTransition(), new TestInterpolators(),new TestEasing(),
-				//Math
+				new TestSubselections(),
+				new TestSelectionContents(),
+				new TestSelectionAttr(),
+				new TestSelectionClassed(),
+				new TestSelectionData(),
+				new TestSelectionData2(),
+				new TestSelectionProperty(),
+				new TestSelectionText(),
+				new TestSelectionHtml(),
+				new TestSelectionControls(),
+				new TestSelectionStyle(),
+				// Transitions
+				new TestTransition(),
+				new TestInterpolators(),
+				new TestEasing(),
+				// Math
 				new TestMath(),
-				//Format
+				// Format
 				new TestFormat(),
 				// Scales
-				new TestLinearScale(), new TestLogScale(), new TestPowScale(), new TestThresholdScale(), new TestTimeScale(),
+				new TestLinearScale(), new TestLogScale(), new TestPowScale(),
+				new TestIdentityScale(), new TestThresholdScale(),
+				new TestQuantizeScale(), new TestQuantileScale(),
+				new TestOrdinalScale(),
+				new TestTimeScale(),
 				// svg
 				new TestAxis(), new TestLine(), new TestArea(), new TestArc(),
+				new TestSymbol(),
 				// time
 				new TestTimeFormat(), new TestTimeIntervals(),
+				new TestTimeScale(),
 				// csv
 				new TestCsv(),
 				// tsv

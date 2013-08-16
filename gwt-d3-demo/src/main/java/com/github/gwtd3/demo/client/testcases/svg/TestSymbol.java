@@ -26,49 +26,60 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.demo.client.testcases.scales;
+package com.github.gwtd3.demo.client.testcases.svg;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.scales.ThresholdScale;
+import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.functions.DatumFunction;
+import com.github.gwtd3.api.svg.Symbol;
+import com.github.gwtd3.api.svg.Symbol.Type;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.dom.client.Element;
 
-public class TestThresholdScale extends AbstractTestCase {
+public class TestSymbol extends AbstractTestCase {
+
+	/**
+	 * Return the list of supported symbol types, which match the
+	 * {@link Type#values()}.
+	 * <p>
+	 * 
+	 * @return the list of supported symbol types
+	 */
+	public static final native Array<String> symbolTypes()/*-{
+		return $wnd.d3.svg.symbolTypes;
+	}-*/;
 
 	@Override
-	public void doTest(final ComplexPanel sandbox) {
-		// default domain and range, and apply functions
-		ThresholdScale threshold = D3.scale.threshold();
-		Array<?> domain = threshold.domain();
-		assertEquals(1, domain.length());
-		assertEquals(0.5, domain.getNumber(0));
+	public void doTest(final com.google.gwt.user.client.ui.ComplexPanel sandbox) {
+		// check the symbol types match the Symbol.Type.values
+		Array<String> types = symbolTypes();
+		for (int i = 0; i < types.length(); i++) {
+			String type = types.getString(i);
+			System.out.println("SYMBOL TYPE " + type);
+			Type typeEnum = Symbol.Type.valueOf(type.toUpperCase().replace('-',
+					'_'));
+			if (typeEnum == null) {
+				fail("the symbol type " + type + " is not implemented");
+			}
+		}
 
-		Array<?> range = threshold.range();
-		assertEquals(2, range.length());
-		assertEquals(0d, range.getNumber(0));
-		assertEquals(1d, range.getNumber(1));
+		Symbol symbol = D3.svg().symbol();
+		symbol.size(32);
+		symbol.size(new DatumFunction<Integer>() {
+			@Override
+			public Integer apply(Element context, Value d, int index) {
+				return index;
+			}
+		});
 
-		assertEquals(0d, threshold.apply(0.49d).asDouble());
-		assertEquals(1d, threshold.apply(0.51d).asDouble());
-		// FIXME: added in v 3.2.x
-		// assertEquals(0d, threshold.invertExtent(0.49d).getNumber(0));
-		// assertEquals(0.5d, threshold.invertExtent(0.49d).getNumber(1));
-		// assertEquals(0.5d, threshold.invertExtent(0.51d).getNumber(0));
-		// assertEquals(1.0d, threshold.invertExtent(0.51d).getNumber(1));
-
-		// change domain and range
-		threshold.domain(0.5, 0.8);
-		assertEquals(0d, threshold.apply(0.48d).asDouble());
-		assertEquals(1d, threshold.apply(0.51d).asDouble());
-		// now undefined values are returned for input > 0.8
-		assertTrue(threshold.apply(0.81).isUndefined());
-
-		// setting range with 3 values
-		threshold.range("a", "b", "c");
-		assertEquals("a", threshold.apply(0.48d).asString());
-		assertEquals("b", threshold.apply(0.51d).asString());
-		assertEquals("c", threshold.apply(0.82d).asString());
-
+		symbol.type(Type.CIRCLE);
+		symbol.type(new DatumFunction<Type>() {
+			@Override
+			public Type apply(Element context, Value d, int index) {
+				return Type.CIRCLE;
+			}
+		});
 	}
+
 }

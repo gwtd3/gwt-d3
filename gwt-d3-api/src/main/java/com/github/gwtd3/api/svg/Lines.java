@@ -26,86 +26,31 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * 
- */
 package com.github.gwtd3.api.svg;
 
-import com.google.gwt.core.client.JavaScriptObject;
-
 /**
- * Provide access to svg routines.
+ * Factory class for lines.
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class SVG extends JavaScriptObject {
-
-	protected SVG() {
-	}
-
+public class Lines {
 	/**
-	 * Create a new arc with default accessor functions. See {@link Arc} for
-	 * details.
+	 * Constructs a new radial line generator with the default radius- and
+	 * angle-accessor functions (that assume the input data is a two-element
+	 * array of numbers; see below for details), and linear interpolation.
+	 * <p>
+	 * The returned function generates path data for an open piecewise linear
+	 * curve, or polyline, as with the Cartesian line generator.
+	 * <p>
 	 * 
-	 * @return the arc
+	 * @return the {@link RadialLine}.
 	 */
-	public final native Arc arc()/*-{
-		return this.arc();
+	public final native RadialLine radial()/*-{
+		return this.radial();
 	}-*/;
 
-	/**
-	 * Create a new default axis.
-	 * 
-	 * @return the axis
-	 */
-	public final native Axis axis()/*-{
-		return this.axis();
+	public static final native Lines get()/*-{
+		return D3.svg.line;
 	}-*/;
-
-	/**
-	 * Create a new default line.
-	 * 
-	 * @return the line
-	 */
-	public final native Line line()/*-{
-		return this.line();
-	}-*/;
-
-	/**
-	 * Create a new default area.
-	 * 
-	 * @return the area
-	 */
-	public final native Area area()/*-{
-		return this.area();
-	}-*/;
-
-	/**
-	 * Create a new default brush.
-	 * 
-	 * @return the brush
-	 */
-	public final native Brush brush() /*-{
-		return this.brush();
-	}-*/;
-
-	/**
-	 * Create a new default chord.
-	 * 
-	 * @return the chord
-	 */
-	public final native Chord chord() /*-{
-		return this.chord();
-	}-*/;
-
-	/**
-	 * Create a new default {@link Symbol}.
-	 * 
-	 * @return the symbol
-	 */
-	public final native Symbol symbol() /*-{
-		return this.symbol();
-	}-*/;
-
 }
