@@ -35,6 +35,7 @@ import com.github.gwtd3.demo.client.democases.ChordDiagram;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern1;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern2;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern3;
+import com.github.gwtd3.demo.client.democases.LineDemo;
 import com.github.gwtd3.demo.client.democases.LorenzSystem;
 import com.github.gwtd3.demo.client.democases.StupidExample;
 import com.github.gwtd3.demo.client.democases.StupidExample2;
@@ -97,6 +98,7 @@ public class D3Demo implements EntryPoint {
 		// buttonContainer.add(new DemoButton("Arc", ArcDemo.factory()));
 		buttonContainer.add(new DemoButton("Axis Component", AxisComponent
 				.factory()));
+		buttonContainer.add(new DemoButton("Line Demo", LineDemo.factory()));
 		buttonContainer.add(new DemoButton("Stupid example", StupidExample
 				.factory()));
 		buttonContainer.add(new DemoButton("Stupid example 2", StupidExample2

@@ -28,15 +28,12 @@
  */
 @CHARSET "UTF-8";
 
-text {
-  font: bold 48px monospace;
+path.linedemo{
+	fill: none;
+	stroke: red;
 }
 
-.enter {
-  fill: green;
+circle.linedemo{
+	fill: black;
 }
-
-.update {
-  fill: #333;
 }
-
