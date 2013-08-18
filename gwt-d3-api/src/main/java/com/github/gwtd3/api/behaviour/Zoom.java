@@ -32,7 +32,7 @@ import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.functions.DatumFunction;
-import com.github.gwtd3.api.scales.LinearScale;
+import com.github.gwtd3.api.scales.QuantitativeScale;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -43,12 +43,10 @@ import com.google.gwt.core.client.JavaScriptObject;
  * Usage:
  * 
  * <pre>
- * {@code
- * 	
- * 
+ * {
+ * 	&#064;code
  * 	Zoom zoom = D3.behavior.zoom().on(ZoomEventType.Zoom, new MyZoomListener());
  * 	mySelection.call(zoom);
- * 
  * }
  * </pre>
  * 
@@ -61,7 +59,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 
 	protected Zoom() {
 
-	}
+	} 
 
 	/**
 	 * Type of scroll event to listen to.
@@ -96,61 +94,111 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
-	 * Specifies an x-scale whose domain should be automatically adjusted when
-	 * zooming. If not specified, returns the current x-scale, which defaults to
-	 * null. If the scale's domain or range is modified programmatically, this
-	 * function should be called again.
-	 * 
-	 * @param o
-	 * @return
+	 * Return the current x-scale that is automatically adjusted 
+	 * when zooming, or null if no scale have been specified. 
+	 * <p>
+	 * @return the x-scale
 	 */
-	public final native Zoom x(LinearScale scale)/*-{
+	public final native QuantitativeScale<?> x()/*-{
+		return this.x();
+	}-*/;
+
+	/**
+	 * Specifies an x-scale whose domain should be automatically adjusted when
+	 * zooming. 
+	 * <p>
+	 * If the scale's domain or range is modified programmatically, this
+	 * function should be called again.
+
+	 * @param scale the scale
+	 * @return Zoom the current Zoom object
+	 */
+	public final native Zoom x(QuantitativeScale<?> scale)/*-{
 		return this.x(scale);
 	}-*/;
 
 	/**
-	 * Specifies an y-scale whose domain should be automatically adjusted when
-	 * zooming. If not specified, returns the current y-scale, which defaults to
-	 * null. If the scale's domain or range is modified programmatically, this
-	 * function should be called again.
+	 * Return the current y-scale that is automatically adjusted 
+	 * when zooming, or null if no scale have been specified.
+	 * <p> 
 	 * 
-	 * @param o
-	 * @return Zoom object
+	 * @return the y-scale
 	 */
+	public final native QuantitativeScale<?> y()/*-{
+		return this.y();
+	}-*/;
 
-	public final native Zoom y(LinearScale scale)/*-{
+	/**
+	 * Specifies an y-scale whose domain should be automatically adjusted when
+	 * zooming. 
+	 * <p>
+	 * If not specified, returns the current y-scale, which defaults to
+	 * null. If the scale's domain or range is modified programmatically, this
+	 * function should be called again
+	 * <p>
+	 * @param the scale 
+	 * @return the current zoom object
+	 */
+	public final native Zoom y(QuantitativeScale<?> scale)/*-{
 		return this.y(scale);
+	}-*/;
+
+	/**
+	 * Return the zoom scale's allowed range as a two-element array,
+	 * [*minimum*, maximum]. 
+	 * <p>
+	 * @return the zoom scale's allowed range as a two-element array  
+	 */
+	public final native Array<Double> scaleExtent()/*-{
+		return this.scaleExtent();
 	}-*/;
 
 	/**
 	 * Specifies the zoom scale's allowed range as a two-element array,
 	 * [*minimum*, maximum]. If not specified, returns the current scale extent,
 	 * which defaults to [0, Infinity].
+	 * <p>
 	 * 
-	 * @param o
-	 * @return Zoom object
+	 * @param the zoom scale's allowed range as a two-element array
+	 * @return the current zoom object
 	 */
 	public final native Zoom scaleExtent(double[] scale)/*-{
 		return this.scaleExtent(scale);
 	}-*/;
 
 	/**
-	 * Specifies the current zoom scale. If not specified, returns the current
-	 * zoom scale, which defaults to 1.
-	 * 
-	 * @param o
-	 * @return Zoom object
+	 * Returns the current zoom scale, which defaults to 1.
+	 * <p>
+	 * @return the current zoom scale
 	 */
-	public final native Zoom scale(LinearScale scale)/*-{
+	public final native double scale()/*-{
+		return this.scale();
+	}-*/;
+
+	/**
+	 * Specifies the current zoom scale. 
+	 * <p>
+	 * @param scale the zoom scale factor
+	 * @return the current zoom object
+	 */
+	public final native Zoom scale(double scale)/*-{
 		return this.scale(scale);
 	}-*/;
 
 	/**
-	 * Specifies the current zoom translation vector. If not specified, returns
-	 * the current translation vector, which defaults to [0, 0].
-	 * 
-	 * @param o
-	 * @return Zoom object
+	 * Returns the current translation vector, which defaults to [0, 0].
+	 * <p>
+	 * @return the current translation vector
+	 */
+	public final native Array<Double> translate()/*-{
+		return this.translate();
+	}-*/;
+
+	/**
+	 * Specifies the current zoom translation vector. 
+	 * <p>
+	 * @param the current zoom translation vector
+	 * @return the current zoom object
 	 */
 	public final native Zoom translate(double[] vector)/*-{
 		return this.translate(vector);
