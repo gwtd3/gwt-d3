@@ -32,7 +32,6 @@ import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.functions.DatumFunction;
-import com.github.gwtd3.api.scales.LinearScale;
 import com.github.gwtd3.api.scales.QuantitativeScale;
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -60,7 +59,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 
 	protected Zoom() {
 
-	}
+	} 
 
 	/**
 	 * Type of scroll event to listen to.
