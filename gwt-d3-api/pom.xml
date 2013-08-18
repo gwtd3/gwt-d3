@@ -20,12 +20,12 @@
 		<dependency>
 			<groupId>com.github.gwtd3</groupId>
 			<artifactId>gwt-d3-js</artifactId>
-			<version>3.1.10</version>
+			<version>3.2.8</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.gwtd3</groupId>
 			<artifactId>gwt-d3-js</artifactId>
-			<version>3.1.10</version>
+			<version>3.2.8</version>
 			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
