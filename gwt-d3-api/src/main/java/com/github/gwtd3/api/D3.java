@@ -57,6 +57,7 @@ import com.github.gwtd3.api.dsv.Dsv;
 import com.github.gwtd3.api.dsv.DsvCallback;
 import com.github.gwtd3.api.dsv.DsvObjectAccessor;
 import com.github.gwtd3.api.functions.TimerFunction;
+import com.github.gwtd3.api.geo.Geography;
 import com.github.gwtd3.api.geom.Geometry;
 import com.github.gwtd3.api.interpolators.Interpolator;
 import com.github.gwtd3.api.interpolators.InterpolatorFactory;
@@ -430,6 +431,13 @@ public class D3 extends JavaScriptObject {
 	 */
 	public static final native Geometry geom()/*-{
 		return $wnd.d3.geom;
+	}-*/;
+
+	/**
+	 * @return the {@link Geography} module
+	 */
+	public static final native Geography geo()/*-{
+		return $wnd.d3.geo;
 	}-*/;
 
 	// =========== interpolation ==============
@@ -1563,6 +1571,8 @@ public class D3 extends JavaScriptObject {
 	public static final native <T> Dsv<T> tsv(String url)/*-{
 		return $wnd.d3.tsv(url);
 	}-*/;
+
+	// ============= json ============
 
 	// ============= math ============
 

@@ -642,6 +642,18 @@ public class Array<T> extends JavaScriptObject {
 	}-*/;
 
 	/**
+	 * Alias for {@link #map(ForEachCallback)}.
+	 * <p>
+	 * 
+	 * @param callback
+	 *            the callback to be called for each element
+	 * @return a new array containing the elements returned by the callback
+	 */
+	public native final <R> Array<R> map(JavaScriptObject callback) /*-{
+		return this.map(callback);
+	}-*/;
+
+	/**
 	 * Calls the provided callback function once for each element in the array,
 	 * and constructs a new array of all the values returned by the callback.
 	 * <p>
