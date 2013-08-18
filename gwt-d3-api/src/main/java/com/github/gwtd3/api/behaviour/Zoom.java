@@ -35,6 +35,7 @@ import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.LinearScale;
+import com.github.gwtd3.api.scales.QuantitativeScale;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -98,10 +99,10 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	/**
 	 * Return the current x-scale that is automatically adjusted 
 	 * when zooming, or null if no scale have been specified. 
-	 * 
+	 * <p>
 	 * @return the x-scale
 	 */
-	public final native LinearScale x()/*-{
+	public final native QuantitativeScale<?> x()/*-{
 		return this.x();
 	}-*/;
 
@@ -115,7 +116,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * @param scale the scale
 	 * @return Zoom the current Zoom object
 	 */
-	public final native Zoom x(LinearScale scale)/*-{
+	public final native Zoom x(QuantitativeScale<?> scale)/*-{
 		return this.x(scale);
 	}-*/;
 
@@ -126,7 +127,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * 
 	 * @return the y-scale
 	 */
-	public final native LinearScale y()/*-{
+	public final native QuantitativeScale<?> y()/*-{
 		return this.y();
 	}-*/;
 
@@ -141,7 +142,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * @param the scale 
 	 * @return the current zoom object
 	 */
-	public final native Zoom y(LinearScale scale)/*-{
+	public final native Zoom y(QuantitativeScale<?> scale)/*-{
 		return this.y(scale);
 	}-*/;
 
