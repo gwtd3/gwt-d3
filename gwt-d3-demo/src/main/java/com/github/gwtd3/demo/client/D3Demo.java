@@ -40,6 +40,7 @@ import com.github.gwtd3.demo.client.democases.StupidExample;
 import com.github.gwtd3.demo.client.democases.StupidExample2;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
+import com.github.gwtd3.demo.client.democases.geom.HullDemo;
 import com.github.gwtd3.demo.client.democases.svg.LineDemo;
 import com.github.gwtd3.demo.client.democases.svg.SymbolDemo;
 import com.github.gwtd3.demo.client.test.ui.TestRunner;
@@ -117,6 +118,8 @@ public class D3Demo implements EntryPoint {
 				.factory()));
 		buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem
 				.factory()));
+
+		buttonContainer.add(new DemoButton("Convex Hull", HullDemo.factory()));
 
 		buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples
 				.factory()));

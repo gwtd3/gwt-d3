@@ -57,6 +57,7 @@ import com.github.gwtd3.api.dsv.Dsv;
 import com.github.gwtd3.api.dsv.DsvCallback;
 import com.github.gwtd3.api.dsv.DsvObjectAccessor;
 import com.github.gwtd3.api.functions.TimerFunction;
+import com.github.gwtd3.api.geom.Geometry;
 import com.github.gwtd3.api.interpolators.Interpolator;
 import com.github.gwtd3.api.interpolators.InterpolatorFactory;
 import com.github.gwtd3.api.interpolators.JavascriptFunctionInterpolator;
@@ -422,6 +423,13 @@ public class D3 extends JavaScriptObject {
 	 */
 	public static final native Layout<?> layout()/*-{
 		return $wnd.d3.layout;
+	}-*/;
+
+	/**
+	 * @return the {@link Geometry} module
+	 */
+	public static final native Geometry geom()/*-{
+		return $wnd.d3.geom;
 	}-*/;
 
 	// =========== interpolation ==============
@@ -1309,6 +1317,23 @@ public class D3 extends JavaScriptObject {
 	 */
 	public static final native JsArrayNumber mouse(Node container)/*-{
 		return $wnd.d3.mouse(container);
+	}-*/;
+
+	/**
+	 * Returns the x and y coordinates of the current d3.event, relative to the
+	 * specified container. The container may be an HTML or SVG container
+	 * element, such as an svg:g or svg:svg. The coordinates are returned as a
+	 * two-element array [ x, y].
+	 * 
+	 * @param container
+	 * @return
+	 */
+	public static final native Coords mouseAsCoords(Node container)/*-{
+		var m = $wnd.d3.mouse(container);
+		return {
+			x : m[0],
+			y : m[1],
+		};
 	}-*/;
 
 	/**

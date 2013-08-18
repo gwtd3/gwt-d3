@@ -26,96 +26,62 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * 
- */
-package com.github.gwtd3.api;
+package com.github.gwtd3.api.geom;
 
-import com.github.gwtd3.api.core.Value;
-import com.github.gwtd3.api.functions.DatumFunction;
+import java.util.List;
+
+import com.github.gwtd3.api.JsArrays;
+import com.github.gwtd3.api.arrays.Array;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.dom.client.Element;
 
 /**
- * A Javascript object containing x and y properties.
+ * The geometry module.
+ * <p>
+ * <ul>
+ * <li>
+ * <li>
+ * <li>
+ * <li>
+ * </ul>
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class Coords extends JavaScriptObject {
+public class Geometry extends JavaScriptObject {
 
-	protected Coords() {
+	protected Geometry() {
 
 	}
 
-	public static final native Coords create(double x, double y)/*-{
-		return {
-			x : x,
-			y : y
-		};
-	}-*/;
-
 	/**
-	 * @return the x coordinates
-	 */
-	public final native double x()/*-{
-		return this.x;
-	}-*/;
-
-	/**
-	 * @return the y coordinates
-	 */
-	public final native double y()/*-{
-		return this.y;
-	}-*/;
-
-	/**
-	 * set the x coords
+	 * Create a new hull layout with the default x- and y-accessors.
+	 * <p>
 	 * 
-	 * @return the x coordinates
+	 * @return the hull
 	 */
-	public final native Coords x(double x)/*-{
-		this.x = x;
-		return this;
+	public native final Hull hull()/*-{
+		return this.hull();
 	}-*/;
 
 	/**
-	 * set the y coords
+	 * Compute the hull with default x- and y-accessors. See
+	 * {@link Hull#apply(Array)}.
+	 * <p>
 	 * 
-	 * @param y
-	 * @return
+	 * @return the convex hull as an array of vertices
 	 */
-	public final native Coords y(double y)/*-{
-		this.y = y;
-		return this;
+	public final native <T> Array<T> hull(Array<T> vertices)/*-{
+		return this.hull(vertices);
 	}-*/;
 
 	/**
-	 * @return x and y comma-separated string
+	 * Create a new hull layout with the default x- and y-accessors for the
+	 * given array of vertices. See {@link Hull#apply(List)}.
+	 * <p>
+	 * 
+	 * @return the convex hull as a list of vertices
 	 */
-	public final native String toCommaSeparatedString()/*-{
-		return this.x + "," + this.y;
-	}-*/;
-
-	/**
-	 * Convenient {@link DatumFunction} that return the x component of a
-	 * {@link Coords} datum.
-	 */
-	public static final DatumFunction<Double> X_ACCESSOR = new DatumFunction<Double>() {
-		@Override
-		public Double apply(Element context, Value d, int index) {
-			return d.<Coords> as().x();
-		}
-	};
-
-	/**
-	 * Convenient {@link DatumFunction} that return the y component of a
-	 * {@link Coords} datum.
-	 */
-	public static final DatumFunction<Double> Y_ACCESSOR = new DatumFunction<Double>() {
-		@Override
-		public Double apply(Element context, Value d, int index) {
-			return d.<Coords> as().y();
-		}
-	};
+	public final <T> List<T> hull(List<T> vertices) {
+		return this.hull(JsArrays.asJsArray(vertices)).asList();
+	}
 }

@@ -678,9 +678,12 @@ public class Array<T> extends JavaScriptObject {
 	}
 
 	/**
-	 * Convert each element of the array to a String and join them with a comma
-	 * separator. The value returned from this method may vary between browsers
-	 * based on how JavaScript values are converted into strings.
+	 * Convert each element of the array to a String and join them with the
+	 * given separator. The value returned from this method may vary between
+	 * browsers based on how JavaScript values are converted into strings.
+	 * 
+	 * @param separator
+	 *            the separator to be used between each joined element
 	 */
 	public final native String join(String separator) /*-{
 		return this.join(separator);
