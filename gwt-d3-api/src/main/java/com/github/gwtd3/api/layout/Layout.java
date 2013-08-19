@@ -26,96 +26,31 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * 
- */
-package com.github.gwtd3.api.svg;
+package com.github.gwtd3.api.layout;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-/**
- * Provide access to svg routines.
- * 
- * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
- * 
- */
-public class SVG
+public class Layout<L extends Layout<L>>
     extends JavaScriptObject {
-
-    protected SVG() {
+    protected Layout() {
+        super();
     }
 
-    /**
-     * Create a new arc with default accessor functions.
-     * See {@link Arc} for details.
-     * 
-     * @return the arc
-     */
-    public final native Arc arc()/*-{
-		return this.arc();
-    }-*/;
-
-    /**
-     * Create a new default axis.
-     * 
-     * @return the axis
-     */
-    public final native Axis axis()/*-{
-		return this.axis();
-    }-*/;
-
-    /**
-     * Create a new default line.
-     * 
-     * @return the line
-     */
-    public final native Line line()/*-{
-		return this.line();
-    }-*/;
-
-    /**
-     * Create a new default area.
-     * 
-     * @return the area
-     */
-    public final native Area area()/*-{
-		return this.area();
-    }-*/;
-
-    /**
-     * Create a new default brush.
-     * 
-     * @return the brush
-     */
-    public final native Brush brush() /*-{
-		return this.brush();
-    }-*/;
-
-    /**
-     * Create a new default chord.
-     * 
-     * @return the chord
-     */
-    public final native Chord chord() /*-{
+    public final native ChordLayout chord() /*-{
 		return this.chord();
     }-*/;
 
     /**
-     * Create a new diagonal generator with the default accessor functions.
-     * See {@link Diagonal} for details.
+     * Creates a new tree layout with the default settings: the default sort
+     * order is null; the default children
+     * accessor assumes each input data is an object with a children array; the
+     * default separation function uses one
+     * node width for siblings, and two node widths for non-siblings; the
+     * default size is 1×1.
      * 
-     * @return the diagonal
+     * @return the tree layout object
      */
-    public final native Diagonal diagonal() /*-{
-		return this.diagonal();
-    }-*/;
-
-    /**
-     * Create a new default {@link Symbol}.
-     * 
-     * @return the symbol
-     */
-    public final native Symbol symbol() /*-{
-		return this.symbol();
+    public final native TreeLayout tree() /*-{
+		return this.tree();
     }-*/;
 }
