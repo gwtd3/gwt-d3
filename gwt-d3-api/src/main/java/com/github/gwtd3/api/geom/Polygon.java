@@ -26,65 +26,96 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.geom;
+/**
+ * 
+ */
+package com.github.gwtd3.api.svg;
 
-import com.github.gwtd3.api.arrays.Array;
+import com.google.gwt.core.client.JavaScriptObject;
 
-public class Polygon extends Array<Array<Double>> {
+/**
+ * Provide access to svg routines.
+ * 
+ * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+ * 
+ */
+public class SVG
+    extends JavaScriptObject {
 
-	protected Polygon() {
+    protected SVG() {
+    }
 
-	}
+    /**
+     * Create a new arc with default accessor functions.
+     * See {@link Arc} for details.
+     * 
+     * @return the arc
+     */
+    public final native Arc arc()/*-{
+		return this.arc();
+    }-*/;
 
-	/**
-	 * Returns the signed area of this polygon.
-	 * <p>
-	 * If the vertices are in counterclockwise order, the area is positive,
-	 * otherwise it is negative.
-	 * 
-	 * @return the signed area
-	 */
-	public native final double area()/*-{
+    /**
+     * Create a new default axis.
+     * 
+     * @return the axis
+     */
+    public final native Axis axis()/*-{
+		return this.axis();
+    }-*/;
+
+    /**
+     * Create a new default line.
+     * 
+     * @return the line
+     */
+    public final native Line line()/*-{
+		return this.line();
+    }-*/;
+
+    /**
+     * Create a new default area.
+     * 
+     * @return the area
+     */
+    public final native Area area()/*-{
 		return this.area();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Returns a two-element array representing the centroid of this polygon.
-	 * <p>
-	 * 
-	 * @return a two-element array representing the centroid of this polygon.
-	 */
-	public native final Array<?> centroid()/*-{
-		return this.centroid();
-	}-*/;
+    /**
+     * Create a new default brush.
+     * 
+     * @return the brush
+     */
+    public final native Brush brush() /*-{
+		return this.brush();
+    }-*/;
 
-	/**
-	 * Returns a two-element array representing the centroid of this polygon.
-	 * <p>
-	 * 
-	 * @param k
-	 *            a scale factor
-	 * @return a two-element array representing the centroid of this polygon.
-	 */
-	public native final Array<?> centroid(double k) /*-{
-		return this.centroid(k);
-	}-*/;
+    /**
+     * Create a new default chord.
+     * 
+     * @return the chord
+     */
+    public final native Chord chord() /*-{
+		return this.chord();
+    }-*/;
 
-	/**
-	 * Clips the subject polygon against this polygon.
-	 * <p>
-	 * In other words, returns a polygon representing the intersection of this
-	 * polygon and the subject polygon.
-	 * <p>
-	 * Assumes the clip polygon is counterclockwise and convex.
-	 * <p>
-	 * 
-	 * @param subject
-	 *            the polygon to clip against
-	 * @return the clip polygon
-	 */
-	public native final Polygon clip(Array<Array<Double>> subject)/*-{
-		return this.clip(subject);
-	}-*/;
+    /**
+     * Create a new diagonal generator with the default accessor functions.
+     * See {@link Diagonal} for details.
+     * 
+     * @return the diagonal
+     */
+    public final native Diagonal diagonal() /*-{
+		return this.diagonal();
+    }-*/;
 
+    /**
+     * Create a new default {@link Symbol}.
+     * 
+     * @return the symbol
+     */
+    public final native Symbol symbol() /*-{
+		return this.symbol();
+    }-*/;
 }

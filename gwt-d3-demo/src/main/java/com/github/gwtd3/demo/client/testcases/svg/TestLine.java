@@ -46,7 +46,7 @@ public class TestLine extends AbstractTestCase {
 	public void doTest(final com.google.gwt.user.client.ui.ComplexPanel sandbox) {
 		Line line = D3.svg().line();
 
-		// interpolation
+		// interpolator
 		assertEquals(InterpolationMode.LINEAR, line.interpolate());
 		line.interpolate(InterpolationMode.CARDINAL);
 		assertEquals(InterpolationMode.CARDINAL, line.interpolate());
@@ -55,14 +55,13 @@ public class TestLine extends AbstractTestCase {
 		final List<Double> yCapture = new ArrayList<Double>();
 
 		// default x and y function (data must be a
-		String d = line.generate(JsArrays.asJsArray(JsArrays.asJsArray(0, 0),
-				JsArrays.asJsArray(1, 1), JsArrays.asJsArray(2, 2)));
+		String d = line.generate(JsArrays.asJsArray(JsArrays.asJsArray(0, 0), JsArrays.asJsArray(1, 1),
+				JsArrays.asJsArray(2, 2)));
 
 		// x and y
 		line.x(new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Value d,
-					final int index) {
+			public Double apply(final Element context, final Value d, final int index) {
 				xCapture.add(d.<Coords> as().x);
 				return d.<Coords> as().x;
 			}
@@ -70,15 +69,13 @@ public class TestLine extends AbstractTestCase {
 
 		line.y(new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Value d,
-					final int index) {
+			public Double apply(final Element context, final Value d, final int index) {
 				yCapture.add(d.<Coords> as().y);
 				return d.<Coords> as().y;
 			}
 		});
 
-		d = line.generate(JsArrays.asJsArray(new Coords(1, 1),
-				new Coords(2, 2), new Coords(3, 3)));
+		d = line.generate(JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2), new Coords(3, 3)));
 
 		assertEquals(1.0, xCapture.get(0));
 		assertEquals(2.0, xCapture.get(1));
@@ -88,22 +85,18 @@ public class TestLine extends AbstractTestCase {
 		assertEquals(2.0, yCapture.get(1));
 		assertEquals(3.0, yCapture.get(2));
 
-		d = line.generate(JsArrays.asJsArray(new Coords(1, 1),
-				new Coords(2, 2), new Coords(3, 3)));
+		d = line.generate(JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2), new Coords(3, 3)));
 		// System.out.println("defined : " + d);
 
 		// x and y constants
-		d = line.x(50)
-				.y(30)
-				.generate(
-						JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2),
-								new Coords(3, 3)));
+		d = line.x(50).y(30).generate(JsArrays.asJsArray(new Coords(1, 1), new Coords(2, 2), new Coords(3, 3)));
 		// System.out.println("defined : " + d);
+
+		// TODO: tension
 
 		line.defined(new DatumFunction<Boolean>() {
 			@Override
-			public Boolean apply(final Element context, final Value d,
-					final int index) {
+			public Boolean apply(final Element context, final Value d, final int index) {
 				// System.out.println(context);
 				// System.out.println(d);
 				// System.out.println(index);
@@ -114,8 +107,7 @@ public class TestLine extends AbstractTestCase {
 		// not called
 		line.y(new DatumFunction<Double>() {
 			@Override
-			public Double apply(final Element context, final Value d,
-					final int index) {
+			public Double apply(final Element context, final Value d, final int index) {
 				counter.y = (counter.y + 1);
 				yCapture.add(d.<Coords> as().y);
 				return d.<Coords> as().y;
@@ -123,11 +115,6 @@ public class TestLine extends AbstractTestCase {
 		});
 
 		// does not assertEquals(2, counter.y);
-		// Smoke test radial line
-
-		// RadialLine radial = D3.svg().line.radial();
-		// radial.angle(3.5);
-		// radial.radius(56);
 
 	}
 
