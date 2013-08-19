@@ -99,31 +99,30 @@ public class TreeLayout
 		return this.size();
     }-*/;
 
-    /*
+    /**
      * Sets a fixed size for each node as a two-element array of numbers
      * representing x and y.
      * 
-     * @param a two-element array of width, height
+     * @param width
+     * @param height
      * 
-     * @return this tree object
-     * 
-     * public final native TreeLayout nodeSize(double width, double height) /*-{
-     * return this.nodeSize([ width, height ]);
-     * }-
-     */
+     * @return this tree layout
+     */    
+    public final native TreeLayout nodeSize(double width, double height) /*-{
+        return this.nodeSize([ width, height ]);
+    }-*/;
 
-    /*
+    /**
      * Returns the current node size, which defaults to null, meaning that the
      * layout has an overall fixed size, which
      * can be retrieved using {@link #size()}.
      * 
      * @return a two element array representing the current size of nodes in the
      * tree
-     * 
-     * public final native Array<Double> nodeSize() /*-{
-     * return this.nodeSize();
-     * }-
      */
+    public final native Array<Double> nodeSize() /*-{
+        return this.nodeSize();
+    }-*/;
 
     /**
      * Sets the sort order of sibling nodes for the layout using the specified
