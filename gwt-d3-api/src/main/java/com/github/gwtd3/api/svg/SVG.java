@@ -108,4 +108,12 @@ public class SVG extends JavaScriptObject {
 		return this.symbol();
 	}-*/;
 
+	/**
+     * Create a new default {@link Diagonal}.
+     * 
+     * @return the diagonal
+     */
+    public final native Diagonal diagonal() /*-{
+        return this.diagonal();
+    }-*/;
 }
