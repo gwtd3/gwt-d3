@@ -59,7 +59,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 
 	protected Zoom() {
 
-	} 
+	}
 
 	/**
 	 * Type of scroll event to listen to.
@@ -94,9 +94,10 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
-	 * Return the current x-scale that is automatically adjusted 
-	 * when zooming, or null if no scale have been specified. 
+	 * Return the current x-scale that is automatically adjusted when zooming,
+	 * or null if no scale have been specified.
 	 * <p>
+	 * 
 	 * @return the x-scale
 	 */
 	public final native QuantitativeScale<?> x()/*-{
@@ -105,12 +106,13 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 
 	/**
 	 * Specifies an x-scale whose domain should be automatically adjusted when
-	 * zooming. 
+	 * zooming.
 	 * <p>
 	 * If the scale's domain or range is modified programmatically, this
 	 * function should be called again.
-
-	 * @param scale the scale
+	 * 
+	 * @param scale
+	 *            the scale
 	 * @return Zoom the current Zoom object
 	 */
 	public final native Zoom x(QuantitativeScale<?> scale)/*-{
@@ -118,9 +120,9 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
-	 * Return the current y-scale that is automatically adjusted 
-	 * when zooming, or null if no scale have been specified.
-	 * <p> 
+	 * Return the current y-scale that is automatically adjusted when zooming,
+	 * or null if no scale have been specified.
+	 * <p>
 	 * 
 	 * @return the y-scale
 	 */
@@ -130,13 +132,15 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 
 	/**
 	 * Specifies an y-scale whose domain should be automatically adjusted when
-	 * zooming. 
+	 * zooming.
 	 * <p>
-	 * If not specified, returns the current y-scale, which defaults to
-	 * null. If the scale's domain or range is modified programmatically, this
-	 * function should be called again
+	 * If not specified, returns the current y-scale, which defaults to null. If
+	 * the scale's domain or range is modified programmatically, this function
+	 * should be called again
 	 * <p>
-	 * @param the scale 
+	 * 
+	 * @param the
+	 *            scale
 	 * @return the current zoom object
 	 */
 	public final native Zoom y(QuantitativeScale<?> scale)/*-{
@@ -144,10 +148,11 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
-	 * Return the zoom scale's allowed range as a two-element array,
-	 * [*minimum*, maximum]. 
+	 * Return the zoom scale's allowed range as a two-element array, [*minimum*,
+	 * maximum].
 	 * <p>
-	 * @return the zoom scale's allowed range as a two-element array  
+	 * 
+	 * @return the zoom scale's allowed range as a two-element array
 	 */
 	public final native Array<Double> scaleExtent()/*-{
 		return this.scaleExtent();
@@ -159,16 +164,18 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * which defaults to [0, Infinity].
 	 * <p>
 	 * 
-	 * @param the zoom scale's allowed range as a two-element array
+	 * @param the
+	 *            zoom scale's allowed range as a two-element array
 	 * @return the current zoom object
 	 */
-	public final native Zoom scaleExtent(double[] scale)/*-{
+	public final native Zoom scaleExtent(Array<Double> scale)/*-{
 		return this.scaleExtent(scale);
 	}-*/;
 
 	/**
 	 * Returns the current zoom scale, which defaults to 1.
 	 * <p>
+	 * 
 	 * @return the current zoom scale
 	 */
 	public final native double scale()/*-{
@@ -176,9 +183,11 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
-	 * Specifies the current zoom scale. 
+	 * Specifies the current zoom scale.
 	 * <p>
-	 * @param scale the zoom scale factor
+	 * 
+	 * @param scale
+	 *            the zoom scale factor
 	 * @return the current zoom object
 	 */
 	public final native Zoom scale(double scale)/*-{
@@ -188,6 +197,7 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	/**
 	 * Returns the current translation vector, which defaults to [0, 0].
 	 * <p>
+	 * 
 	 * @return the current translation vector
 	 */
 	public final native Array<Double> translate()/*-{
@@ -195,12 +205,14 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
-	 * Specifies the current zoom translation vector. 
+	 * Specifies the current zoom translation vector.
 	 * <p>
-	 * @param the current zoom translation vector
+	 * 
+	 * @param the
+	 *            current zoom translation vector
 	 * @return the current zoom object
 	 */
-	public final native Zoom translate(double[] vector)/*-{
+	public final native Zoom translate(Array<Double> vector)/*-{
 		return this.translate(vector);
 	}-*/;
 
