@@ -35,10 +35,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.functions.CountFunction;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
 import com.github.gwtd3.api.svg.PathDataGenerator;
@@ -761,11 +759,9 @@ public class Selection extends EnteringSelection {
 	 * 
 	 * @return the number of elements
 	 */
-	public final int size() {
-		CountFunction function = new CountFunction();
-		each(function);
-		return function.getCount();
-	}
+	public final native int size()/*-{
+		return this.size();
+	}-*/;
 
 	/**
 	 * Invokes the specified function for each element in the current selection,
@@ -788,16 +784,6 @@ public class Selection extends EnteringSelection {
 				});
 	}-*/;
 
-	/**
-	 * Invokes the specified function once, passing in the current selection as
-	 * a single parameter.
-	 * 
-	 * @param jsFunction
-	 * @return the current selection
-	 */
-	public native final Selection call(IsFunction jsFunction) /*-{
-		return this.call(jsFunction);
-	}-*/;
 
 	// ================================ data getter functions ========
 

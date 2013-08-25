@@ -71,9 +71,9 @@ public class TestQuantizeScale extends AbstractTestCase {
 		assertEquals(100.0, quantize.apply(25.0).asDouble());
 		assertEquals(100.0, quantize.apply(261).asDouble());
 
-		// FIXME invert extent is added on v 3.2.x
-		// assertEquals(0.0, quantize.invertExtent(0.0).getNumber(0));
-		// assertEquals(1.0, quantize.invertExtent(0.0).getNumber(1));
+		//invertextent
+		assertEquals(0.0, quantize.invertExtent(0.0).getNumber(0));
+		assertEquals(10.0, quantize.invertExtent(0.0).getNumber(1));
 
 		// getters
 		assertEquals(0.0, quantize.range().getNumber(0));

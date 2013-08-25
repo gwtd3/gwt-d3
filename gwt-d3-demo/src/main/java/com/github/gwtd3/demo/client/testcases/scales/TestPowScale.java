@@ -145,6 +145,22 @@ public class TestPowScale extends AbstractTestCase {
 		assertEquals(1.0, scale.domain().getNumber(0));
 		assertEquals(5.0, scale.domain().getNumber(1));
 
+		// test nice(count) =>
+		scale = D3.scale.pow();
+		scale.domain(2.10007, 2.9);
+		scale.nice(6);
+		assertEquals(2.1, scale.domain().getNumber(0));
+		// why: 2.90000000000004 ??
+		//assertEquals(2.9, scale.domain().getNumber(1));
+
+		scale = D3.scale.pow();
+		scale.domain(2.1005, 2.9);
+		scale.nice(11);
+		assertEquals(2.1d, scale.domain().getNumber(0));
+		// why: 2.90000000000004 ??
+		//assertEquals(2.9d, scale.domain().getNumber(1));
+
+
 		// apply the function
 		scale = D3.scale.pow();
 		scale.domain(1, 10).range(0, 10);

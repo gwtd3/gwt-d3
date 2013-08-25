@@ -74,6 +74,11 @@ public class Line extends PathDataGenerator {
 		LINEAR_CLOSED("linear-closed"),
 
 		/**
+		 * alternate between horizontal and vertical segments, as in a step
+		 * function
+		 */
+		STEP("step"),
+		/**
 		 * alternate between vertical and horizontal segments, as in a step
 		 * function.
 		 */

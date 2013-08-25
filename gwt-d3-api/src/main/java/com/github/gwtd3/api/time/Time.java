@@ -92,6 +92,7 @@ public class Time extends JavaScriptObject {
 	 * <li> <code>%H</code> - hour (24-hour clock) as a decimal number [00,23].
 	 * <li> <code>%I</code> - hour (12-hour clock) as a decimal number [01,12].
 	 * <li> <code>%j</code> - day of the year as a decimal number [001,366].
+	 * <li> <code>%L</code> - milliseconds as a decimal number [000, 999].
 	 * <li> <code>%m</code> - month as a decimal number [01,12].
 	 * <li> <code>%M</code> - minute as a decimal number [00,59].
 	 * <li> <code>%p</code> - either AM or PM.
@@ -313,7 +314,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> seconds(JsDate start, JsDate stop) {
+	public final Array<JsDate> seconds(final JsDate start, final JsDate stop) {
 		return second().range(start, stop);
 	}
 
@@ -324,7 +325,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> seconds(Date start, Date stop) {
+	public final Array<JsDate> seconds(final Date start, final Date stop) {
 		return second().range(start, stop);
 	}
 
@@ -335,7 +336,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> seconds(double start, double stop) {
+	public final Array<JsDate> seconds(final double start, final double stop) {
 		return second().range(start, stop);
 	}
 
@@ -347,7 +348,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> seconds(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> seconds(final JsDate start, final JsDate stop, final double step) {
 		return second().range(start, stop, step);
 	}
 
@@ -358,7 +359,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> seconds(Date start, Date stop, double step) {
+	public final Array<JsDate> seconds(final Date start, final Date stop, final double step) {
 		return second().range(start, stop, step);
 	}
 
@@ -370,7 +371,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> seconds(double start, double stop, double step) {
+	public final Array<JsDate> seconds(final double start, final double stop, final double step) {
 		return second().range(start, stop, step);
 	}
 
@@ -381,7 +382,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> minutes(JsDate start, JsDate stop) {
+	public final Array<JsDate> minutes(final JsDate start, final JsDate stop) {
 		return minute().range(start, stop);
 	}
 
@@ -392,7 +393,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> minutes(Date start, Date stop) {
+	public final Array<JsDate> minutes(final Date start, final Date stop) {
 		return minute().range(start, stop);
 	}
 
@@ -403,7 +404,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> minutes(double start, double stop) {
+	public final Array<JsDate> minutes(final double start, final double stop) {
 		return minute().range(start, stop);
 	}
 
@@ -415,7 +416,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> minutes(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> minutes(final JsDate start, final JsDate stop, final double step) {
 		return minute().range(start, stop, step);
 	}
 
@@ -426,7 +427,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> minutes(Date start, Date stop, double step) {
+	public final Array<JsDate> minutes(final Date start, final Date stop, final double step) {
 		return minute().range(start, stop, step);
 	}
 
@@ -438,7 +439,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> minutes(double start, double stop, double step) {
+	public final Array<JsDate> minutes(final double start, final double stop, final double step) {
 		return minute().range(start, stop, step);
 	}
 
@@ -449,7 +450,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> hours(JsDate start, JsDate stop) {
+	public final Array<JsDate> hours(final JsDate start, final JsDate stop) {
 		return hour().range(start, stop);
 	}
 
@@ -460,7 +461,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> hours(Date start, Date stop) {
+	public final Array<JsDate> hours(final Date start, final Date stop) {
 		return hour().range(start, stop);
 	}
 
@@ -471,7 +472,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> hours(double start, double stop) {
+	public final Array<JsDate> hours(final double start, final double stop) {
 		return hour().range(start, stop);
 	}
 
@@ -482,7 +483,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> hours(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> hours(final JsDate start, final JsDate stop, final double step) {
 		return hour().range(start, stop, step);
 	}
 
@@ -493,7 +494,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> hours(Date start, Date stop, double step) {
+	public final Array<JsDate> hours(final Date start, final Date stop, final double step) {
 		return hour().range(start, stop, step);
 	}
 
@@ -504,7 +505,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> hours(double start, double stop, double step) {
+	public final Array<JsDate> hours(final double start, final double stop, final double step) {
 		return hour().range(start, stop, step);
 	}
 
@@ -515,7 +516,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> days(JsDate start, JsDate stop) {
+	public final Array<JsDate> days(final JsDate start, final JsDate stop) {
 		return day().range(start, stop);
 	}
 
@@ -526,7 +527,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> days(Date start, Date stop) {
+	public final Array<JsDate> days(final Date start, final Date stop) {
 		return day().range(start, stop);
 	}
 
@@ -537,7 +538,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> days(double start, double stop) {
+	public final Array<JsDate> days(final double start, final double stop) {
 		return day().range(start, stop);
 	}
 
@@ -548,7 +549,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> days(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> days(final JsDate start, final JsDate stop, final double step) {
 		return day().range(start, stop, step);
 	}
 
@@ -559,7 +560,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> days(Date start, Date stop, double step) {
+	public final Array<JsDate> days(final Date start, final Date stop, final double step) {
 		return day().range(start, stop, step);
 	}
 
@@ -570,7 +571,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> days(double start, double stop, double step) {
+	public final Array<JsDate> days(final double start, final double stop, final double step) {
 		return day().range(start, stop, step);
 	}
 
@@ -581,7 +582,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> weeks(JsDate start, JsDate stop) {
+	public final Array<JsDate> weeks(final JsDate start, final JsDate stop) {
 		return week().range(start, stop);
 	}
 
@@ -592,7 +593,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> weeks(Date start, Date stop) {
+	public final Array<JsDate> weeks(final Date start, final Date stop) {
 		return week().range(start, stop);
 	}
 
@@ -603,7 +604,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> weeks(double start, double stop) {
+	public final Array<JsDate> weeks(final double start, final double stop) {
 		return week().range(start, stop);
 	}
 
@@ -614,7 +615,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> weeks(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> weeks(final JsDate start, final JsDate stop, final double step) {
 		return week().range(start, stop, step);
 	}
 
@@ -625,7 +626,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> weeks(Date start, Date stop, double step) {
+	public final Array<JsDate> weeks(final Date start, final Date stop, final double step) {
 		return week().range(start, stop, step);
 	}
 
@@ -636,7 +637,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> weeks(double start, double stop, double step) {
+	public final Array<JsDate> weeks(final double start, final double stop, final double step) {
 		return week().range(start, stop, step);
 	}
 
@@ -647,7 +648,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> sundays(JsDate start, JsDate stop) {
+	public final Array<JsDate> sundays(final JsDate start, final JsDate stop) {
 		return sunday().range(start, stop);
 	}
 
@@ -658,7 +659,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> sundays(Date start, Date stop) {
+	public final Array<JsDate> sundays(final Date start, final Date stop) {
 		return sunday().range(start, stop);
 	}
 
@@ -669,7 +670,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> sundays(double start, double stop) {
+	public final Array<JsDate> sundays(final double start, final double stop) {
 		return sunday().range(start, stop);
 	}
 
@@ -681,7 +682,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> sundays(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> sundays(final JsDate start, final JsDate stop, final double step) {
 		return sunday().range(start, stop, step);
 	}
 
@@ -692,7 +693,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> sundays(Date start, Date stop, double step) {
+	public final Array<JsDate> sundays(final Date start, final Date stop, final double step) {
 		return sunday().range(start, stop, step);
 	}
 
@@ -704,7 +705,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> sundays(double start, double stop, double step) {
+	public final Array<JsDate> sundays(final double start, final double stop, final double step) {
 		return sunday().range(start, stop, step);
 	}
 
@@ -715,7 +716,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> mondays(JsDate start, JsDate stop) {
+	public final Array<JsDate> mondays(final JsDate start, final JsDate stop) {
 		return monday().range(start, stop);
 	}
 
@@ -726,7 +727,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> mondays(Date start, Date stop) {
+	public final Array<JsDate> mondays(final Date start, final Date stop) {
 		return monday().range(start, stop);
 	}
 
@@ -737,7 +738,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> mondays(double start, double stop) {
+	public final Array<JsDate> mondays(final double start, final double stop) {
 		return monday().range(start, stop);
 	}
 
@@ -749,7 +750,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> mondays(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> mondays(final JsDate start, final JsDate stop, final double step) {
 		return monday().range(start, stop, step);
 	}
 
@@ -760,7 +761,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> mondays(Date start, Date stop, double step) {
+	public final Array<JsDate> mondays(final Date start, final Date stop, final double step) {
 		return monday().range(start, stop, step);
 	}
 
@@ -772,7 +773,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> mondays(double start, double stop, double step) {
+	public final Array<JsDate> mondays(final double start, final double stop, final double step) {
 		return monday().range(start, stop, step);
 	}
 
@@ -783,7 +784,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> tuesdays(JsDate start, JsDate stop) {
+	public final Array<JsDate> tuesdays(final JsDate start, final JsDate stop) {
 		return tuesday().range(start, stop);
 	}
 
@@ -794,7 +795,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> tuesdays(Date start, Date stop) {
+	public final Array<JsDate> tuesdays(final Date start, final Date stop) {
 		return tuesday().range(start, stop);
 	}
 
@@ -805,7 +806,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> tuesdays(double start, double stop) {
+	public final Array<JsDate> tuesdays(final double start, final double stop) {
 		return tuesday().range(start, stop);
 	}
 
@@ -817,7 +818,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> tuesdays(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> tuesdays(final JsDate start, final JsDate stop, final double step) {
 		return tuesday().range(start, stop, step);
 	}
 
@@ -828,7 +829,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> tuesdays(Date start, Date stop, double step) {
+	public final Array<JsDate> tuesdays(final Date start, final Date stop, final double step) {
 		return tuesday().range(start, stop, step);
 	}
 
@@ -840,7 +841,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> tuesdays(double start, double stop, double step) {
+	public final Array<JsDate> tuesdays(final double start, final double stop, final double step) {
 		return tuesday().range(start, stop, step);
 	}
 
@@ -851,7 +852,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> wednesdays(JsDate start, JsDate stop) {
+	public final Array<JsDate> wednesdays(final JsDate start, final JsDate stop) {
 		return wednesday().range(start, stop);
 	}
 
@@ -862,7 +863,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> wednesdays(Date start, Date stop) {
+	public final Array<JsDate> wednesdays(final Date start, final Date stop) {
 		return wednesday().range(start, stop);
 	}
 
@@ -873,7 +874,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> wednesdays(double start, double stop) {
+	public final Array<JsDate> wednesdays(final double start, final double stop) {
 		return wednesday().range(start, stop);
 	}
 
@@ -885,7 +886,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> wednesdays(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> wednesdays(final JsDate start, final JsDate stop, final double step) {
 		return wednesday().range(start, stop, step);
 	}
 
@@ -896,7 +897,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> wednesdays(Date start, Date stop, double step) {
+	public final Array<JsDate> wednesdays(final Date start, final Date stop, final double step) {
 		return wednesday().range(start, stop, step);
 	}
 
@@ -908,7 +909,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> wednesdays(double start, double stop, double step) {
+	public final Array<JsDate> wednesdays(final double start, final double stop, final double step) {
 		return wednesday().range(start, stop, step);
 	}
 
@@ -919,7 +920,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> thursdays(JsDate start, JsDate stop) {
+	public final Array<JsDate> thursdays(final JsDate start, final JsDate stop) {
 		return thursday().range(start, stop);
 	}
 
@@ -930,7 +931,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> thursdays(Date start, Date stop) {
+	public final Array<JsDate> thursdays(final Date start, final Date stop) {
 		return thursday().range(start, stop);
 	}
 
@@ -941,7 +942,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> thursdays(double start, double stop) {
+	public final Array<JsDate> thursdays(final double start, final double stop) {
 		return thursday().range(start, stop);
 	}
 
@@ -953,7 +954,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> thursdays(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> thursdays(final JsDate start, final JsDate stop, final double step) {
 		return thursday().range(start, stop, step);
 	}
 
@@ -964,7 +965,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> thursdays(Date start, Date stop, double step) {
+	public final Array<JsDate> thursdays(final Date start, final Date stop, final double step) {
 		return thursday().range(start, stop, step);
 	}
 
@@ -976,7 +977,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> thursdays(double start, double stop, double step) {
+	public final Array<JsDate> thursdays(final double start, final double stop, final double step) {
 		return thursday().range(start, stop, step);
 	}
 
@@ -987,7 +988,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> fridays(JsDate start, JsDate stop) {
+	public final Array<JsDate> fridays(final JsDate start, final JsDate stop) {
 		return friday().range(start, stop);
 	}
 
@@ -998,7 +999,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> fridays(Date start, Date stop) {
+	public final Array<JsDate> fridays(final Date start, final Date stop) {
 		return friday().range(start, stop);
 	}
 
@@ -1009,7 +1010,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> fridays(double start, double stop) {
+	public final Array<JsDate> fridays(final double start, final double stop) {
 		return friday().range(start, stop);
 	}
 
@@ -1021,7 +1022,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> fridays(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> fridays(final JsDate start, final JsDate stop, final double step) {
 		return friday().range(start, stop, step);
 	}
 
@@ -1032,7 +1033,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> fridays(Date start, Date stop, double step) {
+	public final Array<JsDate> fridays(final Date start, final Date stop, final double step) {
 		return friday().range(start, stop, step);
 	}
 
@@ -1044,7 +1045,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> fridays(double start, double stop, double step) {
+	public final Array<JsDate> fridays(final double start, final double stop, final double step) {
 		return friday().range(start, stop, step);
 	}
 
@@ -1055,7 +1056,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> saturdays(JsDate start, JsDate stop) {
+	public final Array<JsDate> saturdays(final JsDate start, final JsDate stop) {
 		return saturday().range(start, stop);
 	}
 
@@ -1066,7 +1067,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> saturdays(Date start, Date stop) {
+	public final Array<JsDate> saturdays(final Date start, final Date stop) {
 		return saturday().range(start, stop);
 	}
 
@@ -1077,7 +1078,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> saturdays(double start, double stop) {
+	public final Array<JsDate> saturdays(final double start, final double stop) {
 		return saturday().range(start, stop);
 	}
 
@@ -1089,7 +1090,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> saturdays(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> saturdays(final JsDate start, final JsDate stop, final double step) {
 		return saturday().range(start, stop, step);
 	}
 
@@ -1100,7 +1101,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> saturdays(Date start, Date stop, double step) {
+	public final Array<JsDate> saturdays(final Date start, final Date stop, final double step) {
 		return saturday().range(start, stop, step);
 	}
 
@@ -1112,7 +1113,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> saturdays(double start, double stop, double step) {
+	public final Array<JsDate> saturdays(final double start, final double stop, final double step) {
 		return saturday().range(start, stop, step);
 	}
 
@@ -1123,7 +1124,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> months(JsDate start, JsDate stop) {
+	public final Array<JsDate> months(final JsDate start, final JsDate stop) {
 		return month().range(start, stop);
 	}
 
@@ -1134,7 +1135,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> months(Date start, Date stop) {
+	public final Array<JsDate> months(final Date start, final Date stop) {
 		return month().range(start, stop);
 	}
 
@@ -1145,7 +1146,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> months(double start, double stop) {
+	public final Array<JsDate> months(final double start, final double stop) {
 		return month().range(start, stop);
 	}
 
@@ -1156,7 +1157,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> months(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> months(final JsDate start, final JsDate stop, final double step) {
 		return month().range(start, stop, step);
 	}
 
@@ -1167,7 +1168,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> months(Date start, Date stop, double step) {
+	public final Array<JsDate> months(final Date start, final Date stop, final double step) {
 		return month().range(start, stop, step);
 	}
 
@@ -1178,7 +1179,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> months(double start, double stop, double step) {
+	public final Array<JsDate> months(final double start, final double stop, final double step) {
 		return month().range(start, stop, step);
 	}
 
@@ -1189,7 +1190,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> years(JsDate start, JsDate stop) {
+	public final Array<JsDate> years(final JsDate start, final JsDate stop) {
 		return year().range(start, stop);
 	}
 
@@ -1200,7 +1201,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> years(Date start, Date stop) {
+	public final Array<JsDate> years(final Date start, final Date stop) {
 		return year().range(start, stop);
 	}
 
@@ -1211,7 +1212,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> years(double start, double stop) {
+	public final Array<JsDate> years(final double start, final double stop) {
 		return year().range(start, stop);
 	}
 
@@ -1222,7 +1223,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> years(JsDate start, JsDate stop, double step) {
+	public final Array<JsDate> years(final JsDate start, final JsDate stop, final double step) {
 		return year().range(start, stop, step);
 	}
 
@@ -1233,7 +1234,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> years(Date start, Date stop, double step) {
+	public final Array<JsDate> years(final Date start, final Date stop, final double step) {
 		return year().range(start, stop, step);
 	}
 
@@ -1244,7 +1245,7 @@ public class Time extends JavaScriptObject {
 	 * @param stop
 	 * @return
 	 */
-	public final Array<JsDate> years(double start, double stop, double step) {
+	public final Array<JsDate> years(final double start, final double stop, final double step) {
 		return year().range(start, stop, step);
 	}
 
@@ -1267,7 +1268,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int dayOfYear(Date date) {
+	public final int dayOfYear(final Date date) {
 		return this.dayOfYear(JsDate.create(date.getTime()));
 	}
 
@@ -1277,7 +1278,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int dayOfYear(double date) {
+	public final int dayOfYear(final double date) {
 		return this.dayOfYear(JsDate.create(date));
 	}
 
@@ -1302,7 +1303,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int weekOfYear(Date date) {
+	public final int weekOfYear(final Date date) {
 		return this.weekOfYear(JsDate.create(date.getTime()));
 	}
 
@@ -1312,7 +1313,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int weekOfYear(double date) {
+	public final int weekOfYear(final double date) {
 		return this.weekOfYear(JsDate.create(date));
 	}
 
@@ -1337,7 +1338,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int sundayOfYear(Date date) {
+	public final int sundayOfYear(final Date date) {
 		return this.sundayOfYear(JsDate.create(date.getTime()));
 	}
 
@@ -1347,7 +1348,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int sundayOfYear(double date) {
+	public final int sundayOfYear(final double date) {
 		return this.sundayOfYear(JsDate.create(date));
 	}
 
@@ -1372,7 +1373,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int mondayOfYear(Date date) {
+	public final int mondayOfYear(final Date date) {
 		return this.mondayOfYear(JsDate.create(date.getTime()));
 	}
 
@@ -1382,7 +1383,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int mondayOfYear(double date) {
+	public final int mondayOfYear(final double date) {
 		return this.mondayOfYear(JsDate.create(date));
 	}
 
@@ -1407,7 +1408,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int tuesdayOfYear(Date date) {
+	public final int tuesdayOfYear(final Date date) {
 		return this.tuesdayOfYear(JsDate.create(date.getTime()));
 	}
 
@@ -1417,7 +1418,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int tuesdayOfYear(double date) {
+	public final int tuesdayOfYear(final double date) {
 		return this.tuesdayOfYear(JsDate.create(date));
 	}
 
@@ -1442,7 +1443,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int wednesdayOfYear(Date date) {
+	public final int wednesdayOfYear(final Date date) {
 		return this.wednesdayOfYear(JsDate.create(date.getTime()));
 	}
 
@@ -1452,7 +1453,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int wednesdayOfYear(double date) {
+	public final int wednesdayOfYear(final double date) {
 		return this.wednesdayOfYear(JsDate.create(date));
 	}
 
@@ -1477,7 +1478,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int thursdayOfYear(Date date) {
+	public final int thursdayOfYear(final Date date) {
 		return this.thursdayOfYear(JsDate.create(date.getTime()));
 	}
 
@@ -1487,7 +1488,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int thursdayOfYear(double date) {
+	public final int thursdayOfYear(final double date) {
 		return this.thursdayOfYear(JsDate.create(date));
 	}
 
@@ -1512,7 +1513,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int fridayOfYear(Date date) {
+	public final int fridayOfYear(final Date date) {
 		return this.fridayOfYear(JsDate.create(date.getTime()));
 	}
 
@@ -1522,7 +1523,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int fridayOfYear(double date) {
+	public final int fridayOfYear(final double date) {
 		return this.fridayOfYear(JsDate.create(date));
 	}
 
@@ -1547,7 +1548,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int saturdayOfYear(Date date) {
+	public final int saturdayOfYear(final Date date) {
 		return this.saturdayOfYear(JsDate.create(date.getTime()));
 	}
 
@@ -1557,7 +1558,7 @@ public class Time extends JavaScriptObject {
 	 * @param date
 	 * @return
 	 */
-	public final int saturdayOfYear(double date) {
+	public final int saturdayOfYear(final double date) {
 		return this.saturdayOfYear(JsDate.create(date));
 	}
 }
