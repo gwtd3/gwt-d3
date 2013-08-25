@@ -108,8 +108,9 @@ public class ShapeTweeningDemo extends FlowPanel implements DemoCase {
 		Array<Array<Double>> coordinates1 = circle(coordinates0);
 
 		path = svg.append("path");
-		String d0 = "M" + coordinates0.join("L") + "Z";
-		String d1 = "M" + coordinates1.join("L") + "Z";
+		String d0 = "M" + join(coordinates0,"L") + "Z";
+		String d1 = "M" + join(coordinates1,"L") + "Z";
+
 
 		// FIXME: polygon.clip exemple
 		// Polygon intersection = D3.geom().polygon(coordinates0)
@@ -121,6 +122,15 @@ public class ShapeTweeningDemo extends FlowPanel implements DemoCase {
 		// .attr("class", Bundle.INSTANCE.css().intersection());
 
 		loop(d0, d1);
+	}
+
+	private String join(final Array<Array<Double>> coords, final String delimiter) {
+		String s = "";
+		for (int i = 0; i<(coords.length()-1); i++) {
+			s += coords.get(i).getNumber(0) + "," + coords.get(i).getNumber(1) + "L";
+		}
+		s += coords.get(coords.length()-1).getNumber(0) + "," + coords.get(coords.length()-1).getNumber(1);
+		return s;
 	}
 
 	private Array<Array<Double>> parseJSONToArray() {
@@ -135,14 +145,14 @@ public class ShapeTweeningDemo extends FlowPanel implements DemoCase {
 	private void loop(final String d0, final String d1) {
 
 		path.attr("d", d0).transition().duration(5000).attr("d", d1)
-				.transition().delay(5000).attr("d", d0)
-				.each(EventType.END, new DatumFunction<Void>() {
-					@Override
-					public Void apply(Element context, Value d, int index) {
-						loop(d0, d1);
-						return null;
-					}
-				});
+		.transition().delay(5000).attr("d", d0)
+		.each(EventType.END, new DatumFunction<Void>() {
+			@Override
+			public Void apply(final Element context, final Value d, final int index) {
+				loop(d0, d1);
+				return null;
+			}
+		});
 
 	}
 
@@ -153,7 +163,7 @@ public class ShapeTweeningDemo extends FlowPanel implements DemoCase {
 	 * @param coordinates
 	 * @return the circle coordinates
 	 */
-	private Array<Array<Double>> circle(Array<Array<Double>> coordinates) {
+	private Array<Array<Double>> circle(final Array<Array<Double>> coordinates) {
 		Array<Array<Double>> circle = Array.create();
 		int length = 0;
 		Array<Integer> lengths = Array.fromInts(length);
@@ -167,7 +177,7 @@ public class ShapeTweeningDemo extends FlowPanel implements DemoCase {
 			Array<Double> p1 = coordinates.getValue(i).as();
 			double x = p1.getNumber(0) - p0.getNumber(0);
 			double y = p1.getNumber(1) - p0.getNumber(1);
-			lengths.push(length += Math.sqrt(x * x + y * y));
+			lengths.push(length += Math.sqrt((x * x) + (y * y)));
 			p0 = p1;
 		}
 
@@ -175,16 +185,16 @@ public class ShapeTweeningDemo extends FlowPanel implements DemoCase {
 		double radius = Math.sqrt(Math.abs(area) / Math.PI);
 		Array<?> centroid = polygon.centroid(-1 / (6 * area));
 		double angleOffset = -Math.PI / 2;
-		double k = 2 * Math.PI / lengths.getNumber(lengths.length() - 1);
+		double k = (2 * Math.PI) / lengths.getNumber(lengths.length() - 1);
 
 		// Compute points along the circle’s circumference at equivalent
 		// distances.
 		i = -1;
 		while (++i < n) {
-			double angle = angleOffset + lengths.getNumber(i) * k;
+			double angle = angleOffset + (lengths.getNumber(i) * k);
 			circle.push(Array.fromDoubles(
-					centroid.getNumber(0) + radius * Math.cos(angle),
-					centroid.getNumber(1) + radius * Math.sin(angle)));
+					centroid.getNumber(0) + (radius * Math.cos(angle)),
+					centroid.getNumber(1) + (radius * Math.sin(angle))));
 		}
 
 		return circle;
