@@ -42,6 +42,7 @@ import com.github.gwtd3.demo.client.democases.TreeDemo;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.democases.geom.HullDemo;
+import com.github.gwtd3.demo.client.democases.geom.MitchellBestCandidate;
 import com.github.gwtd3.demo.client.democases.geom.ShapeTweeningDemo;
 import com.github.gwtd3.demo.client.democases.svg.LineDemo;
 import com.github.gwtd3.demo.client.democases.svg.SymbolDemo;
@@ -104,7 +105,7 @@ public class D3Demo implements EntryPoint {
 				.factory()));
 		buttonContainer.add(new DemoButton("Line Demo", LineDemo.factory()));
 		buttonContainer
-				.add(new DemoButton("Symbol Demo", SymbolDemo.factory()));
+		.add(new DemoButton("Symbol Demo", SymbolDemo.factory()));
 		buttonContainer.add(new DemoButton("Stupid example", StupidExample
 				.factory()));
 		buttonContainer.add(new DemoButton("Stupid example 2", StupidExample2
@@ -121,6 +122,8 @@ public class D3Demo implements EntryPoint {
 		buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem
 				.factory()));
 
+		buttonContainer.add(new DemoButton("Mitchell's Best Candidate", MitchellBestCandidate
+				.factory()));
 		buttonContainer.add(new DemoButton("Shape Tweening", ShapeTweeningDemo
 				.factory()));
 		buttonContainer.add(new DemoButton("Convex Hull", HullDemo.factory()));

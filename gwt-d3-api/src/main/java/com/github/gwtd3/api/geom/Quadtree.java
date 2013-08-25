@@ -28,6 +28,9 @@
  */
 package com.github.gwtd3.api.geom;
 
+import java.util.List;
+
+import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -94,6 +97,13 @@ public class Quadtree extends JavaScriptObject {
 	/**
 	 * Constructs a new quadtree for the specified array of points.
 	 * <p>
+	 * The x and y coordinates of each point is determined using the default {@link #x(DatumFunction)}
+	 * and {@link #y(DatumFunction)} accessors.
+	 * <p>
+	 * To build a quadtree by adding points incrementally, the specified points array can be empty,
+	 * and points can be later added to the returned root node; in this case, you must also specify
+	 * the {@link #extent()} of the quadtree.
+	 * <p>
 	 * Returns the root of the quadtree.
 	 * 
 	 * @param points
@@ -103,6 +113,20 @@ public class Quadtree extends JavaScriptObject {
 	public native final <T> RootNode<T> apply(Array<T> points)/*-{
 		return this(points);
 	}-*/;
+
+	/**
+	 * Constructs a new quadtree for the specified list of points.
+	 * <p>
+	 * Returns the root of the quadtree.
+	 * 
+	 * @param points
+	 *            the points
+	 * @return the root of the quadtree
+	 */
+	public final <T> RootNode<T> apply(final List<T> points){
+		return this.apply(JsArrays.asJsArray(points));
+	}
+
 
 	/**
 	 * Returns the current extent, which defaults to null.
@@ -151,33 +175,64 @@ public class Quadtree extends JavaScriptObject {
 		return this.extent([‍[ x0, y0 ], [ x1, y1 ]]);
 	}-*/;
 
+	/**
+	 * Node of the quadtree.
+	 * <p>
+	 * 
+	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+	 *
+	 * @param <T>
+	 */
 	public static class Node<T> extends JavaScriptObject {
 
 		protected Node() {
 
 		}
 
+		/**
+		 * @return  the point associated with this node, if any (may apply to either internal or leaf nodes)
+		 */
 		public native final T point()/*-{
 			return this.point;
 		}-*/;
 
+		/**
+		 * @return  the x-coordinate of the associated point, if any
+		 */
 		public native final Double x()/*-{
 			return this.x;
 		}-*/;
 
+		/**
+		 * @return  the y-coordinate of the associated point, if any
+		 */
 		public native final Double y()/*-{
 			return this.y;
 		}-*/;
 
+		/**
+		 * @return a boolean indicating whether this is a internal or leaf node
+		 */
 		public native final boolean leaf()/*-{
 			return this.leaf;
 		}-*/;
 
+		/**
+		 * @return a sparse array of the four child nodes in order: top-left, top-right, bottom-left, bottom-right
+		 */
 		public native final Array<Node<T>> nodes()/*-{
 			return this.nodes;
 		}-*/;
 	}
 
+	/**
+	 * The root node of the quadtree.
+	 * <p>
+	 * 
+	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+	 *
+	 * @param <T>
+	 */
 	public static class RootNode<T> extends Node<T> {
 		protected RootNode() {
 

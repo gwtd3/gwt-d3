@@ -32,7 +32,6 @@ import java.util.List;
 
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.geom.Quadtree.RootNode;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -82,7 +81,7 @@ public class Geometry extends JavaScriptObject {
 	 * 
 	 * @return the convex hull as a list of vertices
 	 */
-	public final <T> List<T> hull(List<T> vertices) {
+	public final <T> List<T> hull(final List<T> vertices) {
 		return this.hull(JsArrays.asJsArray(vertices)).asList();
 	}
 
@@ -98,31 +97,18 @@ public class Geometry extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Creates a new quadtree layout with the default x-accessor and y-accessor
+	 * Creates a new quadtree factory with the default x-accessor and y-accessor
 	 * (that assume the input data is a two-element array of numbers; see below
-	 * for details).
+	 * for details) and extent.
 	 * <p>
 	 * The default extent is null, such that it will be computed automatically
 	 * from the input points.
 	 * <p>
 	 * 
-	 * @return the {@link Quadtree} object
+	 * @return the {@link Quadtree} factory
 	 */
 	public native final Quadtree quadtree()/*-{
 		return this.quadtree();
-	}-*/;
-
-	/**
-	 * Constructs a new quadtree for the specified array of points.
-	 * <p>
-	 * Returns the root of the quadtree.
-	 * 
-	 * @param points
-	 *            the points
-	 * @return the root of the quadtree
-	 */
-	public native final <T> RootNode<T> quadtree(Array<T> points)/*-{
-		return this.quadtree(points);
 	}-*/;
 
 }

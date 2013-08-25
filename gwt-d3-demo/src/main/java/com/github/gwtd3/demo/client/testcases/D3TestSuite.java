@@ -43,7 +43,6 @@ import com.github.gwtd3.demo.client.testcases.core.TestMath;
 import com.github.gwtd3.demo.client.testcases.csv.TestCsv;
 import com.github.gwtd3.demo.client.testcases.d3.TestColors;
 import com.github.gwtd3.demo.client.testcases.d3.TestD3;
-import com.github.gwtd3.demo.client.testcases.geom.TestQuadTree;
 import com.github.gwtd3.demo.client.testcases.scales.TestIdentityScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLinearScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestLogScale;
@@ -128,9 +127,8 @@ public class D3TestSuite {
 				new TestTimeFormat(), new TestTimeIntervals(),
 				new TestTimeScale(),
 				// requests
-				new TestCsv(), new TestTsv(),
-				// geometry
-				new TestQuadTree());
+				new TestCsv(), new TestTsv()
+				);
 		return suite;
 	}
 
