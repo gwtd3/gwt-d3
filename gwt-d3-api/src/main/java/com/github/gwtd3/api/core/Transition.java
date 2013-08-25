@@ -37,6 +37,7 @@ import com.github.gwtd3.api.ease.Easing;
 import com.github.gwtd3.api.ease.EasingFunction;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.interpolators.Interpolator;
+import com.github.gwtd3.api.svg.PathDataGenerator;
 import com.github.gwtd3.api.tweens.TweenFunction;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
@@ -292,6 +293,31 @@ public class Transition extends JavaScriptObject {
 						function(d, i) {
 							return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 						});
+	}-*/;
+
+
+	/**
+	 * Transitions the attribute with the specified name to the specified
+	 * {@link PathDataGenerator} value on all selected elements.
+	 * <p>
+	 * This method should always been used with a selection containing a svg
+	 * &lt;path&gt; element by specifying "d" for the name argument.
+	 * <p>
+	 * The specified name may have a namespace prefix, such as xlink:href, to
+	 * specify an "href" attribute in the XLink namespace. By default, D3
+	 * supports svg, xhtml, xlink, xml, and xmlns namespaces. Additional
+	 * namespaces can be registered by adding to d3.ns.prefix.
+	 * <p>
+	 * 
+	 * @param name
+	 *            the name of the attribute
+	 * @param value
+	 *            the new value to assign
+	 * @return the current transition
+	 */
+	public native final Transition attr(final String name, PathDataGenerator value)
+	/*-{
+		return this.attr(name, value);
 	}-*/;
 
 	/**
