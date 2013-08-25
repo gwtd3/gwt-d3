@@ -72,7 +72,7 @@ public class LorenzSystem extends FlowPanel implements DemoCase {
 				context.scale(12, 14);
 				context.rotate(30);
 				for (int i = 0; i < n; ++i) {
-					context.setStrokeStyle(color.apply(z).asString());
+					context.setStrokeStyle(D3.rgb(color.apply(z).asString()).toHexaString());
 					context.beginPath();
 					context.moveTo(x, y);
 					x += δτ * σ * (y - x);
