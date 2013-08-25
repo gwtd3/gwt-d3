@@ -69,8 +69,9 @@ public class XmlHttpRequest extends JavaScriptObject {
 	}-*/;
 
 	public final native XmlHttpRequest responseType(ResponseType type)/*-{
-		return this.responseType(type == null ? "" : type
-				.@com.github.gwtd3.api.xhr.XmlHttpRequest.ResponseType::name()().
-				.@java.lang.String::toLowerCase());
+		return this
+				.responseType(type == null ? ""
+						: type.@com.github.gwtd3.api.xhr.XmlHttpRequest.ResponseType::name()()
+								.@java.lang.String::toLowerCase());
 	}-*/;
 }
