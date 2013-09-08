@@ -19,8 +19,9 @@ This is an ugly app but still demonstrate the potential of (gwt-)d3
 
 Roadmap:
 
-1.0.0 (planned by the end of august) 
-
+~~1.0.0 (planned by the end of august)~~
+A pre-release with the work done so far is going to be published very soon.
+More details in the next days...
 
 
 Continuous integration on <a href="https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/">Cloudbees</a>:
