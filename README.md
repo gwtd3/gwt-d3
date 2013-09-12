@@ -19,7 +19,7 @@ How to use the library :
 
 ##API coverage 
 
-- d3 (core)
+- CORE
  - Selections
  - Transitions
  - Working with Arrays
@@ -30,7 +30,7 @@ How to use the library :
  - Colors
  - Namespaces
  - Internals
-- Scales
+- SCALES
  - Quantitative
   - linear
   - sqrt
@@ -54,11 +54,11 @@ How to use the library :
   - diagonal.radial
  - Axes
  - Controls
-- Time
+- TIME
  - Time Formatting
  - Time Scales
  - Time Intervals
-- Layouts
+- LAYOUTS
  - Bundle
  - Chord
  - Cluster
@@ -71,16 +71,16 @@ How to use the library :
  - Stack
  - Tree
  - Treemap
-- Geography
+- GEOGRAPHY
  - Paths
  - Projections
  - Streams
-- d3.geom (Geometry)
+- GEOMETRY
  - Voronoi
  - Quadtree
  - Polygon
  - Hull
-- d3.behavior (Behaviors)
+- BEHAVIORS
  - Drag
  - Zoom
 
