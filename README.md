@@ -12,51 +12,73 @@ Goals of the library:
 - enrich the API to ease Java programming style of d3 (turns JS array into List, string constants to Enum, ...)
 - make a bridge between GWT Widget API and d3 
 
+Continuous integration on <a href="https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/">Cloudbees</a>:
+<a href='https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/'><img src='https://gwt-d3.ci.cloudbees.com/buildStatus/icon?job=CI of gwt-d3'></a>
+
+
 ##Getting started
 
 How to use the library :
+TODO:
+- Basic eclipse GWT project creation tutorial
 - MAVEN setup
+
+##Roadmap:
+See also below in the next section the API already covered.
+
+- 1.0.0 (end of september 2013)
+- 1.1.0 : complete the SVG Shapes, SVG Controls and Geometry API
+- 1.2.0 : complete the Layout API
+- 1.3.0 : geometry API
+- 1.4.0 : geography API
+- 1.5.0 : non essentials API
+ 
+~~1.0.0 (planned by the end of august)~~
+
 
 ##API coverage 
 
+For details, you may be interested in the remaining [issues](https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open):
+
+Here is the details of the covered API, as it is as 13th september 2013:
 - CORE
- - Selections
- - Transitions
+ - Selections (1.0.0)
+ - Transitions  (1.0.0)
  - Working with Arrays
- - Math
+ - Math  (1.0.0)
  - Loading External Resources
- - String Formatting
+ - String Formatting  (1.0.0)
  - CSV Formatting (d3.csv)
- - Colors
- - Namespaces
+ - Colors  (1.0.0)
+ - Namespaces 
  - Internals
-- SCALES
- - Quantitative
-  - linear
-  - sqrt
-  - pow
-  - log
-  - quantize
-  - threshold
-  - quantile
-  - identity
- - Ordinal
-- SVG
+- SCALES (1.0.0)
+ - Quantitative (1.0.0)
+  - linear (1.0.0)
+  - sqrt (1.0.0)
+  - pow (1.0.0)
+  - log (1.0.0)
+  - quantize (1.0.0)
+  - threshold (1.0.0)
+  - quantile (1.0.0)
+  - identity (1.0.0)
+ - Ordinal (1.0.0)
+- SVG 
  - Shapes
-  - Line
+  - Line (1.0.0)
   - line.radial
   - area
   - area.radial
   - arc
-  - symbol
+  - symbol (1.0.0)
   - chord
   - diagonal
   - diagonal.radial
- - Axes
+ - Axes (1.0.0)
  - Controls
 - TIME
- - Time Formatting
- - Time Scales
+ - Time Formatting (1.0.0)
+ - Time Scales (1.0.0)
  - Time Intervals
 - LAYOUTS
  - Bundle
@@ -77,26 +99,11 @@ How to use the library :
  - Streams
 - GEOMETRY
  - Voronoi
- - Quadtree
- - Polygon
- - Hull
+ - Quadtree (1.0.0)
+ - Polygon (1.0.0)
+ - Hull (1.0.0)
 - BEHAVIORS
- - Drag
- - Zoom
+ - Drag (1.0.0)
+ - Zoom (1.0.0)
 
-
-##Roadmap:
-
-- 1.0.0 (end of september 2013): first release  (details of the coverage to come soon)
-- 1.1.0 : complete the SVG Shapes, SVG Controls and Geometry API
-- 1.2.0 : complete the Layout API
-- 1.3.0 : geometry API
-- 1.4.0 : geography API
-- 1.5.0 : non essentials API
- 
-~~1.0.0 (planned by the end of august)~~
-
-
-Continuous integration on <a href="https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/">Cloudbees</a>:
-<a href='https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/'><img src='https://gwt-d3.ci.cloudbees.com/buildStatus/icon?job=CI of gwt-d3'></a>
 
