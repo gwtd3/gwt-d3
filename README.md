@@ -26,7 +26,7 @@ Roadmap:
 - 1.3.0 : geometry API
 - 1.4.0 : geography API
 - 1.5.0 : non essentials API
-- 
+ 
 ~~1.0.0 (planned by the end of august)~~
 
 
