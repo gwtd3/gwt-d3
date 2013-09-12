@@ -1,24 +1,91 @@
-gwt-d3 GWT wrapper around d3.js.
-======
+#gwt-d3: the GWT wrapper around d3.js
+
 
 This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
 It allows GWT developers to use d3.js library in their project.
+
+You can see a demo with the test cases (for API coverage) and some exemples:
+http://gwt-d3.appspot.com/
 
 Goals of the library:
 - provide access to relevant API of [d3.js API](http://d3js.org/)
 - enrich the API to ease Java programming style of d3 (turns JS array into List, string constants to Enum, ...)
 - make a bridge between GWT Widget API and d3 
 
-It is still in a developpement phase. We are paying efforts on covering almost 100% of relevant d3 API.
-You should not use it for production purpose since it's still experimental and may change unexpectedly.
+##Getting started
 
-You can see a demo with the test cases (for API coverage) and some exemples:
-http://gwt-d3.appspot.com/
+How to use the library :
+- MAVEN setup
 
-This is an ugly app but still demonstrate the potential of (gwt-)d3 
+##API coverage 
+
+- d3 (core)
+ - Selections
+ - Transitions
+ - Working with Arrays
+ - Math
+ - Loading External Resources
+ - String Formatting
+ - CSV Formatting (d3.csv)
+ - Colors
+ - Namespaces
+ - Internals
+- Scales
+ - Quantitative
+  - linear
+  - sqrt
+  - pow
+  - log
+  - quantize
+  - threshold
+  - quantile
+  - identity
+ - Ordinal
+- SVG
+ - Shapes
+  - Line
+  - line.radial
+  - area
+  - area.radial
+  - arc
+  - symbol
+  - chord
+  - diagonal
+  - diagonal.radial
+ - Axes
+ - Controls
+- Time
+ - Time Formatting
+ - Time Scales
+ - Time Intervals
+- Layouts
+ - Bundle
+ - Chord
+ - Cluster
+ - Force
+ - Hierarchy
+ - Histogram
+ - Pack
+ - Partition
+ - Pie
+ - Stack
+ - Tree
+ - Treemap
+- Geography
+ - Paths
+ - Projections
+ - Streams
+- d3.geom (Geometry)
+ - Voronoi
+ - Quadtree
+ - Polygon
+ - Hull
+- d3.behavior (Behaviors)
+ - Drag
+ - Zoom
 
 
-Roadmap:
+##Roadmap:
 
 - 1.0.0 (end of september 2013): first release  (details of the coverage to come soon)
 - 1.1.0 : complete the SVG Shapes, SVG Controls and Geometry API
