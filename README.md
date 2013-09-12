@@ -22,6 +22,8 @@ How to use the library :
 TODO:
 - Basic eclipse GWT project creation tutorial
 - MAVEN setup to use gwt-d3
+- Basic use of d3
+- links to some tutorials
 
 ##Roadmap:
 See also below in the next section the API already covered.
@@ -41,69 +43,76 @@ See also below in the next section the API already covered.
 For details, you may be interested in the remaining [issues](https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open):
 
 Here is the details of the covered API, as it is as 13th september 2013:
-- CORE
- - Selections (1.0.0)
- - Transitions  (1.0.0)
- - Working with Arrays
- - Math  (1.0.0)
- - Loading External Resources
- - String Formatting  (1.0.0)
- - CSV Formatting (d3.csv)
- - Colors  (1.0.0)
- - Namespaces 
- - Internals
-- SCALES (1.0.0)
- - Quantitative (1.0.0)
-  - linear (1.0.0)
-  - sqrt (1.0.0)
-  - pow (1.0.0)
-  - log (1.0.0)
-  - quantize (1.0.0)
-  - threshold (1.0.0)
-  - quantile (1.0.0)
-  - identity (1.0.0)
- - Ordinal (1.0.0)
-- SVG 
- - Shapes
-  - Line (1.0.0)
-  - line.radial
-  - area
-  - area.radial
-  - arc
-  - symbol (1.0.0)
-  - chord
-  - diagonal
-  - diagonal.radial
- - Axes (1.0.0)
- - Controls
-- TIME
- - Time Formatting (1.0.0)
- - Time Scales (1.0.0)
- - Time Intervals
-- LAYOUTS
- - Bundle
- - Chord
- - Cluster
- - Force
- - Hierarchy
- - Histogram
- - Pack
- - Partition
- - Pie
- - Stack
- - Tree
- - Treemap
-- GEOGRAPHY
- - Paths
- - Projections
- - Streams
-- GEOMETRY
- - Voronoi
- - Quadtree (1.0.0)
- - Polygon (1.0.0)
- - Hull (1.0.0)
-- BEHAVIORS
- - Drag (1.0.0)
- - Zoom (1.0.0)
+#####CORE
+- Selections (1.0.0)
+- Transitions  (1.0.0)
+- Working with Arrays
+- Math  (1.0.0)
+- Loading External Resources
+- String Formatting  (1.0.0)
+- CSV Formatting (d3.csv)
+- Colors  (1.0.0)
+- Namespaces 
+- Internals
+
+#####SCALES (1.0.0)
+- Quantitative (1.0.0)
+ - Linear (1.0.0)
+ - sqrt (1.0.0)
+ - pow (1.0.0)
+ - log (1.0.0)
+ - quantize (1.0.0)
+ - threshold (1.0.0)
+ - quantile (1.0.0)
+ - identity (1.0.0)
+- Ordinal (1.0.0)
+
+#####SVG 
+- Shapes
+ - Line (1.0.0)
+ - line.radial
+ - area
+ - area.radial
+ - arc
+ - symbol (1.0.0)
+ - chord
+ - diagonal
+ - diagonal.radial
+- Axes (1.0.0)
+- Controls
+
+#####TIME
+- Time Formatting (1.0.0)
+- Time Scales (1.0.0)
+- Time Intervals
+
+#####LAYOUTS
+- Bundle
+- Chord
+- Cluster
+- Force
+- Hierarchy
+- Histogram
+- Pack
+- Partition
+- Pie
+- Stack
+- Tree
+- Treemap
+
+#####GEOGRAPHY
+- Paths
+- Projections
+- Streams
+
+#####GEOMETRY
+- Voronoi
+- Quadtree (1.0.0)
+- Polygon (1.0.0)
+- Hull (1.0.0)
+
+#####BEHAVIORS
+- Drag (1.0.0)
+- Zoom (1.0.0)
 
 
