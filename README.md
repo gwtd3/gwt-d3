@@ -21,7 +21,7 @@ Continuous integration on <a href="https://gwt-d3.ci.cloudbees.com/job/CI%20of%2
 How to use the library :
 TODO:
 - Basic eclipse GWT project creation tutorial
-- MAVEN setup
+- MAVEN setup to use gwt-d3
 
 ##Roadmap:
 See also below in the next section the API already covered.
