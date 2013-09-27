@@ -248,19 +248,81 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	// ========== tick size =========
+
 	/**
-	 * Sets the major, minor and end to the given value.
+	 * @return the current tick size, which defaults to 6
+	 */
+	public final native int tickSize()/*-{
+		return this.tickSize();
+	}-*/;
+
+	/**
+	 * Sets the outer and inner ticks to the specified value.
 	 * 
-	 * @param majorMinorEnd
+	 * @param outerInnerTickSizeInPixels
+	 *            the tick size in pixels
+	 * @return the current axis
+	 */
+	public final native Axis tickSize(int outerInnerTickSizeInPixels)/*-{
+		return this.tickSize(outerInnerTickSizeInPixels);
+	}-*/;
+
+	/**
+	 * Sets the inner tick size to the specified value and returns the axis.
+	 * <p>
+	 * The inner tick size controls the length of the tick lines, offset from
+	 * the native position of the axis.
+	 * <p>
+	 * 
+	 * @param innerTickSizeInPixels
 	 *            the new value
 	 * @return the current axis
 	 */
-	public final native Axis tickSize(int majorMinorEnd)/*-{
-		return this.tickSize(majorMinorEnd);
+	public final native Axis innerTickSize(int innerTickSizeInPixels)/*-{
+		return this.innerTickSize(innerTickSizeInPixels);
+	}-*/;
+
+	/**
+	 * @return the current inner ticks size, which defaults to 6
+	 */
+	public final native int innerTickSize()/*-{
+		return this.innerTickSize();
+	}-*/;
+
+	/**
+	 * Sets the outer tick size to the specified value and returns the axis.
+	 * <p>
+	 * The outer tick size controls the length of the square ends of the domain
+	 * path, offset from the native position of the axis.
+	 * <p>
+	 * Thus, the “outer ticks” are not actually ticks but part of the domain
+	 * path, and their position is determined by the associated scale's domain
+	 * extent.
+	 * <p>
+	 * Thus, outer ticks may overlap with the first or last inner tick. An outer
+	 * tick size of 0 suppresses the square ends of the domain path, instead
+	 * producing a straight line.
+	 * <p>
+	 * 
+	 * @param outerTickSizeInPixels
+	 *            the new value
+	 * @return the current axis
+	 */
+	public final native Axis outerTickSize(int outerTickSizeInPixels)/*-{
+		return this.outerTickSize(outerTickSizeInPixels);
+	}-*/;
+
+	/**
+	 * @return the current outer ticks size, which defaults to 6
+	 */
+	public final native int outerTickSize()/*-{
+		return this.outerTickSize();
 	}-*/;
 
 	/**
 	 * Sets the major, minor and end to the given values.
+	 * 
+	 * @deprecated
 	 * 
 	 * @param majorMinor
 	 *            the new value for major and minor ticks
@@ -268,6 +330,7 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	 *            the new end value
 	 * @return the current axis
 	 */
+	@Deprecated
 	public final native Axis tickSize(int majorMinor, int end)/*-{
 		return this.tickSize(majorMinor, end);
 	}-*/;
@@ -279,8 +342,10 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	 *            the new value for major and minor ticks
 	 * @param end
 	 *            the new end value
+	 * @deprecated
 	 * @return the current axis
 	 */
+	@Deprecated
 	public final native Axis tickSize(int major, int minor, int end)/*-{
 		return this.tickSize(major, minor, end);
 	}-*/;
@@ -290,8 +355,10 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	/**
 	 * Get the tick subdivision count, which defaults to zero.
 	 * 
+	 * @deprecated this method has no effect anymore !
 	 * @return the tick subdivision count
 	 */
+	@Deprecated
 	public final native int tickSubdivide()/*-{
 		return this.tickSubdivide();
 	}-*/;
@@ -307,10 +374,12 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	 * tick, thus cutting the space between each major tick in two. As another
 	 * example, decimal subdivision is specified as axis.tickSubdivide(9).
 	 * 
+	 * @deprecated this method has no effect anymore ! use
 	 * @param count
 	 *            the tick subdivision count
 	 * @return the current axis
 	 */
+	@Deprecated
 	public final native Axis tickSubdivide(int count)/*-{
 		return this.tickSubdivide(count);
 	}-*/;

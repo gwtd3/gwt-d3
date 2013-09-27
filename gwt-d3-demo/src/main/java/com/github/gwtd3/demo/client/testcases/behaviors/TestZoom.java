@@ -26,92 +26,69 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.demo.client.testcases.selection;
+package com.github.gwtd3.demo.client.testcases.behaviors;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.arrays.Array;
+import com.github.gwtd3.api.behaviour.Zoom;
+import com.github.gwtd3.api.behaviour.Zoom.ZoomEventType;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
+import com.github.gwtd3.demo.client.test.AbstractTestCase;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Label;
 
-public class TestSelectionControls extends AbstractSelectionTest {
+/**
+ * Test Zoom API
+ * 
+ * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+ * 
+ */
+public class TestZoom extends AbstractTestCase {
 
-	private static final String ATTRIBUTE = "myattr";
+	private static final double DELTA = 0.001d;
 
 	@Override
 	public void doTest(final ComplexPanel sandbox) {
-		testEmpty();// 1
-		testNode();// 2
-		testEach();
-		testCount();
-		testCall();
-		testInterrupt();
+		testCreate();
 	}
 
-	private void testInterrupt() {
-		Selection selection = givenAMultipleSelection(new Label("1"),
-				new Label("2"));
-		selection.interrupt();
-	}
+	private void testCreate() {
+		Zoom zoom = D3.behavior().zoom();
 
-	/**
-	 * 
-	 */
-	private void testCall() {
-		// nothing to test before any other use cases of using selection.call-
-		// maybe by providing a SelectionCallback interface with one method
-		// call(Selection) ?
+		assertNull(zoom.center());
+		zoom.center(5, 6);
+		assertNotNull(zoom.center());
 
-	}
+		assertEquals(960.0, zoom.size().getNumber(0), DELTA);
+		assertEquals(500.0, zoom.size().getNumber(1), DELTA);
+		zoom.size(400, 300);
+		assertEquals(400.0, zoom.size().getNumber(0), DELTA);
+		assertEquals(300.0, zoom.size().getNumber(1), DELTA);
 
-	/**
-	 * 
-	 */
-	private void testEach() {
-		Selection selection = givenAMultipleSelection(new Label("1"),
-				new Label("2"));
-		final StringBuilder sb = new StringBuilder();
-		selection.each(new DatumFunction<Void>() {
-			@Override
-			public Void apply(final Element context, final Value d,
-					final int index) {
-				sb.append(context.getInnerText());
-				return null;
-			}
-		});
-		assertEquals("12", sb.toString());
-	}
+		zoom.event(D3.select("body"));
+		zoom.event(D3.select("body").transition());
 
-	/**
-	 * 
-	 */
-	private void testCount() {
-		Selection selection = givenAMultipleSelection(new Label("1"),
-				new Label("2"));
-		assertEquals(2, selection.size());
-	}
+		zoom.on(ZoomEventType.ZOOMSTART, noopListener);
+		zoom.on(ZoomEventType.ZOOM, noopListener);
+		zoom.on(ZoomEventType.ZOOMEND, noopListener);
 
-	/**
-	 * 
-	 */
-	private void testNode() {
-		Selection selection = givenAMultipleSelection(new Label("1"),
-				new Label("2"));
-		assertEquals("1", selection.node().getInnerText());
-		selection = selection.selectAll("unknown");
-		assertNull(selection.node());
-	}
+		zoom.scale();
+		zoom.scale(5.0);
 
-	protected void testEmpty() {
-		Selection selection = D3.select(sandbox);
-
-		selection.append("myelement");
-
-		assertEquals(false, selection.select("myelement").empty());
-		assertEquals(true, selection.select("unknown").empty());
+		zoom.scaleExtent();
+		zoom.scaleExtent(Array.fromDoubles(5.0, 4.0));
+		zoom.translate();
+		zoom.translate(Array.fromDoubles(5.0, 6.0));
 
 	}
+
+	private final DatumFunction<Void> noopListener = new DatumFunction<Void>() {
+		@Override
+		public Void apply(Element context, Value d, int index) {
+
+			return null;
+		};
+	};
 
 }

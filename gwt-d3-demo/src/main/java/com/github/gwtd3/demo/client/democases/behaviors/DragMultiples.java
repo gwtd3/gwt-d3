@@ -28,6 +28,7 @@
  */
 package com.github.gwtd3.demo.client.democases.behaviors;
 
+import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.Coords;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
@@ -74,7 +75,7 @@ public class DragMultiples extends FlowPanel implements DemoCase {
 				.select(this)
 				.selectAll("svg")
 				// set the data as the center of the squares
-				.data(D3.range(16).map(new ForEachCallback<Coords>() {
+				.data(Arrays.range(16).map(new ForEachCallback<Coords>() {
 					@Override
 					public Coords forEach(final Object thisArg,
 							final Value element, final int index,

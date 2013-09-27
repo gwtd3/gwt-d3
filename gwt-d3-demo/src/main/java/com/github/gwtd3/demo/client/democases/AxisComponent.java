@@ -28,6 +28,7 @@
  */
 package com.github.gwtd3.demo.client.democases;
 
+import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
@@ -106,8 +107,8 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 		// up!
 		final TimeScale x = D3.time().scale().range(0, w);
 		final LinearScale y = D3.scale.linear().range(h, 0);
-		final Axis xAxis = D3.svg().axis().scale(x).tickSize(-h)
-				.tickSubdivide(1);
+		final Axis xAxis = D3.svg().axis().scale(x).tickSize(-h);
+		// removed .tickSubdivide(1);
 		final Axis yAxis = D3.svg().axis().scale(y).orient(Orientation.RIGHT)
 				.ticks(4);
 
@@ -182,7 +183,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 				x.domain(JsArrays.asJsArray(values.getObject(0).getDate(),
 						values.getObject(values.length() - 1).getDate()));
 
-				int maxY = D3.max(values, new NumericForEachCallback() {
+				int maxY = Arrays.max(values, new NumericForEachCallback() {
 					@Override
 					public double forEach(final Object thisArg,
 							final Value element, final int index,

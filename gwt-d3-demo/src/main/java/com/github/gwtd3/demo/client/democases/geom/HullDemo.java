@@ -31,6 +31,7 @@
  */
 package com.github.gwtd3.demo.client.democases.geom;
 
+import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.ForEachCallback;
@@ -129,7 +130,7 @@ public class HullDemo extends FlowPanel implements DemoCase {
 		final Random randomX = Random.normal(width / 2d, 60d), randomY = Random
 				.normal(height / 2d, 60d);
 
-		vertices = D3.range(100).map(new ForEachCallback<Coords>() {
+		vertices = Arrays.range(100).map(new ForEachCallback<Coords>() {
 			@Override
 			public Coords forEach(Object thisArg, Value element, int index,
 					Array<?> array) {

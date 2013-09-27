@@ -55,20 +55,22 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Create a {@link Value} instance from the value of the named property of the given object.
+	 * Create a {@link Value} instance from the value of the named property of
+	 * the given object.
 	 * 
 	 * @param object
 	 * @param propertyName
 	 * @return
 	 */
-	public static final native Value create(JavaScriptObject object, String propertyName)/*-{
+	public static final native Value create(JavaScriptObject object,
+			String propertyName)/*-{
 		return {
 			datum : object[propertyName]
 		};
 	}-*/;
 
 	/**
-	 * Cast and return the value.
+	 * Cast and return the wrapped value.
 	 * <p>
 	 * 
 	 * @return the value
@@ -79,7 +81,7 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the value.
+	 * Cast and return the wrapped value.
 	 * <p>
 	 * 
 	 * @return the value
@@ -89,7 +91,7 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the value.
+	 * Cast and return the wrapped value.
 	 * <p>
 	 * 
 	 * @return the value
@@ -103,7 +105,7 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the value.
+	 * Cast and return the wrapped value.
 	 * <p>
 	 * 
 	 * @return the value
@@ -113,7 +115,7 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the value.
+	 * Cast and return the wrapped value.
 	 * <p>
 	 * 
 	 * @return the value
@@ -123,7 +125,7 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the value.
+	 * Cast and return the wrapped value.
 	 * <p>
 	 * 
 	 * @return the value
@@ -143,7 +145,7 @@ public class Value extends JavaScriptObject {
 	}
 
 	/**
-	 * Cast and return the value.
+	 * Cast and return the wrapped value.
 	 * <p>
 	 * 
 	 * @return the value
@@ -162,7 +164,7 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the value, if possible.
+	 * Cast and return the wrapped value, if possible.
 	 * <p>
 	 * 
 	 * @throws ClassCastException
@@ -175,7 +177,7 @@ public class Value extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * Cast and return the value.
+	 * Cast and return the wrapped value.
 	 * 
 	 * @param clazz
 	 *            the clazz to cast to
@@ -228,8 +230,9 @@ public class Value extends JavaScriptObject {
 	/**
 	 * Return the property of this object as a {@link Value}.
 	 * <p>
-	 * This method result is never non-null. The returned value may then be tested for nullity (with {@link #isNull()}) or for undefinition
-	 * (with {@link #isUndefined()}).
+	 * This method result is never non-null. The returned value may then be
+	 * tested for nullity (with {@link #isNull()}) or for undefinition (with
+	 * {@link #isUndefined()}).
 	 * <p>
 	 * 
 	 * @param propertyName

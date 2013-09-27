@@ -28,6 +28,7 @@
  */
 package com.github.gwtd3.demo.client.democases;
 
+import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
@@ -76,29 +77,33 @@ public class ChordDiagram extends FlowPanel implements DemoCase {
 		// From http://mkweb.bcgsc.ca/circos/guide/tables/
 		JsArray<JsArrayNumber> matrix = matrix();
 
-		ChordLayout chord = D3.layout().chord()
-				.padding(.05)
-				.sortSubgroups(D3.descending())
-				.matrix(matrix);
+		ChordLayout chord = D3.layout().chord().padding(.05)
+				.sortSubgroups(Arrays.descending()).matrix(matrix);
 
 		int width = 960;
 		int height = 500;
 		double innerRadius = Math.min(width, height) * .41;
 		final double outerRadius = innerRadius * 1.1;
 
-		final OrdinalScale fill = D3.scale.ordinal()
-				.domain(D3.range(4))
-				.range(JsArrays.asJsArray("#000000", "#FFDD89", "#957244", "#F26223"));
+		final OrdinalScale fill = D3.scale
+				.ordinal()
+				.domain(Arrays.range(4))
+				.range(JsArrays.asJsArray("#000000", "#FFDD89", "#957244",
+						"#F26223"));
 
-		final Selection svg = D3.select(this).append("svg")
+		final Selection svg = D3
+				.select(this)
+				.append("svg")
 				.attr("width", width)
 				.attr("height", height)
 				.append("g")
-				.attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+				.attr("transform",
+						"translate(" + (width / 2) + "," + (height / 2) + ")");
 
 		DatumFunction<String> indexFunction = new DatumFunction<String>() {
 			@Override
-			public String apply(final Element context, final Value d, final int index) {
+			public String apply(final Element context, final Value d,
+					final int index) {
 				try {
 					int i = d.<Group> as().index();
 					Value apply = fill.apply(i);
@@ -111,89 +116,93 @@ public class ChordDiagram extends FlowPanel implements DemoCase {
 			}
 		};
 
-		svg.append("g").selectAll("path")
+		svg.append("g")
+				.selectAll("path")
 				.data(chord.groups())
-				.enter().append("path")
+				.enter()
+				.append("path")
 				.style("fill", indexFunction)
 				.style("stroke", indexFunction)
-				.attr("d", D3.svg().arc().innerRadius(innerRadius).outerRadius(outerRadius))
+				.attr("d",
+						D3.svg().arc().innerRadius(innerRadius)
+								.outerRadius(outerRadius))
 				.on("mouseover", fade(css, svg, .1))
 				.on("mouseout", fade(css, svg, 1));
 
 		// Returns an array of tick angles and labels, given a group.
 		DatumFunction<Array<GroupTick>> groupTicks = new DatumFunction<Array<GroupTick>>() {
 			@Override
-			public Array<GroupTick> apply(final Element context, final Value d, final int index) {
+			public Array<GroupTick> apply(final Element context, final Value d,
+					final int index) {
 				final Group g = d.<Group> as();
 				final double k = (g.endAngle() - g.startAngle()) / g.value();
-				return D3.range(0, g.value(), 1000).<Array<Double>> cast().map(new ForEachCallback<GroupTick>() {
-					@Override
-					public GroupTick forEach(final Object thisArg, final Value v, final int index, final Array<?> array) {
-						double angle = (v.asDouble() * k) + g.startAngle();
-						String label = (index % 5) != 0 ? null : (v.asDouble() / 1000) + "k";
-						return GroupTick.create(angle, label);
-					}
-				});
+				return Arrays.range(0, g.value(), 1000).<Array<Double>> cast()
+						.map(new ForEachCallback<GroupTick>() {
+							@Override
+							public GroupTick forEach(final Object thisArg,
+									final Value v, final int index,
+									final Array<?> array) {
+								double angle = (v.asDouble() * k)
+										+ g.startAngle();
+								String label = (index % 5) != 0 ? null : (v
+										.asDouble() / 1000) + "k";
+								return GroupTick.create(angle, label);
+							}
+						});
 			}
 		};
 
 		Selection ticks;
 		try {
-			ticks = svg.append("g").selectAll("g")
-					.data(chord.groups())
-					.enter().append("g").selectAll("g")
-					.data(groupTicks)
-					.enter().append("g")
-					.attr("transform", new DatumFunction<String>() {
+			ticks = svg.append("g").selectAll("g").data(chord.groups()).enter()
+					.append("g").selectAll("g").data(groupTicks).enter()
+					.append("g").attr("transform", new DatumFunction<String>() {
 						@Override
-						public String apply(final Element context, final Value d, final int index) {
+						public String apply(final Element context,
+								final Value d, final int index) {
 							GroupTick groupTick = d.<GroupTick> as();
-							return "rotate(" + (((groupTick.angle() * 180) / Math.PI) - 90) + ")"
-									+ "translate(" + outerRadius + ",0)";
+							return "rotate("
+									+ (((groupTick.angle() * 180) / Math.PI) - 90)
+									+ ")" + "translate(" + outerRadius + ",0)";
 						}
 					});
-			ticks.append("line")
-					.attr("x1", 1)
-					.attr("y1", 0)
-					.attr("x2", 5)
-					.attr("y2", 0)
-					.style("stroke", "#000");
+			ticks.append("line").attr("x1", 1).attr("y1", 0).attr("x2", 5)
+					.attr("y2", 0).style("stroke", "#000");
 
-			ticks.append("text")
-					.attr("x", 8)
-					.attr("dy", ".35em")
+			ticks.append("text").attr("x", 8).attr("dy", ".35em")
 					.attr("transform", new DatumFunction<String>() {
 						@Override
-						public String apply(final Element context, final Value d, final int index) {
-							return d.<GroupTick> as().angle() > Math.PI ? "rotate(180)translate(-16)" : null;
+						public String apply(final Element context,
+								final Value d, final int index) {
+							return d.<GroupTick> as().angle() > Math.PI ? "rotate(180)translate(-16)"
+									: null;
 						}
-					})
-					.style("text-anchor", new DatumFunction<String>() {
+					}).style("text-anchor", new DatumFunction<String>() {
 						@Override
-						public String apply(final Element context, final Value d, final int index) {
-							return d.<GroupTick> as().angle() > Math.PI ? "end" : null;
+						public String apply(final Element context,
+								final Value d, final int index) {
+							return d.<GroupTick> as().angle() > Math.PI ? "end"
+									: null;
 						}
-					})
-					.text(new DatumFunction<String>() {
+					}).text(new DatumFunction<String>() {
 						@Override
-						public String apply(final Element context, final Value d, final int index) {
+						public String apply(final Element context,
+								final Value d, final int index) {
 							return d.<GroupTick> as().label();
 						}
 					});
 
-			svg.append("g")
-					.attr("class", css.chord())
-					.selectAll("path")
-					.data(chord.chords())
-					.enter().append("path")
+			svg.append("g").attr("class", css.chord()).selectAll("path")
+					.data(chord.chords()).enter().append("path")
 					.attr("d", D3.svg().chord().radius(innerRadius))
 					.style("fill", new DatumFunction<String>() {
 						@Override
-						public String apply(final Element context, final Value d, final int index) {
-							return fill.apply(d.<Chord> as().target().index()).asString();
+						public String apply(final Element context,
+								final Value d, final int index) {
+							return fill.apply(d.<Chord> as().target().index())
+									.asString();
 						}
-					})
-					.style("opacity", 1);
+					}).style("opacity", 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -209,20 +218,22 @@ public class ChordDiagram extends FlowPanel implements DemoCase {
 		f();
 	}-*/;
 
-	private DatumFunction<Void> fade(final MyResources css, final Selection svg, final double opacity) {
+	private DatumFunction<Void> fade(final MyResources css,
+			final Selection svg, final double opacity) {
 		return new DatumFunction<Void>() {
 			@Override
 			public Void apply(final Element context, final Value d, final int i) {
-				svg.selectAll("." + css.chord() + " path").<Array<Chord>> cast()
+				svg.selectAll("." + css.chord() + " path")
+						.<Array<Chord>> cast()
 						.filter(new ForEachCallback<Boolean>() {
 							@Override
-							public Boolean forEach(final Object thisArg, final Value v, final int index,
+							public Boolean forEach(final Object thisArg,
+									final Value v, final int index,
 									final Array<?> array) {
 								return (v.as(Chord.class).source().index() != i)
 										&& (v.as(Chord.class).target().index() != i);
 							}
-						}).<Selection> cast()
-						.transition()
+						}).<Selection> cast().transition()
 						.style("opacity", opacity);
 				return null;
 			}

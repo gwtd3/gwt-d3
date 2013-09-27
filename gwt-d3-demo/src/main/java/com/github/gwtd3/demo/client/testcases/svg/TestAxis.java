@@ -93,13 +93,21 @@ public class TestAxis extends AbstractTestCase {
 		assertEquals(2, axis.tickValues().getValue(1).asInt());
 		assertEquals(3, axis.tickValues().getValue(2).asInt());
 
-		// tick subdivide
-		assertEquals(0, axis.tickSubdivide());
-		axis.tickSubdivide(9);
-		assertEquals(9, axis.tickSubdivide());
+		// tick subdivide : replaced
+		// assertEquals(0, axis.tickSubdivide());
+		// axis.tickSubdivide(9);
+		// assertEquals(9, axis.tickSubdivide());
 
 		// tick size
+		assertEquals(6, axis.tickSize());
+		assertEquals(6, axis.innerTickSize());
+		assertEquals(6, axis.outerTickSize());
 		axis.tickSize(6);
+		axis.innerTickSize(5);
+		axis.outerTickSize(5);
+		assertEquals(5, axis.innerTickSize());
+		assertEquals(5, axis.outerTickSize());
+
 		axis.tickSize(6, 0);
 		axis.tickSize(6, 3, 2);
 

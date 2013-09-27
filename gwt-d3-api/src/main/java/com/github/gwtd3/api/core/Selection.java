@@ -248,7 +248,8 @@ public class Selection extends EnteringSelection {
 	 *            the new value to assign
 	 * @return the current selection
 	 */
-	public native final Selection attr(final String name, PathDataGenerator value)
+	public native final Selection attr(final String name,
+			PathDataGenerator value)
 	/*-{
 		return this.attr(name, value);
 	}-*/;
@@ -296,7 +297,8 @@ public class Selection extends EnteringSelection {
 	 *            the function used to compute the new value of the attribute
 	 * @return the current selection
 	 */
-	public native final Selection attr(final String name, final DatumFunction<?> callback)
+	public native final Selection attr(final String name,
+			final DatumFunction<?> callback)
 	/*-{
 		return this
 				.attr(
@@ -401,7 +403,8 @@ public class Selection extends EnteringSelection {
 	 *            otherwise
 	 * @return the current selection
 	 */
-	public native final Selection style(String name, DatumFunction<?> callback, boolean important)/*-{
+	public native final Selection style(String name, DatumFunction<?> callback,
+			boolean important)/*-{
 																									var imp = important ? 'important' : null;
 																									return this
 																									.style(
@@ -483,7 +486,8 @@ public class Selection extends EnteringSelection {
 	 *            boolean indicating to assign or not the class to the element
 	 * @return the current selection
 	 */
-	public native final Selection classed(String classNames, DatumFunction<Boolean> addFunction)/*-{
+	public native final Selection classed(String classNames,
+			DatumFunction<Boolean> addFunction)/*-{
 		return this
 				.classed(
 						classNames,
@@ -565,7 +569,8 @@ public class Selection extends EnteringSelection {
 	 *            the value
 	 * @return the current selection
 	 */
-	public native final <T> Selection property(final String name, JavaScriptObject value)/*-{
+	public native final <T> Selection property(final String name,
+			JavaScriptObject value)/*-{
 		return this.property(name, value);
 	}-*/;
 
@@ -609,7 +614,8 @@ public class Selection extends EnteringSelection {
 	 *            the function used to compute the new value of the attribute
 	 * @return the current selection
 	 */
-	public native final Selection property(final String name, final DatumFunction<?> callback)
+	public native final Selection property(final String name,
+			final DatumFunction<?> callback)
 	/*-{
 		return this
 				.property(
@@ -784,7 +790,6 @@ public class Selection extends EnteringSelection {
 				});
 	}-*/;
 
-
 	// ================================ data getter functions ========
 
 	/**
@@ -856,7 +861,8 @@ public class Selection extends EnteringSelection {
 	 *            elements
 	 * @return the {@link UpdateSelection}
 	 */
-	public native final UpdateSelection data(JavaScriptObject array, KeyFunction<?> keyFunction)/*-{
+	public native final UpdateSelection data(JavaScriptObject array,
+			KeyFunction<?> keyFunction)/*-{
 		return this
 				.data(
 						array,
@@ -895,7 +901,8 @@ public class Selection extends EnteringSelection {
 	 *            the data of the parent node of the group.
 	 * @return the {@link UpdateSelection}
 	 */
-	public native final <JSO extends JavaScriptObject> UpdateSelection data(DatumFunction<JSO> callback) /*-{
+	public native final <JSO extends JavaScriptObject> UpdateSelection data(
+			DatumFunction<JSO> callback) /*-{
 		return this
 				.data(function(d, i) {
 					var result = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
@@ -928,7 +935,8 @@ public class Selection extends EnteringSelection {
 	 *            elements
 	 * @return the update selection
 	 */
-	public final UpdateSelection data(final Object[] array, final KeyFunction<?> keyFunction) {
+	public final UpdateSelection data(final Object[] array,
+			final KeyFunction<?> keyFunction) {
 		return data(JsArrays.asJsArray(array), keyFunction);
 	}
 
@@ -956,7 +964,8 @@ public class Selection extends EnteringSelection {
 	 *            elements
 	 * @return the update selection
 	 */
-	public final UpdateSelection data(final byte[] array, final KeyFunction<?> keyFunction) {
+	public final UpdateSelection data(final byte[] array,
+			final KeyFunction<?> keyFunction) {
 		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
 	}
 
@@ -984,7 +993,8 @@ public class Selection extends EnteringSelection {
 	 *            elements
 	 * @return the update selection
 	 */
-	public final UpdateSelection data(final double[] array, final KeyFunction<?> keyFunction) {
+	public final UpdateSelection data(final double[] array,
+			final KeyFunction<?> keyFunction) {
 		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
 	}
 
@@ -1012,7 +1022,8 @@ public class Selection extends EnteringSelection {
 	 *            elements
 	 * @return the update selection
 	 */
-	public final UpdateSelection data(final float[] array, final KeyFunction<?> keyFunction) {
+	public final UpdateSelection data(final float[] array,
+			final KeyFunction<?> keyFunction) {
 		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
 	}
 
@@ -1040,7 +1051,8 @@ public class Selection extends EnteringSelection {
 	 *            elements
 	 * @return the update selection
 	 */
-	public final UpdateSelection data(final int[] array, final KeyFunction<?> keyFunction) {
+	public final UpdateSelection data(final int[] array,
+			final KeyFunction<?> keyFunction) {
 		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
 	}
 
@@ -1068,7 +1080,8 @@ public class Selection extends EnteringSelection {
 	 *            elements
 	 * @return the update selection
 	 */
-	public final UpdateSelection data(final long[] array, final KeyFunction<?> keyFunction) {
+	public final UpdateSelection data(final long[] array,
+			final KeyFunction<?> keyFunction) {
 		return data(JsArrayUtils.readOnlyJsArray(array), keyFunction);
 	}
 
@@ -1096,7 +1109,8 @@ public class Selection extends EnteringSelection {
 	 *            elements
 	 * @return the update selection
 	 */
-	public final UpdateSelection data(final short[] array, final KeyFunction<?> keyFunction) {
+	public final UpdateSelection data(final short[] array,
+			final KeyFunction<?> keyFunction) {
 		return data(JsArrays.asJsArray(array), keyFunction);
 	}
 
@@ -1122,7 +1136,8 @@ public class Selection extends EnteringSelection {
 	 *            the key function
 	 * @return the {@link UpdateSelection}
 	 */
-	public final UpdateSelection data(final List<?> array, final KeyFunction<?> keyFunction) {
+	public final UpdateSelection data(final List<?> array,
+			final KeyFunction<?> keyFunction) {
 		return this.data(JsArrays.asJsArray(array), keyFunction);
 	}
 
@@ -1225,7 +1240,8 @@ public class Selection extends EnteringSelection {
 	 *            the function to be used as a filter
 	 * @return a new selection containing the filtered elements
 	 */
-	public native final Selection filter(final DatumFunction<Element> datumFunction)/*-{
+	public native final Selection filter(
+			final DatumFunction<Element> datumFunction)/*-{
 		return this
 				.filter(function(d, i) {
 					return datumFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
@@ -1281,6 +1297,26 @@ public class Selection extends EnteringSelection {
 	}-*/;
 
 	/**
+	 * Immediately interrupts the current transition, if any.
+	 * <p>
+	 * Does not cancel any scheduled transitions that have not yet started. To
+	 * cancel scheduled transitions as well, simply create a new zero-delay
+	 * transition after interrupting the current transition:
+	 * 
+	 * <code>
+	 * <pre>
+	 * selection
+	 * .interrupt() // cancel the current transition
+	 * .transition(); // preempt any scheduled transitions
+	 * </pre></code>
+	 * 
+	 * @return the current selection
+	 */
+	public native final Selection interrupt()/*-{
+		return this.interrupt();
+	}-*/;
+
+	/**
 	 * Same as {@link #on(String, DatumFunction, boolean)} with false for the
 	 * useCapture flag.
 	 * 
@@ -1288,7 +1324,8 @@ public class Selection extends EnteringSelection {
 	 * @param listener
 	 * @return
 	 */
-	public native final Selection on(String eventType, DatumFunction<Void> listener) /*-{
+	public native final Selection on(String eventType,
+			DatumFunction<Void> listener) /*-{
 		var l = listener == null ? null
 				: function(d, i) {
 					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
@@ -1338,7 +1375,8 @@ public class Selection extends EnteringSelection {
 	 *            trigger an EventListener designated to use capture."
 	 * @return the current selection
 	 */
-	public native final Selection on(String eventType, DatumFunction<Void> listener, boolean useCapture) /*-{
+	public native final Selection on(String eventType,
+			DatumFunction<Void> listener, boolean useCapture) /*-{
 		var l = (listener == null ? null
 				: function(d, i) {
 					listener.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);

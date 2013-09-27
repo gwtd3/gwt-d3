@@ -28,8 +28,9 @@
  */
 package com.github.gwtd3.demo.client.testcases.transition;
 
+import com.github.gwtd3.api.Colors;
 import com.github.gwtd3.api.Coords;
-import com.github.gwtd3.api.D3;
+import com.github.gwtd3.api.Interpolators;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.HSLColor;
 import com.github.gwtd3.api.core.RGBColor;
@@ -43,6 +44,8 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 
 public class TestInterpolators extends AbstractTestCase {
 
+	private static final double DELTA = 0.001;
+
 	@Override
 	public void doTest(final ComplexPanel sandbox) {
 		testD3InterpolateNumber();
@@ -55,19 +58,44 @@ public class TestInterpolators extends AbstractTestCase {
 		testD3InterpolateObject();
 		testD3InterpolateArray();
 		testD3InterpolateTransform();
-
+		testD3InterpolateZoom();
 		testD3Interpolators();
 	}
 
+	private void testD3InterpolateZoom() {
+		Interpolator<Array<Double>> interpolator = Interpolators
+				.interpolateZoom(Array.fromDoubles(5.0, 6.0, 30.0),
+						Array.fromDoubles(1.0, 2.0, 20.0));
+
+		Array<Double> array = interpolator.interpolate(0);
+		assertEquals(5.0, array.getNumber(0), DELTA);
+		assertEquals(6.0, array.getNumber(1), DELTA);
+		assertEquals(30.0, array.getNumber(2), DELTA);
+
+		array = interpolator.interpolate(1);
+		assertEquals(1.0, array.getNumber(0), DELTA);
+		assertEquals(2.0, array.getNumber(1), DELTA);
+		assertEquals(20.0, array.getNumber(2), DELTA);
+
+		array = interpolator.interpolate(0.5);
+		assertEquals(2.6, array.getNumber(0), DELTA);
+		assertEquals(3.6, array.getNumber(1), DELTA);
+		assertEquals(25.114, array.getNumber(2), DELTA);
+
+	}
+
 	private void testD3InterpolateTransform() {
-		Interpolator<Transform> interpolator = D3.interpolateTransform(Transform.parse("rotate(40)"),Transform.parse("rotate(80)"));
-		assertEquals(40d, interpolator.interpolate(0).rotate(), 0.0001d);
-		assertEquals(60d, interpolator.interpolate(0.5).rotate(), 0.0001d);
-		assertEquals(80d, interpolator.interpolate(1).rotate(), 0.0001d);
+		Interpolator<Transform> interpolator = Interpolators
+				.interpolateTransform(Transform.parse("rotate(40)"),
+						Transform.parse("rotate(80)"));
+		assertEquals(40d, interpolator.interpolate(0).rotate(), DELTA);
+		assertEquals(60d, interpolator.interpolate(0.5).rotate(), DELTA);
+		assertEquals(80d, interpolator.interpolate(1).rotate(), DELTA);
 	}
 
 	private void testD3InterpolateArray() {
-		Interpolator<Array<?>> interpolator = D3.interpolateArray(Array.fromInts(10, 100), Array.fromInts(20, 200, 2000));
+		Interpolator<Array<?>> interpolator = Interpolators.interpolateArray(
+				Array.fromInts(10, 100), Array.fromInts(20, 200, 2000));
 		assertEquals(15d, interpolator.interpolate(0.5).getNumber(0));
 		assertEquals(150d, interpolator.interpolate(0.5).getNumber(1));
 		assertEquals(2000d, interpolator.interpolate(0.5).getNumber(2));
@@ -79,7 +107,8 @@ public class TestInterpolators extends AbstractTestCase {
 		Coords b = Coords.create(20, 200);
 		// add an additional property with value 30
 		b.<Array<?>> cast().setLength(30);
-		Interpolator<Coords> interpolator = D3.interpolateObject(a, b);
+		Interpolator<Coords> interpolator = Interpolators.interpolateObject(a,
+				b);
 
 		assertEquals(15.0, interpolator.interpolate(0.5).x());
 		assertEquals(150.0, interpolator.interpolate(0.5).y());
@@ -90,7 +119,7 @@ public class TestInterpolators extends AbstractTestCase {
 		String a = "#ff0000";
 		String b = "#0000ff";
 		// string variant
-		Interpolator<RGBColor> rgb = D3.interpolateRgb(a, b);
+		Interpolator<RGBColor> rgb = Interpolators.interpolateRgb(a, b);
 		assertEquals(255, rgb.interpolate(0).r());
 		assertEquals(0, rgb.interpolate(0).g());
 		assertEquals(0, rgb.interpolate(0).b());
@@ -101,7 +130,8 @@ public class TestInterpolators extends AbstractTestCase {
 		assertEquals(255, rgb.interpolate(1).b());
 
 		// color variant
-		rgb = D3.interpolateRgb(D3.rgb(255, 0, 0), D3.rgb(0, 0, 255));
+		rgb = Interpolators.interpolateRgb(Colors.rgb(255, 0, 0),
+				Colors.rgb(0, 0, 255));
 		assertEquals(255, rgb.interpolate(0).r());
 		assertEquals(0, rgb.interpolate(0).g());
 		assertEquals(0, rgb.interpolate(0).b());
@@ -111,7 +141,7 @@ public class TestInterpolators extends AbstractTestCase {
 		assertEquals(255, rgb.interpolate(1).b());
 
 		// interpolator factory string variant
-		// rgb = D3.interpolateRgb.create(a, b);
+		// rgb = Interpolators.interpolateRgb.create(a, b);
 		// assertEquals(255, rgb.interpolate(0).r());
 		// assertEquals(0, rgb.interpolate(0).g());
 		// assertEquals(0, rgb.interpolate(0).b());
@@ -121,7 +151,8 @@ public class TestInterpolators extends AbstractTestCase {
 		// assertEquals(255, rgb.interpolate(1).b());
 		//
 		// // interpolator factory color variant
-		// rgb = D3.interpolateRgb.create(D3.rgb(255, 0, 0), D3.rgb(0, 0, 255));
+		// rgb = Interpolators.interpolateRgb.create(D3.rgb(255, 0, 0),
+		// D3.rgb(0, 0, 255));
 		// assertEquals(255, rgb.interpolate(0).r());
 		// assertEquals(0, rgb.interpolate(0).g());
 		// assertEquals(0, rgb.interpolate(0).b());
@@ -136,7 +167,8 @@ public class TestInterpolators extends AbstractTestCase {
 		String a = "#ff0000";
 		String b = "#0000ff";
 		// string variant
-		Interpolator<HSLColor> interpolator = D3.interpolateHsl(a, b);
+		Interpolator<HSLColor> interpolator = Interpolators
+				.interpolateHsl(a, b);
 		assertEquals(0, interpolator.interpolate(0).h());
 		assertEquals(1.0, interpolator.interpolate(0).s());
 		assertEquals(0.5, interpolator.interpolate(0).l());
@@ -147,7 +179,8 @@ public class TestInterpolators extends AbstractTestCase {
 		assertEquals(0.5, interpolator.interpolate(1).l());
 
 		// color variant
-		interpolator = D3.interpolateHsl(D3.rgb(255, 0, 0), D3.rgb(0, 0, 255));
+		interpolator = Interpolators.interpolateHsl(Colors.rgb(255, 0, 0),
+				Colors.rgb(0, 0, 255));
 		assertEquals(0, interpolator.interpolate(0).h());
 		assertEquals(1.0, interpolator.interpolate(0).s());
 		assertEquals(0.5, interpolator.interpolate(0).l());
@@ -157,7 +190,7 @@ public class TestInterpolators extends AbstractTestCase {
 		assertEquals(0.5, interpolator.interpolate(1).l());
 
 		// interpolator factory string variant
-		// rgb = D3.interpolateRgb.create(a, b);
+		// rgb = Interpolators.interpolateRgb.create(a, b);
 		// assertEquals(255, rgb.interpolate(0).r());
 		// assertEquals(0, rgb.interpolate(0).g());
 		// assertEquals(0, rgb.interpolate(0).b());
@@ -167,7 +200,8 @@ public class TestInterpolators extends AbstractTestCase {
 		// assertEquals(255, rgb.interpolate(1).b());
 		//
 		// // interpolator factory color variant
-		// rgb = D3.interpolateRgb.create(D3.rgb(255, 0, 0), D3.rgb(0, 0, 255));
+		// rgb = Interpolators.interpolateRgb.create(D3.rgb(255, 0, 0),
+		// D3.rgb(0, 0, 255));
 		// assertEquals(255, rgb.interpolate(0).r());
 		// assertEquals(0, rgb.interpolate(0).g());
 		// assertEquals(0, rgb.interpolate(0).b());
@@ -179,7 +213,8 @@ public class TestInterpolators extends AbstractTestCase {
 	}
 
 	private void testD3Interpolators() {
-		Array<InterpolatorFactory<?>> interpolators = D3.interpolators();
+		Array<InterpolatorFactory<?>> interpolators = Interpolators
+				.interpolators();
 		assertEquals(1, interpolators.length());
 		InterpolatorFactory<?> factory = interpolators.get(0);
 		Interpolator<?> interpolator = factory.create("10px", "20px");
@@ -205,51 +240,59 @@ public class TestInterpolators extends AbstractTestCase {
 		// FIXME : adding a new interpolator does not work:
 		// cause D3.js cannot call the Java InterpolatorFactory-
 		// we should find a way to add the JSO function instead
-		// see https://github.com/mbostock/d3/blob/master/src/interpolate/interpolate.js
-		// D3.interpolators().push(newInterpolator);
-		// assertEquals(2, D3.interpolators().length());
+		// see
+		// https://github.com/mbostock/d3/blob/master/src/interpolate/interpolate.js
+		// Interpolators.interpolators().push(newInterpolator);
+		// assertEquals(2, Interpolators.interpolators().length());
 	}
 
 	private void testD3InterpolateString() {
 		// string
-		Interpolator<String> strInterpolator = D3.interpolateString("Saw 10 (movie)", "Saw 20 (movie)");
+		Interpolator<String> strInterpolator = Interpolators.interpolateString(
+				"Saw 10 (movie)", "Saw 20 (movie)");
 		assertEquals("Saw 15 (movie)", strInterpolator.interpolate(0.5));
 
 	}
 
 	private void testD3InterpolateRound() {
 		// char
-		Interpolator<Character> charInterpolator = D3.interpolateRound('a', 'j');
+		Interpolator<Character> charInterpolator = Interpolators
+				.interpolateRound('a', 'j');
 		assertEquals('a', (char) charInterpolator.interpolate(0));
 		assertEquals('c', (char) charInterpolator.interpolate(0.25));
 		assertEquals('j', (char) charInterpolator.interpolate(1));
 
 		// int
-		Interpolator<Integer> intInterpolator = D3.interpolateRound(10, 20);
+		Interpolator<Integer> intInterpolator = Interpolators.interpolateRound(
+				10, 20);
 		assertEquals(10, (int) intInterpolator.interpolate(0));
 		assertEquals(13, (int) intInterpolator.interpolate(0.25));
 		assertEquals(20, (int) intInterpolator.interpolate(1));
 
 		// short
-		Interpolator<Short> shortInterpolator = D3.interpolateRound((short) 10, (short) 20);
+		Interpolator<Short> shortInterpolator = Interpolators.interpolateRound(
+				(short) 10, (short) 20);
 		assertEquals(10, (short) shortInterpolator.interpolate(0));
 		assertEquals(13, (short) shortInterpolator.interpolate(0.25));
 		assertEquals(20, (short) shortInterpolator.interpolate(1));
 
 		// byte
-		Interpolator<Byte> byteInterpolator = D3.interpolateRound((byte) 10, (byte) 20);
+		Interpolator<Byte> byteInterpolator = Interpolators.interpolateRound(
+				(byte) 10, (byte) 20);
 		assertEquals(10, (byte) byteInterpolator.interpolate(0));
 		assertEquals(13, (byte) byteInterpolator.interpolate(0.25));
 		assertEquals(20, (byte) byteInterpolator.interpolate(1));
 
 		// long
-		Interpolator<Long> longInterpolator = D3.interpolateRound((long) 10, (long) 20);
+		Interpolator<Long> longInterpolator = Interpolators.interpolateRound(
+				(long) 10, (long) 20);
 		assertEquals(10l, (long) longInterpolator.interpolate(0));
 		assertEquals(13l, (long) longInterpolator.interpolate(0.25));
 		assertEquals(20l, (long) longInterpolator.interpolate(1));
 
 		// double
-		Interpolator<Long> doubleInterpolator = D3.interpolateRound((double) 10, (double) 20);
+		Interpolator<Long> doubleInterpolator = Interpolators.interpolateRound(
+				(double) 10, (double) 20);
 		assertEquals(10l, (long) doubleInterpolator.interpolate(0));
 		assertEquals(13l, (long) doubleInterpolator.interpolate(0.25));
 		assertEquals(20l, (long) doubleInterpolator.interpolate(1));
@@ -259,35 +302,41 @@ public class TestInterpolators extends AbstractTestCase {
 	private void testD3InterpolateNumber() {
 
 		// byte
-		Interpolator<Double> byteInterpolator = D3.interpolateNumber((byte) 10, (byte) 20);
+		Interpolator<Double> byteInterpolator = Interpolators
+				.interpolateNumber((byte) 10, (byte) 20);
 		assertEquals(10.0, byteInterpolator.interpolate(0));
 		assertEquals(12.5, byteInterpolator.interpolate(0.25));
 		assertEquals(20.0, byteInterpolator.interpolate(1));
 
 		// double
-		Interpolator<Double> doubleInterpolator = D3.interpolateNumber(0.1, 0.2);
+		Interpolator<Double> doubleInterpolator = Interpolators
+				.interpolateNumber(0.1, 0.2);
 		assertEquals(0.1, doubleInterpolator.interpolate(0), 0.000001);
 		assertEquals(0.125, doubleInterpolator.interpolate(0.25), 0.000001);
 		assertEquals(0.2, doubleInterpolator.interpolate(1), 0.000001);
 		// float
-		Interpolator<Double> floatInterpolator = D3.interpolateNumber(0.1f, 0.2f);
+		Interpolator<Double> floatInterpolator = Interpolators
+				.interpolateNumber(0.1f, 0.2f);
 		assertEquals(0.1, floatInterpolator.interpolate(0), 0.000001);
 		assertEquals(0.125, floatInterpolator.interpolate(0.25), 0.000001);
 		assertEquals(0.2, floatInterpolator.interpolate(1), 0.000001);
 		// int
-		Interpolator<Double> intInterpolator = D3.interpolateNumber(10, 20);
+		Interpolator<Double> intInterpolator = Interpolators.interpolateNumber(
+				10, 20);
 		assertEquals(10.0, intInterpolator.interpolate(0));
 		assertEquals(12.5, intInterpolator.interpolate(0.25));
 		assertEquals(20.0, intInterpolator.interpolate(1));
 		//
 		// long
-		Interpolator<Double> longInterpolator = D3.interpolateNumber(10L, 20L);
+		Interpolator<Double> longInterpolator = Interpolators
+				.interpolateNumber(10L, 20L);
 		assertEquals(10.0, longInterpolator.interpolate(0));
 		assertEquals(12.5, longInterpolator.interpolate(0.25));
 		assertEquals(20.0, longInterpolator.interpolate(1));
 
 		// short
-		Interpolator<Double> shortInterpolator = D3.interpolateNumber((short) 10, (short) 20);
+		Interpolator<Double> shortInterpolator = Interpolators
+				.interpolateNumber((short) 10, (short) 20);
 		assertEquals(10.0, shortInterpolator.interpolate(0));
 		assertEquals(12.5, shortInterpolator.interpolate(0.25));
 		assertEquals(20.0, shortInterpolator.interpolate(1));

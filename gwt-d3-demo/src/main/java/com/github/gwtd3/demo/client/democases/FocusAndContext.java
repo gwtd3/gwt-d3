@@ -28,6 +28,7 @@
  */
 package com.github.gwtd3.demo.client.democases;
 
+import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
@@ -173,7 +174,7 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
 			@Override
 			public void get(final JavaScriptObject error,
 					final DsvRows<Data> data) {
-				x.domain(D3.extent(data.map(new ForEachCallback<JsDate>() {
+				x.domain(Arrays.extent(data.map(new ForEachCallback<JsDate>() {
 					@Override
 					public JsDate forEach(final Object thisArg, final Value d,
 							final int index, final Array<?> array) {
@@ -181,7 +182,7 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
 					}
 				})));
 				y.domain(JsArrays.asJsArray(0,
-						D3.max(data, new NumericForEachCallback() {
+						Arrays.max(data, new NumericForEachCallback() {
 							@Override
 							public double forEach(final Object thisArg,
 									final Value d, final int index,

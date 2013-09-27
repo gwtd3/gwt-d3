@@ -221,6 +221,17 @@ public class Array<T> extends JavaScriptObject {
 		return Number(this[index]);
 	}-*/;
 
+	/**
+	 * Return the item at the index i.
+	 * 
+	 * @param i
+	 *            the index of the item
+	 * @return the item
+	 */
+	public final native int getInt(int index) /*-{
+		return Number(this[index]);
+	}-*/;
+
 	// ============== pop methods ==============
 
 	/**

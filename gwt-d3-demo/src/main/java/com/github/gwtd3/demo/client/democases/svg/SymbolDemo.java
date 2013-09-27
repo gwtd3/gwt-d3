@@ -35,6 +35,7 @@ import java.util.Stack;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.constants.IconType;
+import com.github.gwtd3.api.Colors;
 import com.github.gwtd3.api.Coords;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Selection;
@@ -128,7 +129,7 @@ public class SymbolDemo extends FlowPanel implements DemoCase {
 										Random.nextInt(height)).toString())
 				.attr("d", symbols.generate(1.0))
 				.style("fill",
-						D3.rgb(Random.nextInt(255), Random.nextInt(255),
+						Colors.rgb(Random.nextInt(255), Random.nextInt(255),
 								Random.nextInt(255)).toHexaString());
 	}
 

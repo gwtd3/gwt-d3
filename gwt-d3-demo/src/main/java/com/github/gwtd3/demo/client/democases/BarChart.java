@@ -28,6 +28,7 @@
  */
 package com.github.gwtd3.demo.client.democases;
 
+import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
@@ -130,7 +131,7 @@ public class BarChart extends FlowPanel implements DemoCase {
 					}
 				}));
 				y.domain(JsArrays.asJsArray(0,
-						D3.max(data, new NumericForEachCallback() {
+						Arrays.max(data, new NumericForEachCallback() {
 							@Override
 							public double forEach(final Object thisArg,
 									final Value element, final int index,

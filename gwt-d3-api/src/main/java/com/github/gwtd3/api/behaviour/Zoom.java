@@ -31,6 +31,8 @@ package com.github.gwtd3.api.behaviour;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.IsFunction;
 import com.github.gwtd3.api.arrays.Array;
+import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.QuantitativeScale;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -55,6 +57,10 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  */
 
+/**
+ * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
+ * 
+ */
 public class Zoom extends JavaScriptObject implements IsFunction {
 
 	protected Zoom() {
@@ -65,12 +71,21 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * Type of scroll event to listen to.
 	 */
 	public static enum ZoomEventType {
+
 		/**
-		 * Registers the specified listener to receive events of the specified
-		 * type from the zoom behavior. Currently, only the "zoom" event is
-		 * supported.
+		 * at the start of a zoom gesture (e.g., touchstart).
 		 */
-		ZOOM;
+		ZOOMSTART,
+
+		/**
+		 * when the view changes (e.g., touchmove).
+		 */
+		ZOOM,
+
+		/**
+		 * at the end of the current zoom gesture (e.g., touchend).
+		 */
+		ZOOMEND;
 	}
 
 	/**
@@ -78,10 +93,23 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * from the zoom behavior.
 	 * <p>
 	 * See {@link ZoomEventType} for more information.
+	 * <p>
+	 * If an event listener was already registered for the same type, the
+	 * existing listener is removed before the new listener is added. TODO: To
+	 * register multiple listeners for the same event type, the type may be
+	 * followed by an optional namespace, such as "zoom.foo" and "zoom.bar". To
+	 * remove a listener, pass null as the listener.
+	 * <p>
+	 * For mousewheel events, which happen discretely with no explicit start and
+	 * end reported by the browser, events that occur within 50 milliseconds of
+	 * each other are grouped into a single zoom gesture. If you want more
+	 * robust interpretation of these gestures, please petition your browser
+	 * vendor of choice for better touch event support.
+	 * <p>
 	 * 
 	 * @param type
 	 * @param listener
-	 * @return
+	 * @return the current zoom instance
 	 */
 	public final native Zoom on(ZoomEventType type, DatumFunction<Void> listener)/*-{
 		return this
@@ -173,6 +201,60 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
+	 * If center is specified, sets the <a
+	 * href="http://bl.ocks.org/mbostock/6226534"> focal point</a> [x, y] for
+	 * mousewheel zooming and returns this zoom behavior.
+	 * <p>
+	 * A null center indicates that mousewheel zooming should zoom in and out
+	 * around the current mouse location.
+	 * <p>
+	 * 
+	 * @return the
+	 */
+	public final native Zoom center(double x, double y)/*-{
+		return this.center([ x, y ]);
+	}-*/;
+
+	/**
+	 * Returns the current focal point, which defaults to null.
+	 * <p>
+	 * A null center indicates that mousewheel zooming should zoom in and out
+	 * around the current mouse location.
+	 * <p>
+	 * 
+	 * @return the array of double
+	 */
+	public final native Array<Double> center()/*-{
+		return this.center();
+	}-*/;
+
+	/**
+	 * If size is specified, sets the viewport size to the specified dimensions
+	 * [width, height] and returns this zoom behavior.
+	 * <p>
+	 * A size is needed to support smooth zooming during transitions.
+	 * 
+	 * @param width
+	 *            the width of the viewport
+	 * @param height
+	 *            the height of the viewport
+	 * @return the current zoom instance
+	 */
+	public final native Zoom size(int width, int height)/*-{
+		return this.size([ width, height ]);
+	}-*/;
+
+	/**
+	 * Returns the current viewport size which defaults to [960, 500].
+	 * <p>
+	 * 
+	 * @return the size
+	 */
+	public final native Array<Double> size()/*-{
+		return this.size();
+	}-*/;
+
+	/**
 	 * Returns the current zoom scale, which defaults to 1.
 	 * <p>
 	 * 
@@ -217,6 +299,42 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	}-*/;
 
 	/**
+	 * Immediately dispatches a zoom gesture to registered listeners, as the
+	 * three event sequence {@link ZoomEventType#ZOOMSTART},
+	 * {@link ZoomEventType#ZOOM} and {@link ZoomEventType#ZOOMEND}.
+	 * <p>
+	 * This can be useful in triggering listeners after setting the
+	 * {@link #translate(Array)} or {@link #scale(double)} programatically.
+	 * <p>
+	 * 
+	 * @param selection
+	 *            the selection to triggers the events to.
+	 * @return the current zoom
+	 */
+	public final native Zoom event(Selection selection)/*-{
+		return this.event(selection);
+	}-*/;
+
+	/**
+	 * Registers the appropriate tweens so that the zoom behavior dispatches
+	 * events over the course of the transition: a
+	 * {@link ZoomEventType#ZOOMSTART} event when the transition starts from the
+	 * previously-set view, {@link ZoomEventType#ZOOM} events for each tick of
+	 * the transition, and finally a {@link ZoomEventType#ZOOMEND} event when
+	 * the transition ends.
+	 * <p>
+	 * Note that the transition will be interrupted if the user starts zooming
+	 * before the transition ends.
+	 * <p>
+	 * 
+	 * @param selection
+	 * @return
+	 */
+	public final native Zoom event(Transition selection)/*-{
+		return this.event(selection);
+	}-*/;
+
+	/**
 	 * Provide access to the properties of a zoom event.
 	 * <p>
 	 * Use {@link D3#zoomEvent()} from within a
@@ -226,7 +344,6 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 	 * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
 	 * 
 	 */
-
 	public static class ZoomEvent extends JavaScriptObject {
 
 		protected ZoomEvent() {
@@ -278,4 +395,5 @@ public class Zoom extends JavaScriptObject implements IsFunction {
 
 		}-*/;
 	}
+
 }

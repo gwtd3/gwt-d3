@@ -191,7 +191,8 @@ public class Transition extends JavaScriptObject {
 	 * @return the current transition
 	 */
 	public native final Transition ease(EasingFunction callback)/*-{
-		var r = this.ease(function(t) {
+		var r = this
+				.ease(function(t) {
 					return @com.github.gwtd3.api.core.Transition::trampolineCallEase(Lcom/github/gwtd3/api/ease/EasingFunction;D)(callback,t);
 				});
 		return r;
@@ -205,7 +206,8 @@ public class Transition extends JavaScriptObject {
 	 * @param t
 	 * @return
 	 */
-	private static final double trampolineCallEase(final EasingFunction function, final double t) {
+	private static final double trampolineCallEase(
+			final EasingFunction function, final double t) {
 		return function.ease(t);
 	}
 
@@ -285,7 +287,8 @@ public class Transition extends JavaScriptObject {
 	 *            the function used to compute the new value of the attribute
 	 * @return the current transition
 	 */
-	public native final Transition attr(final String name, final DatumFunction<?> callback)
+	public native final Transition attr(final String name,
+			final DatumFunction<?> callback)
 	/*-{
 		return this
 				.attr(
@@ -294,7 +297,6 @@ public class Transition extends JavaScriptObject {
 							return callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 						});
 	}-*/;
-
 
 	/**
 	 * Transitions the attribute with the specified name to the specified
@@ -315,7 +317,8 @@ public class Transition extends JavaScriptObject {
 	 *            the new value to assign
 	 * @return the current transition
 	 */
-	public native final Transition attr(final String name, PathDataGenerator value)
+	public native final Transition attr(final String name,
+			PathDataGenerator value)
 	/*-{
 		return this.attr(name, value);
 	}-*/;
@@ -342,7 +345,8 @@ public class Transition extends JavaScriptObject {
 	 * @param tweenFunction
 	 *            the function used to create an interpolator
 	 */
-	public native final Transition attrTween(String name, TweenFunction<?> tweenFunction)/*-{
+	public native final Transition attrTween(String name,
+			TweenFunction<?> tweenFunction)/*-{
 		return this
 				.attrTween(
 						name,
@@ -478,7 +482,8 @@ public class Transition extends JavaScriptObject {
 	 *            otherwise
 	 * @return the current selection
 	 */
-	public native final Selection style(String name, DatumFunction<?> callback, boolean important)/*-{
+	public native final Selection style(String name, DatumFunction<?> callback,
+			boolean important)/*-{
 		var imp = important ? 'important' : null;
 		return this
 				.style(
@@ -515,7 +520,8 @@ public class Transition extends JavaScriptObject {
 	 *            otherwise
 	 * @return the current selection
 	 */
-	public native final Selection styleTween(String name, TweenFunction<?> tweenFunction, boolean important)/*-{
+	public native final Selection styleTween(String name,
+			TweenFunction<?> tweenFunction, boolean important)/*-{
 		var imp = important ? 'important' : null;
 		return this
 				.styleTween(
@@ -588,7 +594,8 @@ public class Transition extends JavaScriptObject {
 	 *            the function returning an {@link Interpolator}
 	 * @return the current transition
 	 */
-	public native final Transition tween(String name, DatumFunction<Interpolator<?>> factory)/*-{
+	public native final Transition tween(String name,
+			DatumFunction<Interpolator<?>> factory)/*-{
 		return this
 				.tween(
 						name,
@@ -705,7 +712,8 @@ public class Transition extends JavaScriptObject {
 	 *            the function to be used as a filter
 	 * @return a new transition containing the filtered elements
 	 */
-	public native final Transition filter(final DatumFunction<Element> datumFunction)/*-{
+	public native final Transition filter(
+			final DatumFunction<Element> datumFunction)/*-{
 		return this
 				.filter(function(d, i) {
 					return datumFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
@@ -746,7 +754,8 @@ public class Transition extends JavaScriptObject {
 		return this.node();
 	}-*/;
 
-	private static JavaScriptObject trampolineInterpolator(final Interpolator<?> interpolator) {
+	private static JavaScriptObject trampolineInterpolator(
+			final Interpolator<?> interpolator) {
 		return interpolator.asJSOFunction();
 	}
 
@@ -758,8 +767,7 @@ public class Transition extends JavaScriptObject {
 	 * 
 	 */
 	public static enum EventType {
-		START,
-		END;
+		START, END;
 
 		public String getType() {
 			return name().toLowerCase();
@@ -799,7 +807,8 @@ public class Transition extends JavaScriptObject {
 	 *            the listener
 	 * @return the current transition
 	 */
-	public final native Transition each(EventType type, DatumFunction<Void> listener)/*-{
+	public final native Transition each(EventType type,
+			DatumFunction<Void> listener)/*-{
 		return this
 				.each(
 						type.@com.github.gwtd3.api.core.Transition.EventType::getType()(),
