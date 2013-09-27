@@ -46,7 +46,8 @@ public class TestTransition extends AbstractSelectionTest {
 
 	private final DatumFunction<String> callback = new DatumFunction<String>() {
 		@Override
-		public String apply(final Element context, final Value d, final int index) {
+		public String apply(final Element context, final Value d,
+				final int index) {
 			return "16px";
 		}
 	};
@@ -63,7 +64,8 @@ public class TestTransition extends AbstractSelectionTest {
 		transition.attr("bar", "32px");
 		transition.attrTween("bar", new TweenFunction<String>() {
 			@Override
-			public Interpolator<String> apply(final Element context, final Value datum, final int index, final Value value) {
+			public Interpolator<String> apply(final Element context,
+					final Value datum, final int index, final Value value) {
 				return new CallableInterpolator<String>() {
 					@Override
 					public String interpolate(final double t) {
@@ -73,38 +75,44 @@ public class TestTransition extends AbstractSelectionTest {
 			}
 		});
 		transition
-		.delay(1000)
-		.delay(new DatumFunction<Integer>() {
-			@Override
-			public Integer apply(final Element context, final Value d, final int index) {
-				return 100;
-			}
-		})
-		.duration(new DatumFunction<Integer>() {
-			@Override
-			public Integer apply(final Element context, final Value d, final int index) {
-				return 123;
-			}
-		})
-		.each(EventType.START, new DatumFunction<Void>() {
-			@Override
-			public Void apply(final Element context, final Value d, final int index) {
-				return null;
-			}
-		})
-		.each(EventType.END, new DatumFunction<Void>() {
-			@Override
-			public Void apply(final Element context, final Value d, final int index) {
-				return null;
-			}
-		})
-		.ease(Easing.back(12))
-		.style("font-size", new DatumFunction<String>() {
-			@Override
-			public String apply(final Element context, final Value d, final int index) {
-				return "";
-			}
-		});
+				.delay(1000)
+				.delay(new DatumFunction<Integer>() {
+					@Override
+					public Integer apply(final Element context, final Value d,
+							final int index) {
+						return 100;
+					}
+				})
+				.duration(new DatumFunction<Integer>() {
+					@Override
+					public Integer apply(final Element context, final Value d,
+							final int index) {
+						return 123;
+					}
+				})
+				.each(EventType.START, new DatumFunction<Void>() {
+					@Override
+					public Void apply(final Element context, final Value d,
+							final int index) {
+						return null;
+					}
+				})
+				.each(EventType.END, new DatumFunction<Void>() {
+					@Override
+					public Void apply(final Element context, final Value d,
+							final int index) {
+						return null;
+					}
+				}).ease(Easing.back(12))
+				.style("font-size", new DatumFunction<String>() {
+					@Override
+					public String apply(final Element context, final Value d,
+							final int index) {
+						return "";
+					}
+				});
+
+		transition.size();
 	}
 
 }

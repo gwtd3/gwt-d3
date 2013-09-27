@@ -754,6 +754,13 @@ public class Transition extends JavaScriptObject {
 		return this.node();
 	}-*/;
 
+	/**
+	 * @return the total number of elements in the current transition.
+	 */
+	public final native int size()/*-{
+		return this.size();
+	}-*/;
+
 	private static JavaScriptObject trampolineInterpolator(
 			final Interpolator<?> interpolator) {
 		return interpolator.asJSOFunction();
