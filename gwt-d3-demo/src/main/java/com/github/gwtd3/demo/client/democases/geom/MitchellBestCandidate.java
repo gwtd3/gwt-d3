@@ -44,6 +44,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 
 public class MitchellBestCandidate extends FlowPanel implements DemoCase {
 
+	private boolean done = false;
+
 	private static class Circle {
 		double x, y, r;
 
@@ -60,25 +62,26 @@ public class MitchellBestCandidate extends FlowPanel implements DemoCase {
 		public Circle generate(double k);
 	}
 
-	private CircleGenerator bestCircleGenerator(final double maxRadius, final double padding) {
+	private CircleGenerator bestCircleGenerator(final double maxRadius,
+			final double padding) {
 		final RootNode<Circle> quadtree = D3.geom().quadtree()
 				.x(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Value d, final int index) {
+					public Double apply(final Element context, final Value d,
+							final int index) {
 						return d.<Circle> as().x;
 					}
-				})
-				.y(new DatumFunction<Double>() {
+				}).y(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Value d, final int index) {
+					public Double apply(final Element context, final Value d,
+							final int index) {
 						return d.<Circle> as().y;
 					}
-				})
-				.extent(0, 0, width, height).apply((Array.<Circle> create()));
+				}).extent(0, 0, width, height).apply((Array.<Circle> create()));
 		return new CircleGenerator() {
 			private double minDistance;
-			double searchRadius = maxRadius * 2,
-					maxRadius2 = maxRadius * maxRadius;
+			double searchRadius = maxRadius * 2, maxRadius2 = maxRadius
+					* maxRadius;
 			double bestX, bestY, bestDistance = 0;
 
 			@Override
@@ -86,20 +89,22 @@ public class MitchellBestCandidate extends FlowPanel implements DemoCase {
 				bestX = bestY = bestDistance = 0;
 
 				for (int i = 0; (i < k) || (bestDistance < padding); ++i) {
-					final double x = (Math.random() * width), y = (Math.random() * height), rx1 = x - searchRadius, rx2 = x + searchRadius, ry1 = y - searchRadius, ry2 = y
+					final double x = (Math.random() * width), y = (Math
+							.random() * height), rx1 = x - searchRadius, rx2 = x
+							+ searchRadius, ry1 = y - searchRadius, ry2 = y
 							+ searchRadius;
 					minDistance = maxRadius; // minimum distance for this
 					// candidate
 
 					quadtree.visit(new Callback<Circle>() {
 						@Override
-						public boolean visit(final Node<Circle> quad, final double x1, final double y1, final double x2, final double y2) {
+						public boolean visit(final Node<Circle> quad,
+								final double x1, final double y1,
+								final double x2, final double y2) {
 							Circle p = quad.point();
 							if (p != null) {
-								double dx = x - p.x,
-										dy = y - p.y,
-										d2 = (dx * dx) + (dy * dy),
-										r2 = p.r * p.r;
+								double dx = x - p.x, dy = y - p.y, d2 = (dx * dx)
+										+ (dy * dy), r2 = p.r * p.r;
 								if (d2 < r2) {
 									minDistance = 0;
 									return true;
@@ -113,7 +118,8 @@ public class MitchellBestCandidate extends FlowPanel implements DemoCase {
 							// outside
 							// search
 							// radius
-							return (minDistance == 0) || (x1 > rx2) || (x2 < rx1) || (y1 > ry2) || (y2 < ry1); // or
+							return (minDistance == 0) || (x1 > rx2)
+									|| (x2 < rx1) || (y1 > ry2) || (y2 < ry1); // or
 						}
 					});
 
@@ -150,39 +156,40 @@ public class MitchellBestCandidate extends FlowPanel implements DemoCase {
 	int maxRadius = 32, // maximum radius of circle
 			padding = 1; // padding between circles; also minimum radius
 	Margin margin = new Margin(-maxRadius, -maxRadius, -maxRadius, -maxRadius);
-	int width = 960 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;
+	int width = 960 - margin.left - margin.right, height = 500 - margin.top
+			- margin.bottom;
 	private Selection svg;
 
 	double k = 1, // initial number of candidates to consider per circle
 			m = 10, // initial number of circles to add per frame
 			n = 2500; // remaining number of circles to add
+	private TimerFunction timerFunction;
 
 	@Override
 	public void start() {
 
-		final CircleGenerator newCircle = bestCircleGenerator(maxRadius, padding);
+		final CircleGenerator newCircle = bestCircleGenerator(maxRadius,
+				padding);
 
-		svg = D3.select(this).append("svg")
+		svg = D3.select(this)
+				.append("svg")
 				.attr("width", width)
 				.attr("height", height)
 				.append("g")
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+				.attr("transform",
+						"translate(" + margin.left + "," + margin.top + ")");
 
-
-		D3.timer(new TimerFunction() {
+		timerFunction = new TimerFunction() {
 
 			@Override
 			public boolean execute() {
 				for (int i = 0; (i < m) && (--n >= 0); ++i) {
 					Circle circle = newCircle.generate(k);
 
-					svg.append("circle")
-					.attr("cx", circle.x)
-					.attr("cy", circle.y)
-					.attr("r", 0)
-					.style("fill-opacity", (Math.random() + .5) / 2)
-					.transition()
-					.attr("r", circle.r);
+					svg.append("circle").attr("cx", circle.x)
+							.attr("cy", circle.y).attr("r", 0)
+							.style("fill-opacity", (Math.random() + .5) / 2)
+							.transition().attr("r", circle.r);
 
 					// As we add more circles, generate more candidates per
 					// circle.
@@ -193,16 +200,17 @@ public class MitchellBestCandidate extends FlowPanel implements DemoCase {
 						m *= .998;
 					}
 				}
-				return n == 0;
+				return n == 0 || done;
 			}
-		});
+		};
+		done = false;
+		D3.timer(timerFunction);
 
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
+		done = true;
 	}
 
 	public static Factory factory() {
