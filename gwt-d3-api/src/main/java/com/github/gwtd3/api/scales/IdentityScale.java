@@ -51,9 +51,10 @@ import com.github.gwtd3.api.svg.Brush;
  */
 public class IdentityScale extends ContinuousQuantitativeScale<IdentityScale> {
 
-	protected IdentityScale(){
-		
+	protected IdentityScale() {
+
 	}
+
 	// =========== ticks ==========
 
 	/**
@@ -74,6 +75,15 @@ public class IdentityScale extends ContinuousQuantitativeScale<IdentityScale> {
 	 * @return the array of ticks
 	 */
 	public native final <T> Array<T> ticks(int count)/*-{
+		return this.ticks(count);
+	}-*/;
+
+	/**
+	 * Alias for {@link #ticks(int) ticks(10)}.
+	 * 
+	 * @return the array of reference ticks
+	 */
+	public native final <T> Array<T> ticks()/*-{
 		return this.ticks(count);
 	}-*/;
 

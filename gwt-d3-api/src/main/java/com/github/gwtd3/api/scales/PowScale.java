@@ -137,6 +137,15 @@ public class PowScale extends ContinuousQuantitativeScale<PowScale> {
 		return this.ticks(count);
 	}-*/;
 
+	/**
+	 * Alias for {@link #ticks(int) ticks(10)}.
+	 * 
+	 * @return the array of reference ticks
+	 */
+	public native final <T> Array<T> ticks()/*-{
+		return this.ticks(count);
+	}-*/;
+
 	// =========== tickFormat ==========
 
 	/**

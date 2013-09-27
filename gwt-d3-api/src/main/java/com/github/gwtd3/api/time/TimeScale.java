@@ -92,6 +92,32 @@ public class TimeScale extends ContinuousQuantitativeScale<TimeScale> {
 	}-*/;
 
 	/**
+	 * Extends the domain so that it starts and ends on nice round values as
+	 * determined by the specified time interval and step count.nd optional step
+	 * count. As an alternative to specifying an explicit time interval, a
+	 * numeric count can be specified, and a time interval will be chosen
+	 * automatically to be consistent with scale.ticks.
+	 * <p>
+	 * This method typically modifies the scale's domain, and may only extend
+	 * the bounds to the nearest round value.
+	 * <p>
+	 * Nicing is useful if the domain is computed from data and may be
+	 * irregular. For example, for a domain of [2009-07-13T00:02,
+	 * 2009-07-13T23:48], the nice domain is [2009-07-13,2009-07-14].
+	 * <p>
+	 * If the domain has more than two values, nicing the domain only affects
+	 * the first and last value.
+	 * <p>
+	 * 
+	 * @param interval
+	 * @param step
+	 * @return the current scale
+	 */
+	public native final TimeScale nice(Interval interval, int step)/*-{
+		return this.nice(interval, step);
+	}-*/;
+
+	/**
 	 * Returns representative dates from the scale's input domain.
 	 * <p>
 	 * The returned tick dates are uniformly spaced (modulo irregular time
@@ -117,6 +143,15 @@ public class TimeScale extends ContinuousQuantitativeScale<TimeScale> {
 	 * @return the array of reference ticks
 	 */
 	public native final <T> Array<T> ticks(int count)/*-{
+		return this.ticks(count);
+	}-*/;
+
+	/**
+	 * Alias for {@link #ticks(int) ticks(10)}.
+	 * 
+	 * @return the array of reference ticks
+	 */
+	public native final <T> Array<T> ticks()/*-{
 		return this.ticks(count);
 	}-*/;
 

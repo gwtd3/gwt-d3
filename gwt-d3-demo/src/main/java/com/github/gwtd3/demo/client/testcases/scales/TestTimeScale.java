@@ -44,5 +44,7 @@ public class TestTimeScale extends AbstractTestCase {
 		System.out.println(domain.getValue(1).asJsDate());
 		Array<?> range = D3.time().scale().range(JsArrays.asJsArray(0, 5))
 				.range();
+
+		// nice and count
 	}
 }
