@@ -77,7 +77,7 @@ public class MitchellBestCandidate extends FlowPanel implements DemoCase {
 							final int index) {
 						return d.<Circle> as().y;
 					}
-				}).extent(0, 0, width, height).apply((Array.<Circle> create()));
+				}).extent(0, 0, width, height).apply(Array.<Circle> create());
 		return new CircleGenerator() {
 			private double minDistance;
 			double searchRadius = maxRadius * 2, maxRadius2 = maxRadius
