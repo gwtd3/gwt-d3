@@ -39,6 +39,7 @@ import java.util.List;
 import com.github.gwtd3.demo.client.test.TestCase;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.ComplexPanel;
 
 /**
@@ -82,7 +83,8 @@ public class TestRunner implements RunUiHandlers {
 	 * @param widget
 	 */
 	private void resetWidget(final int i) {
-		container.setTestExecution(i, new TestExecution(TestPhase.WAITING, null, 0, 0));
+		container.setTestExecution(i, new TestExecution(TestPhase.WAITING,
+				null, 0, 0));
 	}
 
 	/**
@@ -167,15 +169,14 @@ public class TestRunner implements RunUiHandlers {
 		int lastIndexOf = test.getClass().getName().lastIndexOf(".");
 		if (lastIndexOf >= 0) {
 			return test.getClass().getName().substring(lastIndexOf + 1);
-		}
-		else {
+		} else {
 			return test.getClass().getName();
 		}
 	}
 
 	private void doSetUp(final TestCase test, final int i) {
-		container.setTestExecution(i, new TestExecution(TestPhase.SETTING_UP, null, phaseElapsedTime(),
-				testElapsedTime()));
+		container.setTestExecution(i, new TestExecution(TestPhase.SETTING_UP,
+				null, phaseElapsedTime(), testElapsedTime()));
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 			@Override
 			public void execute() {
@@ -193,8 +194,8 @@ public class TestRunner implements RunUiHandlers {
 	 * @param test
 	 */
 	private void doTest(final TestCase test, final int i) {
-		container
-				.setTestExecution(i, new TestExecution(TestPhase.RUNNING, null, phaseElapsedTime(), testElapsedTime()));
+		container.setTestExecution(i, new TestExecution(TestPhase.RUNNING,
+				null, phaseElapsedTime(), testElapsedTime()));
 
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 			@Override
@@ -211,8 +212,8 @@ public class TestRunner implements RunUiHandlers {
 	}
 
 	private void doTearDown(final TestCase test, final int i) {
-		container.setTestExecution(i, new TestExecution(TestPhase.TEARING_DOWN, null, phaseElapsedTime(),
-				testElapsedTime()));
+		container.setTestExecution(i, new TestExecution(TestPhase.TEARING_DOWN,
+				null, phaseElapsedTime(), testElapsedTime()));
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 			@Override
 			public void execute() {
@@ -229,26 +230,28 @@ public class TestRunner implements RunUiHandlers {
 	}
 
 	private void doFinish(final TestCase test, final int i) {
-		container.setTestExecution(i, new TestExecution(TestPhase.FINISHED, TestResult.createSuccess(),
-				phaseElapsedTime(), testElapsedTime()));
+		container.setTestExecution(i, new TestExecution(TestPhase.FINISHED,
+				TestResult.createSuccess(), phaseElapsedTime(),
+				testElapsedTime()));
 		run(i + 1);
 	}
 
-	private void handleThrowable(final int i, final TestCase test, final Throwable t, final TestPhase endingPhase) {
+	private void handleThrowable(final int i, final TestCase test,
+			final Throwable t, final TestPhase endingPhase) {
 		if (firstErrorTest == -1) {
 			firstErrorTest = i;
 		}
 		if (t instanceof AssertionError) {
-			container.setTestExecution(i, new TestExecution(TestPhase.FINISHED, new TestResult(endingPhase,
-					TestResultType.FAILURE, t), phaseElapsedTime(),
-					testElapsedTime()));
+			container.setTestExecution(i, new TestExecution(TestPhase.FINISHED,
+					new TestResult(endingPhase, TestResultType.FAILURE, t),
+					phaseElapsedTime(), testElapsedTime()));
 
+		} else if (t instanceof Throwable) {
+			container.setTestExecution(i, new TestExecution(TestPhase.FINISHED,
+					new TestResult(endingPhase, TestResultType.ERROR, t),
+					phaseElapsedTime(), testElapsedTime()));
 		}
-		else if (t instanceof Throwable) {
-			container.setTestExecution(i, new TestExecution(TestPhase.FINISHED, new TestResult(endingPhase,
-					TestResultType.ERROR, t), phaseElapsedTime(),
-					testElapsedTime()));
-		}
+		GWT.log("FAILED: " + getName(test) + "", t);
 		run(i + 1);
 	}
 
@@ -262,7 +265,9 @@ public class TestRunner implements RunUiHandlers {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.github.gwtd3.demo.client.test.ui.RunUiHandlers#onShowTestResults(java.lang.String)
+	 * @see
+	 * com.github.gwtd3.demo.client.test.ui.RunUiHandlers#onShowTestResults(
+	 * java.lang.String)
 	 */
 	@Override
 	public void onShowTestResults(final String results) {

@@ -119,8 +119,6 @@ public class LogScale extends ContinuousQuantitativeScale<LogScale> {
 	}-*/;
 
 	/**
-	 * DOES NOT WORK :
-	 * 
 	 * Returns a number format function suitable for displaying a tick value.
 	 * <p>
 	 * The returned tick format is implemented as d.toPrecision(1).
@@ -151,8 +149,6 @@ public class LogScale extends ContinuousQuantitativeScale<LogScale> {
 	}-*/;
 
 	/**
-	 * DOES NOT WORK :
-	 * 
 	 * Returns a number format function suitable for displaying a tick value.
 	 * <p>
 	 * The returned tick format is implemented as d.toPrecision(1).

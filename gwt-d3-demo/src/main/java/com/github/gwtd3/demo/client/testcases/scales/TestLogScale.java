@@ -30,8 +30,11 @@ package com.github.gwtd3.demo.client.testcases.scales;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
+import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.scales.LogScale;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
 
 public class TestLogScale extends AbstractTestCase {
@@ -119,9 +122,15 @@ public class TestLogScale extends AbstractTestCase {
 		assertEquals("1e+1", scale.tickFormat().format(10));
 		assertEquals("1e+1", scale.tickFormat(2).format(10));
 		assertEquals("1e+2", scale.tickFormat(2).format(100));
-		// FIXME: does not work see issue #50
-		// assertEquals("015.00", scale.tickFormat(20, "$,.2f").format(50));
-		// FIXME: and the tickFormat(count,function) version
+		assertEquals("$50.00", scale.tickFormat(20, "$,.2f").format(50));
+		String format = scale.tickFormat(20, new DatumFunction<String>() {
+			@Override
+			public String apply(Element context, Value d, int index) {
+				System.out.println("FORMATTER " + d.asDouble());
+				return "blah";
+			}
+		}).format(50);
+		System.out.println("FORMATTER " + format);
 
 		// nice
 		scale = D3.scale.log();

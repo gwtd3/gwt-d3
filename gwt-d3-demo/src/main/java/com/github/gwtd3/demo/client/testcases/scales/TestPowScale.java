@@ -36,6 +36,8 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 
 public class TestPowScale extends AbstractTestCase {
 
+	private static final double DELTA = 0.001d;
+
 	@Override
 	public void doTest(final ComplexPanel sandbox) {
 
@@ -66,7 +68,8 @@ public class TestPowScale extends AbstractTestCase {
 		assertEquals("5", scale.domain().getValue(0).asString());
 		assertEquals("6", scale.domain().getValue(1).asString());
 
-		scale.domain(-1, 0, 1).range(JsArrays.asJsArray(new String[] { "red", "white", "blue" }));
+		scale.domain(-1, 0, 1).range(
+				JsArrays.asJsArray(new String[] { "red", "white", "blue" }));
 		assertEquals(3, scale.domain().length());
 		assertEquals(-1, scale.domain().getValue(0).asInt());
 		assertEquals(0, scale.domain().getValue(1).asInt());
@@ -132,8 +135,7 @@ public class TestPowScale extends AbstractTestCase {
 		assertEquals("10", scale.tickFormat().format(10));
 		assertEquals("10", scale.tickFormat(2).format(10));
 		assertEquals("100", scale.tickFormat(2).format(100));
-		// FIXME: does not work see issue #50
-		// assertEquals("015.00", scale.tickFormat(20, "$,.2f").format(50));
+		assertEquals("$50.00", scale.tickFormat(20, "$,.2f").format(50));
 		// FIXME: and the tickFormat(count,function) version
 
 		// nice
@@ -150,16 +152,13 @@ public class TestPowScale extends AbstractTestCase {
 		scale.domain(2.10007, 2.9);
 		scale.nice(6);
 		assertEquals(2.1, scale.domain().getNumber(0));
-		// why: 2.90000000000004 ??
-		//assertEquals(2.9, scale.domain().getNumber(1));
+		assertEquals(2.9, scale.domain().getNumber(1), DELTA);
 
 		scale = D3.scale.pow();
 		scale.domain(2.1005, 2.9);
 		scale.nice(11);
 		assertEquals(2.1d, scale.domain().getNumber(0));
-		// why: 2.90000000000004 ??
-		//assertEquals(2.9d, scale.domain().getNumber(1));
-
+		assertEquals(2.9d, scale.domain().getNumber(1), DELTA);
 
 		// apply the function
 		scale = D3.scale.pow();

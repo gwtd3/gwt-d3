@@ -340,5 +340,15 @@ public class TestInterpolators extends AbstractTestCase {
 		assertEquals(10.0, shortInterpolator.interpolate(0));
 		assertEquals(12.5, shortInterpolator.interpolate(0.25));
 		assertEquals(20.0, shortInterpolator.interpolate(1));
+
+		// factory
+		// LinearScale scale = D3.scale.linear().interpolate(
+		// Interpolators.interpolateNumber);
+		// scale.apply(7);
+		//
+		// Interpolator<Double> interpolator = Interpolators.interpolateNumber
+		// .create(5, 6);
+		// assertEquals(5.5, interpolator.interpolate(0.5).doubleValue(),
+		// DELTA);
 	}
 }

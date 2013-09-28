@@ -34,7 +34,6 @@ package com.github.gwtd3.api.scales;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.core.Value;
-import com.github.gwtd3.api.interpolators.InterpolatorFactory;
 import com.github.gwtd3.api.time.TimeScale;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayUtils;
@@ -163,17 +162,42 @@ public abstract class ContinuousQuantitativeScale<S extends ContinuousQuantitati
 	}-*/;
 
 	// ======== interpolate ========
-	/**
-	 * @param factory
-	 *            the factory used to create an interpolator
-	 * @return the scale
-	 */
-	public final S interpolate(InterpolatorFactory<?> factory) {
-		return interpolate0(factory.asJSOFunction());
-	}
-
-	protected final native S interpolate0(JavaScriptObject factory)/*-{
-		return this.interpolate(factory);
-	}-*/;
+	// TODO : WORK IN PROGRESS
+	// /**
+	// * If factory is specified, sets the scale's output interpolator using the
+	// * specified factory.
+	// * <p>
+	// * The interpolator factory defaults to {@link Interpolators#interpolate},
+	// * and is used to map the normalized domain parameter t in [0,1] to the
+	// * corresponding value in the output range. The interpolator factory will
+	// be
+	// * used to construct interpolators for each adjacent pair of values from
+	// the
+	// * output range.
+	// *
+	// * @param factory
+	// * the factory used to create an interpolator
+	// * @return the scale
+	// */
+	// public final S interpolate(InterpolatorFactory<?> factory) {
+	// return interpolate0(factory.asJSOFunction());
+	// }
+	//
+	// /**
+	// * Return the scale's interpolator factory.
+	// *
+	// * @return the factory
+	// */
+	// public final InterpolatorFactory<?> interpolate() {
+	// return this.interpolate0();
+	// }
+	//
+	// protected final native JSNIInterpolatorFactory<?> interpolate0()/*-{
+	// return this.interpolate();
+	// }-*/;
+	//
+	// protected final native S interpolate0(JavaScriptObject factory)/*-{
+	// return this.interpolate(factory);
+	// }-*/;
 
 }

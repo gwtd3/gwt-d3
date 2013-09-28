@@ -36,6 +36,7 @@ import com.github.gwtd3.api.core.Transform;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.interpolators.Interpolator;
 import com.github.gwtd3.api.interpolators.InterpolatorFactory;
+import com.github.gwtd3.api.interpolators.JSNIInterpolatorFactory;
 import com.github.gwtd3.api.interpolators.JavascriptFunctionInterpolator;
 import com.github.gwtd3.api.interpolators.JavascriptFunctionInterpolatorDecorator;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -683,6 +684,7 @@ public class Interpolators {
 	 */
 	// public static final InterpolatorFactory<Double> interpolateNumber =
 	// interpolateNumberFactory();
+
 	/**
 	 * The interpolator factory used by
 	 * {@link #interpolateRound(double, double)}
@@ -726,10 +728,10 @@ public class Interpolators {
 	// public static final InterpolatorFactory<String> interpolateTransform =
 	// interpolateTransformFactory();
 
-	// private static final native JSNIInterpolatorFactory<Double>
-	// interpolateNumberFactory()/*-{
-	// return $wnd.d3.interpolateNumber;
-	// }-*/;
+	private static final native JSNIInterpolatorFactory<Double> interpolateNumberFactory()/*-{
+		return $wnd.d3.interpolateNumber;
+	}-*/;
+
 	//
 	// private static final native JSNIInterpolatorFactory<Long>
 	// interpolateRoundFactory()/*-{

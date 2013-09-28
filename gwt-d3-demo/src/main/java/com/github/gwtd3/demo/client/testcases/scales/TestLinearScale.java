@@ -36,6 +36,8 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 
 public class TestLinearScale extends AbstractTestCase {
 
+	private static final double DELTA = 0.0001d;
+
 	@Override
 	public void doTest(final ComplexPanel sandbox) {
 		LinearScale scale = D3.scale.linear();
@@ -55,7 +57,8 @@ public class TestLinearScale extends AbstractTestCase {
 		assertEquals("5", scale.domain().getValue(0).asString());
 		assertEquals("6", scale.domain().getValue(1).asString());
 
-		scale.domain(-1, 0, 1).range(JsArrays.asJsArray(new String[] { "red", "white", "blue" }));
+		scale.domain(-1, 0, 1).range(
+				JsArrays.asJsArray(new String[] { "red", "white", "blue" }));
 		assertEquals(3, scale.domain().length());
 		assertEquals(-1, scale.domain().getValue(0).asInt());
 		assertEquals(0, scale.domain().getValue(1).asInt());
@@ -148,14 +151,12 @@ public class TestLinearScale extends AbstractTestCase {
 		scale.domain(2.1, 2.9);
 		scale.nice(6);
 		assertEquals(2.1, scale.domain().getNumber(0));
-		// why: 2.90000000000004 ??
-		//assertEquals(2.9, scale.domain().getNumber(1));
+		assertEquals(2.9, scale.domain().getNumber(1), DELTA);
 		scale = D3.scale.linear();
 		scale.domain(2.1, 2.8);
 		scale.nice(11);
 		assertEquals(2.1d, scale.domain().getNumber(0));
-		// why: 2.90000000000004 ??
-		//assertEquals(2.8d, scale.domain().getNumber(1));
+		assertEquals(2.8d, scale.domain().getNumber(1), DELTA);
 
 		// apply the function
 		scale = D3.scale.linear();
@@ -176,5 +177,7 @@ public class TestLinearScale extends AbstractTestCase {
 		assertEquals(1.0, scale.domain().getNumber(0));
 		assertEquals(2.0, scale.domain().getNumber(1));
 
+		// interpolate
+		// scale.interpolate(Interpolators.);
 	}
 }
