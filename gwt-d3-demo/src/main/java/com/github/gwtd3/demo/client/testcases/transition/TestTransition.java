@@ -28,6 +28,7 @@
  */
 package com.github.gwtd3.demo.client.testcases.transition;
 
+import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.core.Transition.EventType;
@@ -113,6 +114,11 @@ public class TestTransition extends AbstractSelectionTest {
 				});
 
 		transition.size();
+
+		// d3.transition
+		assertNotNull(D3.transition());
+		// FIXME: with argument
+
 	}
 
 }
