@@ -34,6 +34,7 @@ package com.github.gwtd3.api.scales;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.interpolators.InterpolatorFactory;
 import com.github.gwtd3.api.time.TimeScale;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayUtils;
@@ -159,6 +160,20 @@ public abstract class ContinuousQuantitativeScale<S extends ContinuousQuantitati
 	 */
 	public native final S clamp(boolean clamping)/*-{
 		return this.clamp(clamping);
+	}-*/;
+
+	// ======== interpolate ========
+	/**
+	 * @param factory
+	 *            the factory used to create an interpolator
+	 * @return the scale
+	 */
+	public final S interpolate(InterpolatorFactory<?> factory) {
+		return interpolate0(factory.asJSOFunction());
+	}
+
+	protected final native S interpolate0(JavaScriptObject factory)/*-{
+		return this.interpolate(factory);
 	}-*/;
 
 }

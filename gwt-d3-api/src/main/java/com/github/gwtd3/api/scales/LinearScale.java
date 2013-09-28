@@ -209,9 +209,4 @@ public class LinearScale extends ContinuousQuantitativeScale<LinearScale> {
 		return this.nice(count);
 	}-*/;
 
-	// public native final LinearScale interpolate(InterpolatorFactory
-	// factory)/*-{
-	// return this
-	// .interpolate(factory.@com.github.gwtd3.api.interpolators.InterpolatorFactory::asJSOFunction()());
-	// }-*/;
 }
