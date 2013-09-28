@@ -5,6 +5,7 @@
 	<version>0.0.16-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>gwt-d3 Parent project</name>
+	<description>the GWT wrapper around d3.js</description>
 
 	<modules>
 		<module>gwt-d3-api</module>
