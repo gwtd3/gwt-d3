@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
-	<packaging>war</packaging>
-
-	<artifactId>gwt-d3-demo</artifactId>
-	<name>gwt-d3 Demo</name>
 	<parent>
 		<groupId>com.github.gwtd3</groupId>
 		<artifactId>gwt-d3</artifactId>
 		<version>0.0.16-SNAPSHOT</version>
 	</parent>
+	<artifactId>gwt-d3-demo</artifactId>
+	<packaging>war</packaging>
+	<name>gwt-d3 Demo</name>
+	<description>the GWT wrapper around d3.js - Demo module</description>
 
 	<properties>
 		<appengine.target.version>1.7.6</appengine.target.version>
