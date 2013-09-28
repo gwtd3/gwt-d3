@@ -34,16 +34,25 @@ import java.util.List;
 import com.github.gwtd3.api.core.Value;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
-import com.google.gwt.core.client.JsArrayInteger;
-import com.google.gwt.core.client.JsArrayMixed;
-import com.google.gwt.core.client.JsArrayNumber;
-import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.core.client.JsArrayUtils;
 
 /**
- * An Javascript object wrapping an array-like structure.
+ * A Javascript object wrapping an array-like structure.
  * <p>
+ * Although strong typed with a generic type, the array may in fact contains any
+ * value type.
+ * <p>
+ * Use factory methods ({@link #fromInts(int...)}, ... ) to create Array
+ * instance from primitive values.
+ * <p>
+ * You may turn a Java {@link Iterable} instance to an array using the
+ * {@link #fromIterable(Iterable)} method.
+ * <p>
+ * This class provides the properties and methods defined on <a href=
+ * "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype#Methods"
+ * >this page</a>
+ * <p>
+ * 
  * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
@@ -63,7 +72,7 @@ public class Array<T> extends JavaScriptObject {
 	 *            the iterable
 	 * @return the array
 	 */
-	public static <T> Array<T> create(final Iterable<T> iterable) {
+	public static <T> Array<T> fromIterable(final Iterable<T> iterable) {
 		Array<T> dest = JavaScriptObject.createArray().cast();
 		for (T t : iterable) {
 			dest.push(t);
@@ -127,28 +136,6 @@ public class Array<T> extends JavaScriptObject {
 	private static native JavaScriptObject arrayAsJsArrayForProdMode(
 			Object array) /*-{
 		return array;
-	}-*/;
-
-	// ============== typecasting methods ==============
-
-	public final native JsArrayNumber asJsArrayNumber()/*-{
-		return this;
-	}-*/;
-
-	public final native JsArrayMixed asJsArrayMixed()/*-{
-		return this;
-	}-*/;
-
-	public final native <R extends JavaScriptObject> JsArray<R> asJsArray()/*-{
-		return this;
-	}-*/;
-
-	public final native JsArrayInteger asJsArrayInteger()/*-{
-		return this;
-	}-*/;
-
-	public final native JsArrayString asJsArrayString()/*-{
-		return this;
 	}-*/;
 
 	// ============== get methods ==============
