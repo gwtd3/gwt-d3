@@ -44,6 +44,7 @@ import com.github.gwtd3.api.behaviour.Zoom.ZoomEvent;
 import com.github.gwtd3.api.core.Formatter;
 import com.github.gwtd3.api.core.Prefix;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.dsv.Dsv;
 import com.github.gwtd3.api.dsv.DsvCallback;
 import com.github.gwtd3.api.dsv.DsvObjectAccessor;
@@ -251,6 +252,43 @@ public class D3 extends JavaScriptObject {
 		}
 		return selectAll(elements);
 	}
+
+	/**
+	 * Create an animated transition.
+	 * <p>
+	 * This is equivalent to {@link Selection#transition()
+	 * D3.select(document).transition()}. This method is used rarely, as it is
+	 * typically easier to derive a transition from an existing selection,
+	 * rather than deriving a selection from an existing transition.
+	 * 
+	 * 
+	 * @return the transition the new transition
+	 */
+	public static final native Transition transition()/*-{
+		return $wnd.d3.transition();
+	}-*/;
+
+	// /**
+	// * Create an animated transition. In the context of
+	// * {@link Transition#each(com.github.gwtd3.api.functions.DatumFunction)},
+	// * this method will create a new transition for the specified selection
+	// that
+	// * inherits the delay, duration and other properties of the parent
+	// * transition. This is useful for implementing reusable components that
+	// can
+	// * be called either on selections or on transitions, in the latter case
+	// * supporting deriving concurrent transitions. An example of this is D3’s
+	// * axis component.
+	// * <p>
+	// * Outside of this context, this method is a no-op and should not be used.
+	// * <p>
+	// *
+	// * @param selection
+	// * @return the transition the new transition
+	// */
+	// public static final native Transition transition(Selection selection)/*-{
+	// return $wnd.d3.transition(selection);
+	// }-*/;
 
 	// =========== Math ==============
 
