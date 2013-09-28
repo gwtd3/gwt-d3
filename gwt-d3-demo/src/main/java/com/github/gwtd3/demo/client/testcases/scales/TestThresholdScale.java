@@ -52,7 +52,6 @@ public class TestThresholdScale extends AbstractTestCase {
 		assertEquals(0d, threshold.apply(0.49d).asDouble());
 		assertEquals(1d, threshold.apply(0.51d).asDouble());
 
-
 		// change domain and range
 		threshold.domain(0.5, 0.8);
 		assertEquals(0d, threshold.apply(0.48d).asDouble());
@@ -60,18 +59,15 @@ public class TestThresholdScale extends AbstractTestCase {
 		// now undefined values are returned for input > 0.8
 		assertTrue(threshold.apply(0.81).isUndefined());
 
-
 		// setting range with 3 values
 		threshold.range("a", "b", "c");
 		assertEquals("a", threshold.apply(0.48d).asString());
 		assertEquals("b", threshold.apply(0.51d).asString());
 		assertEquals("c", threshold.apply(0.82d).asString());
 
-		//invert extent
-		//assertEquals(0d, threshold.invertExtent(0.49d).getNumber(0));
+		// invert extent
 		assertEquals(0.5d, threshold.invertExtent("b").getNumber(0));
 		assertEquals(0.8d, threshold.invertExtent("b").getNumber(1));
-		//assertEquals(1.0d, threshold.invertExtent(1d).getNumber(1));
 
 	}
 }
