@@ -89,30 +89,79 @@ public class Array<T> extends JavaScriptObject {
 		return [];
 	}-*/;
 
+	/**
+	 * Create a new Array from the given values.
+	 * 
+	 * @param args
+	 *            the values
+	 * @return the new array
+	 */
 	public static final Array<Integer> fromInts(final int... args) {
 		return JsArrayUtils.readOnlyJsArray(args).cast();
 	}
 
+	/**
+	 * Create a new Array from the given values.
+	 * 
+	 * @param args
+	 *            the values
+	 * @return the new array
+	 */
 	public static final Array<Byte> fromBytes(final byte... args) {
 		return JsArrayUtils.readOnlyJsArray(args).cast();
 	}
 
+	/**
+	 * Create a new Array from the given values.
+	 * 
+	 * @param args
+	 *            the values
+	 * @return the new array
+	 */
 	public static final Array<Double> fromDoubles(final double... args) {
 		return JsArrayUtils.readOnlyJsArray(args).cast();
 	}
 
+	/**
+	 * Create a new Array from the given values.
+	 * 
+	 * @param args
+	 *            the values
+	 * @return the new array
+	 */
 	public static final Array<Float> fromFloats(final float... args) {
 		return JsArrayUtils.readOnlyJsArray(args).cast();
 	}
 
+	/**
+	 * Create a new Array from the given values.
+	 * 
+	 * @param args
+	 *            the values
+	 * @return the new array
+	 */
 	public static final Array<Long> fromLongs(final long... args) {
 		return JsArrayUtils.readOnlyJsArray(args).cast();
 	}
 
+	/**
+	 * Create a new Array from the given values.
+	 * 
+	 * @param args
+	 *            the values
+	 * @return the new array
+	 */
 	public static final Array<Short> fromShorts(final short... args) {
 		return JsArrayUtils.readOnlyJsArray(args).cast();
 	}
 
+	/**
+	 * Create a new Array from the given values.
+	 * 
+	 * @param args
+	 *            the values
+	 * @return the new array
+	 */
 	public static final <R> Array<R> fromObjects(final R... args) {
 		if (GWT.isScript()) {
 			return arrayAsJsArrayForProdMode(args).cast();
