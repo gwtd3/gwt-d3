@@ -6,6 +6,35 @@
 	<packaging>pom</packaging>
 	<name>gwt-d3 Parent project</name>
 	<description>the GWT wrapper around d3.js</description>
+	
+	<organization>
+		<name>gwt-d3</name>
+		<url>https://github.com/gwtd3</url>
+	</organization>
+	
+	<developers>
+		<developer>
+			<id>anthonime</id>
+			<name>Anthoni Schiochet</name>
+			<url>https://github.com/anthonime</url>
+			<roles>
+				<role>project lead</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>ericcitaire</id>
+			<name>Eric Citaire</name>
+			<url>https://github.com/ericcitaire</url>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<!-- TODO: ask contributors if they want to be listed here. -->
+	<contributors>
+	</contributors>
 
 	<modules>
 		<module>gwt-d3-api</module>
