@@ -55,7 +55,8 @@ public class TestLogScale extends AbstractTestCase {
 		assertEquals("5", scale.domain().getValue(0).asString());
 		assertEquals("6", scale.domain().getValue(1).asString());
 
-		scale.domain(-1, 0, 1).range(JsArrays.asJsArray(new String[] { "red", "white", "blue" }));
+		scale.domain(-1, 0, 1).range(
+				JsArrays.asJsArray(new String[] { "red", "white", "blue" }));
 		assertEquals(3, scale.domain().length());
 		assertEquals(-1, scale.domain().getValue(0).asInt());
 		assertEquals(0, scale.domain().getValue(1).asInt());
@@ -104,13 +105,13 @@ public class TestLogScale extends AbstractTestCase {
 		// ticks
 		scale = D3.scale.log();
 		scale.domain(10, 100);
-		assertEquals(9, scale.ticks().length());
-		assertEquals(20.0, scale.ticks().getNumber(0));
-		assertEquals(30.0, scale.ticks().getNumber(1));
-		assertEquals(100.0, scale.ticks().getNumber(8));
+		assertEquals(10, scale.ticks().length());
+		assertEquals(10.0, scale.ticks().getNumber(0));
+		assertEquals(20.0, scale.ticks().getNumber(1));
+		assertEquals(100.0, scale.ticks().getNumber(9));
 
 		scale.domain(10, 1000);
-		//assertEquals(17, scale.ticks().length());
+		// assertEquals(17, scale.ticks().length());
 
 		// tickFormat
 		scale = D3.scale.log();
@@ -135,8 +136,8 @@ public class TestLogScale extends AbstractTestCase {
 		scale = D3.scale.log();
 		scale.domain(1, 10).range(0, 10);
 		assertEquals(0, scale.apply(0).asInt());
-		assertEquals(9, scale.apply(10).asInt());
-		assertEquals(19, scale.apply(100).asInt());
+		assertEquals(10, scale.apply(10).asInt());
+		assertEquals(20, scale.apply(100).asInt());
 		assertEquals(0, scale.apply(-10).asInt());
 
 		// invert

@@ -32,6 +32,7 @@
 package com.github.gwtd3.demo.client.democases;
 
 import com.github.gwtd3.api.D3;
+import com.github.gwtd3.api.Interpolators;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.core.Value;
@@ -86,8 +87,13 @@ public class ArcTween extends FlowPanel implements DemoCase {
 		// Create the SVG container, and apply a transform such that the origin
 		// is the center of the canvas. This way, we don't need to position
 		// arcs individually.
-		svg = D3.select(this).append("svg").attr("width", width).attr("height", height).append("g")
-				.attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+		svg = D3.select(this)
+				.append("svg")
+				.attr("width", width)
+				.attr("height", height)
+				.append("g")
+				.attr("transform",
+						"translate(" + (width / 2) + "," + (height / 2) + ")");
 
 		// construct a a stupid object containing the
 		// property "endAngle" as a constant.
@@ -105,7 +111,8 @@ public class ArcTween extends FlowPanel implements DemoCase {
 		// set the angle to 12.7%
 		json.endAngle(.127 * TWO_PI);
 		// Add the foreground arc in orange, currently showing 12.7%.
-		final Selection foreground = svg.append("path").datum(json).style("fill", "orange").attr("d", arc);
+		final Selection foreground = svg.append("path").datum(json)
+				.style("fill", "orange").attr("d", arc);
 
 		// Every so often, start a transition to a new random angle. Use //
 		// transition.call // (identical to selection.call) so that we can
@@ -135,12 +142,15 @@ public class ArcTween extends FlowPanel implements DemoCase {
 	protected void myFunction(final Transition transition, final double newAngle) {
 		transition.attrTween("d", new TweenFunction<String>() {
 			@Override
-			public Interpolator<String> apply(final Element context, final Value datum, final int index, final Value currentAttributeValue) {
+			public Interpolator<String> apply(final Element context,
+					final Value datum, final int index,
+					final Value currentAttributeValue) {
 				try {
 					final Arc arcDatum = datum.as();
 					final double endAngle = arcDatum.endAngle();
 					return new CallableInterpolator<String>() {
-						private final Interpolator<Double> interpolator = D3.interpolateNumber(endAngle, newAngle);
+						private final Interpolator<Double> interpolator = Interpolators
+								.interpolateNumber(endAngle, newAngle);
 
 						@Override
 						public String interpolate(final double t) {

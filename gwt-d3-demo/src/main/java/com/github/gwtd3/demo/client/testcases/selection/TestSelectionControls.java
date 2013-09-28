@@ -29,8 +29,8 @@
 package com.github.gwtd3.demo.client.testcases.selection;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -47,6 +47,13 @@ public class TestSelectionControls extends AbstractSelectionTest {
 		testEach();
 		testCount();
 		testCall();
+		testInterrupt();
+	}
+
+	private void testInterrupt() {
+		Selection selection = givenAMultipleSelection(new Label("1"),
+				new Label("2"));
+		selection.interrupt();
 	}
 
 	/**
@@ -54,7 +61,8 @@ public class TestSelectionControls extends AbstractSelectionTest {
 	 */
 	private void testCall() {
 		// nothing to test before any other use cases of using selection.call-
-		// maybe by providing a SelectionCallback interface with one method call(Selection) ?
+		// maybe by providing a SelectionCallback interface with one method
+		// call(Selection) ?
 
 	}
 
@@ -62,11 +70,13 @@ public class TestSelectionControls extends AbstractSelectionTest {
 	 * 
 	 */
 	private void testEach() {
-		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
+		Selection selection = givenAMultipleSelection(new Label("1"),
+				new Label("2"));
 		final StringBuilder sb = new StringBuilder();
 		selection.each(new DatumFunction<Void>() {
 			@Override
-			public Void apply(final Element context, final Value d, final int index) {
+			public Void apply(final Element context, final Value d,
+					final int index) {
 				sb.append(context.getInnerText());
 				return null;
 			}
@@ -78,7 +88,8 @@ public class TestSelectionControls extends AbstractSelectionTest {
 	 * 
 	 */
 	private void testCount() {
-		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
+		Selection selection = givenAMultipleSelection(new Label("1"),
+				new Label("2"));
 		assertEquals(2, selection.size());
 	}
 
@@ -86,7 +97,8 @@ public class TestSelectionControls extends AbstractSelectionTest {
 	 * 
 	 */
 	private void testNode() {
-		Selection selection = givenAMultipleSelection(new Label("1"), new Label("2"));
+		Selection selection = givenAMultipleSelection(new Label("1"),
+				new Label("2"));
 		assertEquals("1", selection.node().getInnerText());
 		selection = selection.selectAll("unknown");
 		assertNull(selection.node());

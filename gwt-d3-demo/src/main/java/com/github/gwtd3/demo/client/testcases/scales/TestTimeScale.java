@@ -40,8 +40,11 @@ public class TestTimeScale extends AbstractTestCase {
 	public void doTest(final ComplexPanel sandbox) {
 		Array<?> domain = D3.time().scale().domain();
 		assertEquals(2, domain.length());
-		// System.out.println(domain.get(0).asJsDate());
-		// System.out.println(domain.get(1).asJsDate());
-		Array<?> range = D3.time().scale().range(JsArrays.asJsArray(0, 5)).range();
+		System.out.println(domain.getValue(0).asJsDate());
+		System.out.println(domain.getValue(1).asJsDate());
+		Array<?> range = D3.time().scale().range(JsArrays.asJsArray(0, 5))
+				.range();
+
+		// nice and count
 	}
 }

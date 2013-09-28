@@ -28,6 +28,7 @@
  */
 package com.github.gwtd3.demo.client.democases;
 
+import com.github.gwtd3.api.Colors;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.functions.TimerFunction;
@@ -57,8 +58,10 @@ public class LorenzSystem extends FlowPanel implements DemoCase {
 	public LorenzSystem() {
 		super();
 
-		Selection canvas = D3.select(this).append("canvas").attr("width", width).attr("height", height);
-		color = D3.scale.linear().domain(0, 20, 30, 50).range("yellow", "orange", "brown", "purple");
+		Selection canvas = D3.select(this).append("canvas")
+				.attr("width", width).attr("height", height);
+		color = D3.scale.linear().domain(0, 20, 30, 50)
+				.range("yellow", "orange", "brown", "purple");
 		context = canvas.node().<CanvasElement> cast().getContext2d();
 		context.setLineWidth(.2);
 		context.setFillStyle("rgba(0,0,0,.03)");
@@ -72,7 +75,8 @@ public class LorenzSystem extends FlowPanel implements DemoCase {
 				context.scale(12, 14);
 				context.rotate(30);
 				for (int i = 0; i < n; ++i) {
-					context.setStrokeStyle(color.apply(z).asString());
+					context.setStrokeStyle(Colors
+							.rgb(color.apply(z).asString()).toHexaString());
 					context.beginPath();
 					context.moveTo(x, y);
 					x += δτ * σ * (y - x);

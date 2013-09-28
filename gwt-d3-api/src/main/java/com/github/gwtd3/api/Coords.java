@@ -31,7 +31,10 @@
  */
 package com.github.gwtd3.api;
 
+import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.functions.DatumFunction;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.dom.client.Element;
 
 /**
  * A Javascript object containing x and y properties.
@@ -86,4 +89,33 @@ public class Coords extends JavaScriptObject {
 		this.y = y;
 		return this;
 	}-*/;
+
+	/**
+	 * @return x and y comma-separated string
+	 */
+	public final native String toCommaSeparatedString()/*-{
+		return this.x + "," + this.y;
+	}-*/;
+
+	/**
+	 * Convenient {@link DatumFunction} that return the x component of a
+	 * {@link Coords} datum.
+	 */
+	public static final DatumFunction<Double> X_ACCESSOR = new DatumFunction<Double>() {
+		@Override
+		public Double apply(Element context, Value d, int index) {
+			return d.<Coords> as().x();
+		}
+	};
+
+	/**
+	 * Convenient {@link DatumFunction} that return the y component of a
+	 * {@link Coords} datum.
+	 */
+	public static final DatumFunction<Double> Y_ACCESSOR = new DatumFunction<Double>() {
+		@Override
+		public Double apply(Element context, Value d, int index) {
+			return d.<Coords> as().y();
+		}
+	};
 }

@@ -26,8 +26,10 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.arrays;
+package com.github.gwtd3.demo.client.democases.test;
 
-public interface MapCallback<T, R> {
-	R map(T element, int index, Array<T> array);
+import com.google.gwt.resources.client.TextResource;
+
+public interface CaliforniaJson extends TextResource {
+
 }

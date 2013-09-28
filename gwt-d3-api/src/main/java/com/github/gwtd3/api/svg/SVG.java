@@ -45,8 +45,8 @@ public class SVG extends JavaScriptObject {
 	}
 
 	/**
-	 * Create a new arc with default accessor functions.
-	 * See {@link Arc} for details.
+	 * Create a new arc with default accessor functions. See {@link Arc} for
+	 * details.
 	 * 
 	 * @return the arc
 	 */
@@ -107,4 +107,13 @@ public class SVG extends JavaScriptObject {
 	public final native Symbol symbol() /*-{
 		return this.symbol();
 	}-*/;
+
+	/**
+     * Create a new default {@link Diagonal}.
+     * 
+     * @return the diagonal
+     */
+    public final native Diagonal diagonal() /*-{
+        return this.diagonal();
+    }-*/;
 }

@@ -26,20 +26,52 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.api.arrays;
+package com.github.gwtd3.api.layout;
 
+import com.github.gwtd3.api.Coords;
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * @author <a href="mailto:eric.citaire@gmail.com">Eric Citaire</a>
- *
- * @param <T> the type of the values in the array
+ * A link in d3js' tree layout, see <a
+ * href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-links">d3 docs on
+ * link</a>. Provides accessors and setters for a link's two key attributes
+ * source and target.
+ * 
+ * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
+ * 
  */
-public interface FilterCallback<T> {
+public class Link
+    extends JavaScriptObject {
+    protected Link() {
+        super();
+    }
+
     /**
-     * @param element
-     * @param index
-     * @param array
-     * @return
+     * Create a basic link object starting at one coordinate and ending at
+     * another
+     * 
+     * @param the starting coordinates
+     * @param the ending coordinates
+     * @return the link object
      */
-    boolean filter(T element, int index, Array<T> array);
+    public static final native Link create(Coords source, Coords target) /*-{
+		return {
+			source : source,
+			target : target
+		};
+    }-*/;
+
+    /**
+     * @return the end node
+     */
+    public final native Node target() /*-{
+		return this.target;
+    }-*/;
+
+    /**
+     * @return the start node
+     */
+    public final native Node source() /*-{
+		return this.source;
+    }-*/;
 }

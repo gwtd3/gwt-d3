@@ -28,11 +28,11 @@
  */
 package com.github.gwtd3.demo.client.democases;
 
+import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
-import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.core.Value;
@@ -107,9 +107,10 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 		// up!
 		final TimeScale x = D3.time().scale().range(0, w);
 		final LinearScale y = D3.scale.linear().range(h, 0);
-		final Axis xAxis =
-				D3.svg().axis().scale(x).tickSize(-h).tickSubdivide(1);
-		final Axis yAxis = D3.svg().axis().scale(y).orient(Orientation.RIGHT).ticks(4);
+		final Axis xAxis = D3.svg().axis().scale(x).tickSize(-h);
+		// removed .tickSubdivide(1);
+		final Axis yAxis = D3.svg().axis().scale(y).orient(Orientation.RIGHT)
+				.ticks(4);
 
 		// An area generator, for the light fill.
 		final Area area = D3.svg().area()
@@ -117,15 +118,16 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 				// .x(function(d) { return x(d.date); })
 				.x(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Value d, final int index) {
+					public Double apply(final Element context, final Value d,
+							final int index) {
 						return x.apply(((Data) d.as()).getDate()).asDouble();
 					}
-				})
-				.y0(h)
+				}).y0(h)
 				// .y1(function(d) { return y(d.price); });
 				.y1(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Value d, final int index) {
+					public Double apply(final Element context, final Value d,
+							final int index) {
 						return y.apply(((Data) d.as()).getPrice()).asDouble();
 					}
 				});
@@ -136,14 +138,16 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 				// .x(function(d) { return x(d.date); })
 				.x(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Value d, final int index) {
+					public Double apply(final Element context, final Value d,
+							final int index) {
 						return x.apply(((Data) d.as()).getDate()).asDouble();
 					}
 				})
 				// // .y(function(d) { return y(d.price); });
 				.y(new DatumFunction<Double>() {
 					@Override
-					public Double apply(final Element context, final Value d, final int index) {
+					public Double apply(final Element context, final Value d,
+							final int index) {
 						return y.apply(d.<Data> as().getPrice()).asDouble();
 					}
 				});
@@ -163,22 +167,26 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 			}
 		}, new DsvCallback<Data>() {
 			@Override
-			public void get(final JavaScriptObject error, final DsvRows<Data> values) {
+			public void get(final JavaScriptObject error,
+					final DsvRows<Data> values) {
 
 				if (error != null) {
 					XmlHttpRequest xhrError = error.cast();
-					String message = xhrError.status() + " (" + xhrError.statusText() + ")";
+					String message = xhrError.status() + " ("
+							+ xhrError.statusText() + ")";
 					Window.alert(message);
 					throw new RuntimeException(message);
 				}
 
 				// // Compute the minimum and maximum date, and the maximum
 				// price.
-				x.domain(JsArrays.asJsArray(values.getObject(0).getDate(), values.getObject(values.length() - 1).getDate()));
+				x.domain(JsArrays.asJsArray(values.getObject(0).getDate(),
+						values.getObject(values.length() - 1).getDate()));
 
-				int maxY = D3.max(values, new NumericForEachCallback() {
+				int maxY = Arrays.max(values, new NumericForEachCallback() {
 					@Override
-					public double forEach(final Object thisArg, final Value element, final int index,
+					public double forEach(final Object thisArg,
+							final Value element, final int index,
 							final Array<?> array) {
 						return element.<Data> as().getPrice();
 					}
@@ -186,63 +194,63 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 				System.out.println("the max Y is " + maxY + " among " + values);
 				y.domain(JsArrays.asJsArray(0, maxY)).nice();
 				// Add an SVG element with the desired dimensions and margin.
-				final Selection svg = D3.select(AxisComponent.this).append("svg:svg")
+				final Selection svg = D3
+						.select(AxisComponent.this)
+						.append("svg:svg")
 						.attr("class", css.svg())
 						.attr("width", w + m[1] + m[3])
 						.attr("height", h + m[0] + m[2])
 						.append("svg:g")
-						.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+						.attr("transform",
+								"translate(" + m[3] + "," + m[0] + ")");
 
 				// Add the clip path.
-				svg.append("svg:clipPath")
-						.attr("id", "clip")
-						.append("svg:rect")
-						.attr("width", w)
-						.attr("height", h);
+				svg.append("svg:clipPath").attr("id", "clip")
+						.append("svg:rect").attr("width", w).attr("height", h);
 
 				// Add the area path.
-				svg.append("svg:path")
-						.attr("class", css.area())
+				svg.append("svg:path").attr("class", css.area())
 						.attr("clip-path", "url(#clip)")
 						.attr("d", area.apply(values));
 
 				// Add the x-axis.
-				svg.append("svg:g")
-						.attr("class", css.x() + " " + css.axis())
+				svg.append("svg:g").attr("class", css.x() + " " + css.axis())
 						.attr("transform", "translate(0," + h + ")")
 						.call(xAxis);
 
 				// Add the y-axis.
-				svg.append("svg:g")
-						.attr("class", css.y() + " " + css.axis())
+				svg.append("svg:g").attr("class", css.y() + " " + css.axis())
 						.attr("transform", "translate(" + w + ",0)")
 						.call(yAxis);
 
 				// Add the line path.
-				svg.append("svg:path")
-						.attr("class", css.line())
+				svg.append("svg:path").attr("class", css.line())
 						.attr("clip-path", "url(#clip)")
 						.attr("d", line.generate(values));
 
 				// Add a small label for the symbol name.
-				svg.append("svg:text")
-						.attr("x", w - 6)
-						.attr("y", h - 6)
+				svg.append("svg:text").attr("x", w - 6).attr("y", h - 6)
 						.attr("text-anchor", "end")
 						.text(values.getObject(0).getSymbol());
 
 				// On click, update the x-axis.
 				svg.on(BrowserEvents.CLICK, new DatumFunction<Void>() {
 					@Override
-					public Void apply(final Element context, final Value d, final int index) {
+					public Void apply(final Element context, final Value d,
+							final int index) {
 						int n = values.length() - 1;
 						int i = (int) Math.floor((Math.random() * n) / 2);
-						int j = i + (int) Math.floor((Math.random() * n) / 2) + 1;
-						x.domain(JsArrays.asJsArray(values.getObject(i).getDate(), values.getObject(j).getDate()));
+						int j = i + (int) Math.floor((Math.random() * n) / 2)
+								+ 1;
+						x.domain(JsArrays.asJsArray(values.getObject(i)
+								.getDate(), values.getObject(j).getDate()));
 						Transition transition = svg.transition().duration(750);
-						transition.select("." + css.x() + "." + css.axis()).call(xAxis);
-						transition.select("." + css.area()).attr("d", area.apply(values));
-						transition.select("." + css.line()).attr("d", line.generate(values));
+						transition.select("." + css.x() + "." + css.axis())
+								.call(xAxis);
+						transition.select("." + css.area()).attr("d",
+								area.apply(values));
+						transition.select("." + css.line()).attr("d",
+								line.generate(values));
 						return null;
 					};
 				});

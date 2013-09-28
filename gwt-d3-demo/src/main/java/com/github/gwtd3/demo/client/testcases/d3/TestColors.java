@@ -31,11 +31,10 @@
  */
 package com.github.gwtd3.demo.client.testcases.d3;
 
-import com.github.gwtd3.api.D3;
+import com.github.gwtd3.api.Colors;
 import com.github.gwtd3.api.core.HSLColor;
 import com.github.gwtd3.api.core.RGBColor;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
-
 import com.google.gwt.user.client.ui.ComplexPanel;
 
 /**
@@ -48,8 +47,8 @@ public class TestColors extends AbstractTestCase {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.github.gwtd3.demo.client.tests.UnitTest#doTest(com.google.gwt.user.client
-	 * .ui. RootPanel)
+	 * com.github.gwtd3.demo.client.tests.UnitTest#doTest(com.google.gwt.user
+	 * .client .ui. RootPanel)
 	 */
 	@Override
 	public void doTest(final ComplexPanel sandbox) {
@@ -61,7 +60,7 @@ public class TestColors extends AbstractTestCase {
 	 * 
 	 */
 	private void hsl() {
-		HSLColor hsl = D3.hsl("red");
+		HSLColor hsl = Colors.hsl("red");
 		assertEquals(0, hsl.h());
 		assertEquals(1.0, hsl.s());
 		assertEquals(0.5, hsl.l());
@@ -74,10 +73,10 @@ public class TestColors extends AbstractTestCase {
 		assertEquals(0, rgb.g());
 		assertEquals(0, rgb.b());
 
-		HSLColor hsl2 = D3.hsl(120, 1, 0.5);
+		HSLColor hsl2 = Colors.hsl(120, 1, 0.5);
 		System.out.println(hsl2.toHexaString());
 
-		HSLColor hsl3 = D3.hsl(rgb);
+		HSLColor hsl3 = Colors.hsl(rgb);
 		assertEquals(0, hsl3.h());
 		assertEquals(1.0, hsl3.s());
 		assertEquals(0.5, hsl3.l());
@@ -88,7 +87,7 @@ public class TestColors extends AbstractTestCase {
 	 * 
 	 */
 	private void rgb() {
-		RGBColor rgb = D3.rgb("#ff0000");
+		RGBColor rgb = Colors.rgb("#ff0000");
 		assertEquals(255, rgb.r());
 		assertEquals(0, rgb.g());
 		assertEquals(0, rgb.b());
@@ -101,13 +100,13 @@ public class TestColors extends AbstractTestCase {
 		System.out.println(hsl.s());
 		System.out.println(hsl.l());
 
-		RGBColor rgb2 = D3.rgb(0, 0, 255);
+		RGBColor rgb2 = Colors.rgb(0, 0, 255);
 		assertEquals(0, rgb2.r());
 		assertEquals(0, rgb2.g());
 		assertEquals(255, rgb2.b());
 		System.out.println(rgb2.toHexaString());
 
-		RGBColor rgb3 = D3.rgb(hsl);
+		RGBColor rgb3 = Colors.rgb(hsl);
 		assertEquals(255, rgb3.r());
 		assertEquals(0, rgb3.g());
 		assertEquals(0, rgb3.b());

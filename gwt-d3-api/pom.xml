@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.github.gwtd3</groupId>
 		<artifactId>gwt-d3</artifactId>
-		<version>0.0.14-SNAPSHOT</version>
+		<version>0.0.16-SNAPSHOT</version>
 	</parent>
 
 
@@ -20,12 +20,12 @@
 		<dependency>
 			<groupId>com.github.gwtd3</groupId>
 			<artifactId>gwt-d3-js</artifactId>
-			<version>3.1.10</version>
+			<version>${d3.js.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.gwtd3</groupId>
 			<artifactId>gwt-d3-js</artifactId>
-			<version>3.1.10</version>
+			<version>${d3.js.version}</version>
 			<classifier>sources</classifier>
 		</dependency>
 		<dependency>

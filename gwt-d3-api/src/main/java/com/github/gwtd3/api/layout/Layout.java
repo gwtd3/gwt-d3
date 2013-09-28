@@ -38,4 +38,18 @@ public class Layout<L extends Layout<L>> extends JavaScriptObject {
 	public final native ChordLayout chord() /*-{
 		return this.chord();
 	}-*/;
+	
+    /**
+     * Creates a new tree layout with the default settings: the default sort
+     * order is null; the default children
+     * accessor assumes each input data is an object with a children array; the
+     * default separation function uses one
+     * node width for siblings, and two node widths for non-siblings; the
+     * default size is 1×1.
+     * 
+     * @return the tree layout object
+     */
+    public final native TreeLayout tree() /*-{
+        return this.tree();
+    }-*/;
 }
