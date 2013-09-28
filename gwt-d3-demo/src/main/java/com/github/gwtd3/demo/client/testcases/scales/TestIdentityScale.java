@@ -29,7 +29,7 @@
 package com.github.gwtd3.demo.client.testcases.scales;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
+import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.scales.IdentityScale;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -56,7 +56,7 @@ public class TestIdentityScale extends AbstractTestCase {
 		assertEquals("6", scale.domain().getValue(1).asString());
 
 		scale.domain(-1, 0, 1).range(
-				JsArrays.asJsArray(new String[] { "red", "white", "blue" }));
+				Array.fromObjects(new String[] { "red", "white", "blue" }));
 		assertEquals(3, scale.domain().length());
 		assertEquals(0, scale.domain().getValue(0).asInt());
 		assertEquals(0, scale.domain().getValue(1).asInt());

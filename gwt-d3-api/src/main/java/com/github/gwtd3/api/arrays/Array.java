@@ -118,6 +118,24 @@ public class Array<T> extends JavaScriptObject {
 	 *            the values
 	 * @return the new array
 	 */
+	public static Array<Character> fromChars(final char... args) {
+		if (GWT.isScript()) {
+			return arrayAsJsArrayForProdMode(args).cast();
+		}
+		Array<Character> dest = JavaScriptObject.createArray().cast();
+		for (int i = 0; i < args.length; ++i) {
+			dest.push(args[i]);
+		}
+		return dest;
+	}
+
+	/**
+	 * Create a new Array from the given values.
+	 * 
+	 * @param args
+	 *            the values
+	 * @return the new array
+	 */
 	public static final Array<Double> fromDoubles(final double... args) {
 		return JsArrayUtils.readOnlyJsArray(args).cast();
 	}
@@ -167,6 +185,25 @@ public class Array<T> extends JavaScriptObject {
 			return arrayAsJsArrayForProdMode(args).cast();
 		}
 		Array<R> dest = JavaScriptObject.createArray().cast();
+		for (int i = 0; i < args.length; ++i) {
+			dest.push(args[i]);
+		}
+		return dest;
+
+	}
+
+	/**
+	 * Create a new Array from the given values.
+	 * 
+	 * @param args
+	 *            the values
+	 * @return the new array
+	 */
+	public static final Array<Object> fromJavaArray(final Object[] args) {
+		if (GWT.isScript()) {
+			return arrayAsJsArrayForProdMode(args).cast();
+		}
+		Array<Object> dest = JavaScriptObject.createArray().cast();
 		for (int i = 0; i < args.length; ++i) {
 			dest.push(args[i]);
 		}

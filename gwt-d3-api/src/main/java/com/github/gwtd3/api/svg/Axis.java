@@ -34,7 +34,6 @@ package com.github.gwtd3.api.svg;
 import java.util.List;
 
 import com.github.gwtd3.api.IsFunction;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Formatter;
 import com.github.gwtd3.api.core.Selection;
@@ -527,7 +526,7 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	 * @return the current axis
 	 */
 	public final Axis tickValues(double... values) {
-		return this.tickValues(JsArrays.asJsArray(values));
+		return this.tickValues(Array.fromDoubles(values));
 	}
 
 	/**
@@ -538,7 +537,7 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	 * @return the current axis
 	 */
 	public final Axis tickValues(String... values) {
-		return this.tickValues(JsArrays.asJsArray(values));
+		return this.tickValues(Array.fromObjects(values));
 	}
 
 	/**
@@ -549,7 +548,7 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	 * @return the current axis
 	 */
 	public final Axis tickValues(List<?> values) {
-		return this.tickValues(JsArrays.asJsArray(values));
+		return this.tickValues(Array.fromIterable(values));
 	}
 
 }

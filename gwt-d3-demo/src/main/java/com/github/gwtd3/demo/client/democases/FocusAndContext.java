@@ -30,7 +30,6 @@ package com.github.gwtd3.demo.client.democases;
 
 import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
@@ -94,14 +93,12 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
 
 		final TimeFormat dateFormat = D3.time().format("%b %Y");
 
-		final TimeScale x = D3.time().scale()
-				.range(JsArrays.asJsArray(0, width));
-		final TimeScale x2 = D3.time().scale()
-				.range(JsArrays.asJsArray(0, width));
-		final LinearScale y = D3.scale.linear().range(
-				JsArrays.asJsArray(height, 0));
+		final TimeScale x = D3.time().scale().range(Array.fromInts(0, width));
+		final TimeScale x2 = D3.time().scale().range(Array.fromInts(0, width));
+		final LinearScale y = D3.scale.linear()
+				.range(Array.fromInts(height, 0));
 		final LinearScale y2 = D3.scale.linear().range(
-				JsArrays.asJsArray(height2, 0));
+				Array.fromInts(height2, 0));
 
 		final Axis xAxis = D3.svg().axis().scale(x).orient(Orientation.BOTTOM);
 		final Axis xAxis2 = D3.svg().axis().scale(x2)
@@ -181,7 +178,7 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
 						return d.as(Data.class).getDate();
 					}
 				})));
-				y.domain(JsArrays.asJsArray(0,
+				y.domain(Array.fromDoubles(0,
 						Arrays.max(data, new NumericForEachCallback() {
 							@Override
 							public double forEach(final Object thisArg,

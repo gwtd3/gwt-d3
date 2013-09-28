@@ -30,7 +30,6 @@ package com.github.gwtd3.demo.client.democases;
 
 import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.core.Selection;
@@ -88,7 +87,7 @@ public class ChordDiagram extends FlowPanel implements DemoCase {
 		final OrdinalScale fill = D3.scale
 				.ordinal()
 				.domain(Arrays.range(4))
-				.range(JsArrays.asJsArray("#000000", "#FFDD89", "#957244",
+				.range(Array.fromObjects("#000000", "#FFDD89", "#957244",
 						"#F26223"));
 
 		final Selection svg = D3

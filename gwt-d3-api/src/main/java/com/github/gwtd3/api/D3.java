@@ -208,7 +208,7 @@ public class D3 extends JavaScriptObject {
 	 * @return the selection
 	 */
 	public static final Selection selectAll(final Element... nodes) {
-		return selectAll(JsArrays.asJsArray(nodes));
+		return selectAll(Array.fromObjects(nodes));
 	}
 
 	/**
@@ -219,7 +219,7 @@ public class D3 extends JavaScriptObject {
 	 * @return the selection
 	 */
 	public static final Selection selectAll(final Collection<Element> nodes) {
-		return selectAll(JsArrays.asJsArray(nodes));
+		return selectAll(Array.fromIterable(nodes));
 	}
 
 	/**

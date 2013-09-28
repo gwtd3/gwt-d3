@@ -30,7 +30,6 @@ package com.github.gwtd3.demo.client.democases;
 
 import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.ForEachCallback;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
@@ -93,10 +92,10 @@ public class BarChart extends FlowPanel implements DemoCase {
 		final Formatter formatPercent = D3.format(".0%");
 
 		final OrdinalScale x = D3.scale.ordinal().rangeRoundBands(
-				JsArrays.asJsArray(0, width), .1);
+				Array.fromDoubles(0, width), .1);
 
-		final LinearScale y = D3.scale.linear().range(
-				JsArrays.asJsArray(height, 0));
+		final LinearScale y = D3.scale.linear()
+				.range(Array.fromInts(height, 0));
 
 		final Axis xAxis = D3.svg().axis().scale(x).orient(Orientation.BOTTOM);
 
@@ -130,7 +129,7 @@ public class BarChart extends FlowPanel implements DemoCase {
 						return element.as(Data.class).getLetter();
 					}
 				}));
-				y.domain(JsArrays.asJsArray(0,
+				y.domain(Array.fromDoubles(0,
 						Arrays.max(data, new NumericForEachCallback() {
 							@Override
 							public double forEach(final Object thisArg,

@@ -29,7 +29,6 @@
 package com.github.gwtd3.demo.client.testcases.arrays;
 
 import com.github.gwtd3.api.Arrays;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -49,22 +48,22 @@ public class TestD3Arrays extends AbstractTestCase {
 	}
 
 	private void testMaxAndMin() {
-		assertEquals(200, Arrays.max(JsArrays.asJsArray(52, 200, 31)).asInt());
+		assertEquals(200, Arrays.max(Array.fromInts(52, 200, 31)).asInt());
 		assertEquals(52, Arrays.max(Array.fromObjects("52", "200", "31"))
 				.asInt());
 		assertEquals(205,
-				Arrays.max(JsArrays.asJsArray(52, 200, 31), Callbacks.add(5))
+				Arrays.max(Array.fromInts(52, 200, 31), Callbacks.add(5))
 						.asInt());
 		assertEquals(
 				205,
 				Arrays.max(Array.fromObjects("52", "200", "31"),
 						Callbacks.add(5)).asInt());
 
-		assertEquals(31, Arrays.min(JsArrays.asJsArray(52, 200, 31)).asInt());
+		assertEquals(31, Arrays.min(Array.fromInts(52, 200, 31)).asInt());
 		assertEquals(200, Arrays.min(Array.fromObjects("52", "200", "31"))
 				.asInt());
 		assertEquals(36,
-				Arrays.min(JsArrays.asJsArray(52, 200, 31), Callbacks.add(5))
+				Arrays.min(Array.fromInts(52, 200, 31), Callbacks.add(5))
 						.asInt());
 		assertEquals(
 				36,

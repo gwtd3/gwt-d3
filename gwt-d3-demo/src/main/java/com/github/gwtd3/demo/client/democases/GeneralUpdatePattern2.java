@@ -34,7 +34,6 @@ package com.github.gwtd3.demo.client.democases;
 import java.util.Arrays;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.UpdateSelection;
@@ -96,10 +95,8 @@ public class GeneralUpdatePattern2 extends FlowPanel implements DemoCase {
 
 		int width = 960, height = 500;
 
-		svg = D3.select(this).append("svg")
-				.attr("width", width)
-				.attr("height", height)
-				.append("g")
+		svg = D3.select(this).append("svg").attr("width", width)
+				.attr("height", height).append("g")
 				.attr("transform", "translate(32," + (height / 2) + ")");
 
 		// The initial display.
@@ -124,10 +121,12 @@ public class GeneralUpdatePattern2 extends FlowPanel implements DemoCase {
 
 		// DATA JOIN
 		// Join new data with old elements, if any.
-		UpdateSelection selection = svg.selectAll("text")
-				.data(JsArrays.asJsArray(data), new KeyFunction<Integer>() {
+		UpdateSelection selection = svg.selectAll("text").data(
+				Array.fromChars(data), new KeyFunction<Integer>() {
 					@Override
-					public Integer map(final Element context, final Array<?> newDataArray, final Value datum, final int index) {
+					public Integer map(final Element context,
+							final Array<?> newDataArray, final Value datum,
+							final int index) {
 						return datum.asInt();
 					}
 				});
@@ -140,10 +139,10 @@ public class GeneralUpdatePattern2 extends FlowPanel implements DemoCase {
 		// Create new elements as needed.
 		selection.enter().append("text")
 				.attr("class", Bundle.INSTANCE.css().enter())
-				.attr("dy", ".35em")
-				.text(new DatumFunction<String>() {
+				.attr("dy", ".35em").text(new DatumFunction<String>() {
 					@Override
-					public String apply(final Element context, final Value datum, final int index) {
+					public String apply(final Element context,
+							final Value datum, final int index) {
 						return "" + datum.asChar();
 					}
 				});
@@ -156,7 +155,8 @@ public class GeneralUpdatePattern2 extends FlowPanel implements DemoCase {
 		// the enter selection will apply to both entering and updating nodes.
 		selection.attr("x", new DatumFunction<Integer>() {
 			@Override
-			public Integer apply(final Element context, final Value datum, final int index) {
+			public Integer apply(final Element context, final Value datum,
+					final int index) {
 				return index * 32;
 			}
 		});

@@ -30,7 +30,6 @@ package com.github.gwtd3.api.geom;
 
 import java.util.List;
 
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -82,7 +81,7 @@ public class Geometry extends JavaScriptObject {
 	 * @return the convex hull as a list of vertices
 	 */
 	public final <T> List<T> hull(final List<T> vertices) {
-		return this.hull(JsArrays.asJsArray(vertices)).asList();
+		return this.hull(Array.fromIterable(vertices)).asList();
 	}
 
 	/**

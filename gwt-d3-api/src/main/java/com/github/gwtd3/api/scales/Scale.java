@@ -29,7 +29,6 @@
 package com.github.gwtd3.api.scales;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.interpolators.Interpolator;
@@ -69,7 +68,7 @@ public abstract class Scale<S extends Scale<S>> extends JavaScriptObject {
 	 * @return the current scale
 	 */
 	public final S domain(double... numbers) {
-		return domain(JsArrays.asJsArray(numbers));
+		return domain(Array.fromDoubles(numbers));
 	}
 
 	/**
@@ -81,7 +80,7 @@ public abstract class Scale<S extends Scale<S>> extends JavaScriptObject {
 	 * @return the current scale
 	 */
 	public final S domain(String... strings) {
-		return domain(JsArrays.asJsArray(strings));
+		return domain(Array.fromObjects(strings));
 	}
 
 	/**
@@ -119,7 +118,7 @@ public abstract class Scale<S extends Scale<S>> extends JavaScriptObject {
 	 * @return the current scale for chaining
 	 */
 	public final S range(double... numbers) {
-		return this.range(JsArrays.asJsArray(numbers));
+		return this.range(Array.fromDoubles(numbers));
 	}
 
 	/**
@@ -133,7 +132,7 @@ public abstract class Scale<S extends Scale<S>> extends JavaScriptObject {
 	 * @return the current scale for chaining
 	 */
 	public final S range(String... strings) {
-		return this.range(JsArrays.asJsArray(strings));
+		return this.range(Array.fromObjects(strings));
 	}
 
 	/**

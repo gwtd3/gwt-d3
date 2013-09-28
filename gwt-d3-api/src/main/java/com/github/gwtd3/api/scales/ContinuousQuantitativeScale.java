@@ -32,7 +32,7 @@
 package com.github.gwtd3.api.scales;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
+import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.time.TimeScale;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -94,7 +94,7 @@ public abstract class ContinuousQuantitativeScale<S extends ContinuousQuantitati
 	 * @return the current scale for chaining
 	 */
 	public final S rangeRound(final String... numbers) {
-		return this.rangeRound(JsArrays.asJsArray(numbers));
+		return this.rangeRound(Array.fromObjects(numbers));
 	}
 
 	// =========== invert ==========

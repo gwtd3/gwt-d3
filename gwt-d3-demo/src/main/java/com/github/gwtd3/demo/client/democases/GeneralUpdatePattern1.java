@@ -34,10 +34,10 @@ package com.github.gwtd3.demo.client.democases;
 import java.util.Arrays;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
-import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.UpdateSelection;
+import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
@@ -94,10 +94,8 @@ public class GeneralUpdatePattern1 extends FlowPanel implements DemoCase {
 
 		int width = 960, height = 500;
 
-		svg = D3.select(this).append("svg")
-				.attr("width", width)
-				.attr("height", height)
-				.append("g")
+		svg = D3.select(this).append("svg").attr("width", width)
+				.attr("height", height).append("g")
 				.attr("transform", "translate(32," + (height / 2) + ")");
 
 		// The initial display.
@@ -122,8 +120,8 @@ public class GeneralUpdatePattern1 extends FlowPanel implements DemoCase {
 
 		// DATA JOIN
 		// Join new data with old elements, if any.
-		UpdateSelection selection = svg.selectAll("text")
-				.data(JsArrays.asJsArray(data));
+		UpdateSelection selection = svg.selectAll("text").data(
+				Array.fromChars(data));
 
 		// UPDATE
 		// Update old elements as needed.
@@ -135,11 +133,11 @@ public class GeneralUpdatePattern1 extends FlowPanel implements DemoCase {
 				.attr("class", Bundle.INSTANCE.css().enter())
 				.attr("x", new DatumFunction<Integer>() {
 					@Override
-					public Integer apply(final Element context, final Value datum, final int index) {
+					public Integer apply(final Element context,
+							final Value datum, final int index) {
 						return index * 32;
 					}
-				})
-				.attr("dy", ".35em");
+				}).attr("dy", ".35em");
 
 		// ENTER + UPDATE
 		// Appending to the enter selection expands the update selection to
@@ -149,7 +147,8 @@ public class GeneralUpdatePattern1 extends FlowPanel implements DemoCase {
 		// the enter selection will apply to both entering and updating nodes.
 		selection.text(new DatumFunction<String>() {
 			@Override
-			public String apply(final Element context, final Value datum, final int index) {
+			public String apply(final Element context, final Value datum,
+					final int index) {
 				return Character.toString(datum.asChar());
 			}
 		});

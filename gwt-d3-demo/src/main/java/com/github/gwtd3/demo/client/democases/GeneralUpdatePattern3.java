@@ -34,7 +34,6 @@ package com.github.gwtd3.demo.client.democases;
 import java.util.Arrays;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.UpdateSelection;
@@ -98,10 +97,8 @@ public class GeneralUpdatePattern3 extends FlowPanel implements DemoCase {
 
 		int width = 960, height = 500;
 
-		svg = D3.select(this).append("svg")
-				.attr("width", width)
-				.attr("height", height)
-				.append("g")
+		svg = D3.select(this).append("svg").attr("width", width)
+				.attr("height", height).append("g")
 				.attr("transform", "translate(32," + (height / 2) + ")");
 
 		// The initial display.
@@ -126,57 +123,58 @@ public class GeneralUpdatePattern3 extends FlowPanel implements DemoCase {
 		MyResources styles = Bundle.INSTANCE.css();
 		// DATA JOIN
 		// Join new data with old elements, if any.
-		UpdateSelection selection = svg.selectAll("text")
-				.data(JsArrays.asJsArray(data), new KeyFunction<Integer>() {
+		UpdateSelection selection = svg.selectAll("text").data(
+				Array.fromChars(data), new KeyFunction<Integer>() {
 
 					@Override
-					public Integer map(final Element context, final Array<?> newDataArray, final Value datum, final int index) {
+					public Integer map(final Element context,
+							final Array<?> newDataArray, final Value datum,
+							final int index) {
 						return datum.asInt();
 					}
 				});
 		// UPDATE
 		// Update old elements as needed.
-		selection.attr("class", styles.update())
-				.transition().duration(750).attr("x", new DatumFunction<Integer>() {
+		selection.attr("class", styles.update()).transition().duration(750)
+				.attr("x", new DatumFunction<Integer>() {
 					@Override
-					public Integer apply(final Element context, final Value d, final int index) {
+					public Integer apply(final Element context, final Value d,
+							final int index) {
 						return index * 32;
 					}
 				});
 
 		// ENTER
 		// Create new elements as needed.
-		selection.enter().append("text")
+		selection
+				.enter()
+				.append("text")
 				.attr("class", styles.enter())
 				.attr("dy", ".35em")
 				.attr("y", -60)
 				.attr("x", new DatumFunction<Integer>() {
 					@Override
-					public Integer apply(final Element context, final Value d, final int index) {
+					public Integer apply(final Element context, final Value d,
+							final int index) {
 						return index * 32;
 					}
 				})
 				.style("fill-opacity", 0.01D)
 				.text(new DatumFunction<String>() {
 					@Override
-					public String apply(final Element context, final Value datum, final int index) {
+					public String apply(final Element context,
+							final Value datum, final int index) {
 						return Character.toString(datum.asChar());
 					}
 				})
 
-				.transition()
-				.duration(750)
-				.attr("y", 0)
+				.transition().duration(750).attr("y", 0)
 				.style("fill-opacity", 1);
 
 		// EXIT
 		// Remove old elements as needed.
-		selection.exit()
-				.attr("class", styles.exit())
-				.transition()
-				.duration(750)
-				.attr("y", 60)
-				.style("fill-opacity", 0.01)
+		selection.exit().attr("class", styles.exit()).transition()
+				.duration(750).attr("y", 60).style("fill-opacity", 0.01)
 				.remove();
 	}
 

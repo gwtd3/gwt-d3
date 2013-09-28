@@ -35,7 +35,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
@@ -921,7 +920,7 @@ public class Selection extends EnteringSelection {
 	 * @return the update selection
 	 */
 	public final UpdateSelection data(final Object[] array) {
-		return data(JsArrays.asJsArray(array));
+		return data(Array.fromJavaArray(array));
 	}
 
 	/**
@@ -937,7 +936,7 @@ public class Selection extends EnteringSelection {
 	 */
 	public final UpdateSelection data(final Object[] array,
 			final KeyFunction<?> keyFunction) {
-		return data(JsArrays.asJsArray(array), keyFunction);
+		return data(Array.fromJavaArray(array), keyFunction);
 	}
 
 	/**
@@ -1111,18 +1110,18 @@ public class Selection extends EnteringSelection {
 	 */
 	public final UpdateSelection data(final short[] array,
 			final KeyFunction<?> keyFunction) {
-		return data(JsArrays.asJsArray(array), keyFunction);
+		return data(Array.fromShorts(array), keyFunction);
 	}
 
 	/**
 	 * Same as #data(JavaScriptObject) for an {@link List} of objects.
 	 * 
 	 * @see #data(JavaScriptObject)
-	 * @param array
+	 * @param list
 	 * @return the {@link UpdateSelection}
 	 */
-	public final UpdateSelection data(final List<?> array) {
-		return this.data(JsArrays.asJsArray(array));
+	public final UpdateSelection data(final List<?> list) {
+		return this.data(Array.fromIterable(list));
 	}
 
 	/**
@@ -1130,15 +1129,15 @@ public class Selection extends EnteringSelection {
 	 * of objects.
 	 * 
 	 * @see #data(JavaScriptObject)
-	 * @param array
-	 *            the array
+	 * @param list
+	 *            the list
 	 * @param keyFunction
 	 *            the key function
 	 * @return the {@link UpdateSelection}
 	 */
-	public final UpdateSelection data(final List<?> array,
+	public final UpdateSelection data(final List<?> list,
 			final KeyFunction<?> keyFunction) {
-		return this.data(JsArrays.asJsArray(array), keyFunction);
+		return this.data(Array.fromIterable(list), keyFunction);
 	}
 
 	// ================================ datum functions ========

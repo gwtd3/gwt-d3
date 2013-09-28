@@ -30,7 +30,6 @@ package com.github.gwtd3.demo.client.democases;
 
 import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.JsArrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.arrays.NumericForEachCallback;
 import com.github.gwtd3.api.core.Selection;
@@ -180,7 +179,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 
 				// // Compute the minimum and maximum date, and the maximum
 				// price.
-				x.domain(JsArrays.asJsArray(values.getObject(0).getDate(),
+				x.domain(Array.fromObjects(values.getObject(0).getDate(),
 						values.getObject(values.length() - 1).getDate()));
 
 				int maxY = Arrays.max(values, new NumericForEachCallback() {
@@ -192,7 +191,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 					}
 				}).asInt();
 				System.out.println("the max Y is " + maxY + " among " + values);
-				y.domain(JsArrays.asJsArray(0, maxY)).nice();
+				y.domain(Array.fromInts(0, maxY)).nice();
 				// Add an SVG element with the desired dimensions and margin.
 				final Selection svg = D3
 						.select(AxisComponent.this)
@@ -242,7 +241,7 @@ public class AxisComponent extends FlowPanel implements DemoCase {
 						int i = (int) Math.floor((Math.random() * n) / 2);
 						int j = i + (int) Math.floor((Math.random() * n) / 2)
 								+ 1;
-						x.domain(JsArrays.asJsArray(values.getObject(i)
+						x.domain(Array.fromObjects(values.getObject(i)
 								.getDate(), values.getObject(j).getDate()));
 						Transition transition = svg.transition().duration(750);
 						transition.select("." + css.x() + "." + css.axis())
