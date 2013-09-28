@@ -36,6 +36,13 @@
 	<contributors>
 	</contributors>
 
+	<licenses>
+		<license>
+			<name>BSD-2 based</name>
+			<url>https://github.com/gwtd3/gwt-d3/blob/master/LICENSE</url>
+		</license>
+	</licenses>
+
 	<modules>
 		<module>gwt-d3-api</module>
 		<module>gwt-d3-demo</module>
