@@ -12,6 +12,7 @@ Goals of the library:
 - enrich the API to ease Java programming style of d3 (turns JS array into List, string constants to Enum, ...)
 - make a bridge between GWT Widget API and d3 
  
+
 ##Getting started
 
 How to use the library :
