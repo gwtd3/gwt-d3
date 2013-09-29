@@ -25,9 +25,9 @@ TODO:
 - Basic use of d3
 - links to some tutorials
 
-##Javadoc
+##Resources
 
-<a href="http://gwtd3.github.io/gwt-d3/apidocs/">Here</a>
+<a href="http://gwtd3.github.io/gwt-d3/apidocs/">Javadoc</a>
 
 ##Roadmap:
 See also below in the next section the API already covered.
