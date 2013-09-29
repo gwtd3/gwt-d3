@@ -159,17 +159,4 @@
 		</repository>
 	</distributionManagement>
 
-	<repositories>
-		<repository>
-			<id>gwt-d3-cloudbees-release-repository-repo</id>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<name>CloudBees Release Repository (for gwt-d3)</name>
-			<url>http://repository-gwt-d3.forge.cloudbees.com/release/</url>
-		</repository>
-	</repositories>
 </project>
