@@ -81,7 +81,7 @@ For details, you may be interested in the remaining [issues](https://github.com/
 - Internals (unplanned)
 
 #####SVG 
-- Shapes (1.1.0)
+- Shapes
  - line.radial (1.1.0)
  - area (1.1.0)
  - area.radial (1.1.0)
@@ -94,7 +94,7 @@ For details, you may be interested in the remaining [issues](https://github.com/
 #####Time 
 - Time Intervals
 
-#####LAYOUTS (1.2.0)
+#####LAYOUTS
 - Bundle (1.2.0)
 - Chord (1.2.0)
 - Cluster (1.2.0)
