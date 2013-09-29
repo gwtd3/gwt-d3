@@ -15,7 +15,7 @@ Goals of the library:
 ##Getting started
 
 How to use the library :
-TODO:
+TODO
 - Basic eclipse GWT project creation tutorial
 - MAVEN setup to use gwt-d3
 - Basic use of d3
