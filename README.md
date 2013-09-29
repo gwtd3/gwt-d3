@@ -12,9 +12,9 @@ Goals of the library:
 - enrich the API to ease Java programming style of d3 (turns JS array into List, string constants to Enum, ...)
 - make a bridge between GWT Widget API and d3 
  
-<img src="http://gwtd3.github.io/gwt-d3/images/demo_chorddiagram.png" width="400px">
+<img src="http://gwtd3.github.io/gwt-d3/images/demo_chorddiagram.png" width="355px">
 &nbsp;
-<img src="http://gwtd3.github.io/gwt-d3/images/demo_lorenzsystem.png" width="400px"> 
+<img src="http://gwtd3.github.io/gwt-d3/images/demo_lorenzsystem.png" width="355px"> 
 
 ##Getting started
 
