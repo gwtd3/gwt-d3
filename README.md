@@ -21,7 +21,7 @@ TODO:
 - Basic use of d3
 - links to some tutorials
 
-##Scope and coverage:
+##Scope and coverage
 
 Currently (30th of sept 2013), version 1.0.0 of gwt-d3 covers the version 3.3.6 of d3.js.
 
@@ -69,7 +69,7 @@ Currently (30th of sept 2013), version 1.0.0 of gwt-d3 covers the version 3.3.6 
 
 - <a href="http://gwtd3.github.io/gwt-d3/apidocs/">Javadoc</a>
 
-##Roadmap:
+##Roadmap
 
 For details, you may be interested in the remaining [issues](https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open):
 
