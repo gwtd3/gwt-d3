@@ -33,9 +33,11 @@ package com.github.gwtd3.demo.client.democases;
 
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.Interpolators;
+import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Transition;
 import com.github.gwtd3.api.core.Value;
+import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.interpolators.CallableInterpolator;
 import com.github.gwtd3.api.interpolators.Interpolator;
 import com.github.gwtd3.api.svg.Arc;
@@ -46,6 +48,7 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 
 /**
  * Original demo is <a href="http://bl.ocks.org/mbostock/3808218">here</a>
@@ -55,16 +58,19 @@ import com.google.gwt.user.client.ui.FlowPanel;
  */
 public class ArcTween extends FlowPanel implements DemoCase {
 
+	private static final String INTRO_TEXT = "This demonstrate the SVG Arc API with Transition API: here, a complex transition is constructed from a custom interpolator. "
+			+ "Moreover, the centroid() method of Arc is illustrated to show how easy it is to display labels in a donut chart.";
 	private Timer timer;
 	private Selection svg;
 	private Arc arc;
+	private Selection centroidText;
 
 	/**
 	 * 
 	 */
 	public ArcTween() {
 		super();
-
+		this.add(new Label(INTRO_TEXT));
 	}
 
 	/*
@@ -114,6 +120,10 @@ public class ArcTween extends FlowPanel implements DemoCase {
 		final Selection foreground = svg.append("path").datum(json)
 				.style("fill", "orange").attr("d", arc);
 
+		centroidText = svg.append("text").text("centroid").datum(json)
+				.style("fill", "white").style("stroke", "black")
+				.style("font-size", "30px");
+		final int textWidth = getTextWidth(centroidText.node());
 		// Every so often, start a transition to a new random angle. Use //
 		// transition.call // (identical to selection.call) so that we can
 		// encapsulate the logic // for // tweening the arc in a separate
@@ -125,11 +135,30 @@ public class ArcTween extends FlowPanel implements DemoCase {
 			@Override
 			public void run() {
 				Transition transition = foreground.transition().duration(750);
-				myFunction(transition, Math.random() * TWO_PI);
+				final double newAngle = Math.random() * TWO_PI;
+				doTransition(transition, newAngle);
+				centroidText.transition().duration(750)
+						.attr("transform", new DatumFunction<String>() {
+							@Override
+							public String apply(Element context, Value d,
+									int index) {
+								Arc newArc = Arc.copy(d.<Arc> as()).endAngle(
+										newAngle);
+								Array<Double> point = arc.centroid(newArc,
+										index);
+								return "translate("
+										+ (point.getNumber(0) - textWidth / 2)
+										+ "," + point.getNumber(1) + ")";
+							}
+						});
 			}
 		};
 		timer.scheduleRepeating(1500);
 	}
+
+	private static final native int getTextWidth(Element e)/*-{
+		return e.getBBox().width;
+	}-*/;
 
 	public static interface TransitionFunction {
 		public void apply(Transition t, Object... objects);
@@ -139,7 +168,9 @@ public class ArcTween extends FlowPanel implements DemoCase {
 	 * @param transition
 	 * @param d
 	 */
-	protected void myFunction(final Transition transition, final double newAngle) {
+	protected void doTransition(final Transition transition,
+			final double newAngle) {
+
 		transition.attrTween("d", new TweenFunction<String>() {
 			@Override
 			public Interpolator<String> apply(final Element context,
@@ -160,8 +191,9 @@ public class ArcTween extends FlowPanel implements DemoCase {
 						}
 					};
 				} catch (Exception e) {
-					GWT.log("pas cool", e);
-					throw new IllegalStateException("bug", e);
+					GWT.log("Error during transition", e);
+					throw new IllegalStateException("Error during transition",
+							e);
 				}
 			}
 		});
@@ -171,11 +203,12 @@ public class ArcTween extends FlowPanel implements DemoCase {
 
 	@Override
 	public void stop() {
-		arc = null;
 		if (timer != null) {
 			timer.cancel();
 			timer = null;
 		}
+		arc = null;
+
 	}
 
 	public static Factory factory() {

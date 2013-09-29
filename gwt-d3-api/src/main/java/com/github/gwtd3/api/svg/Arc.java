@@ -31,26 +31,39 @@
  */
 package com.github.gwtd3.api.svg;
 
+import com.github.gwtd3.api.arrays.Array;
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * A generator to create an arc by defining the inner radius, the outer radius, the start angle, and the end angle.
+ * A generator to create an arc by defining the inner radius, the outer radius,
+ * the start angle, and the end angle.
  * <p>
  * Four forms are possible:
  * <ul>
- * <li>a circle, when the inner radius is zero and the angular span is greater than or equal to 2π
- * <li>a circular sector (when the inner radius is zero and the angular span is less than 2π),
- * <li>an annulus (when the inner radius is non-zero and the angular span is greater than or equal to 2π),
- * <li>an annular sector (when the inner radius is non-zero and the angular span is less than 2π).
+ * <li>a circle, when the inner radius is zero and the angular span is greater
+ * than or equal to 2π
+ * <li>a circular sector (when the inner radius is zero and the angular span is
+ * less than 2π),
+ * <li>an annulus (when the inner radius is non-zero and the angular span is
+ * greater than or equal to 2π),
+ * <li>an annular sector (when the inner radius is non-zero and the angular span
+ * is less than 2π).
  * </ul>
  * <p>
- * Default innerRadius-, outerRadius-, startAngle- and endAngle-accessor functions assume the input data is an object with named attributes matching the accessors.
+ * Default innerRadius-, outerRadius-, startAngle- and endAngle-accessor
+ * functions assume the input data is an object with named attributes matching
+ * the accessors.
  * <p>
- * While the default accessors assume that the arc dimensions are all specified dynamically, it is very common to set one or more of the dimensions as a constant, such as setting
- * the inner radius to zero for a pie chart.
+ * While the default accessors assume that the arc dimensions are all specified
+ * dynamically, it is very common to set one or more of the dimensions as a
+ * constant, such as setting the inner radius to zero for a pie chart.
  * <p>
- * The Arc function generates path data for a closed solid arc, as in a pie or donut chart.
+ * The Arc function generates path data for a closed solid arc, as in a pie or
+ * donut chart.
  * 
- * @see <a href="https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-arc">Official API</a>
+ * @see <a
+ *      href="https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-arc">Official
+ *      API</a>
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
@@ -103,7 +116,9 @@ public class Arc extends PathDataGenerator {
 	/**
 	 * Set the start angle in radians of the Arc.
 	 * <p>
-	 * Angles are specified in radians, even though SVG typically uses degrees. The angle 0 corresponds to 12 o'clock (negative y) and continues clockwise repeating at 2xPI.
+	 * Angles are specified in radians, even though SVG typically uses degrees.
+	 * The angle 0 corresponds to 12 o'clock (negative y) and continues
+	 * clockwise repeating at 2xPI.
 	 * 
 	 * @param startAngle
 	 *            the angle in radians
@@ -123,7 +138,9 @@ public class Arc extends PathDataGenerator {
 	/**
 	 * Set the end angle in radians of the Arc.
 	 * <p>
-	 * Angles are specified in radians, even though SVG typically uses degrees. The angle 0 corresponds to 12 o'clock (negative y) and continues clockwise repeating at 2xPI.
+	 * Angles are specified in radians, even though SVG typically uses degrees.
+	 * The angle 0 corresponds to 12 o'clock (negative y) and continues
+	 * clockwise repeating at 2xPI.
 	 * 
 	 * @param endAngle
 	 *            the angle in radians
@@ -143,24 +160,25 @@ public class Arc extends PathDataGenerator {
 	}-*/;
 
 	/**
-	 * Computes the centroid of the arc that would be generated from the specified input arguments; typically, the arguments are the current datum (d), and optionally the current
-	 * index (i).
+	 * Computes the centroid of the arc that would be generated from the
+	 * specified input arguments; typically, the arguments are the current datum
+	 * (d), and optionally the current index (i).
 	 * <p>
-	 * The centroid is defined as the midpoint in polar coordinates of the inner and outer radius, and the start and end angle. This provides a convenient location for arc labels.
+	 * The centroid is defined as the midpoint in polar coordinates of the inner
+	 * and outer radius, and the start and end angle. This provides a convenient
+	 * location for arc labels.
 	 * <p>
-	 * TODO: test the result and the possible arguments
 	 * 
 	 * @param datum
 	 * @param index
 	 * @return
 	 */
-	public final native String centroid(int datum, int index)/*-{
+	public final native Array<Double> centroid(JavaScriptObject datum, int index)/*-{
 		return this.centroid(datum, index);
 	}-*/;
 
 	/**
-	 * Create an instance of {@link Arc} with all properties
-	 * being constants initialized to 0.
+	 * Create an instance of {@link Arc} with all properties initialized to 0.
 	 * 
 	 * Useful to define an arc with constants.
 	 * 
@@ -172,6 +190,22 @@ public class Arc extends PathDataGenerator {
 			outerRadius : 1,
 			startAngle : 0,
 			endAngle : 0
+		};
+	}-*/;
+
+	/**
+	 * Create a new arc with properties initialized with the given arc
+	 * 
+	 * @param arc
+	 *            the arc to copy
+	 * @return the new copy
+	 */
+	public static final native Arc copy(Arc oldArc)/*-{
+		return {
+			innerRadius : oldArc.innerRadius,
+			outerRadius : oldArc.outerRadius,
+			startAngle : oldArc.startAngle,
+			endAngle : oldArc.endAngle
 		};
 	}-*/;
 
