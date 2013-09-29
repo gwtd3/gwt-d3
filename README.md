@@ -4,8 +4,8 @@
 This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
 It allows GWT developers to use d3.js library in their project.
 
-You can see a demo with the test cases (for API coverage) and some exemples:
-http://gwt-d3.appspot.com/
+Have a look to the 
+<a href="http://gwt-d3.appspot.com/">demo</a>.
 
 Goals of the library:
 - provide access to relevant API of [d3.js API](http://d3js.org/)
@@ -15,16 +15,68 @@ Goals of the library:
 
 ##Getting started
 
-How to use the library :
-TODO
-- Basic eclipse GWT project creation tutorial
-- MAVEN setup to use gwt-d3
-- Basic use of d3
-- links to some tutorials
+Configure the pom.xml file to add the dependency to gwt-d3-api module.
+(FIXME: update the version as 1.0.0 is released)
 
-##Resources
+```xml
+<dependencies>
+ ...
+ <dependency>
+ 	<groupId>com.github.gwtd3</groupId>
+ 	<artifactId>gwt-d3-api</artifactId>
+ 	<version>0.0.16</version>
+ </dependency>
+ ...
+```
 
-- <a href="http://gwtd3.github.io/gwt-d3/apidocs/">Javadoc</a>
+Add the gwt-d3 release repository to your pom.
+(FIXME : remove this as the release is published to maven central)
+```xml
+<repositories>
+ ...
+	<repository>
+		<id>gwtd3</id>
+		<name>GWT-D3</name>
+		<url>http://repository-gwt-d3.forge.cloudbees.com/release/</url>
+	</repository>
+	...
+</repositories>
+```
+
+Add the gwt D3 module inheritance in your gwt module file (.gwt.xml):
+```xml
+  <inherits name='com.github.gwtd3.D3' />
+```
+
+Check everything works fine :
+```java 
+final Label versionLabel = new Label("d3.js current version: " + D3.version());
+    RootPanel.get().add(versionLabel);
+```
+
+Launch your application; the current version of d3.js should be displayed.
+
+##Learn D3
+
+- The best way to learn D3 is to read the <a href="https://github.com/mbostock/d3/wiki/Tutorials">d3.js tutorials<a/> 
+- Then you may want to check the examples gallery from <a href="https://github.com/mbostock/d3/wiki/Gallery">Mike Bostock website</a>
+- You may also be interested in forking the gwt-d3 repository to see the demo source code
+- Read the <a href="http://gwtd3.github.io/gwt-d3/apidocs/">Javadocs</a>
+- Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
+
+
+##Version mapping
+
+| GWT-D3 version | d3.js version | GWT-D3 release date  |
+| -------------: | -------------:| -----:|
+| 1.0.0 (preparing)          | 3.3.6         | 2013 09 30  |
+| <a href="http://repository-gwt-d3.forge.cloudbees.com/release/com/github/gwtd3/gwt-d3-api/0.0.16/">0.0.16</a>          | 3.3.6         | 2013 09 29 |
+| 0.0.15          | 3.1.10         | 2013 07 29 |
+| 0.0.14          | 3.1.10         | 2013 07 24 |
+| 0.0.13          | 3.1.10         | 2013 06 13 |
+| 0.0.12          | 3.1.10         | 2013 06 01 |
+
+
 
 
 ##Scope and coverage
