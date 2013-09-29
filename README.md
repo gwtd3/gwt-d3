@@ -27,7 +27,7 @@ TODO:
 
 ##Resources
 
-<a href="http://gwtd3.github.io/gwt-d3/apidocs/">Javadoc</a>
+- <a href="http://gwtd3.github.io/gwt-d3/apidocs/">Javadoc</a>
 
 ##Roadmap:
 See also below in the next section the API already covered.
