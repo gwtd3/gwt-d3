@@ -4,7 +4,7 @@
 This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
 It allows GWT developers to use d3.js library in their project.
 
-Have a look to the 
+Have a look at the 
 <a href="http://gwt-d3.appspot.com/">demo</a>.
 
 Goals of the library:
