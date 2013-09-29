@@ -65,6 +65,104 @@ Launch your application; the current version of d3.js should be displayed.
 - Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
 
 
+
+
+
+##Scope and coverage
+
+Currently (30th of sept 2013), version 1.0.0 of gwt-d3 depends on the version 3.3.6 of d3.js codebase.
+However, not all the API is covered. Please also have a look to the <a href="https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open">issues</a>.
+
+#####CORE
+| API | status | version | notes |
+| -------------: | -------------:| -----:| --- |
+| Selections | Complete | 1.0.0 | |
+| Transitions  | Complete | 1.0.0  | |
+| Working with Arrays  | Partial | 1.0.0  | |
+| Math  | Complete | 1.0.0  | |
+| String Formatting | Complete | 1.0.0  | |
+| Colors | Complete | 1.0.0  | |
+| Loading External Resources | - | - | unplanned
+| CSV Formatting | - | - | unplanned 
+| Namespaces | - | - | unplanned 
+| Internals | - | - | unplanned
+
+#####SCALES
+| API | status | version | notes |
+| -------------: | -------------:| -----:| --- |
+| Linear| Complete | 1.0.0
+| sqrt| Complete | 1.0.0
+| pow| Complete | 1.0.0
+| log| Complete | 1.0.0
+| quantize| Complete | 1.0.0
+| threshold| Complete | 1.0.0
+| quantile| Complete | 1.0.0
+| identity| Complete | 1.0.0
+| Ordinal| Complete | 1.0.0
+
+#####SVG 
+| API | status | version | notes |
+| -------------: | -------------:| -----:| --- |
+| **Shapes** |
+| Line| Complete | 1.0.0
+| line.radial | - | - | planned for 1.1.0
+| area | - | - | planned for 1.1.0
+| area.radial | - | - | planned for 1.1.0
+| arc | - | - | planned for 1.1.0
+| chord | - | - | planned for 1.1.0
+| diagonal | - | - | planned for 1.1.0
+| diagonal.radial | - | - | planned for 1.1.0
+| Symbol| Complete | 1.0.0
+| **Axes** | Complete | 1.0.0
+| **Controls** | Partial | - | planned for 1.1.0
+
+#####LAYOUTS
+| API | status | version | notes |
+| -------------: | -------------:| -----:| --- |
+| Bundle | - | - | planned for 1.2.0
+| Chord | - | - | planned for 1.2.0
+| Cluster | - | - | planned for 1.2.0
+| Force | - | - | planned for 1.2.0
+| Hierarchy | - | - | planned for 1.2.0
+| Histogram | - | - | planned for 1.2.0
+| Pack | - | - | planned for 1.2.0
+| Partition | - | - | planned for 1.2.0
+| Pie | - | - | planned for 1.2.0
+| Stack | - | - | planned for 1.2.0
+| Tree | - | - | planned for 1.2.0
+| Treemap | - | - | planned for 1.2.0
+
+
+#####TIME
+| API | status | version | notes |
+| -------------: | -------------:| -----:| --- |
+| Time Formatting | Complete | 1.0.0 |
+| Time Scales | Complete | 1.0.0 |
+| Time Intervals | Complete | 1.0.0 |
+
+#####GEOGRAPHY
+| API | status | version | notes |
+| -------------: | -------------:| -----:| --- |
+| Paths | - | - | planned for 1.3.0 |  
+| Projections | - | -  planned for 1.3.0 | 
+| Streams | - | - | planned for 1.3.0 | | 
+
+#####GEOMETRY
+| API | status | version | notes |
+| -------------: | -------------:| -----:| --- |
+| Quadtree| Complete | 1.0.0
+| Polygon| Complete | 1.0.0
+| Hull | Complete | 1.0.0
+| Voronoi | - | - | planned for 1.1.0 |
+
+#####BEHAVIORS
+| API | status | version | notes |
+| -------------: | -------------:| -----:| --- |
+| Drag | Complete | 1.0.0
+| Zoom | Complete | 1.0.0
+
+
+
 ##Version mapping
 
 | GWT-D3 version | d3.js version | GWT-D3 release date  |
@@ -75,106 +173,6 @@ Launch your application; the current version of d3.js should be displayed.
 | 0.0.14          | 3.1.10         | 2013 07 24 |
 | 0.0.13          | 3.1.10         | 2013 06 13 |
 | 0.0.12          | 3.1.10         | 2013 06 01 |
-
-
-
-
-##Scope and coverage
-
-Currently (30th of sept 2013), version 1.0.0 of gwt-d3 covers the version 3.3.6 of d3.js.
-
-#####CORE
-- Selections 
-- Transitions
-- Working with Arrays (partial)
-- Math  
-- String Formatting
-- Colors  (1.0.0)
-
-#####SCALES
-- Quantitative
- - Linear
- - sqrt
- - pow
- - log
- - quantize
- - threshold
- - quantile
- - identity
-- Ordinal
-
-#####SVG 
-- Shapes
- - Line
- - symbol
-- Axes
-
-#####TIME
-- Time Formatting
-- Time Scales
-
-
-#####GEOMETRY
-- Quadtree
-- Polygon
-- Hull
-
-#####BEHAVIORS
-- Drag
-- Zoom
-
-
-##Roadmap
-
-For details, you may be interested in the remaining [issues](https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open):
-
-The version 1.x of the library (x>=1) is an ongoing work to cover all the missing API, as stated below:
-
-#####CORE
-- Loading External Resources (unplanned)
-- Working with Arrays (unplanned)
-- CSV Formatting (unplanned)
-- Namespaces (unplanned)
-- Internals (unplanned)
-
-#####SVG 
-- Shapes
- - line.radial (1.1.0)
- - area (1.1.0)
- - area.radial (1.1.0)
- - arc (1.1.0)
- - chord (1.1.0)
- - diagonal (1.1.0)
- - diagonal.radial (1.1.0)
-- Controls (1.1.0)
-
-#####Time 
-- Time Intervals
-
-#####LAYOUTS
-- Bundle (1.2.0)
-- Chord (1.2.0)
-- Cluster (1.2.0)
-- Force (1.2.0)
-- Hierarchy (1.2.0)
-- Histogram (1.2.0)
-- Pack (1.2.0)
-- Partition (1.2.0)
-- Pie (1.2.0)
-- Stack (1.2.0)
-- Tree (1.2.0)
-- Treemap (1.2.0)
-
-#####GEOGRAPHY
-- Paths (1.3.0)
-- Projections (1.3.0)
-- Streams (1.3.0)
- 
-#####GEOMETRY
-- Voronoi (1.1.0)
-
-
-Version 2.x may come in a far future with a package reorganization, based on the feedbacks of API users.
 
 
 
