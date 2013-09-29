@@ -76,6 +76,8 @@ Currently (30th of sept 2013), version 1.0.0 of gwt-d3 covers the version 3.3.6 
 
 For details, you may be interested in the remaining [issues](https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open):
 
+The version 1.x of the library (x>=1) is an ongoing work to cover all the missing API, as stated below:
+
 #####CORE
 - Loading External Resources (unplanned)
 - Working with Arrays (unplanned)
@@ -120,6 +122,7 @@ For details, you may be interested in the remaining [issues](https://github.com/
 - Voronoi (1.1.0)
 
 
+Version 2.x may come in a far future with a package reorganization, based on the feedbacks of API users.
 
 
 
