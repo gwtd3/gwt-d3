@@ -156,12 +156,4 @@
 		</plugins>
 	</build>
 
-	<!-- Deploy releases and snapshots to the CloudBees maven repositories -->
-	<distributionManagement>
-		<repository>
-			<id>gwt-d3-cloudbees-release-repository</id>
-			<url>dav:https://repository-gwt-d3.forge.cloudbees.com/release/</url>
-		</repository>
-	</distributionManagement>
-
 </project>
