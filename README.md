@@ -19,7 +19,6 @@ Goals of the library:
 ##Getting started
 
 Configure the pom.xml file to add the dependency to gwt-d3-api module.
-(FIXME: update the version as 1.0.0 is released)
 
 ```xml
 <dependencies>
@@ -27,13 +26,13 @@ Configure the pom.xml file to add the dependency to gwt-d3-api module.
  <dependency>
  	<groupId>com.github.gwtd3</groupId>
  	<artifactId>gwt-d3-api</artifactId>
- 	<version>0.0.16</version>
+ 	<version>1.0.0</version>
  </dependency>
  ...
 ```
 
 Add the gwt-d3 release repository to your pom.
-(FIXME : remove this as the release is published to maven central)
+(FIXME : remove this as the release is published to maven central, on monday 30th sept 2013)
 ```xml
 <repositories>
  ...
