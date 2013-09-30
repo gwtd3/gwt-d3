@@ -4,13 +4,14 @@
 This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
 It allows GWT developers to use d3.js library in their project.
 
-Have a look to the 
-<a href="http://gwt-d3.appspot.com/">demo</a>.
-
 Goals of the library:
 - provide access to relevant API of [d3.js API](http://d3js.org/)
 - enrich the API to ease Java programming style of d3 (turns JS array into List, string constants to Enum, ...)
 - make a bridge between GWT Widget API and d3 
+
+Have a look at the 
+<a href="http://gwt-d3.appspot.com/">demo</a>.
+
  
 <img src="http://gwtd3.github.io/gwt-d3/images/demo_chorddiagram.png" width="355px">
 &nbsp;

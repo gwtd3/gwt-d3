@@ -69,7 +69,7 @@
 		<url>http://github.com/gwtd3/gwt-d3</url>
 		<connection>scm:git:ssh://github.com/gwtd3/gwt-d3.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/gwtd3/gwt-d3.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>gwt-d3-1.0.0</tag>
 	</scm>
 
 
