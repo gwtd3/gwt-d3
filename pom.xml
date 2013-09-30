@@ -55,6 +55,7 @@
 	</modules>
 
 	<properties>
+		<gpg.keyname>gwt-d3</gpg.keyname>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gwt.version>2.5.1</gwt.version>
 		<java.version>1.6</java.version>

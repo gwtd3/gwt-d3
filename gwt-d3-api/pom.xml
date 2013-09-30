@@ -10,10 +10,6 @@
 	<name>gwt-d3 API</name>
 	<description>the GWT wrapper around d3.js - API module</description>
 
-	<properties>
-		<gpg.keyname>gwt-d3</gpg.keyname>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.github.gwtd3</groupId>
