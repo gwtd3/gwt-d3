@@ -11,6 +11,7 @@
 	<packaging>pom</packaging>
 	<name>gwt-d3 Parent project</name>
 	<description>the GWT wrapper around d3.js</description>
+	<url>https://github.com/gwtd3</url>
 	
 	<organization>
 		<name>gwt-d3</name>
