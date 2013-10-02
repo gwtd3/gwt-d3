@@ -32,20 +32,6 @@ Configure the pom.xml file to add the dependency to gwt-d3-api module.
  ...
 ```
 
-Add the gwt-d3 release repository to your pom.
-(FIXME : remove this as the release is published to maven central, on monday 30th sept 2013)
-```xml
-<repositories>
- ...
-	<repository>
-		<id>gwtd3</id>
-		<name>GWT-D3</name>
-		<url>http://repository-gwt-d3.forge.cloudbees.com/release/</url>
-	</repository>
-	...
-</repositories>
-```
-
 Add the gwt D3 module inheritance in your gwt module file (.gwt.xml):
 ```xml
   <inherits name='com.github.gwtd3.D3' />
