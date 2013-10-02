@@ -152,7 +152,7 @@ public class TimeScale extends ContinuousQuantitativeScale<TimeScale> {
 	 * @return the array of reference ticks
 	 */
 	public native final <T> Array<T> ticks()/*-{
-		return this.ticks(count);
+		return this.ticks();
 	}-*/;
 
 	/**
@@ -197,7 +197,7 @@ public class TimeScale extends ContinuousQuantitativeScale<TimeScale> {
 	 * @return the array of reference ticks
 	 */
 	public native final <T> Array<T> ticks(Interval interval, int steps)/*-{
-		return this.ticks(count);
+		return this.ticks(interval, steps);
 	}-*/;
 
 	// =========== tickFormat ==========

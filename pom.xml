@@ -53,14 +53,6 @@
 		<module>gwt-d3-api</module>
 		<module>gwt-d3-demo</module>
 	</modules>
-	<profiles>
-		<profile>
-			<id>nodemo</id>
-			<modules>
-				<module>gwt-d3-api</module>
-			</modules> 
-		</profile>
-	</profiles>
 
 	<properties>
 		<gpg.keyname>gwt-d3</gpg.keyname>
@@ -99,7 +91,7 @@
 					<configuration>
 						<mavenExecutorId>forked-path</mavenExecutorId>
 						<useReleaseProfile>false</useReleaseProfile>
-						<arguments>-s /private/gwt-d3/settings.xml -Psonatype-oss-release,nodemo -Dmaven.test.skip=true</arguments>
+						<arguments>-s /private/gwt-d3/settings.xml -Psonatype-oss-release -Dmaven.test.skip=true</arguments>
 					</configuration>
 				</plugin>
 				<plugin>
