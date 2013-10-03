@@ -19,6 +19,10 @@ Have a look at the
 
 ##Getting started
 
+###Configure a Maven project
+
+If you're not using Maven, you can skip this section.
+
 Configure the pom.xml file to add the dependency to gwt-d3-api module.
 
 ```xml
@@ -28,14 +32,40 @@ Configure the pom.xml file to add the dependency to gwt-d3-api module.
  	<groupId>com.github.gwtd3</groupId>
  	<artifactId>gwt-d3-api</artifactId>
  	<version>1.0.0</version>
+  <scope>provided</scope>
+ </dependency>
+ <dependency>
+ 	<groupId>com.github.gwtd3</groupId>
+ 	<artifactId>gwt-d3-api</artifactId>
+ 	<version>1.0.0</version>
+  <scope>provided</scope>
+  <classifier>sources</classifier>
  </dependency>
  ...
 ```
+
+Note: these JARs don't contain any server-side code, so you don't need to package them into your webapp.
+
+###Configure a GWT project in Eclipse
+
+If you're using Maven, you can skip this section.
+
+Download [gwt-d3-js-3.3.6.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.3.6/gwt-d3-js-3.3.6.jar),
+[gwt-d3-js-3.3.6-sources.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.3.6/gwt-d3-js-3.3.6-sources.jar),
+[gwt-d3-api-1.0.0.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.0/gwt-d3-api-1.0.0.jar)
+and [gwt-d3-api-1.0.0-sources.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.0/gwt-d3-api-1.0.0-sources.jar).
+Add the JARs to the project classpath.
+
+Note: these JARs don't contain any server-side code, so you don't need to package them into your webapp.
+
+###Inherit the D3 module
 
 Add the gwt D3 module inheritance in your gwt module file (.gwt.xml):
 ```xml
   <inherits name='com.github.gwtd3.D3' />
 ```
+
+###Enjoy!
 
 Check everything works fine :
 ```java 
