@@ -38,8 +38,8 @@ Configure the pom.xml file to add the dependency to gwt-d3-api module.
  	<groupId>com.github.gwtd3</groupId>
  	<artifactId>gwt-d3-api</artifactId>
  	<version>1.0.0</version>
-  <scope>provided</scope>
-  <classifier>sources</classifier>
+ 	<scope>provided</scope>
+ 	<classifier>sources</classifier>
  </dependency>
  ...
 ```
