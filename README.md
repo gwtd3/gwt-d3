@@ -19,8 +19,11 @@ Have a look at the
 
 ##Getting started
 
-Configure the pom.xml file to add the dependency to gwt-d3-api module.
+**1. Configure a project**
 
+**Using Maven**
+
+Configure the pom.xml file to add the dependency to gwt-d3-api module.
 ```xml
 <dependencies>
  ...
@@ -28,16 +31,28 @@ Configure the pom.xml file to add the dependency to gwt-d3-api module.
  	<groupId>com.github.gwtd3</groupId>
  	<artifactId>gwt-d3-api</artifactId>
  	<version>1.0.0</version>
+ 	<scope>provided</scope>
  </dependency>
  ...
 ```
 
-Add the gwt D3 module inheritance in your gwt module file (.gwt.xml):
+Note: these JARs don't contain any server-side code, so you don't need to package them into your webapp.
+
+**Without Maven**
+
+Download [gwt-d3-js-3.3.6.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.3.6/gwt-d3-js-3.3.6.jar),
+[gwt-d3-api-1.0.0.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.0/gwt-d3-api-1.0.0.jar).
+Add the JARs to the project classpath.
+
+Note: these JARs don't contain any server-side code, so you don't need to package them into your webapp.
+
+**2. Add the gwt D3 module inheritance in your gwt module file (.gwt.xml):**
+
 ```xml
   <inherits name='com.github.gwtd3.D3' />
 ```
 
-Check everything works fine :
+**3. Check everything works fine :**
 ```java 
 final Label versionLabel = new Label("d3.js current version: " + D3.version());
     RootPanel.get().add(versionLabel);
