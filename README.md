@@ -171,7 +171,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 
 | GWT-D3 version | d3.js version | GWT-D3 release date  |
 | -------------: | -------------:| -----:|
-| 1.0.0 (preparing)          | 3.3.6         | 2013 09 30  |
+| [1.0.0](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.0/)          | 3.3.6         | 2013 09 30  |
 | <a href="http://repository-gwt-d3.forge.cloudbees.com/release/com/github/gwtd3/gwt-d3-api/0.0.16/">0.0.16</a>          | 3.3.6         | 2013 09 29 |
 | 0.0.15          | 3.1.10         | 2013 07 29 |
 | 0.0.14          | 3.1.10         | 2013 07 24 |
