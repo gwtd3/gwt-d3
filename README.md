@@ -23,7 +23,7 @@ Have a look at the
 
 **Using Maven**
 
-Configure the pom.xml file to add the dependency to gwt-d3-api module.
+add the gwt-d3-api module to your pom.xml:
 ```xml
 <dependencies>
  ...
