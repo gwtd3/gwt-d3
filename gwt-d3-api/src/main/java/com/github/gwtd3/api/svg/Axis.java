@@ -465,8 +465,8 @@ public class Axis extends JavaScriptObject implements IsFunction {
 	 */
 	public final native Axis tickFormat(DatumFunction<String> formatFunction) /*-{
 		return this
-				.tickFormat(function(d) {
-					return formatFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(null,{datum:d},-1);
+				.tickFormat(function(d,i) {
+					return formatFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(null,{datum:d},i);
 				});
 	}-*/;
 
