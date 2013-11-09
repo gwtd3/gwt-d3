@@ -37,6 +37,7 @@ import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.svg.Line;
 import com.github.gwtd3.api.svg.Line.InterpolationMode;
+import com.github.gwtd3.api.svg.RadialLine;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
 import com.google.gwt.dom.client.Element;
 
@@ -55,6 +56,7 @@ public class TestLine extends AbstractTestCase {
 		final List<Double> yCapture = new ArrayList<Double>();
 
 		// default x and y function (data must be a
+		@SuppressWarnings("unused")
 		String d = line.generate(Array.fromObjects(Array.fromInts(0, 0),
 				Array.fromInts(1, 1), Array.fromInts(2, 2)));
 
@@ -125,9 +127,9 @@ public class TestLine extends AbstractTestCase {
 		// does not assertEquals(2, counter.y);
 		// Smoke test radial line
 
-		// RadialLine radial = D3.svg().line.radial();
-		// radial.angle(3.5);
-		// radial.radius(56);
+		RadialLine radial = D3.svg().radialLine();
+		radial.angle(3.5);
+		radial.radius(56);
 
 	}
 

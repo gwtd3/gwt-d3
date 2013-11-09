@@ -73,6 +73,21 @@ public class SVG extends JavaScriptObject {
 	}-*/;
 
 	/**
+	 * Constructs a new radial line generator with the default radius- and
+	 * angle-accessor functions (that assume the input data is a two-element
+	 * array of numbers; see below for details), and linear interpolation.
+	 * <p>
+	 * The returned function generates path data for an open piecewise linear
+	 * curve, or polyline, as with the Cartesian line generator.
+	 * <p>
+	 * 
+	 * @return the {@link RadialLine}.
+	 */
+	public final native RadialLine radialLine()/*-{
+		return this.line.radial();
+	}-*/;
+
+	/**
 	 * Create a new default area.
 	 * 
 	 * @return the area
@@ -109,11 +124,11 @@ public class SVG extends JavaScriptObject {
 	}-*/;
 
 	/**
-     * Create a new default {@link Diagonal}.
-     * 
-     * @return the diagonal
-     */
-    public final native Diagonal diagonal() /*-{
-        return this.diagonal();
-    }-*/;
+	 * Create a new default {@link Diagonal}.
+	 * 
+	 * @return the diagonal
+	 */
+	public final native Diagonal diagonal() /*-{
+		return this.diagonal();
+	}-*/;
 }
