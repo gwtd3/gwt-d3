@@ -40,7 +40,7 @@ import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
 import com.github.gwtd3.api.layout.Link;
 import com.github.gwtd3.api.layout.Node;
-import com.github.gwtd3.api.layout.TreeLayout;
+import com.github.gwtd3.api.layout.Tree;
 import com.github.gwtd3.api.svg.Diagonal;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
@@ -71,7 +71,7 @@ public class TreeDemo extends FlowPanel implements DemoCase {
 	static int i = 0;
 	static TreeDemoNode root = null;
 	static Selection svg = null;
-	static TreeLayout tree = null;
+	static Tree tree = null;
 	static Diagonal diagonal = null;
 
 	public interface Bundle extends ClientBundle {

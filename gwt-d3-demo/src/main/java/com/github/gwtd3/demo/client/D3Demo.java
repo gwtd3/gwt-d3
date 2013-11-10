@@ -41,7 +41,7 @@ import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.democases.geom.HullDemo;
 import com.github.gwtd3.demo.client.democases.geom.MitchellBestCandidate;
-import com.github.gwtd3.demo.client.democases.geom.ShapeTweeningDemo;
+import com.github.gwtd3.demo.client.democases.layout.ClusterDendogram;
 import com.github.gwtd3.demo.client.democases.svg.LineDemo;
 import com.github.gwtd3.demo.client.democases.svg.SymbolDemo;
 import com.github.gwtd3.demo.client.test.ui.TestRunner;
@@ -51,6 +51,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
 import com.google.gwt.debug.client.DebugInfo;
+import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -103,7 +104,7 @@ public class D3Demo implements EntryPoint {
 				.factory()));
 		buttonContainer.add(new DemoButton("Line Demo", LineDemo.factory()));
 		buttonContainer
-				.add(new DemoButton("Symbol Demo", SymbolDemo.factory()));
+		.add(new DemoButton("Symbol Demo", SymbolDemo.factory()));
 		buttonContainer.add(new DemoButton("General Update Pattern I",
 				GeneralUpdatePattern1.factory()));
 		buttonContainer.add(new DemoButton("General Update Pattern II",
@@ -118,8 +119,8 @@ public class D3Demo implements EntryPoint {
 
 		buttonContainer.add(new DemoButton("Mitchell's Best Candidate",
 				MitchellBestCandidate.factory()));
-//		buttonContainer.add(new DemoButton("Shape Tweening", ShapeTweeningDemo
-//				.factory()));
+		//		buttonContainer.add(new DemoButton("Shape Tweening", ShapeTweeningDemo
+		//				.factory()));
 		buttonContainer.add(new DemoButton("Convex Hull", HullDemo.factory()));
 
 		buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples
@@ -128,12 +129,16 @@ public class D3Demo implements EntryPoint {
 		buttonContainer.add(new DemoButton("Collapsible Tree", TreeDemo
 				.factory()));
 
+		buttonContainer.add(new DemoButton("Cluster Dendogram", ClusterDendogram
+				.factory()));
+
 		p.add(buttonContainer);
 		container.addWest(p, 200);
 
 		demoContainer = new FlowPanel();
 		demoContainer.ensureDebugId(D3Demo.DEMO_CONTAINER_ID);
 		demoContainer.setSize("100%", "100%");
+		demoContainer.getElement().getStyle().setOverflow(Overflow.AUTO);
 		container.add(demoContainer);
 
 		RootLayoutPanel.get().add(container);

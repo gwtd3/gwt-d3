@@ -349,7 +349,7 @@ public class D3 extends JavaScriptObject {
 	/**
 	 * @return the layout module
 	 */
-	public static final native Layout<?> layout()/*-{
+	public static final native Layout layout()/*-{
 		return $wnd.d3.layout;
 	}-*/;
 

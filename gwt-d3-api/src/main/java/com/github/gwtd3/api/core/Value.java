@@ -28,10 +28,18 @@
  */
 package com.github.gwtd3.api.core;
 
+import com.github.gwtd3.api.Coords;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsDate;
 
 /**
+ * A {@link Value} is an object wrapping a primitive or a complex value.
+ * <p>
+ * A {@link Value} is returned from many gwt-d3 functions.
+ * <p>
+ * The wrapped value can be retrieved from the numerous as*() methods.
+ * <p>
+ * 
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
@@ -161,6 +169,15 @@ public class Value extends JavaScriptObject {
 	 */
 	public final native String asString()/*-{
 		return this.datum == null ? null : new String(this.datum);
+	}-*/;
+
+	/**
+	 * Return the value casted to a {@link Coords} object.
+	 * <p>
+	 * @return the coords
+	 */
+	public final native Coords asCoords()/*-{
+		return this.datum;
 	}-*/;
 
 	/**

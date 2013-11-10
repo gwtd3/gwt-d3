@@ -34,7 +34,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 /**
  * A node in d3j's tree layout, see <a
  * href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-nodes">d3 docs on
- * node</a>. The node class is used in {@link TreeLayout}, cluster, and
+ * node</a>. The node class is used in {@link Tree}, cluster, and
  * partitions. The class provides accessors for the nodes key attributes, its
  * position, children, parent, and depth.
  * 

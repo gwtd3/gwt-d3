@@ -31,7 +31,7 @@ package com.github.gwtd3.api.svg;
 import com.github.gwtd3.api.Coords;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.layout.Node;
-import com.github.gwtd3.api.layout.TreeLayout;
+import com.github.gwtd3.api.layout.Tree;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -61,7 +61,7 @@ public class Diagonal
      * that the input point is an object with x and y attributes.
      * 
      * The default accessor is thus compatible with D3's various {@link Node}
-     * layouts, including {@link TreeLayout}, partition and cluster. For
+     * layouts, including {@link Tree}, partition and cluster. For
      * example, to produce a radial diagonal see the <a
      * href=
      * "https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-diagonal_projection"
@@ -84,7 +84,7 @@ public class Diagonal
      * that the input point is an object with x and y attributes.
      * 
      * The default accessor is thus compatible with D3's various {@link Node}
-     * layouts, including {@link TreeLayout}, partition and cluster. For
+     * layouts, including {@link Tree}, partition and cluster. For
      * example, to produce a radial diagonal see the
      * <a href=
      * "https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-diagonal_projection"
