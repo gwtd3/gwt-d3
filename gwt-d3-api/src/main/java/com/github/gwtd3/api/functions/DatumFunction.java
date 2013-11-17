@@ -53,7 +53,7 @@ public interface DatumFunction<T> {
 	 * Note that if no datum is mapped to the element, {@link Datum#isUndefined()} will return true.
 	 * 
 	 * @param context
-	 *            the current element
+	 *            the current element, may be irrelevant or null in some context.
 	 * @param d
 	 *            the datum
 	 * @param index
