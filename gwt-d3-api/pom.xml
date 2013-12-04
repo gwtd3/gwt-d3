@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.github.gwtd3</groupId>
 		<artifactId>gwt-d3</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0-SuperDevMode</version>
 	</parent>
 	<artifactId>gwt-d3-api</artifactId>
 	<packaging>jar</packaging>
@@ -11,17 +11,6 @@
 	<description>the GWT wrapper around d3.js - API module</description>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.github.gwtd3</groupId>
-			<artifactId>gwt-d3-js</artifactId>
-			<version>${d3.js.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.gwtd3</groupId>
-			<artifactId>gwt-d3-js</artifactId>
-			<version>${d3.js.version}</version>
-			<classifier>sources</classifier>
-		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
