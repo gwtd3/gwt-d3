@@ -39,8 +39,7 @@
 
 	<inherits name='com.google.gwt.json.JSON' />
 	<inherits name="javax.validation.Validation" />
-<!-- 	<inherits name="com.github.gwtd3.js.MinifiedJavascriptSource" /> -->
-	<inherits name="com.github.gwtd3.js.PrettyJavascriptSource" />
+	<inherits name="com.github.gwtd3.js.D3" />
 	<!-- Specify the paths for translatable code -->
 	<source path='api' />
 
