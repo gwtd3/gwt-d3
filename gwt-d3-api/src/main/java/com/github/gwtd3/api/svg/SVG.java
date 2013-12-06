@@ -41,103 +41,104 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class SVG extends JavaScriptObject {
 
-	protected SVG() {
-	}
+    protected SVG() {
+    }
 
-	/**
-	 * Create a new arc with default accessor functions. See {@link Arc} for
-	 * details.
-	 * 
-	 * @return the arc
-	 */
-	public final native Arc arc()/*-{
+    /**
+     * Create a new arc generator with default accessor functions. See
+     * {@link Arc} for details.
+     * 
+     * @return the arc
+     */
+    public final native Arc arc()/*-{
 		return this.arc();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Create a new default axis.
-	 * 
-	 * @return the axis
-	 */
-	public final native Axis axis()/*-{
-		return this.axis();
-	}-*/;
-
-	/**
-	 * Create a new default line.
-	 * 
-	 * @return the line
-	 */
-	public final native Line line()/*-{
-		return this.line();
-	}-*/;
-
-	/**
-	 * Constructs a new radial line generator with the default radius- and
-	 * angle-accessor functions (that assume the input data is a two-element
-	 * array of numbers; see below for details), and linear interpolation.
-	 * <p>
-	 * The returned function generates path data for an open piecewise linear
-	 * curve, or polyline, as with the Cartesian line generator.
-	 * <p>
-	 * 
-	 * @return the {@link RadialLine}.
-	 */
-	public final native RadialLine radialLine()/*-{
-		return this.line.radial();
-	}-*/;
-
-	/**
-	 * Create a new default area.
-	 * 
-	 * @return the area
-	 */
-	public final native Area area()/*-{
+    /**
+     * Create a new default {@link Area} generator.
+     * 
+     * @return the area
+     */
+    public final native Area area()/*-{
 		return this.area();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Create a new default brush.
-	 * 
-	 * @return the brush
-	 */
-	public final native Brush brush() /*-{
+    /**
+     * Create a new default {@link Axis} generator.
+     * 
+     * @return the axis
+     */
+    public final native Axis axis()/*-{
+		return this.axis();
+    }-*/;
+
+    /**
+     * Create a new default {@link Brush} generator.
+     * 
+     * @return the brush
+     */
+    public final native Brush brush() /*-{
 		return this.brush();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Create a new default chord.
-	 * 
-	 * @return the chord
-	 */
-	public final native Chord chord() /*-{
+    /**
+     * Create a new default {@link Chord} generator.
+     * 
+     * @return the chord
+     */
+    public final native Chord chord() /*-{
 		return this.chord();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Create a new default {@link Symbol}.
-	 * 
-	 * @return the symbol
-	 */
-	public final native Symbol symbol() /*-{
+    /**
+     * Create a new default {@link Diagonal} generator.
+     * 
+     * @return the diagonal
+     */
+    public final native Diagonal diagonal() /*-{
+		return this.diagonal();
+    }-*/;
+
+    /**
+     * Create a new default {@link Line} generator.
+     * 
+     * @return the line
+     */
+    public final native Line line()/*-{
+		return this.line();
+    }-*/;
+
+    /**
+     * Constructs a new radial line generator with the default radius- and
+     * angle-accessor functions (that assume the input data is a two-element
+     * array of numbers; see below for details), and linear interpolation.
+     * <p>
+     * The returned function generates path data for an open piecewise linear
+     * curve, or polyline, as with the Cartesian line generator.
+     * <p>
+     * 
+     * @return the {@link RadialLine}.
+     */
+    public final native RadialLine radialLine()/*-{
+		return this.line.radial();
+    }-*/;
+
+    /**
+     * Create a new default {@link Symbol} generator.
+     * 
+     * @return the symbol
+     */
+    public final native Symbol symbol() /*-{
 		return this.symbol();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Create a new default {@link Diagonal}.
-	 * 
-	 * @return the diagonal
-	 */
-	public final native Diagonal diagonal() /*-{
+    /**
+     * Create a new default {@link Diagonal} generator expressed in polar
+     * coordinates.
+     * 
+     * @return the diagonal
+     */
+    public final native Diagonal radialDiagonal() /*-{
 		return this.diagonal();
-	}-*/;
-
-	/**
-	 * Create a new default {@link Diagonal}.
-	 * 
-	 * @return the diagonal
-	 */
-	public final native Diagonal radialDiagonal() /*-{
-		return this.diagonal();
-	}-*/;
+    }-*/;
 }

@@ -56,168 +56,168 @@ import com.github.gwtd3.api.functions.DatumFunction;
  * 
  */
 public class Chord extends PathDataGenerator {
-	protected Chord() {
-		super();
-	}
+    protected Chord() {
+	super();
+    }
 
-	/**
-	 * Set the source accessor.
-	 * <p>
-	 * The purpose of the source accessor is to return an object that describes
-	 * the starting arc of the chord. The returned object is subsequently passed
-	 * to the {@link #radius(DatumFunction)}, {@link #startAngle(DatumFunction)}
-	 * and {@link #endAngle(DatumFunction)} accessors.
-	 * <p>
-	 * This allows these other accessors to be reused for both the source and
-	 * target arc descriptions.
-	 * <p>
-	 * The default accessor assumes that the input data is a JavaScriptObject with
-	 * suitably-named attributes.
-	 * <p>
-	 * The source-accessor is invoked in the same manner as other value
-	 * functions in D3.
-	 * <p>
-	 * 
-	 * @param accessor
-	 *            the function returning the source arc object
-	 * @return the current chord generator
-	 */
-	public final native Chord source(final DatumFunction<?> accessor)/*-{
+    /**
+     * Set the source accessor.
+     * <p>
+     * The purpose of the source accessor is to return an object that describes
+     * the starting arc of the chord. The returned object is subsequently passed
+     * to the {@link #radius(DatumFunction)}, {@link #startAngle(DatumFunction)}
+     * and {@link #endAngle(DatumFunction)} accessors.
+     * <p>
+     * This allows these other accessors to be reused for both the source and
+     * target arc descriptions.
+     * <p>
+     * The default accessor assumes that the input data is a JavaScriptObject
+     * with suitably-named attributes.
+     * <p>
+     * The source-accessor is invoked in the same manner as other value
+     * functions in D3.
+     * <p>
+     * 
+     * @param accessor
+     *            the function returning the source arc object
+     * @return the current chord generator
+     */
+    public final native Chord source(final DatumFunction<?> accessor)/*-{
 		return this
 				.source(function(d, i) {
 					return accessor.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
-	}-*/;
+    }-*/;
 
-	/**
-	 * Set the target accessor.
-	 * <p>
-	 * The purpose of the target accessor is to return an object that describes
-	 * the ending arc of the chord. The returned object is subsequently passed
-	 * to the {@link #radius(DatumFunction)}, {@link #startAngle(DatumFunction)}
-	 * and {@link #endAngle(DatumFunction)} accessors.
-	 * <p>
-	 * This allows these other accessors to be reused for both the source and
-	 * target arc descriptions.
-	 * <p>
-	 * The default accessor assumes that the input data is a JavaScriptObject with
-	 * suitably-named attributes.
-	 * <p>
-	 * The target-accessor is invoked in the same manner as other value
-	 * functions in D3.
-	 * <p>
-	 * 
-	 * @param accessor
-	 *            the function returning the target arc object
-	 * @return the current chord generator
-	 */
-	public final native Chord target(final DatumFunction<?> accessor)/*-{
+    /**
+     * Set the target accessor.
+     * <p>
+     * The purpose of the target accessor is to return an object that describes
+     * the ending arc of the chord. The returned object is subsequently passed
+     * to the {@link #radius(DatumFunction)}, {@link #startAngle(DatumFunction)}
+     * and {@link #endAngle(DatumFunction)} accessors.
+     * <p>
+     * This allows these other accessors to be reused for both the source and
+     * target arc descriptions.
+     * <p>
+     * The default accessor assumes that the input data is a JavaScriptObject
+     * with suitably-named attributes.
+     * <p>
+     * The target-accessor is invoked in the same manner as other value
+     * functions in D3.
+     * <p>
+     * 
+     * @param accessor
+     *            the function returning the target arc object
+     * @return the current chord generator
+     */
+    public final native Chord target(final DatumFunction<?> accessor)/*-{
 		return this
 				.target(function(d, i) {
 					return accessor.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
-	}-*/;
+    }-*/;
 
-	/**
-	 * Set the radius accessor. The accessor will be invoked passing the source
-	 * or target in the value parameter. The accessor must return the radius.
-	 * <p>
-	 * The default accessor assumes that the input source or target description
-	 * is a JavaScriptObject with suitably-named attributes.
-	 * <p>
-	 * 
-	 * @param accessor
-	 *            the function returning the radius
-	 * @return the current chord generator
-	 */
-	public final native Chord radius(final DatumFunction<Double> accessor)/*-{
+    /**
+     * Set the radius accessor. The accessor will be invoked passing the source
+     * or target in the value parameter. The accessor must return the radius.
+     * <p>
+     * The default accessor assumes that the input source or target description
+     * is a JavaScriptObject with suitably-named attributes.
+     * <p>
+     * 
+     * @param accessor
+     *            the function returning the radius
+     * @return the current chord generator
+     */
+    public final native Chord radius(final DatumFunction<Double> accessor)/*-{
 		return this
 				.radius(function(d, i) {
 					return accessor.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
-	}-*/;
+    }-*/;
 
-	/**
-	 * Set the radius as a constant.
-	 * <p>
-	 * 
-	 * @param radius
-	 *            the radius
-	 * @return the current chord generator
-	 */
-	public final native Chord radius(final double radius)/*-{
+    /**
+     * Set the radius as a constant.
+     * <p>
+     * 
+     * @param radius
+     *            the radius
+     * @return the current chord generator
+     */
+    public final native Chord radius(final double radius)/*-{
 		return this.radius(radius);
-	}-*/;
+    }-*/;
 
-	/**
-	 * Set the start angle accessor. The accessor will be invoked passing the
-	 * source or target in the value parameter. The accessor must return the
-	 * start angle in radians.
-	 * <p>
-	 * Angles are specified in radians, even though SVG typically uses degrees.
-	 * <p>
-	 * The default accessor assumes that the input source or target description
-	 * is a JavaScriptObject with suitably-named attributes.
-	 * <p>
-	 * 
-	 * @param accessor
-	 *            the function returning the start angle
-	 * @return the current chord generator
-	 */
-	public final native Chord startAngle(final DatumFunction<Double> accessor)/*-{
+    /**
+     * Set the start angle accessor. The accessor will be invoked passing the
+     * source or target in the value parameter. The accessor must return the
+     * start angle in radians.
+     * <p>
+     * Angles are specified in radians, even though SVG typically uses degrees.
+     * <p>
+     * The default accessor assumes that the input source or target description
+     * is a JavaScriptObject with suitably-named attributes.
+     * <p>
+     * 
+     * @param accessor
+     *            the function returning the start angle
+     * @return the current chord generator
+     */
+    public final native Chord startAngle(final DatumFunction<Double> accessor)/*-{
 		return this
 				.startAngle(function(d, i) {
 					return accessor.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
-	}-*/;
+    }-*/;
 
-	/**
-	 * Set the start angle as a constant in radians.
-	 * <p>
-	 * Angles are specified in radians, even though SVG typically uses degrees.
-	 * <p>
-	 * 
-	 * @param startAngle
-	 *            the angle in radians
-	 * @return the current chord generator
-	 */
-	public final native Chord startAngle(final double startAngle)/*-{
+    /**
+     * Set the start angle as a constant in radians.
+     * <p>
+     * Angles are specified in radians, even though SVG typically uses degrees.
+     * <p>
+     * 
+     * @param startAngle
+     *            the angle in radians
+     * @return the current chord generator
+     */
+    public final native Chord startAngle(final double startAngle)/*-{
 		return this.startAngle(startAngle);
-	}-*/;
+    }-*/;
 
-	/**
-	 * Set the end angle accessor. The accessor will be invoked passing the
-	 * source or target in the value parameter. The accessor must return the end
-	 * angle in radians.
-	 * <p>
-	 * Angles are specified in radians, even though SVG typically uses degrees.
-	 * <p>
-	 * The default accessor assumes that the input source or target description
-	 * is a JavaScriptObject with suitably-named attributes.
-	 * <p>
-	 * 
-	 * @param accessor
-	 *            the function returning the end angle
-	 * @return the current chord generator
-	 */
-	public final native Chord endAngle(final DatumFunction<Double> accessor)/*-{
+    /**
+     * Set the end angle accessor. The accessor will be invoked passing the
+     * source or target in the value parameter. The accessor must return the end
+     * angle in radians.
+     * <p>
+     * Angles are specified in radians, even though SVG typically uses degrees.
+     * <p>
+     * The default accessor assumes that the input source or target description
+     * is a JavaScriptObject with suitably-named attributes.
+     * <p>
+     * 
+     * @param accessor
+     *            the function returning the end angle
+     * @return the current chord generator
+     */
+    public final native Chord endAngle(final DatumFunction<Double> accessor)/*-{
 		return this
 				.endAngle(function(d, i) {
 					return accessor.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
 				});
-	}-*/;
+    }-*/;
 
-	/**
-	 * Set the end angle as a constant in radians.
-	 * <p>
-	 * Angles are specified in radians, even though SVG typically uses degrees.
-	 * <p>
-	 * 
-	 * @param endAngle
-	 *            the angle in radians
-	 * @return the current chord generator
-	 */
-	public final native Chord endAngle(final double endAngle)/*-{
+    /**
+     * Set the end angle as a constant in radians.
+     * <p>
+     * Angles are specified in radians, even though SVG typically uses degrees.
+     * <p>
+     * 
+     * @param endAngle
+     *            the angle in radians
+     * @return the current chord generator
+     */
+    public final native Chord endAngle(final double endAngle)/*-{
 		return this.endAngle(endAngle);
-	}-*/;
+    }-*/;
 }

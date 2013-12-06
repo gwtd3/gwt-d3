@@ -66,6 +66,7 @@ import com.github.gwtd3.demo.client.testcases.selection.TestSelectionText;
 import com.github.gwtd3.demo.client.testcases.selection.TestSubselections;
 import com.github.gwtd3.demo.client.testcases.svg.TestArea;
 import com.github.gwtd3.demo.client.testcases.svg.TestAxis;
+import com.github.gwtd3.demo.client.testcases.svg.TestChord;
 import com.github.gwtd3.demo.client.testcases.svg.TestLine;
 import com.github.gwtd3.demo.client.testcases.svg.TestSymbol;
 import com.github.gwtd3.demo.client.testcases.time.TestTimeFormat;
@@ -81,63 +82,63 @@ import com.github.gwtd3.demo.client.testcases.tsv.TestTsv;
  */
 public class D3TestSuite {
 
-	List<AbstractTestCase> tests = new ArrayList<AbstractTestCase>();
+    List<AbstractTestCase> tests = new ArrayList<AbstractTestCase>();
 
-	public static D3TestSuite get() {
-		D3TestSuite suite = new D3TestSuite();
-		suite.tests = Arrays.asList(
-				// arrays
-				new TestArrays(),
-				new TestD3Arrays(),
-				// utils
-				new TestValue(),
-				// D3
-				new TestD3(),
-				new TestColors(),
-				// selections
-				new TestSubselections(),
-				new TestSelectionContents(),
-				new TestSelectionAttr(),
-				new TestSelectionClassed(),
-				new TestSelectionData(),
-				new TestSelectionData2(),
-				new TestSelectionProperty(),
-				new TestSelectionText(),
-				new TestSelectionHtml(),
-				new TestSelectionControls(),
-				new TestSelectionStyle(),
-				// Transitions
-				new TestTransition(),
-				new TestInterpolators(),
-				new TestEasing(),
-				// Math
-				new TestMath(),
-				// Format
-				new TestFormat(),
-				// Scales
-				new TestLinearScale(), new TestLogScale(), new TestPowScale(),
-				new TestIdentityScale(), new TestThresholdScale(),
-				new TestQuantizeScale(), new TestQuantileScale(),
-				new TestOrdinalScale(),
-				new TestTimeScale(),
-				// svg
-				new TestAxis(), new TestLine(), new TestArea(),
-				new TestSymbol(),
-				// time
-				new TestTimeFormat(), new TestTimeIntervals(),
-				new TestTimeScale(),
-				// requests
-				new TestCsv(), new TestTsv(),
+    public static D3TestSuite get() {
+	D3TestSuite suite = new D3TestSuite();
+	suite.tests = Arrays.asList(
+		// arrays
+		new TestArrays(),
+		new TestD3Arrays(),
+		// utils
+		new TestValue(),
+		// D3
+		new TestD3(),
+		new TestColors(),
+		// selections
+		new TestSubselections(),
+		new TestSelectionContents(),
+		new TestSelectionAttr(),
+		new TestSelectionClassed(),
+		new TestSelectionData(),
+		new TestSelectionData2(),
+		new TestSelectionProperty(),
+		new TestSelectionText(),
+		new TestSelectionHtml(),
+		new TestSelectionControls(),
+		new TestSelectionStyle(),
+		// Transitions
+		new TestTransition(),
+		new TestInterpolators(),
+		new TestEasing(),
+		// Math
+		new TestMath(),
+		// Format
+		new TestFormat(),
+		// Scales
+		new TestLinearScale(), new TestLogScale(), new TestPowScale(),
+		new TestIdentityScale(), new TestThresholdScale(),
+		new TestQuantizeScale(), new TestQuantileScale(),
+		new TestOrdinalScale(),
+		new TestTimeScale(),
+		// svg
+		new TestAxis(), new TestLine(), new TestArea(),
+		new TestSymbol(), new TestChord(),
+		// time
+		new TestTimeFormat(), new TestTimeIntervals(),
+		new TestTimeScale(),
+		// requests
+		new TestCsv(), new TestTsv(),
 
-				// behaviors
-				new TestZoom());
-		return suite;
-	}
+		// behaviors
+		new TestZoom());
+	return suite;
+    }
 
-	/**
-	 * @return the tests
-	 */
-	public List<AbstractTestCase> getTests() {
-		return tests;
-	}
+    /**
+     * @return the tests
+     */
+    public List<AbstractTestCase> getTests() {
+	return tests;
+    }
 }
