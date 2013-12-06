@@ -67,4 +67,9 @@
 	<set-configuration-property name="CssResource.style"
 		value="pretty" />
 
+		
+	<set-configuration-property name="devModeRedirectEnabled" value="true" />
+	<add-linker name="xsiframe" />
+	
+	<set-property name="d3.pretty" value="true"/>
 </module>
