@@ -152,8 +152,8 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
 | Paths | - | - | planned for 1.3.0 |  
-| Projections | - | -  planned for 1.3.0 | 
-| Streams | - | - | planned for 1.3.0 | | 
+| Projections | - | - | planned for 1.3.0 | 
+| Streams | - | - | planned for 1.3.0  | 
 
 #####GEOMETRY
 | API | status | version | notes |
