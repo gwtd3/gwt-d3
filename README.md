@@ -184,7 +184,13 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | 0.0.12          | 3.1.10         | 2013 06 01 |
 
 
+##Debugging d3.js 
 
+You may be interested in debugging d3.js scripts when using super dev mode. 
+If so, just add to your gwt application module file the following configuration:
+```xml
+  <set-property name="d3.pretty" value="true"/>
+```
 
 Continuous integration on <a href="https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/">Cloudbees</a>:
 <a href='https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/'><img src='https://gwt-d3.ci.cloudbees.com/buildStatus/icon?job=CI of gwt-d3'></a>
