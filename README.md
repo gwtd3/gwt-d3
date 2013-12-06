@@ -65,7 +65,7 @@ Launch your application; the current version of d3.js should be displayed.
 - The best way to learn D3 is to read the <a href="https://github.com/mbostock/d3/wiki/Tutorials">d3.js tutorials<a/> 
 - Then you may want to check the examples gallery from <a href="https://github.com/mbostock/d3/wiki/Gallery">Mike Bostock website</a>
 - You may also be interested in forking the gwt-d3 repository to see the demo source code
-- Read the <a href="http://gwtd3.github.io/gwt-d3/apidocs/">Javadocs</a>
+- Read the <a href="http://gwtd3.github.io/gwt-d3/apidocs/1.0.1">Javadocs</a>
 - Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
 
 
