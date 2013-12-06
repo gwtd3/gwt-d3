@@ -30,7 +30,7 @@ add the gwt-d3-api module to your pom.xml:
  <dependency>
  	<groupId>com.github.gwtd3</groupId>
  	<artifactId>gwt-d3-api</artifactId>
- 	<version>1.0.0</version>
+ 	<version>1.0.1</version>
  	<scope>provided</scope>
  </dependency>
  ...
@@ -40,8 +40,8 @@ Note: these JARs don't contain any server-side code, so you don't need to packag
 
 **Without Maven**
 
-Download [gwt-d3-js-3.3.6.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.3.6/gwt-d3-js-3.3.6.jar),
-[gwt-d3-api-1.0.0.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.0/gwt-d3-api-1.0.0.jar).
+Download [gwt-d3-js-3.3.10.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.3.10/gwt-d3-js-3.3.10.jar),
+[gwt-d3-api-1.0.1.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.1/gwt-d3-api-1.0.1.jar).
 Add the JARs to the project classpath.
 
 Note: these JARs don't contain any server-side code, so you don't need to package them into your webapp.
@@ -69,12 +69,16 @@ Launch your application; the current version of d3.js should be displayed.
 - Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
 
 
+##Release notes
+
+- 1.0.1 (7th of dec 2013) : a bug fix release to make gwt-d3 compatible with GWT super dev mode.
+- 1.0.0 (30th of sept 2013) : initial release (see below for the API coverage)
 
 
 
 ##Scope and coverage
 
-Currently (30th of sept 2013), version 1.0.0 of gwt-d3 depends on the version 3.3.6 of d3.js codebase.
+Currently (7th of dec 2013), version 1.0.1 of gwt-d3 depends on the version 3.3.10 of d3.js codebase.
 However, not all the API is covered. Please also have a look to the <a href="https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open">issues</a>.
 
 #####CORE
@@ -171,6 +175,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 
 | GWT-D3 version | d3.js version | GWT-D3 release date  |
 | -------------: | -------------:| -----:|
+| [1.0.1](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.1/)          | 3.3.10        | 2013 12 07  |
 | [1.0.0](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.0/)          | 3.3.6         | 2013 09 30  |
 | <a href="http://repository-gwt-d3.forge.cloudbees.com/release/com/github/gwtd3/gwt-d3-api/0.0.16/">0.0.16</a>          | 3.3.6         | 2013 09 29 |
 | 0.0.15          | 3.1.10         | 2013 07 29 |
