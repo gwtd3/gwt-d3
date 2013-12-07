@@ -1,6 +1,3 @@
-#gwt-d3: the GWT wrapper around d3.js
-
-
 This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
 It allows GWT developers to use d3.js library in their project.
 
@@ -68,6 +65,9 @@ Launch your application; the current version of d3.js should be displayed.
 - Read the <a href="http://gwtd3.github.io/gwt-d3/apidocs/1.0.1">Javadocs</a>
 - Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
 
+##API docs
+* [1.0.1](gwt-d3/apidocs/1.0.1/)
+* [1.0.0](gwt-d3/apidocs/1.0.0/)
 
 ##Release notes
 
