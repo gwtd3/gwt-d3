@@ -68,8 +68,8 @@ Launch your application; the current version of d3.js should be displayed.
 - Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
 
 ##API docs
-* [1.0.1](gwt-d3/apidocs/1.0.1/)
-* [1.0.0](gwt-d3/apidocs/1.0.0/)
+* [1.0.1](http://gwtd3.github.io/gwt-d3/apidocs/1.0.1/)
+* [1.0.0](http://gwtd3.github.io/gwt-d3/apidocs/1.0.0/)
 
 ##Release notes
 
