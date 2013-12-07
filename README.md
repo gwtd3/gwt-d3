@@ -13,9 +13,9 @@ Have a look at the
 <a href="http://gwt-d3.appspot.com/">demo</a>.
 
  
-<img src="http://gwtd3.github.io/gwt-d3/images/demo_chorddiagram.png" width="355px">
+<img src="http://gwtd3.github.io/images/gwtd3-demo-screenshot2.jpg" width="355px">
 &nbsp;
-<img src="http://gwtd3.github.io/gwt-d3/images/demo_lorenzsystem.png" width="355px"> 
+<img src="http://gwtd3.github.io/images/gwtd3-demo-screenshot1.jpg" width="355px"> 
 
 ##Getting started
 
