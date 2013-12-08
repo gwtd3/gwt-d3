@@ -23,6 +23,7 @@ Have a look at the
 **Using Maven**
 
 add the gwt-d3-api module to your pom.xml:
+
 ```xml
 <dependencies>
  ...
@@ -52,6 +53,7 @@ Note: these JARs don't contain any server-side code, so you don't need to packag
 ```
 
 **3. Check everything works fine :**
+
 ```java 
 final Label versionLabel = new Label("d3.js current version: " + D3.version());
     RootPanel.get().add(versionLabel);
@@ -190,6 +192,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 
 You may be interested in debugging d3.js scripts when using super dev mode. 
 If so, just add to your gwt application module file the following configuration:
+
 ```xml
   <set-property name="d3.pretty" value="true"/>
 ```
