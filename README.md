@@ -26,14 +26,14 @@ add the gwt-d3-api module to your pom.xml:
 
 ```xml
 <dependencies>
- ...
- <dependency>
- 	<groupId>com.github.gwtd3</groupId>
- 	<artifactId>gwt-d3-api</artifactId>
- 	<version>1.0.1</version>
- 	<scope>provided</scope>
- </dependency>
- ...
+  ...
+  <dependency>
+    <groupId>com.github.gwtd3</groupId>
+    <artifactId>gwt-d3-api</artifactId>
+    <version>1.0.1</version>
+    <scope>provided</scope>
+  </dependency>
+  ...
 ```
 
 Note: these JARs don't contain any server-side code, so you don't need to package them into your webapp.
@@ -55,8 +55,8 @@ Note: these JARs don't contain any server-side code, so you don't need to packag
 **3. Check everything works fine :**
 
 ```java 
-final Label versionLabel = new Label("d3.js current version: " + D3.version());
-    RootPanel.get().add(versionLabel);
+  final Label versionLabel = new Label("d3.js current version: " + D3.version());
+  RootPanel.get().add(versionLabel);
 ```
 
 Launch your application; the current version of d3.js should be displayed.
