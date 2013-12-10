@@ -900,8 +900,7 @@ public class Selection extends EnteringSelection {
 	 *            the data of the parent node of the group.
 	 * @return the {@link UpdateSelection}
 	 */
-	public native final <JSO extends JavaScriptObject> UpdateSelection data(
-			DatumFunction<JSO> callback) /*-{
+	public native final <T> UpdateSelection data(DatumFunction<T> callback) /*-{
 		return this
 				.data(function(d, i) {
 					var result = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
