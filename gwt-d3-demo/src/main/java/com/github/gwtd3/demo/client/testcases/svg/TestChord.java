@@ -39,66 +39,66 @@ import com.google.gwt.dom.client.Element;
 
 public class TestChord extends AbstractTestCase {
 
-    @Override
-    public void doTest(final com.google.gwt.user.client.ui.ComplexPanel sandbox) {
-	Chord chord = D3.svg().chord();
+	@Override
+	public void doTest(final com.google.gwt.user.client.ui.ComplexPanel sandbox) {
+		Chord chord = D3.svg().chord();
 
-	// constants
-	// chord.startAngle(5);
-	// chord.endAngle(5);
-	// chord.radius(6);
+		// constants
+		chord.startAngle(5);
+		chord.endAngle(5);
+		chord.radius(6);
 
-	//
-	// chord.source(new DatumFunction<ChordDef>() {
-	// @Override
-	// public ChordDef apply(Element context, Value d, int index) {
-	// GWT.log("source" + d);
-	// return new ChordDef(index * 5, index * 5, index * 5);
-	// }
-	// });
-	// chord.target(new DatumFunction<ChordDef>() {
-	// @Override
-	// public ChordDef apply(Element context, Value d, int index) {
-	// GWT.log("target" + d);
-	// return new ChordDef(index * 5, index * 5, index * 5);
-	// }
-	// });
-	// chord
-	chord.startAngle(new DatumFunction<Double>() {
-	    @Override
-	    public Double apply(Element context, Value d, int index) {
-		GWT.log("start" + d);
-		return d.<ChordDef> as().start;
-	    }
-	}).endAngle(new DatumFunction<Double>() {
-	    @Override
-	    public Double apply(Element context, Value d, int index) {
-		GWT.log("end" + d);
-		return d.<ChordDef> as().end;
-	    }
-	}).radius(new DatumFunction<Double>() {
-	    @Override
-	    public Double apply(Element context, Value d, int index) {
-		GWT.log("rad" + d);
-		return d.<ChordDef> as().radius;
-	    }
-	});
+		chord.source(new DatumFunction<ChordDef>() {
+			@Override
+			public ChordDef apply(Element context, Value d, int index) {
+				GWT.log("source" + d);
+				return new ChordDef(index * 5, index * 5, index * 5);
+			}
+		});
+		chord.target(new DatumFunction<ChordDef>() {
+			@Override
+			public ChordDef apply(Element context, Value d, int index) {
+				GWT.log("target" + d);
+				return new ChordDef(index * 5, index * 5, index * 5);
+			}
+		});
+		
+		// chord
+		chord.startAngle(new DatumFunction<Double>() {
+			@Override
+			public Double apply(Element context, Value d, int index) {
+				GWT.log("start" + d);
+				return d.<ChordDef> as().start;
+			}
+		}).endAngle(new DatumFunction<Double>() {
+			@Override
+			public Double apply(Element context, Value d, int index) {
+				GWT.log("end" + d);
+				return d.<ChordDef> as().end;
+			}
+		}).radius(new DatumFunction<Double>() {
+			@Override
+			public Double apply(Element context, Value d, int index) {
+				GWT.log("rad" + d);
+				return d.<ChordDef> as().radius;
+			}
+		});
 
-	//
-	chord.generate(Array.fromDoubles(0, 0, 0, 0, 0, 0, 0, 0));
-    }
-
-    public static class ChordDef {
-	double start;
-	double end;
-	double radius;
-
-	public ChordDef(double start, double end, double radius) {
-	    super();
-	    this.start = start;
-	    this.end = end;
-	    this.radius = radius;
+		//
+		chord.generate(Array.fromDoubles(0, 0, 0, 0, 0, 0, 0, 0));
 	}
 
-    }
+	public static class ChordDef {
+		double start;
+		double end;
+		double radius;
+
+		public ChordDef(double start, double end, double radius) {
+			super();
+			this.start = start;
+			this.end = end;
+			this.radius = radius;
+		}
+
+	}
 }
