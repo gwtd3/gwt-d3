@@ -36,7 +36,7 @@ import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
-import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayInteger;
 import com.google.gwt.core.client.JsArrayUtils;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -77,9 +77,9 @@ public class TestSelectionData extends AbstractSelectionTest {
 				.data(MATRIX).enter().append("tr");
 
 		Selection td = tr.selectAll("td")
-				.data(new DatumFunction<JavaScriptObject>() {
+				.data(new DatumFunction<JsArrayInteger>() {
 					@Override
-					public JavaScriptObject apply(final Element context,
+					public JsArrayInteger apply(final Element context,
 							final Value d, final int index) {
 						int[] as = d.as();
 						return JsArrayUtils.readOnlyJsArray(as);
@@ -100,9 +100,9 @@ public class TestSelectionData extends AbstractSelectionTest {
 	private void testSelectionDataSetterFunctionReturningJSO() {
 		Selection selection = givenTrElementsInATable(3);
 
-		selection.data(new DatumFunction<JavaScriptObject>() {
+		selection.data(new DatumFunction<Array<String>>() {
 			@Override
-			public JavaScriptObject apply(final Element context, final Value d,
+			public Array<String> apply(final Element context, final Value d,
 					final int index) {
 				System.out
 						.println("testSelectionDataSetterFunctionReturningPrimitiveArray "

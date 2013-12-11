@@ -1283,16 +1283,7 @@ public class Array<T> extends JavaScriptObject {
      * @param o the array
      */
     private static native void replaceArrayToString(Array<?> o) /*-{
-        o.toString = function() {
-            if (this.length == 0) {
-                return '';
-            }
-            var s = '' + this[0];
-            for ( var i = 1; i < this.length; i++) {
-                s += ',' + this[i];
-            }
-            return s;
-        };
+        o.toString = o.join;
     }-*/;
 
 }

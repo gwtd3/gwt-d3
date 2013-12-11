@@ -34,6 +34,7 @@ package com.github.gwtd3.api.core;
 import java.util.Comparator;
 import java.util.List;
 
+import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.functions.DatumFunction;
@@ -881,9 +882,9 @@ public class Selection extends EnteringSelection {
 	 * current selection, using the default by-index key mapping.
 	 * <p>
 	 * The specified callback must return an array-like structure of data
-	 * values, such as an array of numbers or objects. Use {@link JsArrayUtils}
-	 * or {@link JsArrays} to turn your Java arrays into Javascript arrays
-	 * (which has no overhead in prod mode).
+	 * values, such as an array of numbers or objects. Use {@link Arrays},
+	 * {@link Array}, or {@link JsArrayUtils} to turn your Java arrays into
+	 * Javascript arrays (which has no overhead in prod mode).
 	 * <p>
 	 * This method is appropriate to join data on a multi-group selection, like
 	 * one returned by d3.selectAll followed by a call to selection.selectAll.
@@ -900,8 +901,8 @@ public class Selection extends EnteringSelection {
 	 *            the data of the parent node of the group.
 	 * @return the {@link UpdateSelection}
 	 */
-	public native final <JSO extends JavaScriptObject> UpdateSelection data(
-			DatumFunction<JSO> callback) /*-{
+	public native final <T extends JavaScriptObject> UpdateSelection data(
+			DatumFunction<T> callback) /*-{
 		return this
 				.data(function(d, i) {
 					var result = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
