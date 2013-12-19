@@ -7,7 +7,7 @@
 	</parent>
 	<groupId>com.github.gwtd3</groupId>
 	<artifactId>gwt-d3</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<packaging>pom</packaging>
 	<name>gwt-d3 Parent project</name>
 	<description>the GWT wrapper around d3.js</description>
@@ -77,7 +77,7 @@
 		<url>http://github.com/gwtd3/gwt-d3</url>
 		<connection>scm:git:ssh://github.com/gwtd3/gwt-d3.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/gwtd3/gwt-d3.git</developerConnection>
-		<tag>gwt-d3-1.0.0</tag>
+		<tag>gwt-d3-1.0.2</tag>
 	</scm>
 
 
