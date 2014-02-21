@@ -101,6 +101,7 @@ public class ArrayList<E> implements List<E>, RandomAccess, Cloneable, java.io.S
             return o1 == null ? o2 == null : o1.equals(o2);
         }
 
+        @SuppressWarnings("unused")
         public E getFoundObject() {
             return objectFound;
         }

@@ -139,7 +139,7 @@ public class Interval extends JavaScriptObject {
 	 */
 	public final Date floor(Date date) {
 		return new Date((long) this.floor(JsDate.create(date.getTime())).getTime());
-	};
+	}
 
 	/**
 	 * Alias for {@link #floor(JsDate)} for a timestamp.
@@ -149,7 +149,7 @@ public class Interval extends JavaScriptObject {
 	 */
 	public final double floor(double date) {
 		return this.floor(JsDate.create(date)).getTime();
-	};
+	}
 
 	// ================== round methods ======================
 
@@ -177,7 +177,7 @@ public class Interval extends JavaScriptObject {
 	 */
 	public final Date round(Date date) {
 		return new Date((long) this.round(JsDate.create(date.getTime())).getTime());
-	};
+	}
 
 	/**
 	 * Alias for {@link #round(JsDate)} for a timestamp.
@@ -187,7 +187,7 @@ public class Interval extends JavaScriptObject {
 	 */
 	public final double round(double date) {
 		return this.round(JsDate.create(date)).getTime();
-	};
+	}
 
 	// ================== ceil methods ======================
 
@@ -215,7 +215,7 @@ public class Interval extends JavaScriptObject {
 	 */
 	public final Date ceil(Date date) {
 		return new Date((long) this.ceil(JsDate.create(date.getTime())).getTime());
-	};
+	}
 
 	/**
 	 * Alias for {@link #round(JsDate)} for a timestamp.
@@ -225,7 +225,7 @@ public class Interval extends JavaScriptObject {
 	 */
 	public final double ceil(double date) {
 		return this.ceil(JsDate.create(date)).getTime();
-	};
+	}
 
 	// ================== offset methds ======================
 
