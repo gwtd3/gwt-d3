@@ -11,8 +11,28 @@ public class Force extends JavaScriptObject {
     protected Force() {
     }
 
+    public final native Force gravity(int x) /*-{
+		return this.gravity(x);
+    }-*/;
+
+    public final native Force charge(int x) /*-{
+		return this.charge(x);
+    }-*/;
+
+    public final native Force linkStrength(double x) /*-{
+		return this.linkStrength(x);
+    }-*/;
+
     public final native Force linkDistance(int x) /*-{
 		return this.linkDistance(x);
+    }-*/;
+
+    public final native void tick() /*-{
+		this.tick();
+    }-*/;
+
+    public final native Force stop() /*-{
+		return this.stop();
     }-*/;
 
     public final native Array<? extends Node> nodes() /*-{
