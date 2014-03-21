@@ -66,6 +66,10 @@ public class Force extends JavaScriptObject {
     public final native Force start() /*-{
 		return this.start();
     }-*/;
+    
+    public final native Force resume() /*-{
+        return this.resume();
+    }-*/;
 
     public native final Selection on(String name, DatumFunction<?> callback) /*-{
 		try {
