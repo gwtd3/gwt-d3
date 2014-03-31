@@ -19,6 +19,25 @@ public class Force extends JavaScriptObject {
 		return this.charge(x);
     }-*/;
 
+    public final native Force charge(DatumFunction<?> callback) /*-{
+		try {
+			return this
+					.charge(function(d, i) {
+						try {
+
+							var r = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
+							return r;
+						} catch (e) {
+							alert(e);
+							return null;
+						}
+					});
+		} catch (e) {
+			alert(e);
+			return null;
+		}
+    }-*/;
+
     public final native Force linkStrength(double x) /*-{
 		return this.linkStrength(x);
     }-*/;
@@ -66,9 +85,9 @@ public class Force extends JavaScriptObject {
     public final native Force start() /*-{
 		return this.start();
     }-*/;
-    
+
     public final native Force resume() /*-{
-        return this.resume();
+		return this.resume();
     }-*/;
 
     public native final Selection on(String name, DatumFunction<?> callback) /*-{
