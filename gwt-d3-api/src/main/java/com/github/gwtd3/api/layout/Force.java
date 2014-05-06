@@ -10,6 +10,14 @@ public class Force extends JavaScriptObject {
 
     protected Force() {
     }
+    
+    public final native double friction() /*-{
+        return this.friction();
+    }-*/;
+    
+    public final native Force friction(double f) /*-{
+        return this.friction(f);
+    }-*/;
 
     public final native Force chargeDistance(double x) /*-{
         return this.chargeDistance(x);
