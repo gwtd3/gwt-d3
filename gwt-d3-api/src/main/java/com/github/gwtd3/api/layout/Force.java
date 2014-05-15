@@ -11,6 +11,14 @@ public class Force extends JavaScriptObject {
     protected Force() {
     }
     
+    public final native Force startNop() /*-{
+        var old_resume = this.resume;
+        this.resume = function() {};
+        this.start();
+        this.resume = old_resume;        
+        return this;
+    }-*/;
+    
     public final native double friction() /*-{
         return this.friction();
     }-*/;
