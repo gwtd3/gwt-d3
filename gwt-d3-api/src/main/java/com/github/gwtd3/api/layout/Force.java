@@ -131,4 +131,23 @@ public class Force extends JavaScriptObject {
 			return null;
 		}
     }-*/;
+    
+
+    public final native Force linkDistance(DatumFunction<?> callback) /*-{
+        try {
+            return this
+                    .linkDistance(function(d, i) {
+                        try {
+                            var r = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
+                            return r;
+                        } catch (e) {
+                            alert(e);
+                            return null;
+                        }
+                    });
+        } catch (e) {
+            alert(e);
+            return null;
+        }
+    }-*/;    
 }
