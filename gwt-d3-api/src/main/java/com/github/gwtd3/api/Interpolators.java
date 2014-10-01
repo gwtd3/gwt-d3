@@ -117,7 +117,7 @@ public class Interpolators {
 				return Colors.rgb(v.asString());
 			}
 		};
-	};
+	}
 
 	/**
 	 * Returns an RGB color space interpolator between the two colors a and b.
@@ -177,7 +177,7 @@ public class Interpolators {
 				return Colors.hsl(v.asString());
 			}
 		};
-	};
+	}
 
 	/**
 	 * Returns an RGB color space interpolator between the two colors a and b.

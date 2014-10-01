@@ -55,7 +55,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 public abstract class Scale<S extends Scale<S>> extends JavaScriptObject {
 
 	protected Scale() {
-	};
+	}
 
 	// ==================== domain ====================
 

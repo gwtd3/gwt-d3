@@ -52,7 +52,7 @@ package com.github.gwtd3.api.core;
 public class UpdateSelection extends Selection {
 
 	protected UpdateSelection() {
-	};
+	}
 
 	/**
 	 * Returns the {@link EnteringSelection}:

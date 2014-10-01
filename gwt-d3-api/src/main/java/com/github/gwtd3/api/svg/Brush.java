@@ -61,7 +61,7 @@ public class Brush extends JavaScriptObject implements IsFunction {
 		public String getValue() {
 			return value;
 		}
-	};
+	}
 
 	protected Brush() {
 		super();
