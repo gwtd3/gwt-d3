@@ -12,7 +12,7 @@
 	<description>the GWT wrapper around d3.js - Demo module</description>
 
 	<properties>
-		<appengine.target.version>1.7.6</appengine.target.version>
+		<appengine.target.version>1.8.0</appengine.target.version>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 	</properties>
 
@@ -119,6 +119,13 @@
 		<finalName>${project.artifactId}</finalName>
 		<!-- <testSourceDirectory>src/selenium/java</testSourceDirectory> -->
 		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
