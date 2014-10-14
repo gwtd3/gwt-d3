@@ -173,4 +173,37 @@ public class Drag extends JavaScriptObject implements IsFunction {
 				});
     }-*/;
 
+    /**
+     * Provide access to the properties of a drag event.
+     * <p>
+     * Use {@link D3#dragEvent()} from within a
+     * {@link Drag#on(DragEventType, DatumFunction)} listener.
+     * <p>
+     * 
+     * @author Vassilis Virvilis
+     * 
+     */
+    public static class DragEvent extends JavaScriptObject {
+        protected DragEvent() {
+
+        }
+
+        /**
+         * @return the element’s x coordinate relative to its position at the
+         *         beginning of the gesture, which is occasionally more
+         *         convenient than specifying an explicit origin.
+         */
+        public native final double dx()/*-{
+            return this.dx;
+        }-*/;
+
+        /**
+         * @return the element’s x coordinate relative to its position at the
+         *         beginning of the gesture, which is occasionally more
+         *         convenient than specifying an explicit origin.
+         */
+        public native final double dy()/*-{
+            return this.dy;
+        }-*/;
+    }
 }

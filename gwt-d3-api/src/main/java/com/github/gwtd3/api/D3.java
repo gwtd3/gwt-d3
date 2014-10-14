@@ -39,6 +39,7 @@ import java.util.List;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.behaviour.Behavior;
 import com.github.gwtd3.api.behaviour.Drag;
+import com.github.gwtd3.api.behaviour.Drag.DragEvent;
 import com.github.gwtd3.api.behaviour.Zoom;
 import com.github.gwtd3.api.behaviour.Zoom.ZoomEvent;
 import com.github.gwtd3.api.core.Formatter;
@@ -886,6 +887,18 @@ public class D3 extends JavaScriptObject {
 
 	}
 
+    /**
+     * 
+     * Get the DragEvent from within a {@link Drag} listener.
+     * 
+     * @return the drag event
+     */
+
+    public static final DragEvent dragEvent() {
+
+        return event().cast();
+
+    }
 	// =========== misc ==========
 	/**
 	 * Return the identity function:
