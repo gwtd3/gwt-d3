@@ -66,6 +66,78 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class Force extends JavaScriptObject {
 
+    /**
+     * A node in d3j's force layout, see <a
+     * href="https://github.com/mbostock/d3/wiki/Force-Layout#nodes">d3 docs on
+     * node</a>. The node class is used in {@link Force}, The class provides
+     * accessors for the nodes key attributes, its position, previous position,
+     * fixed (immovable) and weight (number of links).
+     * 
+     * @author Vassilis Virvilis
+     * 
+     */
+    public static class Node extends com.github.gwtd3.api.layout.Node {
+        protected Node() {
+            super();
+        }
+
+        /**
+         * @return the zero-based index of the node within the nodes array.
+         */
+        public final native int index() /*-{
+			return this.index;
+        }-*/;
+
+        /**
+         * @return the previous x coordinate
+         */
+        public final native double px()/*-{
+			return this.px;
+        }-*/;
+
+        /**
+         * sets the previous the x coordinate
+         */
+        public final native void px(double px)/*-{
+			this.px = px;
+        }-*/;
+
+        /**
+         * @return the previous y coordinate
+         */
+        public final native double py()/*-{
+			return this.py;
+        }-*/;
+
+        /**
+         * sets the previous y coordinate
+         */
+        public final native void py(double py)/*-{
+			this.py = py;
+        }-*/;
+
+        /**
+         * @return a boolean indicating whether node position is locked.
+         */
+        public final native boolean fixed() /*-{
+			return this.fixed;
+        }-*/;
+
+        /**
+         * sets a boolean indicating whether node position is locked.
+         */
+        public final native void fixed(boolean fixed) /*-{
+			this.fixed = fixed;
+        }-*/;
+
+        /**
+         * @return the node weight; the number of associated links.
+         */
+        public final native int weight() /*-{
+			return this.weight;
+        }-*/;
+    }
+
     protected Force() {
     }
 

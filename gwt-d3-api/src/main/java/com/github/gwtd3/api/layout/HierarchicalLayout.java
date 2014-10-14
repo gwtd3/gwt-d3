@@ -33,8 +33,45 @@ import com.github.gwtd3.api.svg.Diagonal;
 import com.google.gwt.core.client.JavaScriptObject;
 
 public class HierarchicalLayout extends JavaScriptObject{
+    /**
+     * A node in d3j's tree layout, see <a
+     * href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-nodes">d3 docs on
+     * node</a>. The node class is used in {@link Tree}, cluster, and
+     * partitions. The class provides accessors for the nodes key attributes, its
+     * position, children, parent, and depth.
+     * 
+     * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
+     * 
+     */
+    public static class Node
+        extends com.github.gwtd3.api.layout.Node {
+        protected Node() {
+            super();
+        }
 
-	protected HierarchicalLayout() {
+        /**
+         * @return array of {@link Node} objects or null
+         */
+        public final native Array<Node> children() /*-{
+            return this.children;
+        }-*/;
+
+        /**
+         * @return parent node
+         */
+        public final native Node parent() /*-{
+            return this.parent;
+        }-*/;
+
+        /**
+         * @return the node's depth, root depth = 0
+         */
+        public final native double depth() /*-{
+            return this.depth;
+        }-*/;
+    }
+
+    protected HierarchicalLayout() {
 	}
 
 

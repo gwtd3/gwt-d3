@@ -28,7 +28,6 @@
  */
 package com.github.gwtd3.api.layout;
 
-import com.github.gwtd3.api.arrays.Array;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -55,6 +54,13 @@ public class Node
     }-*/;
 
     /**
+     * sets the x coordinate
+     */
+    public final native void x(double x)/*-{
+        this.x = x;
+    }-*/;
+
+    /**
      * @return the y coordinates
      */
     public final native double y()/*-{
@@ -62,23 +68,9 @@ public class Node
     }-*/;
 
     /**
-     * @return array of {@link Node} objects or null
+     * sets the y coordinate
      */
-    public final native Array<Node> children() /*-{
-		return this.children;
-    }-*/;
-
-    /**
-     * @return parent node
-     */
-    public final native Node parent() /*-{
-		return this.parent;
-    }-*/;
-
-    /**
-     * @return the node's depth, root depth = 0
-     */
-    public final native double depth() /*-{
-		return this.depth;
+    public final native void y(double y)/*-{
+        this.y = y;
     }-*/;
 }
