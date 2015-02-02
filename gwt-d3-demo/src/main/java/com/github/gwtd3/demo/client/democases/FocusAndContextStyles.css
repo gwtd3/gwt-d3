@@ -28,11 +28,11 @@
  */
 @external .extent;
 
-svg {
+svg.fac {
   font: 10px sans-serif;
 }
 
-path {
+.fac path {
   fill: steelblue;
 }
 

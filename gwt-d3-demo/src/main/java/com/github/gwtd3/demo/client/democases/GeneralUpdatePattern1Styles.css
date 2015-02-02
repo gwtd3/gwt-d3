@@ -26,17 +26,15 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-@CHARSET "UTF-8";
-
-text {
+.gup1 text {
   font: bold 48px monospace;
 }
 
-.enter {
+.gup1 .enter {
   fill: green;
 }
 
-.update {
+.gup1 .update {
   fill: #333;
 }
 

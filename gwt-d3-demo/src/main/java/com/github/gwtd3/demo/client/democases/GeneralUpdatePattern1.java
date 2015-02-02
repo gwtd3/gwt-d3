@@ -27,7 +27,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /**
- * 
+ *
  */
 package com.github.gwtd3.demo.client.democases;
 
@@ -50,128 +50,130 @@ import com.google.gwt.user.client.ui.FlowPanel;
 
 /**
  * Original demo is <a href="http://bl.ocks.org/mbostock/3808218">here</a>
- * 
+ *
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
- * 
+ *
  */
 public class GeneralUpdatePattern1 extends FlowPanel implements DemoCase {
 
-	private Timer timer;
-	private Selection svg;
+    private Timer timer;
+    private Selection svg;
 
-	public interface Bundle extends ClientBundle {
-		public static final Bundle INSTANCE = GWT.create(Bundle.class);
+    public interface Bundle extends ClientBundle {
+        public static final Bundle INSTANCE = GWT.create(Bundle.class);
 
-		@Source("GeneralUpdatePattern1Styles.css")
-		public MyResources css();
-	}
+        @Source("GeneralUpdatePattern1Styles.css")
+        public MyResources css();
+    }
 
-	interface MyResources extends CssResource {
-		String update();
+    interface MyResources extends CssResource {
+        String gup1();
 
-		String enter();
-	}
+        String update();
 
-	/**
-	 * 
-	 */
-	public GeneralUpdatePattern1() {
-		super();
+        String enter();
+    }
 
-		Bundle.INSTANCE.css().ensureInjected();
-	}
+    /**
+     *
+     */
+    public GeneralUpdatePattern1() {
+        super();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.github.gwtd3.demo.client.D3Demo#start()
-	 */
-	@Override
-	public void start() {
-		String source = "abcdefghijklmnopqrstuvwxyz";
-		final char[] alphabet = new char[source.length()];
-		source.getChars(0, source.length(), alphabet, 0);
+        Bundle.INSTANCE.css().ensureInjected();
+    }
 
-		int width = 960, height = 500;
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.github.gwtd3.demo.client.D3Demo#start()
+     */
+    @Override
+    public void start() {
+        String source = "abcdefghijklmnopqrstuvwxyz";
+        final char[] alphabet = new char[source.length()];
+        source.getChars(0, source.length(), alphabet, 0);
 
-		svg = D3.select(this).append("svg").attr("width", width)
-				.attr("height", height).append("g")
-				.attr("transform", "translate(32," + (height / 2) + ")");
+        int width = 960, height = 500;
 
-		// The initial display.
-		update(alphabet);
+        svg = D3.select(this).append("svg").classed(Bundle.INSTANCE.css().gup1(), true).attr("width", width)
+                .attr("height", height).append("g")
+                .attr("transform", "translate(32," + (height / 2) + ")");
 
-		timer = new Timer() {
-			@Override
-			public void run() {
-				// Grab a random sample of letters from the alphabet, in
-				// alphabetical order.
-				D3.shuffle(alphabet);
-				char[] range = new char[(int) Math.floor(Math.random() * 26)];
-				System.arraycopy(alphabet, 0, range, 0, range.length);
-				Arrays.sort(range);
-				update(range);
-			}
-		};
-		timer.scheduleRepeating(1500);
-	}
+        // The initial display.
+        update(alphabet);
 
-	public void update(final char[] data) {
+        timer = new Timer() {
+            @Override
+            public void run() {
+                // Grab a random sample of letters from the alphabet, in
+                // alphabetical order.
+                D3.shuffle(alphabet);
+                char[] range = new char[(int) Math.floor(Math.random() * 26)];
+                System.arraycopy(alphabet, 0, range, 0, range.length);
+                Arrays.sort(range);
+                update(range);
+            }
+        };
+        timer.scheduleRepeating(1500);
+    }
 
-		// DATA JOIN
-		// Join new data with old elements, if any.
-		UpdateSelection selection = svg.selectAll("text").data(
-				Array.fromChars(data));
+    public void update(final char[] data) {
 
-		// UPDATE
-		// Update old elements as needed.
-		selection.attr("class", Bundle.INSTANCE.css().update());
+        // DATA JOIN
+        // Join new data with old elements, if any.
+        UpdateSelection selection = svg.selectAll("text").data(
+                Array.fromChars(data));
 
-		// ENTER
-		// Create new elements as needed.
-		selection.enter().append("text")
-				.attr("class", Bundle.INSTANCE.css().enter())
-				.attr("x", new DatumFunction<Integer>() {
-					@Override
-					public Integer apply(final Element context,
-							final Value datum, final int index) {
-						return index * 32;
-					}
-				}).attr("dy", ".35em");
+        // UPDATE
+        // Update old elements as needed.
+        selection.attr("class", Bundle.INSTANCE.css().update());
 
-		// ENTER + UPDATE
-		// Appending to the enter selection expands the update selection to
-		// include
-		// entering elements; so, operations on the update selection after
-		// appending to
-		// the enter selection will apply to both entering and updating nodes.
-		selection.text(new DatumFunction<String>() {
-			@Override
-			public String apply(final Element context, final Value datum,
-					final int index) {
-				return Character.toString(datum.asChar());
-			}
-		});
+        // ENTER
+        // Create new elements as needed.
+        selection.enter().append("text")
+                .attr("class", Bundle.INSTANCE.css().enter())
+                .attr("x", new DatumFunction<Integer>() {
+                    @Override
+                    public Integer apply(final Element context,
+                            final Value datum, final int index) {
+                        return index * 32;
+                    }
+                }).attr("dy", ".35em");
 
-		// EXIT
-		// Remove old elements as needed.
-		selection.exit().remove();
-	}
+        // ENTER + UPDATE
+        // Appending to the enter selection expands the update selection to
+        // include
+        // entering elements; so, operations on the update selection after
+        // appending to
+        // the enter selection will apply to both entering and updating nodes.
+        selection.text(new DatumFunction<String>() {
+            @Override
+            public String apply(final Element context, final Value datum,
+                    final int index) {
+                return Character.toString(datum.asChar());
+            }
+        });
 
-	@Override
-	public void stop() {
-		if (timer != null) {
-			timer.cancel();
-			timer = null;
-		}
-	}
+        // EXIT
+        // Remove old elements as needed.
+        selection.exit().remove();
+    }
 
-	public static Factory factory() {
-		return new Factory() {
-			@Override
-			public DemoCase newInstance() {
-				return new GeneralUpdatePattern1();
-			}
-		};
-	}
+    @Override
+    public void stop() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
+    public static Factory factory() {
+        return new Factory() {
+            @Override
+            public DemoCase newInstance() {
+                return new GeneralUpdatePattern1();
+            }
+        };
+    }
 }
