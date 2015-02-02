@@ -31,62 +31,72 @@ package com.github.gwtd3.demo.client.testcases.arrays;
 import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
+import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.user.client.ui.ComplexPanel;
 
 /**
  * Test D3 array functions.
- * 
+ *
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
- * 
+ *
  */
 public class TestD3Arrays extends AbstractTestCase {
 
-	@Override
-	public void doTest(final ComplexPanel sandbox) {
-		testMaxAndMin();
-		testPairs();
-	}
+    @Override
+    public void doTest(final ComplexPanel sandbox) {
+        testMaxAndMin();
+        testPairs();
+        testExtent();
+    }
 
-	private void testMaxAndMin() {
-		assertEquals(200, Arrays.max(Array.fromInts(52, 200, 31)).asInt());
-		assertEquals(52, Arrays.max(Array.fromObjects("52", "200", "31"))
-				.asInt());
-		assertEquals(205,
-				Arrays.max(Array.fromInts(52, 200, 31), Callbacks.add(5))
-						.asInt());
-		assertEquals(
-				205,
-				Arrays.max(Array.fromObjects("52", "200", "31"),
-						Callbacks.add(5)).asInt());
+    private void testExtent() {
+        JsArrayMixed result = Arrays.extent(Array.fromDoubles(6.0, 1456.5, 42, 5.0));
+        assertEquals(5.0, result.getNumber(0));
+        assertEquals(1456.5, result.getNumber(1));
 
-		assertEquals(31, Arrays.min(Array.fromInts(52, 200, 31)).asInt());
-		assertEquals(200, Arrays.min(Array.fromObjects("52", "200", "31"))
-				.asInt());
-		assertEquals(36,
-				Arrays.min(Array.fromInts(52, 200, 31), Callbacks.add(5))
-						.asInt());
-		assertEquals(
-				36,
-				Arrays.min(Array.fromObjects("52", "200", "31"),
-						Callbacks.add(5)).asInt());
+        // TODO: extent with ObjectAccessor
+    }
 
-		System.out.println(Arrays.max(Array.create()));
-		assertTrue(Arrays.min(Array.create()).isUndefined());
-		assertTrue(Arrays.max(Array.create()).isUndefined());
+    private void testMaxAndMin() {
+        assertEquals(200, Arrays.max(Array.fromInts(52, 200, 31)).asInt());
+        assertEquals(52, Arrays.max(Array.fromObjects("52", "200", "31"))
+                .asInt());
+        assertEquals(205,
+                Arrays.max(Array.fromInts(52, 200, 31), Callbacks.add(5))
+                        .asInt());
+        assertEquals(
+                205,
+                Arrays.max(Array.fromObjects("52", "200", "31"),
+                        Callbacks.add(5)).asInt());
 
-	}
+        assertEquals(31, Arrays.min(Array.fromInts(52, 200, 31)).asInt());
+        assertEquals(200, Arrays.min(Array.fromObjects("52", "200", "31"))
+                .asInt());
+        assertEquals(36,
+                Arrays.min(Array.fromInts(52, 200, 31), Callbacks.add(5))
+                        .asInt());
+        assertEquals(
+                36,
+                Arrays.min(Array.fromObjects("52", "200", "31"),
+                        Callbacks.add(5)).asInt());
 
-	private void testPairs() {
-		Array<Integer> integer = Array.fromInts(1, 2, 3, 4);
-		Array<Array<Integer>> pairs = Arrays.pairs(integer);
-		assertEquals(1, pairs.get(0).getInt(0));
-		assertEquals(2, pairs.get(0).getInt(1));
-		assertEquals(2, pairs.get(1).getInt(0));
-		assertEquals(3, pairs.get(1).getInt(1));
-		assertEquals(3, pairs.get(2).getInt(0));
-		assertEquals(4, pairs.get(2).getInt(1));
-		// empty
-		assertEquals(0, Arrays.pairs(Array.fromInts(1)).length());
+        System.out.println(Arrays.max(Array.create()));
+        assertTrue(Arrays.min(Array.create()).isUndefined());
+        assertTrue(Arrays.max(Array.create()).isUndefined());
 
-	}
+    }
+
+    private void testPairs() {
+        Array<Integer> integer = Array.fromInts(1, 2, 3, 4);
+        Array<Array<Integer>> pairs = Arrays.pairs(integer);
+        assertEquals(1, pairs.get(0).getInt(0));
+        assertEquals(2, pairs.get(0).getInt(1));
+        assertEquals(2, pairs.get(1).getInt(0));
+        assertEquals(3, pairs.get(1).getInt(1));
+        assertEquals(3, pairs.get(2).getInt(0));
+        assertEquals(4, pairs.get(2).getInt(1));
+        // empty
+        assertEquals(0, Arrays.pairs(Array.fromInts(1)).length());
+
+    }
 }

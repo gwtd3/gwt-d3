@@ -47,6 +47,7 @@ import com.github.gwtd3.demo.client.democases.layout.ClusterDendogram;
 import com.github.gwtd3.demo.client.democases.svg.LineDemo;
 import com.github.gwtd3.demo.client.democases.svg.SymbolDemo;
 import com.github.gwtd3.demo.client.democases.svg.brush.BrushAsSliderDemo;
+import com.github.gwtd3.demo.client.democases.svg.brush.ScatterplotMatrixDemo;
 import com.github.gwtd3.demo.client.test.ui.TestRunner;
 import com.github.gwtd3.demo.client.test.ui.TestSessionContainer;
 import com.github.gwtd3.demo.client.testcases.D3TestSuite;
@@ -130,6 +131,7 @@ public class D3Demo implements EntryPoint {
         buttonContainer.add(new DemoButton("Cluster Dendogram", ClusterDendogram.factory()));
         // BRUSHES
         buttonContainer.add(new DemoButton("Brush As Slider", BrushAsSliderDemo.factory()));
+        buttonContainer.add(new DemoButton("Scatterplot Matrix Brushing", ScatterplotMatrixDemo.factory()));
 
         p.add(buttonContainer);
         container.addWest(p, 200);

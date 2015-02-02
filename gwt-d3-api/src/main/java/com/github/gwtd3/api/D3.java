@@ -101,6 +101,7 @@ public class D3 extends JavaScriptObject {
         // }
 
     }
+
     // =========== scales ==============
     /**
      * The scale factory module.
@@ -775,6 +776,18 @@ public class D3 extends JavaScriptObject {
     // ============= json ============
 
     // ============= array ============
+
+    /**
+     * Returns an array containing the property names of the specified object (an associative array). The order of the
+     * returned array is undefined.
+     * <p>
+     *
+     * @param object the object to convert to an array
+     * @return an array containing the property names.
+     */
+    public static final native <T> Array<String> keys(JavaScriptObject object)/*-{
+		return $wnd.d3.keys(object);
+    }-*/;
 
     // =================== format methods ====================
 
