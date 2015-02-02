@@ -45,6 +45,7 @@ import com.github.gwtd3.demo.client.democases.geom.MitchellBestCandidate;
 import com.github.gwtd3.demo.client.democases.layout.ClusterDendogram;
 import com.github.gwtd3.demo.client.democases.svg.LineDemo;
 import com.github.gwtd3.demo.client.democases.svg.SymbolDemo;
+import com.github.gwtd3.demo.client.democases.svg.brush.BrushAsSliderDemo;
 import com.github.gwtd3.demo.client.test.ui.TestRunner;
 import com.github.gwtd3.demo.client.test.ui.TestSessionContainer;
 import com.github.gwtd3.demo.client.testcases.D3TestSuite;
@@ -100,39 +101,31 @@ public class D3Demo implements EntryPoint {
         FlowPanel p = new FlowPanel();
         ComplexPanel buttonContainer = new VerticalPanel();
         buttonContainer.add(new TestButton());
+        // TODO no sliders !
         // buttonContainer.add(new DemoButton("Arc", ArcDemo.factory()));
-        buttonContainer.add(new DemoButton("Axis Component", AxisComponent
-                .factory()));
+        buttonContainer.add(new DemoButton("Axis Component", AxisComponent.factory()));
         buttonContainer.add(new DemoButton("Line Demo", LineDemo.factory()));
-        buttonContainer
-                .add(new DemoButton("Symbol Demo", SymbolDemo.factory()));
-        buttonContainer.add(new DemoButton("General Update Pattern I",
-                GeneralUpdatePattern1.factory()));
-        buttonContainer.add(new DemoButton("General Update Pattern II",
-                GeneralUpdatePattern2.factory()));
-        buttonContainer.add(new DemoButton("General Update Pattern III",
-                GeneralUpdatePattern3.factory()));
+        buttonContainer.add(new DemoButton("Symbol Demo", SymbolDemo.factory()));
+        buttonContainer.add(new DemoButton("General Update Pattern I", GeneralUpdatePattern1.factory()));
+        buttonContainer.add(new DemoButton("General Update Pattern II", GeneralUpdatePattern2.factory()));
+        buttonContainer.add(new DemoButton("General Update Pattern III", GeneralUpdatePattern3.factory()));
         buttonContainer.add(new DemoButton("Arc Tween", ArcTween.factory()));
         buttonContainer.add(new DemoButton("Focus And Context", FocusAndContext.factory()));
-        buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram
-                .factory()));
-        buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem
-                .factory()));
+        buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram.factory()));
+        buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem.factory()));
 
-        buttonContainer.add(new DemoButton("Mitchell's Best Candidate",
-                MitchellBestCandidate.factory()));
-        // buttonContainer.add(new DemoButton("Shape Tweening", ShapeTweeningDemo
-        // .factory()));
+        buttonContainer.add(new DemoButton("Mitchell's Best Candidate", MitchellBestCandidate.factory()));
+        // TODO no sliders !
+        // buttonContainer.add(new DemoButton("Shape Tweening", ShapeTweeningDemo.factory()));
         buttonContainer.add(new DemoButton("Convex Hull", HullDemo.factory()));
 
-        buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples
-                .factory()));
+        buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples.factory()));
         buttonContainer.add(new DemoButton("Zoom", ZoomDemo.factory()));
-        buttonContainer.add(new DemoButton("Collapsible Tree", TreeDemo
-                .factory()));
+        buttonContainer.add(new DemoButton("Collapsible Tree", TreeDemo.factory()));
 
-        buttonContainer.add(new DemoButton("Cluster Dendogram", ClusterDendogram
-                .factory()));
+        buttonContainer.add(new DemoButton("Cluster Dendogram", ClusterDendogram.factory()));
+        // BRUSHES
+        buttonContainer.add(new DemoButton("Brush As Slider", BrushAsSliderDemo.factory()));
 
         p.add(buttonContainer);
         container.addWest(p, 200);
