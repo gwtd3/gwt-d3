@@ -42,6 +42,7 @@ import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.democases.geom.HullDemo;
 import com.github.gwtd3.demo.client.democases.geom.MitchellBestCandidate;
+import com.github.gwtd3.demo.client.democases.geom.VoronoiTessellationDemo;
 import com.github.gwtd3.demo.client.democases.layout.ClusterDendogram;
 import com.github.gwtd3.demo.client.democases.svg.LineDemo;
 import com.github.gwtd3.demo.client.democases.svg.SymbolDemo;
@@ -114,10 +115,13 @@ public class D3Demo implements EntryPoint {
         buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram.factory()));
         buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem.factory()));
 
-        buttonContainer.add(new DemoButton("Mitchell's Best Candidate", MitchellBestCandidate.factory()));
         // TODO no sliders !
-        // buttonContainer.add(new DemoButton("Shape Tweening", ShapeTweeningDemo.factory()));
+        // buttonContainer.add(new DemoButton("Shape Tweening",
+        // ShapeTweeningDemo.factory()));
+        // GEOM
         buttonContainer.add(new DemoButton("Convex Hull", HullDemo.factory()));
+        buttonContainer.add(new DemoButton("Mitchell's Best Candidate", MitchellBestCandidate.factory()));
+        buttonContainer.add(new DemoButton("Voronoi Tessellation", VoronoiTessellationDemo.factory()));
 
         buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples.factory()));
         buttonContainer.add(new DemoButton("Zoom", ZoomDemo.factory()));
@@ -160,7 +164,7 @@ public class D3Demo implements EntryPoint {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see
          * com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt
          * .event.dom.client.ClickEvent)
@@ -206,7 +210,7 @@ public class D3Demo implements EntryPoint {
             currentDemo.stop();
             demoContainer.remove(currentDemo);
             currentDemo = null;
-        } else if ((testContainer != null)
+        } else if (testContainer != null
                 && testContainer.getParent().equals(demoContainer)) {
             demoContainer.remove(testContainer);
         }

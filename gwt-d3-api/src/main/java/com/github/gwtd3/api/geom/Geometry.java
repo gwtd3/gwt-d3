@@ -42,72 +42,81 @@ import com.google.gwt.core.client.JavaScriptObject;
  * <li>
  * <li>
  * </ul>
- * 
+ *
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
- * 
+ *
  */
 public class Geometry extends JavaScriptObject {
 
-	protected Geometry() {
+    protected Geometry() {
 
-	}
+    }
 
-	/**
-	 * Create a new hull layout with the default x- and y-accessors.
-	 * <p>
-	 * 
-	 * @return the hull
-	 */
-	public native final Hull hull()/*-{
+    /**
+     * Create a new hull layout with the default x- and y-accessors.
+     * <p>
+     *
+     * @return the hull
+     */
+    public native final Hull hull()/*-{
 		return this.hull();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Compute the hull with default x- and y-accessors. See
-	 * {@link Hull#apply(Array)}.
-	 * <p>
-	 * 
-	 * @return the convex hull as an array of vertices
-	 */
-	public final native <T> Array<T> hull(Array<T> vertices)/*-{
+    /**
+     * Compute the hull with default x- and y-accessors. See
+     * {@link Hull#apply(Array)}.
+     * <p>
+     *
+     * @return the convex hull as an array of vertices
+     */
+    public final native <T> Array<T> hull(Array<T> vertices)/*-{
 		return this.hull(vertices);
-	}-*/;
+    }-*/;
 
-	/**
-	 * Create a new hull layout with the default x- and y-accessors for the
-	 * given array of vertices. See {@link Hull#apply(List)}.
-	 * <p>
-	 * 
-	 * @return the convex hull as a list of vertices
-	 */
-	public final <T> List<T> hull(final List<T> vertices) {
-		return this.hull(Array.fromIterable(vertices)).asList();
-	}
+    /**
+     * Create a new hull layout with the default x- and y-accessors for the
+     * given array of vertices. See {@link Hull#apply(List)}.
+     * <p>
+     *
+     * @return the convex hull as a list of vertices
+     */
+    public final <T> List<T> hull(final List<T> vertices) {
+        return this.hull(Array.fromIterable(vertices)).asList();
+    }
 
-	/**
-	 * Returns a polygon object, which is the array of vertices with additional
-	 * methods added to it.
-	 * <p>
-	 * 
-	 * @return the {@link Polygon} object
-	 */
-	public native final Polygon polygon(Array<Array<Double>> vertices)/*-{
+    /**
+     * Returns a polygon object, which is the array of vertices with additional
+     * methods added to it.
+     * <p>
+     *
+     * @return the {@link Polygon} object
+     */
+    public native final Polygon polygon(Array<Array<Double>> vertices)/*-{
 		return this.polygon(vertices);
-	}-*/;
+    }-*/;
 
-	/**
-	 * Creates a new quadtree factory with the default x-accessor and y-accessor
-	 * (that assume the input data is a two-element array of numbers; see below
-	 * for details) and extent.
-	 * <p>
-	 * The default extent is null, such that it will be computed automatically
-	 * from the input points.
-	 * <p>
-	 * 
-	 * @return the {@link Quadtree} factory
-	 */
-	public native final Quadtree quadtree()/*-{
+    /**
+     * Creates a new quadtree factory with the default x-accessor and y-accessor
+     * (that assume the input data is a two-element array of numbers; see below
+     * for details) and extent.
+     * <p>
+     * The default extent is null, such that it will be computed automatically
+     * from the input points.
+     * <p>
+     *
+     * @return the {@link Quadtree} factory
+     */
+    public native final Quadtree quadtree()/*-{
 		return this.quadtree();
-	}-*/;
+    }-*/;
+
+    /**
+     * Creates a Voronoi layout with default accessors.
+     *
+     * @return the Voronoi factory
+     */
+    public native final Voronoi voronoi()/*-{
+		return this.voronoi();
+    }-*/;
 
 }
