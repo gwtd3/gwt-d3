@@ -69,6 +69,7 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
     }
 
     interface MyResources extends CssResource {
+        String fac();
 
         String brush();
 
@@ -138,7 +139,7 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
                 });
 
         Selection svg = D3.select(FocusAndContext.this).append("svg")
-                .classed("fac", true)
+                .classed(css.fac(), true)
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom);
 
