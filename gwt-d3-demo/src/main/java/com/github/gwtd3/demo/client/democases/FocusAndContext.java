@@ -144,7 +144,7 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
                 .attr("height", height + margin.top + margin.bottom);
 
         svg.append("defs").append("clipPath").attr("id", "clip").append("rect")
-                .attr("width", width).attr("height", height);
+        .attr("width", width).attr("height", height);
 
         final Selection focus = svg.append("g").attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
@@ -193,23 +193,23 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
                 y2.domain(y.domain());
 
                 focus.append("path").datum(data)
-                        .attr("clip-path", "url(#clip)").attr("d", area);
+                .attr("clip-path", "url(#clip)").attr("d", area);
 
                 focus.append("g").attr("class", "x " + css.axis())
-                        .attr("transform", "translate(0," + height + ")")
-                        .call(xAxis);
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
 
                 focus.append("g").attr("class", "y " + css.axis()).call(yAxis);
 
                 context.append("path").datum(data).attr("d", area2);
 
                 context.append("g").attr("class", "x " + css.axis())
-                        .attr("transform", "translate(0," + height2 + ")")
-                        .call(xAxis2);
+                .attr("transform", "translate(0," + height2 + ")")
+                .call(xAxis2);
 
                 context.append("g").attr("class", "x " + css.brush())
-                        .call(brush).selectAll("rect").attr("y", -6)
-                        .attr("height", height2 + 7);
+                .call(brush).selectAll("rect").attr("y", -6)
+                .attr("height", height2 + 7);
 
             }
         });
@@ -227,22 +227,6 @@ public class FocusAndContext extends FlowPanel implements DemoCase {
 		}
 		return dump;
     }-*/;
-
-    private static class Margin {
-        public final int top;
-        public final int right;
-        public final int bottom;
-        public final int left;
-
-        public Margin(final int top, final int right, final int bottom,
-                final int left) {
-            super();
-            this.top = top;
-            this.right = right;
-            this.bottom = bottom;
-            this.left = left;
-        }
-    }
 
     private static class Data {
         private final JsDate date;
