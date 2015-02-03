@@ -122,8 +122,7 @@
 					<configuration>
 						<mavenExecutorId>forked-path</mavenExecutorId>
 						<useReleaseProfile>false</useReleaseProfile>
-						<arguments>-s /private/gwt-d3/settings.xml -Psonatype-oss-release
-							-Dmaven.test.skip=true</arguments>
+						<arguments>-s /private/gwt-d3/settings.xml -Psonatype-oss-release -Dmaven.test.skip=true</arguments>
 					</configuration>
 				</plugin>
 				<plugin>
