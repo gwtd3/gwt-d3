@@ -214,7 +214,7 @@ public class Brush extends JavaScriptObject implements IsFunction {
      * @return the current brush
      */
     public final native <T> Brush extent(Array<T> array) /*-{
-		return this.extent();
+		return this.extent(array);
     }-*/;
 
     /**
