@@ -90,11 +90,12 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | -------------: | -------------:| -----:| --- |
 | Selections | Complete | 1.0.0 | |
 | Transitions  | Complete | 1.0.0  | |
+| Localization | - | - | unplanned |
 | Working with Arrays  | Partial | 1.0.0  | |
 | Math  | Complete | 1.0.0  | |
 | String Formatting | Complete | 1.0.0  | |
 | Colors | Complete | 1.0.0  | |
-| Loading External Resources | - | - | unplanned
+| Loading External Resources | Partial | - | unplanned
 | CSV Formatting | - | - | unplanned 
 | Namespaces | - | - | unplanned 
 | Internals | - | - | unplanned
@@ -117,16 +118,16 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | -------------: | -------------:| -----:| --- |
 | **Shapes** |
 | Line| Complete | 1.0.0
-| line.radial | - | - | planned for 1.1.0
-| area | - | - | planned for 1.1.0
-| area.radial | - | - | planned for 1.1.0
-| arc | - | - | planned for 1.1.0
-| chord | - | - | planned for 1.1.0
-| diagonal | - | - | planned for 1.1.0
-| diagonal.radial | - | - | planned for 1.1.0
+| line.radial | Complete | - | 1.1.0
+| area | Complete | - | 1.1.0
+| area.radial | - | - | not planned
+| arc | Complete | - | 1.1.0
+| chord | Complete | - | 1.1.0
+| diagonal | Complete | - | 1.1.0
+| diagonal.radial | Complete | - | 1.1.0
 | Symbol| Complete | 1.0.0
 | **Axes** | Complete | 1.0.0
-| **Controls** | Partial | - | planned for 1.1.0
+| **Controls** | Complete | - | 1.1.0
 
 #####LAYOUTS
 | API | status | version | notes |
@@ -165,7 +166,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | Quadtree| Complete | 1.0.0
 | Polygon| Complete | 1.0.0
 | Hull | Complete | 1.0.0
-| Voronoi | - | - | planned for 1.1.0 |
+| Voronoi | Partial | - | 1.1.0 |
 
 #####BEHAVIORS
 | API | status | version | notes |
