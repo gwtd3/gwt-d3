@@ -1,0 +1,30 @@
+@external .extent;
+
+.ob svg {
+  font: 10px sans-serif;
+}
+
+.ob path {
+  -webkit-transition: fill-opacity 250ms linear;
+}
+
+.selecting path {
+  fill-opacity: .2;
+}
+
+.selecting path.selected {
+  stroke: #f00;
+  stroke-width: 2px;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
