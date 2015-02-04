@@ -15,6 +15,10 @@ Have a look at the
 <img src="http://gwtd3.github.io/gwt-d3/images/demo_chorddiagram.png" width="355px">
 &nbsp;
 <img src="http://gwtd3.github.io/gwt-d3/images/demo_lorenzsystem.png" width="355px"> 
+<br>
+<img src="http://gwtd3.github.io/gwt-d3/images/demo_scatterplot_brushing.png" width="355px">
+&nbsp;
+<img src="http://gwtd3.github.io/gwt-d3/images/demo_brush_transition.png" width="355px"> 
 
 ##Getting started
 
