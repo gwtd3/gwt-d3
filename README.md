@@ -79,7 +79,7 @@ Launch your application; the current version of d3.js should be displayed.
 * [1.0.0](http://gwtd3.github.io/gwt-d3/apidocs/1.0.0/)
 
 ##Release notes
-- 1.1.0 (3rd of feb 2015) : completed SVG Shapes,SVG Controls, and Geometry API + some bug fixes
+- 1.1.0 (3rd of feb 2015) : made GWT 2.7-compliant, completed SVG Shapes,SVG Controls, and Geometry API + some bug fixes
 - 1.0.1 (7th of dec 2013) : a bug fix release to make gwt-d3 compatible with GWT super dev mode.
 - 1.0.0 (30th of sept 2013) : initial release (see below for the API coverage)
 
