@@ -1,0 +1,16 @@
+com.github.gwtd3.api
+com.github.gwtd3.api.arrays
+com.github.gwtd3.api.behaviour
+com.github.gwtd3.api.core
+com.github.gwtd3.api.dsv
+com.github.gwtd3.api.ease
+com.github.gwtd3.api.functions
+com.github.gwtd3.api.geo
+com.github.gwtd3.api.geom
+com.github.gwtd3.api.interpolators
+com.github.gwtd3.api.layout
+com.github.gwtd3.api.scales
+com.github.gwtd3.api.svg
+com.github.gwtd3.api.time
+com.github.gwtd3.api.tweens
+com.github.gwtd3.api.xhr
