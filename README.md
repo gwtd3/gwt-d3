@@ -45,7 +45,7 @@ Note: these JARs don't contain any server-side code, so you don't need to packag
 **Without Maven**
 
 Download [gwt-d3-js-3.5.3.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.5.3/gwt-d3-js-3.5.3.jar),
-[gwt-d3-api-1.1.1.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.1.0/gwt-d3-api-1.1.1.jar).
+[gwt-d3-api-1.1.1.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.1.1/gwt-d3-api-1.1.1.jar).
 Add the JARs to the project classpath.
 
 Note: these JARs don't contain any server-side code, so you don't need to package them into your webapp.
