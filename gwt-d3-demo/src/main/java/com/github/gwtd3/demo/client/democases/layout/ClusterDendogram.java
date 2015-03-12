@@ -36,7 +36,7 @@ import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.PropertyValueFunction;
 import com.github.gwtd3.api.layout.Cluster;
 import com.github.gwtd3.api.layout.Link;
-import com.github.gwtd3.api.layout.Node;
+import com.github.gwtd3.api.layout.HierarchicalLayout.Node;
 import com.github.gwtd3.api.svg.Diagonal;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;

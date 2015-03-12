@@ -15,6 +15,10 @@ Have a look at the
 <img src="http://gwtd3.github.io/gwt-d3/images/demo_chorddiagram.png" width="355px">
 &nbsp;
 <img src="http://gwtd3.github.io/gwt-d3/images/demo_lorenzsystem.png" width="355px"> 
+<br>
+<img src="http://gwtd3.github.io/gwt-d3/images/demo_scatterplot_brushing.png" width="355px">
+&nbsp;
+<img src="http://gwtd3.github.io/gwt-d3/images/demo_brush_transition.png" width="355px"> 
 
 ##Getting started
 
@@ -30,7 +34,7 @@ add the gwt-d3-api module to your pom.xml:
   <dependency>
     <groupId>com.github.gwtd3</groupId>
     <artifactId>gwt-d3-api</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.1</version>
     <scope>provided</scope>
   </dependency>
   ...
@@ -40,8 +44,8 @@ Note: these JARs don't contain any server-side code, so you don't need to packag
 
 **Without Maven**
 
-Download [gwt-d3-js-3.3.10.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.3.10/gwt-d3-js-3.3.10.jar),
-[gwt-d3-api-1.0.1.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.1/gwt-d3-api-1.0.1.jar).
+Download [gwt-d3-js-3.5.3.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.5.3/gwt-d3-js-3.5.3.jar),
+[gwt-d3-api-1.1.1.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.1.1/gwt-d3-api-1.1.1.jar).
 Add the JARs to the project classpath.
 
 Note: these JARs don't contain any server-side code, so you don't need to package them into your webapp.
@@ -66,15 +70,18 @@ Launch your application; the current version of d3.js should be displayed.
 - The best way to learn D3 is to read the <a href="https://github.com/mbostock/d3/wiki/Tutorials">d3.js tutorials</a> 
 - Then you may want to check the examples gallery from <a href="https://github.com/mbostock/d3/wiki/Gallery">Mike Bostock website</a>
 - You may also be interested in forking the gwt-d3 repository to see the demo source code
-- Read the <a href="http://gwtd3.github.io/gwt-d3/apidocs/1.0.1">Javadocs</a>
+- Read the <a href="http://gwtd3.github.io/gwt-d3/apidocs/1.1.1">Javadocs</a>
 - Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
 
 ##API docs
+* [1.1.1](http://gwtd3.github.io/gwt-d3/apidocs/1.1.1/)
+* [1.1.0](http://gwtd3.github.io/gwt-d3/apidocs/1.1.0/)
 * [1.0.1](http://gwtd3.github.io/gwt-d3/apidocs/1.0.1/)
 * [1.0.0](http://gwtd3.github.io/gwt-d3/apidocs/1.0.0/)
 
 ##Release notes
-
+- 1.1.1 (6th of feb 2015) : integrated a bug fix (color brighter() and darker() methods take a decimal rather than an integer argument
+- 1.1.0 (3rd of feb 2015) : made GWT 2.7-compliant, completed SVG Shapes,SVG Controls, and Geometry API + some bug fixes
 - 1.0.1 (7th of dec 2013) : a bug fix release to make gwt-d3 compatible with GWT super dev mode.
 - 1.0.0 (30th of sept 2013) : initial release (see below for the API coverage)
 
@@ -82,7 +89,7 @@ Launch your application; the current version of d3.js should be displayed.
 
 ##Scope and coverage
 
-Currently (7th of dec 2013), version 1.0.1 of gwt-d3 depends on the version 3.3.10 of d3.js codebase.
+Currently (3th of dec 2014), version 1.1.1 of gwt-d3 depends on the version 3.5.3 of d3.js codebase.
 However, not all the API is covered. Please also have a look to the <a href="https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open">issues</a>.
 
 #####CORE
@@ -90,11 +97,12 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | -------------: | -------------:| -----:| --- |
 | Selections | Complete | 1.0.0 | |
 | Transitions  | Complete | 1.0.0  | |
+| Localization | - | - | unplanned |
 | Working with Arrays  | Partial | 1.0.0  | |
 | Math  | Complete | 1.0.0  | |
 | String Formatting | Complete | 1.0.0  | |
 | Colors | Complete | 1.0.0  | |
-| Loading External Resources | - | - | unplanned
+| Loading External Resources | Partial | - | unplanned
 | CSV Formatting | - | - | unplanned 
 | Namespaces | - | - | unplanned 
 | Internals | - | - | unplanned
@@ -117,16 +125,16 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | -------------: | -------------:| -----:| --- |
 | **Shapes** |
 | Line| Complete | 1.0.0
-| line.radial | - | - | planned for 1.1.0
-| area | - | - | planned for 1.1.0
-| area.radial | - | - | planned for 1.1.0
-| arc | - | - | planned for 1.1.0
-| chord | - | - | planned for 1.1.0
-| diagonal | - | - | planned for 1.1.0
-| diagonal.radial | - | - | planned for 1.1.0
+| line.radial | Complete |  1.1.0
+| area | Complete |  1.1.0
+| area.radial | - | - | not planned
+| arc | Complete |  1.1.0
+| chord | Complete |  1.1.0
+| diagonal | Complete |  1.1.0
+| diagonal.radial | Complete | 1.1.0
 | Symbol| Complete | 1.0.0
 | **Axes** | Complete | 1.0.0
-| **Controls** | Partial | - | planned for 1.1.0
+| **Controls** | Complete | 1.1.0
 
 #####LAYOUTS
 | API | status | version | notes |
@@ -165,7 +173,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | Quadtree| Complete | 1.0.0
 | Polygon| Complete | 1.0.0
 | Hull | Complete | 1.0.0
-| Voronoi | - | - | planned for 1.1.0 |
+| Voronoi | Partial | 1.1.0 
 
 #####BEHAVIORS
 | API | status | version | notes |
@@ -179,6 +187,8 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 
 | GWT-D3 version | d3.js version | GWT-D3 release date  |
 | -------------: | -------------:| -----:|
+| [1.1.1](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.1.1/)          | 3.5.3        | 2015 02 06  |
+| [1.1.0](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.1.0/)          | 3.5.3        | 2015 02 03  |
 | [1.0.1](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.1/)          | 3.3.10        | 2013 12 07  |
 | [1.0.0](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.0/)          | 3.3.6         | 2013 09 30  |
 | <a href="http://repository-gwt-d3.forge.cloudbees.com/release/com/github/gwtd3/gwt-d3-api/0.0.16/">0.0.16</a>          | 3.3.6         | 2013 09 29 |

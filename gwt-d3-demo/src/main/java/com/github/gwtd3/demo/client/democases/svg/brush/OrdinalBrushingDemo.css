@@ -26,15 +26,33 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-.gup1 text {
-  font: bold 48px monospace;
+@external .extent;
+
+.ob svg {
+  font: 10px sans-serif;
 }
 
-.gup1 .enter {
-  fill: green;
+.ob path {
+  -webkit-transition: fill-opacity 250ms linear;
 }
 
-.gup1 .update {
-  fill: #333;
+.selecting path {
+  fill-opacity: .2;
 }
 
+.selecting path.selected {
+  stroke: #f00;
+  stroke-width: 2px;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}

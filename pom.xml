@@ -1,3 +1,33 @@
+<!--
+
+    Copyright (c) 2013, Anthony Schiochet and Eric Citaire
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, this
+      list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+
+    * The names Anthony Schiochet and Eric Citaire may not be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL MICHAEL BOSTOCK BE LIABLE FOR ANY DIRECT,
+    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+    OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+    EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -7,17 +37,17 @@
 	</parent>
 	<groupId>com.github.gwtd3</groupId>
 	<artifactId>gwt-d3</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.1.2-SNAPSHOT</version> 
 	<packaging>pom</packaging>
 	<name>gwt-d3 Parent project</name>
 	<description>the GWT wrapper around d3.js</description>
 	<url>https://github.com/gwtd3</url>
-	
+
 	<organization>
 		<name>gwt-d3</name>
 		<url>https://github.com/gwtd3</url>
 	</organization>
-	
+
 	<developers>
 		<developer>
 			<id>anthonime</id>
@@ -53,15 +83,15 @@
 		<module>gwt-d3-api</module>
 		<module>gwt-d3-demo</module>
 	</modules>
-	
+
 	<properties>
 		<gpg.keyname>gwt-d3</gpg.keyname>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<gwt.version>2.5.1</gwt.version>
+		<gwt.version>2.7.0</gwt.version>
 		<java.version>1.7</java.version>
 		<junit.version>4.11</junit.version>
 		<guava.version>14.0.1</guava.version>
-		<d3.js.version>3.3.10</d3.js.version>
+		<d3.js.version>3.5.3</d3.js.version>
 	</properties>
 
 	<!-- this is for the release plugin -->
@@ -150,8 +180,9 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.8</version>
 				<configuration>
 					<header>LICENSE</header>
 					<encoding>UTF-8</encoding>

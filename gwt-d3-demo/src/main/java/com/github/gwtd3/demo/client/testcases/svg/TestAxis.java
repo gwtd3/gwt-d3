@@ -38,6 +38,7 @@ import com.github.gwtd3.api.svg.Axis;
 import com.github.gwtd3.api.svg.Axis.Orientation;
 import com.github.gwtd3.api.time.Interval;
 import com.github.gwtd3.demo.client.test.AbstractTestCase;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 
 public class TestAxis extends AbstractTestCase {
@@ -132,7 +133,7 @@ public class TestAxis extends AbstractTestCase {
 
             @Override
             public String apply(final Element context, final Value d, final int index) {
-                System.out.println("INDEX " + index + " : " + d.asString());
+                GWT.log("INDEX " + index + " " + d.as());
                 assertTrue(index >= 0 && index < 4);
                 counter.append("x");
                 if (index % 2 == 0) {
