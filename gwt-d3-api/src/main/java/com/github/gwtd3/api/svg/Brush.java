@@ -188,6 +188,24 @@ public class Brush extends JavaScriptObject implements IsFunction {
 		return this.extent();
     }-*/;
 
+    /**
+     * Get the current brush’s extent.
+     * <p>
+     * This returns the Array of values for the X Axis if it exists.
+     */
+    public final native <T> Array<T> extent_X() /*-{
+    	return [ this.extent()[0][0], this.extent()[1][0] ];
+    }-*/;
+    
+    /**
+     * Get the current brush’s extent.
+     * <p>
+     * This returns the Array of values for the Y Axis if it exists.
+     */
+    public final native <T> Array<T> extent_Y() /*-{
+		return [ this.extent()[0][1], this.extent()[1][1] ];
+	}-*/;
+    
     // to be in according the Scale.domain methods:
     // missing string versions
     // missing Javascript versions
