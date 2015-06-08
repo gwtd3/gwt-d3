@@ -207,5 +207,9 @@ If so, just add to your gwt application module file the following configuration:
   <set-property name="d3.pretty" value="true"/>
 ```
 
+##License
+
+See [LICENSE](https://github.com/gwtd3/gwt-d3/blob/master/LICENSE) file
+
 Continuous integration on <a href="https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/">Cloudbees</a>:
 <a href='https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/'><img src='https://gwt-d3.ci.cloudbees.com/buildStatus/icon?job=CI of gwt-d3'></a>
