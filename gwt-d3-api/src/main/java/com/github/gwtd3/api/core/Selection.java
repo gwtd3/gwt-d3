@@ -1340,5 +1340,28 @@ public class Selection extends EnteringSelection {
 				});
 		return this.on(eventType, l, useCapture);
     }-*/;
+    
+    /**
+     * This method moves this {@link Selection} into the front of all other elements of this {@link Selection}'s parent.
+     * @return
+     */
+    public native final Selection pushToFront() /*-{
+    	return this.each(function(){
+    		this.parentNode.appendChild(this);
+  		});
+     }-*/;
+    
+    /**
+     * This method moves this {@link Selection} into the back of all other elements of this {@link Selection}'s parent.
+     * @return
+     */
+    public native final Selection pushToBack() /*-{
+    	return this.each(function() { 
+        	var firstChild = this.parentNode.firstChild; 
+        	if (firstChild) { 
+            	this.parentNode.insertBefore(this, firstChild); 
+        	} 
+    	}); 
+     }-*/;
 
 }
