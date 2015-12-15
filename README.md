@@ -1,5 +1,8 @@
 #gwt-d3: the GWT wrapper around d3.js
 
+[![Travis CI - Build status](https://travis-ci.org/gwtd3/gwt-d3.svg?branch=master)](https://travis-ci.org/gwtd3/gwt-d3)
+[![Cloudbees - Build status](https://gwt-d3.ci.cloudbees.com/buildStatus/icon?job=CI of gwt-d3)](https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/)
+
 This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
 It allows GWT developers to use d3.js library in their project.
 
@@ -211,5 +214,3 @@ If so, just add to your gwt application module file the following configuration:
 
 See [LICENSE](https://github.com/gwtd3/gwt-d3/blob/master/LICENSE) file
 
-Continuous integration on <a href="https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/">Cloudbees</a>:
-<a href='https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/'><img src='https://gwt-d3.ci.cloudbees.com/buildStatus/icon?job=CI of gwt-d3'></a>
