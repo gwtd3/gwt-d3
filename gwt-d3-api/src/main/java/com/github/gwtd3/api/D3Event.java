@@ -26,15 +26,24 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-.gup1 text {
-  font: bold 48px monospace;
-}
+package com.github.gwtd3.api;
 
-.gup1 .enter {
-  fill: green;
-}
+import com.google.gwt.user.client.Event;
 
-.gup1 .update {
-  fill: #333;
-}
+public class D3Event extends Event {
 
+    protected D3Event() {
+        super();
+    }
+
+    /**
+     * Returns the source event that triggered this instance.
+     * <p>
+     * This
+     *
+     * @return the source event
+     */
+    public native final <T extends Event> T sourceEvent() /*-{
+		return this.sourceEvent;
+    }-*/;
+}

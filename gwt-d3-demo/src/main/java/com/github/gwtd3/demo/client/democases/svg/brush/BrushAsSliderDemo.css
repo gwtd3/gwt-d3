@@ -26,15 +26,34 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-.gup1 text {
-  font: bold 48px monospace;
+@external .domain;
+
+.axis {
+	font: 10px sans-serif;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
 }
 
-.gup1 .enter {
-  fill: green;
+.axis .domain {
+	fill: none;
+	stroke: #000;
+	stroke-opacity: .3;
+	stroke-width: 10px;
+	stroke-linecap: round;
 }
 
-.gup1 .update {
-  fill: #333;
+.axis .halo {
+	fill: none;
+	stroke: #ddd;
+	stroke-width: 8px;
+	stroke-linecap: round;
 }
 
+.slider .handle {
+	fill: #fff;
+	stroke: #000;
+	stroke-opacity: .5;
+	stroke-width: 1.25px;
+	cursor: crosshair;
+}

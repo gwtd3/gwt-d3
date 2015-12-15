@@ -46,6 +46,8 @@
 	<inherits name="com.github.gwtbootstrap.Bootstrap" />
 
 	<inherits name="com.google.gwt.http.HTTP" />
+	
+	<inherits name="com.google.common.collect.Collect" />
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->

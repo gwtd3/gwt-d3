@@ -43,108 +43,114 @@ import com.google.gwt.dom.client.Element;
 
 public class TestLine extends AbstractTestCase {
 
-	@Override
-	public void doTest(final com.google.gwt.user.client.ui.ComplexPanel sandbox) {
-		Line line = D3.svg().line();
+    @Override
+    public void doTest(final com.google.gwt.user.client.ui.ComplexPanel sandbox) {
+        Line line = D3.svg().line();
 
-		// interpolation
-		assertEquals(InterpolationMode.LINEAR, line.interpolate());
-		line.interpolate(InterpolationMode.CARDINAL);
-		assertEquals(InterpolationMode.CARDINAL, line.interpolate());
+        // interpolation
+        assertEquals(InterpolationMode.LINEAR, line.interpolate());
+        line.interpolate(InterpolationMode.CARDINAL);
+        assertEquals(InterpolationMode.CARDINAL, line.interpolate());
 
-		final List<Double> xCapture = new ArrayList<Double>();
-		final List<Double> yCapture = new ArrayList<Double>();
+        final List<Double> xCapture = new ArrayList<Double>();
+        final List<Double> yCapture = new ArrayList<Double>();
 
-		// default x and y function (data must be a
-		@SuppressWarnings("unused")
-		String d = line.generate(Array.fromObjects(Array.fromInts(0, 0),
-				Array.fromInts(1, 1), Array.fromInts(2, 2)));
+        // default x and y function (data must be a
+        @SuppressWarnings("unused")
+        String d = line.generate(Array.fromObjects(Array.fromInts(0, 0),
+                Array.fromInts(1, 1), Array.fromInts(2, 2)));
 
-		// x and y
-		line.x(new DatumFunction<Double>() {
-			@Override
-			public Double apply(final Element context, final Value d,
-					final int index) {
-				xCapture.add(d.<Coords> as().x);
-				return d.<Coords> as().x;
-			}
-		});
+        // x and y
+        line.x(new DatumFunction<Double>() {
+            @Override
+            public Double apply(final Element context, final Value d,
+                    final int index) {
+                xCapture.add(d.<Coords> as().x);
+                return d.<Coords> as().x;
+            }
+        });
 
-		line.y(new DatumFunction<Double>() {
-			@Override
-			public Double apply(final Element context, final Value d,
-					final int index) {
-				yCapture.add(d.<Coords> as().y);
-				return d.<Coords> as().y;
-			}
-		});
+        line.y(new DatumFunction<Double>() {
+            @Override
+            public Double apply(final Element context, final Value d,
+                    final int index) {
+                yCapture.add(d.<Coords> as().y);
+                return d.<Coords> as().y;
+            }
+        });
 
-		d = line.generate(Array.fromObjects(new Coords(1, 1), new Coords(2, 2),
-				new Coords(3, 3)));
+        d = line.generate(Array.fromObjects(new Coords(1, 1), new Coords(2, 2),
+                new Coords(3, 3)));
 
-		assertEquals(1.0, xCapture.get(0));
-		assertEquals(2.0, xCapture.get(1));
-		assertEquals(3.0, xCapture.get(2));
+        assertEquals(1.0, xCapture.get(0));
+        assertEquals(2.0, xCapture.get(1));
+        assertEquals(3.0, xCapture.get(2));
 
-		assertEquals(1.0, yCapture.get(0));
-		assertEquals(2.0, yCapture.get(1));
-		assertEquals(3.0, yCapture.get(2));
+        assertEquals(1.0, yCapture.get(0));
+        assertEquals(2.0, yCapture.get(1));
+        assertEquals(3.0, yCapture.get(2));
 
-		d = line.generate(Array.fromObjects(new Coords(1, 1), new Coords(2, 2),
-				new Coords(3, 3)));
-		// System.out.println("defined : " + d);
+        d = line.generate(Array.fromObjects(new Coords(1, 1), new Coords(2, 2),
+                new Coords(3, 3)));
+        // System.out.println("defined : " + d);
 
-		// x and y constants
-		d = line.x(50)
-				.y(30)
-				.generate(
-						Array.fromObjects(new Coords(1, 1), new Coords(2, 2),
-								new Coords(3, 3)));
-		// System.out.println("defined : " + d);
+        // x and y constants
+        d = line.x(50)
+                .y(30)
+                .generate(
+                        Array.fromObjects(new Coords(1, 1), new Coords(2, 2),
+                                new Coords(3, 3)));
+        // System.out.println("defined : " + d);
 
-		line.defined(new DatumFunction<Boolean>() {
-			@Override
-			public Boolean apply(final Element context, final Value d,
-					final int index) {
-				// System.out.println(context);
-				// System.out.println(d);
-				// System.out.println(index);
-				return index == 1 ? false : true;
-			}
-		});
-		final Coords counter = new Coords(0, 0);
-		// not called
-		line.y(new DatumFunction<Double>() {
-			@Override
-			public Double apply(final Element context, final Value d,
-					final int index) {
-				counter.y = (counter.y + 1);
-				yCapture.add(d.<Coords> as().y);
-				return d.<Coords> as().y;
-			}
-		});
+        line.defined(new DatumFunction<Boolean>() {
+            @Override
+            public Boolean apply(final Element context, final Value d,
+                    final int index) {
+                // System.out.println(context);
+                // System.out.println(d);
+                // System.out.println(index);
+                return index == 1 ? false : true;
+            }
+        });
+        final Coords counter = new Coords(0, 0);
+        // not called
+        line.y(new DatumFunction<Double>() {
+            @Override
+            public Double apply(final Element context, final Value d,
+                    final int index) {
+                counter.y = (counter.y + 1);
+                yCapture.add(d.<Coords> as().y);
+                return d.<Coords> as().y;
+            }
+        });
 
-		// does not assertEquals(2, counter.y);
-		// Smoke test radial line
+        // does not assertEquals(2, counter.y);
+        // Smoke test radial line
 
-		RadialLine radial = D3.svg().radialLine();
-		radial.angle(3.5);
-		radial.radius(56);
+        RadialLine radial = D3.svg().radialLine();
+        radial.angle(3.5);
+        radial.radius(56);
+        radial.radius(new DatumFunction<Double>() {
+            @Override
+            public Double apply(final Element context, final Value d, final int index) {
+                return index * 25.6;
+            }
+        });
 
-	}
+    }
 
-	static class Coords {
-		public double x;
-		public double y;
+    static class Coords {
+        public double x;
+        public double y;
 
-		public Coords(final double x, final double y) {
-			super();
-			this.x = x;
-			this.y = y;
-		}
+        public Coords(final double x, final double y) {
+            super();
+            this.x = x;
+            this.y = y;
+        }
 
-		public static Coords get(final double x, final double y) {
-			return new Coords(x, y);
-		}
-	}
+        public static Coords get(final double x, final double y) {
+            return new Coords(x, y);
+        }
+    }
 }

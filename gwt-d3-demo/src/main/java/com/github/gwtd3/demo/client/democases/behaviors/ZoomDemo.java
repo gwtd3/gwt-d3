@@ -40,147 +40,132 @@ import com.github.gwtd3.api.svg.Axis;
 import com.github.gwtd3.api.svg.Axis.Orientation;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
+import com.github.gwtd3.demo.client.democases.Margin;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
 
 /**
  * This demo is a replica of Mike Bostock's <a
  * href="http://bl.ocks.org/mbostock/3892919">Pan-Zoom demo</a>
- * 
+ *
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a> <br />
  *         <a href="https://github.com/augbog">Augustus Yuan</a>
- * 
+ *
  * */
 public class ZoomDemo extends FlowPanel implements DemoCase {
 
-	private Selection svg;
-	private Selection scaleLabel;
-	private Selection translateLabel;
-	private Selection g;
-	private Axis xAxis;
-	private Axis yAxis;
+    private Selection svg;
+    private Selection scaleLabel;
+    private Selection translateLabel;
+    private Selection g;
+    private Axis xAxis;
+    private Axis yAxis;
 
-	// set margins
-	final Margin margin = new Margin(20, 20, 30, 40);
-	final int width = 960 - margin.left - margin.right;
-	final int height = 500 - margin.top - margin.bottom;
+    // set margins
+    final Margin margin = new Margin(20, 20, 30, 40);
+    final int width = 960 - margin.left - margin.right;
+    final int height = 500 - margin.top - margin.bottom;
 
-	public ZoomDemo() {
-		super();
-		init();
-	}
+    public ZoomDemo() {
+        super();
+        init();
+    }
 
-	private void init() {
+    private void init() {
 
-		LinearScale x = D3.scale.linear().domain(-width / 2, width / 2)
-				.range(0.0, width);
+        LinearScale x = D3.scale.linear().domain(-width / 2, width / 2)
+                .range(0.0, width);
 
-		LinearScale y = D3.scale.linear().domain(-height / 2, height / 2)
-				.range(height, 0.0);
+        LinearScale y = D3.scale.linear().domain(-height / 2, height / 2)
+                .range(height, 0.0);
 
-		// set the x axis
-		xAxis = D3.svg().axis().scale(x).orient(Orientation.BOTTOM)
-				.tickSize(-height);
+        // set the x axis
+        xAxis = D3.svg().axis().scale(x).orient(Orientation.BOTTOM)
+                .tickSize(-height);
 
-		// set the y axis
-		yAxis = D3.svg().axis().scale(y).orient(Orientation.LEFT).ticks(5)
-				.tickSize(-width);
+        // set the y axis
+        yAxis = D3.svg().axis().scale(y).orient(Orientation.LEFT).ticks(5)
+                .tickSize(-width);
 
-		// create zoom behavior
-		Zoom zoom = D3.behavior().zoom().x(x).y(y)
-				.on(ZoomEventType.ZOOM, new OnZoom());
+        // create zoom behavior
+        Zoom zoom = D3.behavior().zoom().x(x).y(y)
+                .on(ZoomEventType.ZOOM, new OnZoom());
 
-		Selection selection = D3.select(this);
+        Selection selection = D3.select(this);
 
-		// create text box
-		scaleLabel = selection.append("div").text("scale:");
-		translateLabel = selection.append("div").text("translate:");
+        // create text box
+        scaleLabel = selection.append("div").text("scale:");
+        translateLabel = selection.append("div").text("translate:");
 
-		svg = selection.append("svg:svg")
-				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom)
-				.attr("class", "zoom");
+        svg = selection.append("svg:svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .attr("class", "zoom");
 
-		// calling zoom on group element
-		g = svg.append("g").attr("class", "zoom").call(zoom);
+        // calling zoom on group element
+        g = svg.append("g").attr("class", "zoom").call(zoom);
 
-		// append rectangle with class zoom
-		// see D3Demo.css to see styling applied
-		g.append("rect").attr("width", width).attr("height", height)
-				.attr("class", "zoom");
+        // append rectangle with class zoom
+        // see D3Demo.css to see styling applied
+        g.append("rect").attr("width", width).attr("height", height)
+                .attr("class", "zoom");
 
-		g.append("g").attr("class", "zoom x axis")
-				.attr("transform", "translate(0," + height + ")").call(xAxis);
+        g.append("g").attr("class", "zoom x axis")
+                .attr("transform", "translate(0," + height + ")").call(xAxis);
 
-		g.append("g").attr("class", "zoom y axis").call(yAxis);
+        g.append("g").attr("class", "zoom y axis").call(yAxis);
 
-	}
+    }
 
-	public class OnZoom implements DatumFunction<Void> {
+    public class OnZoom implements DatumFunction<Void> {
 
-		@Override
-		public Void apply(final Element context, final Value d, final int index) {
+        @Override
+        public Void apply(final Element context, final Value d, final int index) {
 
-			// print the current scale and translate
-			scaleLabel.text("scale:" + D3.zoomEvent().scale());
-			translateLabel.text("translate:" + D3.zoomEvent().translate());
+            // print the current scale and translate
+            scaleLabel.text("scale:" + D3.zoomEvent().scale());
+            translateLabel.text("translate:" + D3.zoomEvent().translate());
 
-			// apply zoom and panning on x and y axes
-			g.select(".zoom.x.axis").call(xAxis);
-			g.select(".zoom.y.axis").call(yAxis);
+            // apply zoom and panning on x and y axes
+            g.select(".zoom.x.axis").call(xAxis);
+            g.select(".zoom.y.axis").call(yAxis);
 
-			return null;
+            return null;
 
-		}
+        }
 
-	}
+    }
 
-	/**
-	 * (non-Javadoc)
-	 * 
-	 * @see com.github.gwtd3.demo.client.DemoCase#start()
-	 */
-	@Override
-	public void start() {
+    /**
+     * (non-Javadoc)
+     * 
+     * @see com.github.gwtd3.demo.client.DemoCase#start()
+     */
+    @Override
+    public void start() {
 
-	}
+    }
 
-	/**
-	 * (non-Javadoc)
-	 * 
-	 * @see com.github.gwtd3.demo.client.DemoCase#stop()
-	 */
-	@Override
-	public void stop() {
+    /**
+     * (non-Javadoc)
+     * 
+     * @see com.github.gwtd3.demo.client.DemoCase#stop()
+     */
+    @Override
+    public void stop() {
 
-	}
+    }
 
-	/**
-	 * @return
-	 */
-	public static Factory factory() {
-		return new Factory() {
-			@Override
-			public ZoomDemo newInstance() {
-				return new ZoomDemo();
-			}
-		};
-	}
-
-	private static class Margin {
-		public final int top;
-		public final int right;
-		public final int bottom;
-		public final int left;
-
-		public Margin(final int top, final int right, final int bottom,
-				final int left) {
-			super();
-			this.top = top;
-			this.right = right;
-			this.bottom = bottom;
-			this.left = left;
-		}
-	}
+    /**
+     * @return
+     */
+    public static Factory factory() {
+        return new Factory() {
+            @Override
+            public ZoomDemo newInstance() {
+                return new ZoomDemo();
+            }
+        };
+    }
 
 }

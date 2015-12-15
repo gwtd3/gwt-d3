@@ -26,15 +26,20 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-.gup1 text {
-  font: bold 48px monospace;
-}
+package com.github.gwtd3.demo.client.democases;
 
-.gup1 .enter {
-  fill: green;
-}
+public class Margin {
+	public final int top;
+	public final int right;
+	public final int bottom;
+	public final int left;
 
-.gup1 .update {
-  fill: #333;
+	public Margin(final int top, final int right, final int bottom,
+			final int left) {
+		super();
+		this.top = top;
+		this.right = right;
+		this.bottom = bottom;
+		this.left = left;
+	}
 }
-
