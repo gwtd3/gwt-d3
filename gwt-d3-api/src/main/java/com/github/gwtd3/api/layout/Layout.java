@@ -64,6 +64,19 @@ public class Layout extends JavaScriptObject {
 	public final native Cluster cluster()/*-{
 		return this.cluster();
 	}-*/;
+	
+	/**
+	 * Creates a new partition layout with the default settings: the default sort
+	 * order is by descending value; the default value accessor assumes each input
+	 * data is an object with a numeric value attribute; the default children
+	 * accessor assumes each input data is an object with a children array; 
+	 * the default size is 1×1.
+	 * 
+	 * @return the new cluster generator
+	 */
+	public final native Partition partition()/*-{
+		return this.partition();
+	}-*/;
 
     /**
      * Constructs a new force-directed layout with the default settings: size
