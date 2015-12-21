@@ -1347,7 +1347,9 @@ public class Selection extends EnteringSelection {
      */
     public native final Selection pushToFront() /*-{
     	return this.each(function(){
-    		this.parentNode.appendChild(this);
+          if (this.parentNode != undefined) {
+              this.parentNode.appendChild(this);
+          }
   		});
      }-*/;
     
@@ -1356,11 +1358,13 @@ public class Selection extends EnteringSelection {
      * @return
      */
     public native final Selection pushToBack() /*-{
-    	return this.each(function() { 
-        	var firstChild = this.parentNode.firstChild; 
-        	if (firstChild) { 
-            	this.parentNode.insertBefore(this, firstChild); 
-        	} 
+    	return this.each(function() {
+		   if (this.parentNode != undefined) {
+             var firstChild = this.parentNode.firstChild;
+             if (firstChild) {
+                 this.parentNode.insertBefore(this, firstChild);
+             }
+         }
     	}); 
      }-*/;
 
