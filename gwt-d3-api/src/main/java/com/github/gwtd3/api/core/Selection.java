@@ -37,6 +37,7 @@ import java.util.List;
 import com.github.gwtd3.api.Arrays;
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
+import com.github.gwtd3.api.functions.BooleanDatumFunction;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
 import com.github.gwtd3.api.svg.PathDataGenerator;
@@ -485,16 +486,53 @@ public class Selection extends EnteringSelection {
      *            the function evaluated for each element and returning a
      *            boolean indicating to assign or not the class to the element
      * @return the current selection
+     *
+     * @deprecated use {@link #classed(String, BooleanDatumFunction)} instead
      */
-    public native final Selection classed(String classNames,
-            DatumFunction<Boolean> addFunction)/*-{
+    @Deprecated
+    public final Selection classed(final String classNames,
+            final DatumFunction<Boolean> addFunction) {
+        return classed(classNames, new BooleanDatumFunction() {
+            @Override
+            public boolean apply(final Element context, final Value d, final int index) {
+                Boolean result = addFunction.apply(context, d, index);
+                return result == null ? false : result.booleanValue();
+            }
+        });
+    };
+
+    /**
+     * Sets whether or not the class should be associated or not to the
+     * elements, according to the return value of the given function.
+     * <p>
+     * he function is evaluated for each selected element (in order), being passed the current datum d and the current
+     * index i, with the this context as the current DOM element. The function's return value is then used to assign or
+     * unassign the specified class on each element.
+     * <p>
+     * This operator is a convenience routine for setting the "class" attribute; it understands that the "class"
+     * attribute is a set of tokens separated by spaces.
+     * <p>
+     * Under the hood, it will use the classList if available, for convenient adding, removing and toggling of CSS
+     * classes.
+     * <p>
+     * If the function returns true, then the element is assigned the specified class, if not already assigned; if it
+     * returns false or null, then the class is removed from the element, if assigned.
+     *
+     * @param className
+     *            the class to assign or not
+     * @param addFunction
+     *            the function evaluated for each element and returning a
+     *            boolean indicating to assign or not the class to the element
+     * @return the current selection
+     */
+    public native final Selection classed(String classNames, BooleanDatumFunction addFunction)/*-{
 		return this
 				.classed(
 						classNames,
 						function(d, i) {
-							var r = addFunction.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
-							return r == null ? false
-									: r.@java.lang.Boolean::booleanValue()();
+							// always returns primitive boolean now
+							// JSNI Shortcut notation
+							return addFunction.@com.github.gwtd3.api.functions.BooleanDatumFunction::apply(*)(this,{datum:d},i);
 						});
     }-*/;
 
