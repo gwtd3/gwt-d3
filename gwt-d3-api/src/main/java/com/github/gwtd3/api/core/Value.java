@@ -241,8 +241,15 @@ public class Value extends JavaScriptObject {
 		return typeof (this.datum) == 'function';
     }-*/;
 
+    /**
+     * @return true if the value is a Javascript boolean value, a Javascript Boolean object or a Java {@link Boolean}
+     *         instance.
+     */
     public final native boolean isBoolean()/*-{
-		return this.datum == true || this.datum == false;
+		return typeof (this.datum) === "boolean"
+				|| this.datum instanceof Boolean
+				|| (this.datum != null && this.datum
+						.@java.lang.Boolean::booleanValue() != null);
     }-*/;
 
     /**

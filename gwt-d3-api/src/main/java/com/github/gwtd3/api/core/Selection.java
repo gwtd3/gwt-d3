@@ -41,6 +41,7 @@ import com.github.gwtd3.api.functions.BooleanDatumFunction;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.functions.KeyFunction;
 import com.github.gwtd3.api.svg.PathDataGenerator;
+import com.github.gwtd3.api.utils.Utils;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayUtils;
 import com.google.gwt.dom.client.BrowserEvents;
@@ -495,8 +496,7 @@ public class Selection extends EnteringSelection {
         return classed(classNames, new BooleanDatumFunction() {
             @Override
             public boolean apply(final Element context, final Value d, final int index) {
-                Boolean result = addFunction.apply(context, d, index);
-                return result == null ? false : result.booleanValue();
+                return Utils.toPrimitive(addFunction.apply(context, d, index));
             }
         });
     };
