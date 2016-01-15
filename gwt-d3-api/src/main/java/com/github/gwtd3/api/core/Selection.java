@@ -374,9 +374,7 @@ public class Selection extends EnteringSelection {
 							name,
 							function(d, i) {
 								try {
-
 									var r = callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
-									//r.@java.lang.Object::toString()();
 									return r;
 								} catch (e) {
 									alert(e);
@@ -384,7 +382,6 @@ public class Selection extends EnteringSelection {
 								}
 							});
 		} catch (e) {
-			alert(e);
 			return null;
 		}
     }-*/;
@@ -412,17 +409,16 @@ public class Selection extends EnteringSelection {
      */
     public native final Selection style(String name, DatumFunction<?> callback,
             boolean important)/*-{
-																									var imp = important ? 'important' : null;
-																									return this
-																									.style(
-																									name,
-																									function(d, i) {
-																									var r =
-																									callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)
-																									(this,{datum:d},i);
-																									return r?r.@java.lang.Object::toString()():null;
-																									}, imp);
-																									}-*/;
+                   var imp = important ? 'important' : null;
+				   return this.style(
+								name,
+								function(d, i) {
+								    var r =
+									callback.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)
+									(this,{datum:d},i);
+									return r?r.@java.lang.Object::toString()():null;
+								}, imp);
+    }-*/;
 
     // ================ classed functions ================
 

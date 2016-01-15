@@ -150,7 +150,7 @@ public class BarChart extends FlowPanel implements DemoCase {
                         .text("Frequency");
 
                 svg.selectAll("." + css.bar())
-                        .data(data.cast())
+                        .data(data)
                         .enter()
                         .append("rect")
                         .attr("class", css.bar())
