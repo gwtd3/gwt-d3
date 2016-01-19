@@ -36,12 +36,13 @@ import com.google.gwt.core.client.JavaScriptObject;
  * node</a>. The node class is used in {@link Tree}, cluster, and
  * partitions. The class provides accessors for the nodes key attributes, its
  * position, children, parent, and depth.
- * 
+ *
  * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
- * 
+ *
  */
-public class Node
-    extends JavaScriptObject {
+public class Node<T>
+        extends JavaScriptObject {
+
     protected Node() {
         super();
     }
@@ -57,7 +58,7 @@ public class Node
      * sets the x coordinate
      */
     public final native void x(double x)/*-{
-        this.x = x;
+		this.x = x;
     }-*/;
 
     /**
@@ -71,6 +72,20 @@ public class Node
      * sets the y coordinate
      */
     public final native void y(double y)/*-{
-        this.y = y;
+		this.y = y;
+    }-*/;
+
+    /**
+     * @return the user datum of this node
+     */
+    public final native T datum()/*-{
+		return this.datum;
+    }-*/;
+
+    /**
+     * @param datum the user datum of this node
+     */
+    public final native void datum(final T datum)/*-{
+		this.datum = datum;
     }-*/;
 }

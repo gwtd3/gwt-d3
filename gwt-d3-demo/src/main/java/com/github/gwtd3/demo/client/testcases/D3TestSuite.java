@@ -27,7 +27,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /**
- * 
+ *
  */
 package com.github.gwtd3.demo.client.testcases;
 
@@ -53,6 +53,7 @@ import com.github.gwtd3.demo.client.testcases.scales.TestQuantileScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestQuantizeScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestThresholdScale;
 import com.github.gwtd3.demo.client.testcases.scales.TestTimeScale;
+import com.github.gwtd3.demo.client.testcases.selection.TestSelectionAppend;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionAttr;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionClassed;
 import com.github.gwtd3.demo.client.testcases.selection.TestSelectionContents;
@@ -78,67 +79,68 @@ import com.github.gwtd3.demo.client.testcases.tsv.TestTsv;
 
 /**
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
- * 
+ *
  */
 public class D3TestSuite {
 
     List<AbstractTestCase> tests = new ArrayList<AbstractTestCase>();
 
     public static D3TestSuite get() {
-	D3TestSuite suite = new D3TestSuite();
-	suite.tests = Arrays.asList(
-		// arrays
-		new TestArrays(),
-		new TestD3Arrays(),
-		// utils
-		new TestValue(),
-		// D3
-		new TestD3(),
-		new TestColors(),
-		// selections
-		new TestSubselections(),
-		new TestSelectionContents(),
-		new TestSelectionAttr(),
-		new TestSelectionClassed(),
-		new TestSelectionData(),
-		new TestSelectionData2(),
-		new TestSelectionProperty(),
-		new TestSelectionText(),
-		new TestSelectionHtml(),
-		new TestSelectionControls(),
-		new TestSelectionStyle(),
-		// Transitions
-		new TestTransition(),
-		new TestInterpolators(),
-		new TestEasing(),
-		// Math
-		new TestMath(),
-		// Format
-		new TestFormat(),
-		// Scales
-		new TestLinearScale(), new TestLogScale(), new TestPowScale(),
-		new TestIdentityScale(), new TestThresholdScale(),
-		new TestQuantizeScale(), new TestQuantileScale(),
-		new TestOrdinalScale(),
-		new TestTimeScale(),
-		// svg
-		new TestAxis(), new TestLine(), new TestArea(),
-		new TestSymbol(), new TestChord(),
-		// time
-		new TestTimeFormat(), new TestTimeIntervals(),
-		new TestTimeScale(),
-		// requests
-		new TestCsv(), new TestTsv(),
+        D3TestSuite suite = new D3TestSuite();
+        suite.tests = Arrays.asList(
+                // arrays
+                new TestArrays(),
+                new TestD3Arrays(),
+                // utils
+                new TestValue(),
+                // D3
+                new TestD3(),
+                new TestColors(),
+                // selections
+                new TestSubselections(),
+                new TestSelectionAppend(),
+                new TestSelectionContents(),
+                new TestSelectionAttr(),
+                new TestSelectionClassed(),
+                new TestSelectionData(),
+                new TestSelectionData2(),
+                new TestSelectionProperty(),
+                new TestSelectionText(),
+                new TestSelectionHtml(),
+                new TestSelectionControls(),
+                new TestSelectionStyle(),
+                // Transitions
+                new TestTransition(),
+                new TestInterpolators(),
+                new TestEasing(),
+                // Math
+                new TestMath(),
+                // Format
+                new TestFormat(),
+                // Scales
+                new TestLinearScale(), new TestLogScale(), new TestPowScale(),
+                new TestIdentityScale(), new TestThresholdScale(),
+                new TestQuantizeScale(), new TestQuantileScale(),
+                new TestOrdinalScale(),
+                new TestTimeScale(),
+                // svg
+                new TestAxis(), new TestLine(), new TestArea(),
+                new TestSymbol(), new TestChord(),
+                // time
+                new TestTimeFormat(), new TestTimeIntervals(),
+                new TestTimeScale(),
+                // requests
+                new TestCsv(), new TestTsv(),
 
-		// behaviors
-		new TestZoom());
-	return suite;
+                // behaviors
+                new TestZoom());
+        return suite;
     }
 
     /**
      * @return the tests
      */
     public List<AbstractTestCase> getTests() {
-	return tests;
+        return tests;
     }
 }

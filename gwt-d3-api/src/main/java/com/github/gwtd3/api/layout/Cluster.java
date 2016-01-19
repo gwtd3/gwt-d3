@@ -28,7 +28,6 @@
  */
 package com.github.gwtd3.api.layout;
 
-
 /**
  * The cluster layout produces dendrograms: node-link diagrams that place leaf
  * nodes of the tree at the same depth.
@@ -44,13 +43,13 @@ package com.github.gwtd3.api.layout;
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
  * 
  */
-public class Cluster extends HierarchicalLayout {
+public class Cluster<T> extends HierarchicalLayout<Cluster<T>, T> {
 
-	protected Cluster() {
-	}
+    protected Cluster() {
+    }
 
-	public final native Cluster size(int width, int height)/*-{
-		return this.size([width, height]);
-	}-*/;
+    public final native Cluster<T> size(int width, int height)/*-{
+		return this.size([ width, height ]);
+    }-*/;
 
 }

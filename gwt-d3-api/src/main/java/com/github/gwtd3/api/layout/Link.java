@@ -28,7 +28,6 @@
  */
 package com.github.gwtd3.api.layout;
 
-import com.github.gwtd3.api.Coords;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -36,12 +35,12 @@ import com.google.gwt.core.client.JavaScriptObject;
  * href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-links">d3 docs on
  * link</a>. Provides accessors and setters for a link's two key attributes
  * source and target.
- * 
+ *
  * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
- * 
+ *
  */
-public class Link
-    extends JavaScriptObject {
+public class Link<T>
+        extends JavaScriptObject {
     protected Link() {
         super();
     }
@@ -49,12 +48,12 @@ public class Link
     /**
      * Create a basic link object starting at one coordinate and ending at
      * another
-     * 
+     *
      * @param the starting coordinates
      * @param the ending coordinates
      * @return the link object
      */
-    public static final native Link create(Coords source, Coords target) /*-{
+    public static final native <T> Link<T> create(T source, T target) /*-{
 		return {
 			source : source,
 			target : target
@@ -64,14 +63,14 @@ public class Link
     /**
      * @return the end node
      */
-    public final native Node target() /*-{
+    public final native Node<T> target() /*-{
 		return this.target;
     }-*/;
 
     /**
      * @return the start node
      */
-    public final native Node source() /*-{
+    public final native Node<T> source() /*-{
 		return this.source;
     }-*/;
 }
