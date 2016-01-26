@@ -28,19 +28,22 @@
  */
 package com.github.gwtd3.demo.client.democases.layout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
-import com.github.gwtd3.api.functions.PropertyValueFunction;
 import com.github.gwtd3.api.layout.Cluster;
+import com.github.gwtd3.api.layout.Cluster.Node;
 import com.github.gwtd3.api.layout.Link;
-import com.github.gwtd3.api.layout.HierarchicalLayout.Node;
 import com.github.gwtd3.api.svg.Diagonal;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.http.client.Request;
@@ -55,134 +58,171 @@ import com.google.gwt.user.client.ui.FlowPanel;
 
 public class ClusterDendogram extends FlowPanel implements DemoCase {
 
-	private static final String JSON_URL = // GWT.getModuleBaseURL() +
-			"demo-data/flare.json";
-	private final MyResources css;
+    private static final String JSON_URL = // GWT.getModuleBaseURL() +
+    "demo-data/flare.json";
+    private final MyResources css;
+    private Cluster<FlareNode> cluster;
+    private Diagonal diagonal;
+    private Selection svg;
 
-	public interface Bundle extends ClientBundle {
-		public static final Bundle INSTANCE = GWT.create(Bundle.class);
+    public interface Bundle extends ClientBundle {
+        public static final Bundle INSTANCE = GWT.create(Bundle.class);
 
-		@Source("ClusterDendogram.css")
-		public MyResources css();
-	}
+        @Source("ClusterDendogram.css")
+        public MyResources css();
+    }
 
-	interface MyResources extends CssResource {
-		String link();
+    interface MyResources extends CssResource {
+        String link();
 
-		String node();
-	}
+        String node();
+    }
 
-	public ClusterDendogram() {
-		css = Bundle.INSTANCE.css();
-		css.ensureInjected();
-	}
+    public ClusterDendogram() {
+        css = Bundle.INSTANCE.css();
+        css.ensureInjected();
+    }
 
-	@Override
-	public void start() {
-		int width = 960;
-		final int height = 2200;
+    public static class FlareNode extends JavaScriptObject {
 
-		final Cluster cluster = D3.layout().cluster()
-				.size(height, width - 160);
+        protected FlareNode() {
 
-		final Diagonal diagonal = D3.svg().diagonal()
-				.projection(
-						new DatumFunction<Array<Double>>() {
-							@Override
-							public Array<Double> apply(final Element context, final Value value, final int index) {
-								return Array.fromDoubles(value.asCoords().y(), value.asCoords().x());
-							}
-						}
-						);
+        }
 
-		final Selection svg = D3.select(this).append("svg")
-				.attr("width", width)
-				.attr("height", height)
-				.append("g")
-				.attr("transform", "translate(40,0)");
+        public final native String name() /*-{
+			return this.name;
+        }-*/;
 
-		// Send request to server and catch any errors.
-		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, JSON_URL);
+        public final native int size() /*-{
+			return this.size;
+        }-*/;
 
-		try {
-			Request request = builder.sendRequest(null, new RequestCallback() {
-				@Override
-				public void onError(final Request request, final Throwable exception) {
-					Window.alert("Couldn't retrieve JSON");
-				}
+        public final native Array<FlareNode> children()/*-{
+			return this.children;
+        }-*/;
 
-				@Override
-				public void onResponseReceived(final Request request, final Response response) {
-					if (200 == response.getStatusCode()) {
-						Node root = JsonUtils.safeEval(response.getText());
-						Array<Node> nodes = cluster.nodes(root);
-						Array<Link> links = cluster.links(nodes);
+        public final native boolean isLeaf()/*-{
+			return !this.children;
+        }-*/;
+    }
 
-						Selection link = svg.selectAll("." + css.link())
-								.data(links)
-								.enter().append("path")
-								.attr("class", css.link())
-								.attr("d", diagonal);
+    @Override
+    public void start() {
+        int width = 960;
+        final int height = 2200;
 
-						Selection node = svg.selectAll("." + css.node())
-								.data(nodes)
-								.enter().append("g")
-								.attr("class", css.node())
-								.attr("transform", new DatumFunction<String>() {
-									@Override
-									public String apply(final Element context, final Value value, final int index) {
-										return "translate(" + value.asCoords().y() + "," + value.asCoords().x() + ")";
-									}
-								});
+        cluster = D3.layout().cluster();
+        cluster.size(height, width - 160).children(new DatumFunction<List<FlareNode>>() {
+            @Override
+            public List<FlareNode> apply(final Element context, final Value d, final int index) {
+                FlareNode node = d.as(FlareNode.class);
+                return node.isLeaf() ? new ArrayList<FlareNode>() : node.children().asList();
+            }
+        });
 
-						node.append("circle")
-						.attr("r", 4.5);
+        diagonal = D3.svg().diagonal()
+                .projection(
+                        new DatumFunction<Array<Double>>() {
+                            @Override
+                            public Array<Double> apply(final Element context, final Value value, final int index) {
+                                return Array.fromDoubles(value.asCoords().y(), value.asCoords().x());
+                            }
+                        }
+                );
 
-						node.append("text")
-						.attr("dx",
-								new DatumFunction<Integer>() {
-							@Override
-							public Integer apply(final Element context, final Value d, final int index) {
-								return d.<Node> as().children() != null ? -8 : 8;
-							}
-						})
-						.attr("dy", 3)
-						.style("text-anchor",
-								new DatumFunction<String>() {
-							@Override
-							public String apply(final Element context, final Value d, final int index) {
-								return d.<Node> as().children() != null ? "end" : "start";
-							}
-						}
-								)
-								.text(PropertyValueFunction.<String> forProperty("name"));
+        svg = D3.select(this).append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(40,0)");
 
-						D3.select(ClusterDendogram.this).select("svg").style("height", height + "px");
+        // Send request to server and catch any errors.
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, JSON_URL);
 
-					} else {
-						Window.alert("Couldn't retrieve JSON (" + response.getStatusText()
-								+ ")");
-					}
-				}
-			});
-		} catch (RequestException e) {
-			Window.alert("Couldn't retrieve JSON");
-		}
+        try {
+            Request request = builder.sendRequest(null, new RequestCallback() {
+                @Override
+                public void onError(final Request request, final Throwable exception) {
+                    Window.alert("Couldn't retrieve JSON");
+                }
 
-	}
+                @Override
+                public void onResponseReceived(final Request request, final Response response) {
+                    if (200 == response.getStatusCode()) {
+                        FlareNode root = JsonUtils.safeEval(response.getText());
+                        Array<Node<FlareNode>> nodes = cluster.nodes(root);
+                        Array<Link<FlareNode>> links = cluster.links(nodes);
 
-	@Override
-	public void stop() {
+                        Selection link = svg.selectAll("." + css.link())
+                                .data(links)
+                                .enter().append("path")
+                                .attr("class", css.link())
+                                .attr("d", diagonal);
 
-	}
+                        Selection node = svg.selectAll("." + css.node())
+                                .data(nodes)
+                                .enter().append("g")
+                                .attr("class", css.node())
+                                .attr("transform", new DatumFunction<String>() {
+                                    @Override
+                                    public String apply(final Element context, final Value value, final int index) {
+                                        return "translate(" + value.asCoords().y() + "," + value.asCoords().x() + ")";
+                                    }
+                                });
 
-	public static Factory factory() {
-		return new Factory() {
-			@Override
-			public DemoCase newInstance() {
-				return new ClusterDendogram();
-			}
-		};
-	}
+                        node.append("circle")
+                                .attr("r", 4.5);
+
+                        node.append("text")
+                                .attr("dx",
+                                        new DatumFunction<Integer>() {
+                                            @Override
+                                            public Integer apply(final Element context, final Value d, final int index) {
+                                                return d.<Node<FlareNode>> as().children() != null ? -8 : 8;
+                                            }
+                                        })
+                                .attr("dy", 3)
+                                .style("text-anchor",
+                                        new DatumFunction<String>() {
+                                            @Override
+                                            public String apply(final Element context, final Value d, final int index) {
+                                                return d.<Node<FlareNode>> as().children() != null ? "end" : "start";
+                                            }
+                                        }
+                                )
+                                .text(new DatumFunction<String>() {
+                                    @Override
+                                    public String apply(final Element context, final Value d, final int index) {
+                                        return d.<Node<FlareNode>> as().datum().name();
+                                    }
+                                });
+
+                        D3.select(ClusterDendogram.this).select("svg").style("height", height + "px");
+
+                    } else {
+                        Window.alert("Couldn't retrieve JSON (" + response.getStatusText()
+                                + ")");
+                    }
+                }
+            });
+        } catch (RequestException e) {
+            Window.alert("Couldn't retrieve JSON");
+        }
+
+    }
+
+    @Override
+    public void stop() {
+
+    }
+
+    public static Factory factory() {
+        return new Factory() {
+            @Override
+            public DemoCase newInstance() {
+                return new ClusterDendogram();
+            }
+        };
+    }
 
 }

@@ -31,7 +31,6 @@ package com.github.gwtd3.api.layout;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * A link in d3js' tree layout, see <a
  * href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-links">d3 docs on
  * link</a>. Provides accessors and setters for a link's two key attributes
  * source and target.

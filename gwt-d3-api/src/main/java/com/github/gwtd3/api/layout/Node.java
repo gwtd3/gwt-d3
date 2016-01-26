@@ -28,51 +28,49 @@
  */
 package com.github.gwtd3.api.layout;
 
+import com.github.gwtd3.api.arrays.Array;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * A node in d3j's tree layout, see <a
- * href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-nodes">d3 docs on
- * node</a>. The node class is used in {@link Tree}, cluster, and
- * partitions. The class provides accessors for the nodes key attributes, its
- * position, children, parent, and depth.
- *
- * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
- *
+ * A node used in a HierarchyLayout
  */
 public class Node<T>
         extends JavaScriptObject {
+    /**
+     * Create a new node containing the given user datum
+     *
+     * @param userDatum
+     * @return
+     */
+    static final native <T> Node<T> create(T userDatum)/*-{
+		return {
+			datum : userDatum
+		};
+    }-*/;
 
     protected Node() {
         super();
     }
 
     /**
-     * @return the x coordinates
+     * @return array of {@link Node} objects or null
      */
-    public final native double x()/*-{
-		return this.x;
+    public final native Array<Node<T>> children() /*-{
+		return this.children;
     }-*/;
 
     /**
-     * sets the x coordinate
+     * @return parent node
      */
-    public final native void x(double x)/*-{
-		this.x = x;
+    public final native Node<T> parent() /*-{
+		return this.parent;
     }-*/;
 
     /**
-     * @return the y coordinates
+     * @return the node's depth, root depth = 0
      */
-    public final native double y()/*-{
-		return this.y;
-    }-*/;
-
-    /**
-     * sets the y coordinate
-     */
-    public final native void y(double y)/*-{
-		this.y = y;
+    public final native int depth() /*-{
+		return this.depth;
     }-*/;
 
     /**

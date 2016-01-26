@@ -28,8 +28,10 @@
  */
 package com.github.gwtd3.api.layout;
 
+import java.util.Comparator;
 import java.util.List;
 
+import com.github.gwtd3.api.D3;
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
@@ -37,69 +39,17 @@ import com.github.gwtd3.api.svg.Diagonal;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 
-public class HierarchicalLayout<L, T> extends JavaScriptObject {
-    /**
-     * A node in d3j's tree layout, see <a
-     * href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-nodes">d3 docs on
-     * node</a>. The node class is used in {@link Tree}, cluster, and
-     * partitions. The class provides accessors for the nodes key attributes, its
-     * position, children, parent, and depth.
-     *
-     * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
-     *
-     */
-    public static class Node<T>
-            extends com.github.gwtd3.api.layout.Node<T> {
-
-        /**
-         * Create a new node containing the given user datum
-         *
-         * @param userDatum
-         * @return
-         */
-        static final native <T> Node<T> create(T userDatum)/*-{
-			return {
-				datum : userDatum
-			};
-        }-*/;
-
-        protected Node() {
-            super();
-        }
-
-        /**
-         * @return array of {@link Node} objects or null
-         */
-        public final native Array<Node<T>> children() /*-{
-			return this.children;
-        }-*/;
-
-        /**
-         * @return parent node
-         */
-        public final native Node<T> parent() /*-{
-			return this.parent;
-        }-*/;
-
-        /**
-         * @return the node's depth, root depth = 0
-         */
-        public final native int depth() /*-{
-			return this.depth;
-        }-*/;
-
-    }
+public class HierarchicalLayout<L, T, N extends Node<T>> extends JavaScriptObject {
 
     protected HierarchicalLayout() {
     }
 
     /**
-     * Runs the tree layout, returning the array of nodes associated with the
-     * specified root node. The tree layout is part of D3's family of
-     * hierarchical layouts. These layouts follow the same basic structure: the
-     * input argument to layout is the root node of the hierarchy, and the
-     * output return value is an array representing the computed positions of
-     * all nodes. Several attributes are populated on each node:
+     * Runs the layout, returning the array of nodes associated with the
+     * specified root node.
+     * <p>
+     * The input argument to layout is the root node of the hierarchy, and the output return value is an array
+     * representing the computed positions of all nodes. Several attributes are populated on each node:
      *
      * <ul>
      * <li>parent - the parent {@link Node}, or null for the root.
@@ -109,14 +59,13 @@ public class HierarchicalLayout<L, T> extends JavaScriptObject {
      * <li>y - the computed y-coordinate of the node position.
      * </ul>
      *
-     * Although the layout has a size in x and y, this represents an arbitrary
-     * coordinate system; for example, you can treat x as a radius and y as an
-     * angle to produce a radial rather than Cartesian layout.
+     * Although the layout has a size in x and y, this represents an arbitrary coordinate system; for example, you can
+     * treat x as a radius and y as an angle to produce a radial rather than Cartesian layout.
      *
-     * @param root of the the tree
-     * @return array of {@link Node} in the tree stemming from root
+     * @param data the root node of the hierarchy
+     * @return array of computed {@link Node}s
      */
-    public final native Array<Node<T>> nodes(T data) /*-{
+    public final native Array<N> nodes(T data) /*-{
 		return this.nodes({
 			datum : data
 		});
@@ -137,10 +86,10 @@ public class HierarchicalLayout<L, T> extends JavaScriptObject {
      * for display, often in conjunction with the {@link Diagonal} shape
      * generator.
      *
-     * @param array of nodes in tree
+     * @param the array of nodes, as returned by {@link #nodes(Object)}
      * @return array of {@link Link} connecting nodes
      */
-    public final native Array<Link<T>> links(Array<Node<T>> n) /*-{
+    public final native Array<Link<T>> links(Array<N> n) /*-{
 		return this.links(n);
     }-*/;
 
@@ -153,16 +102,16 @@ public class HierarchicalLayout<L, T> extends JavaScriptObject {
      * should return an array of data elements representing the child nodes.
      *
      * @param df a datum function describing how to compute children
-     * @return this tree object
+     * @return this layout for chaining
      */
     public final L children(final DatumFunction<List<T>> df) {
-        return childrenImpl(new DatumFunction<Array<Node<T>>>() {
+        return childrenImpl(new DatumFunction<Array<N>>() {
             @Override
-            public Array<Node<T>> apply(final Element context, final Value d,
+            public Array<N> apply(final Element context, final Value d,
                     final int index) {
                 // wrap the list of user values into an array of Nodes
                 List<T> userValues = df.apply(context, d, index);
-                Array<Node<T>> nodes = Array.create();
+                Array<N> nodes = Array.create();
                 for (T t : userValues) {
                     nodes.push(Node.create(t));
                 }
@@ -172,7 +121,7 @@ public class HierarchicalLayout<L, T> extends JavaScriptObject {
 
     }
 
-    private final native L childrenImpl(DatumFunction<Array<Node<T>>> df) /*-{
+    private final native L childrenImpl(DatumFunction<Array<N>> df) /*-{
 		return this
 				.children(function(node, depth) {
 					return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:node.datum},depth);
@@ -188,7 +137,7 @@ public class HierarchicalLayout<L, T> extends JavaScriptObject {
      * the value; for other hierarchical layouts, the value has no effect on the layout.
      *
      * @param df a datum function describing how to access node values
-     * @return this tree object
+     * @return this layout for chaining
      */
     public final native L value(DatumFunction<Integer> df) /*-{
 		return this
@@ -206,4 +155,51 @@ public class HierarchicalLayout<L, T> extends JavaScriptObject {
     public final native DatumFunction<Integer> value() /*-{
 		return this.value();
     }-*/;
+
+    /**
+     * Sets the sort order of sibling nodes for the layout using the specified
+     * comparator function.
+     * <p>
+     * The comparator function is invoked for pairs of nodes, being passed the input data for each node. The default
+     * comparator is null, which disables sorting and uses tree traversal order. Sorting by the node's name or key is
+     * common and can be done easily via {@link #sort(JavaScriptObject)} using {@link D3#ascending()} or
+     * {@link D3#descending()}.
+     * <p>
+     *
+     * @param comparator the comparator to use or null to remove the sort
+     * @return this layout for chaining
+     */
+    public final L sort(final Comparator<T> comparator) {
+        return sort(comparator != null ? toJSOComparator(comparator) : null);
+    }
+
+    /**
+     * Sets the sort order of sibling nodes for the layout using the specified
+     * comparator function.
+     * <p>
+     * The comparator function is invoked for pairs of nodes, being passed the input data for each node. The default
+     * comparator is null, which disables sorting and uses tree traversal order. Sorting by the node's name or key is
+     * common and can be done easily using {@link D3#ascending()} or {@link D3#descending()}.
+     * <p>
+     * From Java, you may prefer use {@link #sort(Comparator)}.
+     *
+     * @param sortFunction the comparator to use or null to remove the sort
+     * @return this layout for chaining
+     */
+    public final native L sort(JavaScriptObject sortFunction)/*-{
+		return this.sort(sortFunction);
+    }-*/;
+
+    /**
+     * internal trampoline method
+     *
+     * @param comparator
+     * @return
+     */
+    protected final native JavaScriptObject toJSOComparator(Comparator<T> comparator) /*-{
+		return function(a, b) {
+			return comparator.@java.util.Comparator::compare(*)(a,b);
+		}
+    }-*/;
+
 }
