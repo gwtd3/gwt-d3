@@ -180,7 +180,7 @@ public class Cluster<T> extends HierarchicalLayout<Cluster<T>, T, Cluster.Node<T
      *
      * @return this layout for chaining
      */
-    public final native Cluster<T> separation(SeparationFunction<T> separation) /*-{
+    public final native Cluster<T> separation(SeparationFunction<Cluster.Node<T>> separation) /*-{
 		return this
 				.separation(function(a, b) {
 					return separation.@com.github.gwtd3.api.layout.SeparationFunction::separation(*)(a,b);

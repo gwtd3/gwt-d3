@@ -169,7 +169,7 @@ public class HierarchicalLayout<L, T, N extends Node<T>> extends JavaScriptObjec
      * @param comparator the comparator to use or null to remove the sort
      * @return this layout for chaining
      */
-    public final L sort(final Comparator<T> comparator) {
+    public final L sort(final Comparator<N> comparator) {
         return sort(comparator != null ? toJSOComparator(comparator) : null);
     }
 
@@ -196,7 +196,7 @@ public class HierarchicalLayout<L, T, N extends Node<T>> extends JavaScriptObjec
      * @param comparator
      * @return
      */
-    protected final native JavaScriptObject toJSOComparator(Comparator<T> comparator) /*-{
+    protected final native JavaScriptObject toJSOComparator(Comparator<N> comparator) /*-{
 		return function(a, b) {
 			return comparator.@java.util.Comparator::compare(*)(a,b);
 		}
