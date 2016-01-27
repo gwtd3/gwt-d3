@@ -182,7 +182,7 @@ public class Tree<T> extends HierarchicalLayout<Tree<T>, T, Tree.Node<T>> {
      *
      * @return this layout for chaining
      */
-    public final native Tree<T> separation(SeparationFunction<T> separation) /*-{
+    public final native Tree<T> separation(SeparationFunction<Tree.Node<T>> separation) /*-{
 		return this
 				.separation(function(a, b) {
 					return separation.@com.github.gwtd3.api.layout.SeparationFunction::separation(*)(a,b);

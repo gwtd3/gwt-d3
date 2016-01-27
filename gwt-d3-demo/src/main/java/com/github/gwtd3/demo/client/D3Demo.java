@@ -37,7 +37,6 @@ import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern1;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern2;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern3;
 import com.github.gwtd3.demo.client.democases.LorenzSystem;
-import com.github.gwtd3.demo.client.democases.TreeDemo;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.democases.geom.HullDemo;
@@ -128,7 +127,6 @@ public class D3Demo implements EntryPoint {
 
         buttonContainer.add(new DemoButton("Drag Multiples", DragMultiples.factory()));
         buttonContainer.add(new DemoButton("Zoom", ZoomDemo.factory()));
-        buttonContainer.add(new DemoButton("Collapsible Tree", TreeDemo.factory()));
 
         buttonContainer.add(new DemoButton("Cluster Dendogram", ClusterDendogram.factory()));
         // BRUSHES
@@ -170,7 +168,7 @@ public class D3Demo implements EntryPoint {
 
         /*
          * (non-Javadoc)
-         *
+         * 
          * @see
          * com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt
          * .event.dom.client.ClickEvent)
