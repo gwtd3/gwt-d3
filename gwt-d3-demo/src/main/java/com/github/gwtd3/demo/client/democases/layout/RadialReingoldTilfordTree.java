@@ -98,9 +98,10 @@ public class RadialReingoldTilfordTree extends FlowPanel implements DemoCase {
             }
         })
                 .size(360, diameter / 2 - 120)
-                .separation(new SeparationFunction<FlareNode>() {
+                .separation(new SeparationFunction<Tree.Node<FlareNode>>() {
                     @Override
-                    public double separation(FlareNode a, FlareNode b) {
+                    public double separation(Tree.Node<FlareNode> a,
+                            Tree.Node<FlareNode> b) {
                         return (a.parent() == b.parent() ? 1 : 2) / a.depth();
                     }
                 });
@@ -224,14 +225,6 @@ public class RadialReingoldTilfordTree extends FlowPanel implements DemoCase {
 
         public final native int size() /*-{
 			return this.size;
-        }-*/;
-
-        public final native double depth()/*-{
-			return this.depth;
-        }-*/;
-
-        public final native FlareNode parent()/*-{
-			return this.parent;
         }-*/;
 
         public final native Array<FlareNode> children()/*-{
