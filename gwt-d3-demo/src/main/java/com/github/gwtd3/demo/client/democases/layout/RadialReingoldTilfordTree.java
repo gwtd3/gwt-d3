@@ -102,7 +102,7 @@ public class RadialReingoldTilfordTree extends FlowPanel implements DemoCase {
                     @Override
                     public double separation(Tree.Node<FlareNode> a,
                             Tree.Node<FlareNode> b) {
-                        return (a.parent() == b.parent() ? 1 : 2) / a.depth();
+                        return (double) (a.parent() == b.parent() ? 1 : 2) / a.depth();
                     }
                 });
 
