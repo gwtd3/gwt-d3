@@ -45,8 +45,7 @@ public class SVG extends JavaScriptObject {
     }
 
     /**
-     * Create a new arc generator with default accessor functions. See
-     * {@link Arc} for details.
+     * Create a new arc generator with default accessor functions. See {@link Arc} for details.
      * 
      * @return the arc
      */
@@ -113,8 +112,8 @@ public class SVG extends JavaScriptObject {
      * angle-accessor functions (that assume the input data is a two-element
      * array of numbers; see below for details), and linear interpolation.
      * <p>
-     * The returned function generates path data for an open piecewise linear
-     * curve, or polyline, as with the Cartesian line generator.
+     * The returned function generates path data for an open piecewise linear curve, or polyline, as with the Cartesian
+     * line generator.
      * <p>
      * 
      * @return the {@link RadialLine}.
@@ -139,6 +138,6 @@ public class SVG extends JavaScriptObject {
      * @return the diagonal
      */
     public final native Diagonal radialDiagonal() /*-{
-		return this.diagonal();
+		return this.diagonal.radial();
     }-*/;
 }
