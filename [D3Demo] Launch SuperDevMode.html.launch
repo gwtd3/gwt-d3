@@ -19,7 +19,7 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gdt.eclipse.maven.mavenClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.DevMode"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-XjsInteropMode JS -startupUrl D3Demo.html -logLevel INFO -port 8888 -war &quot;${project_loc}\target\gwt-d3-demo&quot; -remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -codeServerPort 9997 -superDevMode com.github.gwtd3.demo.D3Demo"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-startupUrl D3Demo.html -logLevel INFO -port 8888 -XjsInteropMode JS -war &quot;${project_loc}/target/gwt-d3-demo&quot; -remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -codeServerPort 9997 -superDevMode com.github.gwtd3.demo.D3Demo"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="gwt-d3-demo"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx512m"/>
 </launchConfiguration>
