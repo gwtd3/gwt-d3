@@ -219,7 +219,7 @@ public class Force<T> extends JavaScriptObject {
      * Link objects may have additional fields that you specify; this data can be used to compute link strength and
      * distance on a per-link basis using an accessor function.
      * <p>
-     * 
+     *
      * @param <T>
      */
     public static class Link<T> extends JavaScriptObject {
@@ -599,7 +599,7 @@ public class Force<T> extends JavaScriptObject {
      *
      * @return the force layout object.
      */
-    public final native Force<T> links(Array<? extends Link> links) /*-{
+    public final native Force<T> links(Array<Link<T>> links) /*-{
 		return this.links(links);
     }-*/;
 
@@ -742,7 +742,7 @@ public class Force<T> extends JavaScriptObject {
      *
      * <pre>
      * var link = vis.selectAll(&quot;line&quot;).data(links).enter().append(&quot;line&quot;);
-     * 
+     *
      * var node = vis.selectAll(&quot;circle&quot;).data(nodes).enter().append(&quot;circle&quot;)
      *         .attr(&quot;r&quot;, 5);
      * </pre>
@@ -758,7 +758,7 @@ public class Force<T> extends JavaScriptObject {
      *       .attr("y1", function(d) { return d.source.y; })
      *       .attr("x2", function(d) { return d.target.x; })
      *       .attr("y2", function(d) { return d.target.y; });
-     * 
+     *
      *   node.attr("cx", function(d) { return d.x; })
      *       .attr("cy", function(d) { return d.y; });
      * });
