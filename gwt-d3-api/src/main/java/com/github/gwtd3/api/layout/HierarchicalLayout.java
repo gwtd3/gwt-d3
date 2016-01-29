@@ -39,7 +39,111 @@ import com.github.gwtd3.api.svg.Diagonal;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 
-public class HierarchicalLayout<L, T, N extends Node<T>> extends JavaScriptObject {
+/**
+ * Base class for all hierarchical layouts.
+ * <p>
+ * You should use only concrete subclass of this one
+ *
+ * @param <L> the concrete subclass of layout
+ * @param <T> the type of datum in each node
+ * @param <N> the concrete subclass of node
+ */
+public abstract class HierarchicalLayout<L, T, N extends HierarchicalLayout.Node<T>> extends JavaScriptObject {
+
+    /**
+     * A node used in a {@link HierarchicalLayout}.
+     */
+    public static class Node<T>
+            extends JavaScriptObject {
+        /**
+         * Create a new node containing the given user datum
+         *
+         * @param userDatum
+         * @return
+         */
+        static final native <T> Node<T> create(T userDatum)/*-{
+			return {
+				datum : userDatum
+			};
+        }-*/;
+
+        protected Node() {
+            super();
+        }
+
+        /**
+         * @return array of {@link Node} objects or null
+         */
+        public final native Array<Node<T>> children() /*-{
+			return this.children;
+        }-*/;
+
+        /**
+         * @return parent node
+         */
+        public final native Node<T> parent() /*-{
+			return this.parent;
+        }-*/;
+
+        /**
+         * @return the node's depth, root depth = 0
+         */
+        public final native int depth() /*-{
+			return this.depth;
+        }-*/;
+
+        /**
+         * @return the user datum of this node
+         */
+        public final native T datum()/*-{
+			return this.datum;
+        }-*/;
+
+        /**
+         * @param datum the user datum of this node
+         */
+        public final native void datum(final T datum)/*-{
+			this.datum = datum;
+        }-*/;
+    }
+
+    /**
+     * A link between two nodes in a {@link HierarchicalLayout}.
+     */
+    public static class Link<T> extends JavaScriptObject {
+        protected Link() {
+            super();
+        }
+
+        /**
+         * Create a basic link object starting at one coordinate and ending at
+         * another
+         *
+         * @param the starting coordinates
+         * @param the ending coordinates
+         * @return the link object
+         */
+        public static final native <T> Link<T> create(T source, T target) /*-{
+			return {
+				source : source,
+				target : target
+			};
+        }-*/;
+
+        /**
+         * @return the end node
+         */
+        public final native <N extends HierarchicalLayout.Node<T>> N target() /*-{
+			return this.target;
+        }-*/;
+
+        /**
+         * @return the start node
+         */
+        public final native <N extends HierarchicalLayout.Node<T>> N source() /*-{
+			return this.source;
+        }-*/;
+    }
 
     protected HierarchicalLayout() {
     }

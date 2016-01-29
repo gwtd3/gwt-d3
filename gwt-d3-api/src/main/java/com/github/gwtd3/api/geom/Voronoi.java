@@ -30,7 +30,7 @@ package com.github.gwtd3.api.geom;
 
 import com.github.gwtd3.api.arrays.Array;
 import com.github.gwtd3.api.functions.DatumFunction;
-import com.github.gwtd3.api.layout.Link;
+import com.github.gwtd3.api.layout.HierarchicalLayout.Link;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -54,12 +54,11 @@ public class Voronoi extends JavaScriptObject {
      * Sets the clip extent of the Voronoi layout to the specified bounds and
      * returns the layout.
      * <p>
-     * Use of a clip extent is strongly recommended, as unclipped polygons may
-     * have large coordinates which do not display correctly.
+     * Use of a clip extent is strongly recommended, as unclipped polygons may have large coordinates which do not
+     * display correctly.
      * <p>
-     * Alternatively, you can also employ custom clipping without specifying a
-     * size, either in SVG or by post-processing with
-     * {@link Polygon#clip(Array)}.
+     * Alternatively, you can also employ custom clipping without specifying a size, either in SVG or by post-processing
+     * with {@link Polygon#clip(Array)}.
      * <p>
      * To clear the clipping, see {@link #clearClipExtent()}
      * <p>
@@ -102,9 +101,8 @@ public class Voronoi extends JavaScriptObject {
      * Returns an array of polygons, one for each input vertex in the specified
      * data array.
      * <p>
-     * If any vertices are coincident or have NaN positions, the behavior of
-     * this method is undefined: most likely, invalid polygons will be returned!
-     * You should filter invalid vertices, and consolidate coincident vertices,
+     * If any vertices are coincident or have NaN positions, the behavior of this method is undefined: most likely,
+     * invalid polygons will be returned! You should filter invalid vertices, and consolidate coincident vertices,
      * before computing the tessellation.
      * <p>
      *
@@ -119,8 +117,7 @@ public class Voronoi extends JavaScriptObject {
     /**
      * Sets the x-coordinate accessor.
      * <p>
-     * The default accessor consider datum as a two element array and returns
-     * the first element.
+     * The default accessor consider datum as a two element array and returns the first element.
      *
      * @param xAccessor
      *            the x accessor
@@ -136,8 +133,7 @@ public class Voronoi extends JavaScriptObject {
     /**
      * Sets the y-coordinate accessor.
      * <p>
-     * The default accessor consider datum as a two element array and returns
-     * the first element.
+     * The default accessor consider datum as a two element array and returns the first element.
      *
      * @param yAccessor
      *            the y accessor

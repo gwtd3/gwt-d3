@@ -37,7 +37,7 @@ import com.github.gwtd3.api.core.Selection;
 import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.layout.Cluster.Node;
-import com.github.gwtd3.api.layout.Link;
+import com.github.gwtd3.api.layout.HierarchicalLayout.Link;
 import com.github.gwtd3.api.layout.SeparationFunction;
 import com.github.gwtd3.api.layout.Tree;
 import com.github.gwtd3.api.svg.Diagonal;
@@ -60,7 +60,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 /**
  * Radial Reingold–Tilford Tree
  * Example inspired from original Javascript example available at http://bl.ocks.org/mbostock/4063550
- * 
+ *
  * @author Eric Citaire
  */
 public class RadialReingoldTilfordTree extends FlowPanel implements DemoCase {
@@ -100,8 +100,8 @@ public class RadialReingoldTilfordTree extends FlowPanel implements DemoCase {
                 .size(360, diameter / 2 - 120)
                 .separation(new SeparationFunction<Tree.Node<FlareNode>>() {
                     @Override
-                    public double separation(Tree.Node<FlareNode> a,
-                            Tree.Node<FlareNode> b) {
+                    public double separation(final Tree.Node<FlareNode> a,
+                            final Tree.Node<FlareNode> b) {
                         return (double) (a.parent() == b.parent() ? 1 : 2) / a.depth();
                     }
                 });
@@ -145,7 +145,7 @@ public class RadialReingoldTilfordTree extends FlowPanel implements DemoCase {
 
                         DatumFunction<String> transform = new DatumFunction<String>() {
                             @Override
-                            public String apply(Element context, Value d, int index) {
+                            public String apply(final Element context, final Value d, final int index) {
                                 Tree.Node<FlareNode> node = d.<Tree.Node<FlareNode>> as();
                                 double x = node.x();
                                 double y = node.y();
@@ -220,19 +220,19 @@ public class RadialReingoldTilfordTree extends FlowPanel implements DemoCase {
         }
 
         public final native String name() /*-{
-			return this.name;
-        }-*/;
+                                          return this.name;
+                                          }-*/;
 
         public final native int size() /*-{
-			return this.size;
-        }-*/;
+                                       return this.size;
+                                       }-*/;
 
         public final native Array<FlareNode> children()/*-{
-			return this.children;
-        }-*/;
+                                                       return this.children;
+                                                       }-*/;
 
         public final native boolean isLeaf()/*-{
-			return !this.children;
-        }-*/;
+                                            return !this.children;
+                                            }-*/;
     }
 }

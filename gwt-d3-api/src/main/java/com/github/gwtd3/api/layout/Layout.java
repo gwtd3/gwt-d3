@@ -29,11 +29,22 @@
 package com.github.gwtd3.api.layout;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.resources.client.impl.ImageResourcePrototype.Bundle;
 
 public class Layout extends JavaScriptObject {
     protected Layout() {
         super();
     }
+
+    /**
+     * Creates a new bundle layout with the default settings.
+     * <p>
+     * 
+     * @return the new bundle layout
+     */
+    public final native Bundle bundle() /*-{
+		return this.bundle();
+    }-*/;
 
     public final native Chord chord() /*-{
 		return this.chord();

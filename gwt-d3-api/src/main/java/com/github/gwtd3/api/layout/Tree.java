@@ -52,7 +52,7 @@ public class Tree<T> extends HierarchicalLayout<Tree<T>, T, Tree.Node<T>> {
      * @param <T>
      */
     public static class Node<T>
-            extends com.github.gwtd3.api.layout.Node<T> {
+            extends HierarchicalLayout.Node<T> {
         protected Node() {
         }
 

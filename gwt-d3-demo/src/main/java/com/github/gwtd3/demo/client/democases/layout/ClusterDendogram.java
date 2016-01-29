@@ -38,7 +38,7 @@ import com.github.gwtd3.api.core.Value;
 import com.github.gwtd3.api.functions.DatumFunction;
 import com.github.gwtd3.api.layout.Cluster;
 import com.github.gwtd3.api.layout.Cluster.Node;
-import com.github.gwtd3.api.layout.Link;
+import com.github.gwtd3.api.layout.HierarchicalLayout.Link;
 import com.github.gwtd3.api.svg.Diagonal;
 import com.github.gwtd3.demo.client.DemoCase;
 import com.github.gwtd3.demo.client.Factory;
@@ -90,20 +90,20 @@ public class ClusterDendogram extends FlowPanel implements DemoCase {
         }
 
         public final native String name() /*-{
-			return this.name;
-        }-*/;
+                                          return this.name;
+                                          }-*/;
 
         public final native int size() /*-{
-			return this.size;
-        }-*/;
+                                       return this.size;
+                                       }-*/;
 
         public final native Array<FlareNode> children()/*-{
-			return this.children;
-        }-*/;
+                                                       return this.children;
+                                                       }-*/;
 
         public final native boolean isLeaf()/*-{
-			return !this.children;
-        }-*/;
+                                            return !this.children;
+                                            }-*/;
     }
 
     @Override
