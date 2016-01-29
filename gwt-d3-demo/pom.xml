@@ -34,7 +34,7 @@
 	<parent>
 		<groupId>com.github.gwtd3</groupId>
 		<artifactId>gwt-d3</artifactId>
-		<version>1.2.0</version> 
+		<version>1.2.1-SNAPSHOT</version> 
 	</parent>
 	<artifactId>gwt-d3-demo</artifactId>
 	<packaging>war</packaging>
