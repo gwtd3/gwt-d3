@@ -330,7 +330,7 @@ public class Area extends PathDataGenerator {
                 return Utils.toPrimitive(callback.apply(context, d, index));
             }
         });
-    };
+    }
 
     /**
      * FIXME: D3 bug ??? Does not seem to work...
