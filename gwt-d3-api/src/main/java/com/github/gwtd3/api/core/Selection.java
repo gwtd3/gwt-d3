@@ -499,7 +499,7 @@ public class Selection extends EnteringSelection {
                 return Utils.toPrimitive(addFunction.apply(context, d, index));
             }
         });
-    };
+    }
 
     /**
      * Sets whether or not the class should be associated or not to the
