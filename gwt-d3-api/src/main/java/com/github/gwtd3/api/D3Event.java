@@ -46,4 +46,15 @@ public class D3Event extends Event {
     public native final <T extends Event> T sourceEvent() /*-{
 		return this.sourceEvent;
     }-*/;
+
+    /**
+     * Returns the timestamp of this instance.
+     * <p>
+     * This
+     *
+     * @return the timestamp of the event
+     */
+    public native final int timeStamp() /*-{
+        return this.timeStamp;
+    }-*/;
 }
