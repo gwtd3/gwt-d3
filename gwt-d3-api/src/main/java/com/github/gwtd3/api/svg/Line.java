@@ -271,6 +271,7 @@ public class Line extends PathDataGenerator {
      * 
      * @deprecated prefer the use of {@link #defined(BooleanDatumFunction)}
      */
+    @Deprecated
     public final Line defined(final DatumFunction<Boolean> callback) {
         return this.defined(new BooleanDatumFunction() {
             @Override
@@ -278,7 +279,7 @@ public class Line extends PathDataGenerator {
                 return Utils.toPrimitive(callback.apply(context, d, index));
             }
         });
-    };
+    }
 
     /**
      * Sets the function used to controls where the line is defined.
