@@ -1,2 +1,2 @@
 language: java
-
+after_success: ./deploy.sh
