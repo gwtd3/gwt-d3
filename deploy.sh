@@ -35,7 +35,7 @@ organization="gwtd3"
 project_repo="gwt-d3"
 site_repo="gwtd3.github.io"
 
-if [ "${TRAVIS_REPO_SLUG}" != "${organization}/${project_repo}" ] ; then
+if [ "${TRAVIS_PULL_REQUEST}" != "false" || "${TRAVIS_REPO_SLUG}" != "${organization}/${project_repo}" ] ; then
   echo "Not the official repo, skipping the deployment."
   exit 0
 fi
