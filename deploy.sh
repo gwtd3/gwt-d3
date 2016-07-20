@@ -40,7 +40,7 @@ if [ "${TRAVIS_PULL_REQUEST}" != "false" ] || [ "${TRAVIS_REPO_SLUG}" != "${orga
   exit 0
 fi
 
-build_dir="${PWD}/target"
+build_dir="${PWD}/gwt-d3-demo/target"
 
 encrypted_key="${encrypted_25c5d1a53c1c_key}"
 encrypted_iv="${encrypted_25c5d1a53c1c_iv}"
@@ -69,7 +69,7 @@ fi
 mkdir demo
 cd demo
 
-unzip "${build_dir}/gwt-d3-demo/gwt-d3-demo.war" -x "META-INF/*" "WEB-INF/*"
+unzip "${build_dir}/gwt-d3-demo.war" -x "META-INF/*" "WEB-INF/*"
 
 git add .
 git commit -m "Update demo"
