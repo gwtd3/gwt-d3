@@ -69,7 +69,7 @@ fi
 mkdir demo
 cd demo
 
-unzip "${build_dir}/*.war" -x "META-INF/*" "WEB-INF/*"
+unzip "${build_dir}/gwt-d3-demo/gwt-d3-demo.war" -x "META-INF/*" "WEB-INF/*"
 
 git add .
 git commit -m "Update demo"
