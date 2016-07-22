@@ -40,7 +40,8 @@ if [ "${TRAVIS_BRANCH}" != "master" ] || [ "${TRAVIS_PULL_REQUEST}" != "false" ]
   exit 0
 fi
 
-build_dir="${PWD}/gwt-d3-demo/target"
+demo_artifact="${PWD}/gwt-d3-demo/target/gwt-d3-demo.war"
+private_key="${PWD}/id_rsa"
 
 encrypted_key="${encrypted_25c5d1a53c1c_key}"
 encrypted_iv="${encrypted_25c5d1a53c1c_iv}"
@@ -49,13 +50,13 @@ git config --global user.email "build@travis-ci.org"
 git config --global user.name "Travis-CI"
 git config --global push.default simple
 
-openssl aes-256-cbc -K "${encrypted_key}" -iv "${encrypted_iv}" -in id_rsa.enc -out id_rsa -d
+openssl aes-256-cbc -K "${encrypted_key}" -iv "${encrypted_iv}" -in "${private_key}.enc" -out "${private_key}" -d
 chmod 400 id_rsa
 
 cat <<EOT > ~/.ssh/config
 host github.com
  HostName github.com
- IdentityFile ${PWD}/id_rsa
+ IdentityFile ${private_key}
  User git
 EOT
 
@@ -69,9 +70,11 @@ fi
 mkdir demo
 cd demo
 
-unzip "${build_dir}/gwt-d3-demo.war" -x "META-INF/*" "WEB-INF/*"
+unzip "${demo_artifact}" -x "META-INF/*" "WEB-INF/*"
 
 git add .
 if git commit -m "Update demo" ; then
   git push
 fi
+
+rm -f "${private_key}"
