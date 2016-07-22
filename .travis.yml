@@ -1,4 +1,4 @@
 language: java
 script:
-- mvn clean install -B
+- mvn test integration-test -B
 after_success: ./deploy.sh
