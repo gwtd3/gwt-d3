@@ -12,7 +12,7 @@ Goals of the library:
 - make a bridge between GWT Widget API and d3 
 
 Have a look at the 
-<a href="http://gwt-d3.appspot.com/">demo</a>.
+<a href="http://gwtd3.github.io/demo/">demo</a>.
 
  
 <img src="http://gwtd3.github.io/gwt-d3/images/demo_chorddiagram.png" width="355px">
