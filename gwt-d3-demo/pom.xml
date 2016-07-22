@@ -113,42 +113,12 @@
 
 
 		<!-- Selenium -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-htmlunit-driver</artifactId>
-			<version>2.32.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-server</artifactId>
-			<version>2.32.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>2.32.0</version>
-		</dependency>
-
-		<!-- <dependency> -->
-		<!-- <groupId>com.saucelabs.selenium</groupId> -->
-		<!-- <artifactId>sauce-ondemand-driver</artifactId> -->
-		<!-- <version>2.8</version> -->
-		<!-- <scope>test</scope> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>com.saucelabs.selenium</groupId> -->
-		<!-- <artifactId>selenium-embedded-rc-driver</artifactId> -->
-		<!-- <version>2.8</version> -->
-		<!-- <scope>test</scope> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>com.saucelabs.selenium</groupId> -->
-		<!-- <artifactId>selenium-client-factory</artifactId> -->
-		<!-- <version>2.8</version> -->
-		<!-- <scope>test</scope> -->
-		<!-- </dependency> -->
-
-	</dependencies>
+        <dependency>
+            <groupId>com.github.detro</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<!-- we don't care about the API version number -->
@@ -212,17 +182,6 @@
 				<artifactId>appengine-maven-plugin</artifactId>
 				<version>${appengine.target.version}</version>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.14.1</version>
-				<configuration>
-					<!-- we skip the tests by default... See selenium profile at the bottom 
-						of the file -->
-					<skipTests>true</skipTests>
-				</configuration>
-			</plugin>
 		</plugins>
 
 		<pluginManagement>
@@ -284,10 +243,7 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
-
 	</build>
-
 
 	<profiles>
 		<profile>
@@ -295,14 +251,63 @@
 			<id>selenium</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.14.1</version>
-						<configuration>
-							<skipTests>false</skipTests>
-						</configuration>
-					</plugin>
+                    <plugin>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <version>9.2.17.v20160517</version>
+                        <configuration>
+                            <scanIntervalSeconds>10</scanIntervalSeconds>
+                            <stopKey>foo</stopKey>
+                            <stopPort>9999</stopPort>
+                            <webApp>
+                                <resourceBase>${webappDirectory}</resourceBase>
+                                <contextPath>/</contextPath>
+                            </webApp>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-jetty</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <configuration>
+                                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-jetty</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.8.1</version>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                                <configuration>
+                                    <includes>
+                                        <include>**/IT*</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>verify</id>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
 				</plugins>
 			</build>
 		</profile>
