@@ -35,8 +35,8 @@ organization="gwtd3"
 project_repo="gwt-d3"
 site_repo="gwtd3.github.io"
 
-if [ "${TRAVIS_PULL_REQUEST}" != "false" ] || [ "${TRAVIS_REPO_SLUG}" != "${organization}/${project_repo}" ] ; then
-  echo "Not the official repo, skipping the deployment."
+if [ "${TRAVIS_BRANCH}" != "master" ] || [ "${TRAVIS_PULL_REQUEST}" != "false" ] || [ "${TRAVIS_REPO_SLUG}" != "${organization}/${project_repo}" ] ; then
+  echo "Not the official repo or branch, skipping the deployment."
   exit 0
 fi
 
@@ -72,6 +72,6 @@ cd demo
 unzip "${build_dir}/gwt-d3-demo.war" -x "META-INF/*" "WEB-INF/*"
 
 git add .
-git commit -m "Update demo"
-git push
-
+if git commit -m "Update demo" ; then
+  git push
+fi
