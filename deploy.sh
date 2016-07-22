@@ -35,8 +35,18 @@ organization="gwtd3"
 project_repo="gwt-d3"
 site_repo="gwtd3.github.io"
 
-if [ "${TRAVIS_BRANCH}" != "master" ] || [ "${TRAVIS_PULL_REQUEST}" != "false" ] || [ "${TRAVIS_REPO_SLUG}" != "${organization}/${project_repo}" ] ; then
-  echo "Not the official repo or branch, skipping the deployment."
+if [ "${TRAVIS_PULL_REQUEST}" != "false" ] ; then
+  echo "Building pull request #${TRAVIS_PULL_REQUEST}, skipping the deployment."
+  exit 0
+fi
+
+if [ "${TRAVIS_REPO_SLUG}" != "${organization}/${project_repo}" ] ; then
+  echo "Building fork '${TRAVIS_REPO_SLUG}', skipping the deployment."
+  exit 0
+fi
+
+if [ "${TRAVIS_BRANCH}" != "master" ] ; then
+  echo "Building branch '${TRAVIS_BRANCH}', skipping the deployment."
   exit 0
 fi
 
