@@ -77,11 +77,11 @@ Launch your application; the current version of d3.js should be displayed.
 - Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
 
 ##API docs
-* [1.2.0](http://gwtd3.github.io/gwt-d3/apidocs/1.2.0/)
-* [1.1.1](http://gwtd3.github.io/gwt-d3/apidocs/1.1.1/)
-* [1.1.0](http://gwtd3.github.io/gwt-d3/apidocs/1.1.0/)
-* [1.0.1](http://gwtd3.github.io/gwt-d3/apidocs/1.0.1/)
-* [1.0.0](http://gwtd3.github.io/gwt-d3/apidocs/1.0.0/)
+* [1.2.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.2.0)
+* [1.1.1](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.1.1)
+* [1.1.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.1.0)
+* [1.0.1](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.0.1)
+* [1.0.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.0.0)
 
 ##Release notes
 - 1.2.0 (28th of jan 2016) : added Arrays.median/Arrays.mean API, fix some regression to ensure future GWT 2.8.0 compatibility, added Cluster and Tree layouts  
