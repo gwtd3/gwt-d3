@@ -74,7 +74,7 @@ Launch your application; the current version of d3.js should be displayed.
 - Then you may want to check the examples gallery from <a href="https://github.com/mbostock/d3/wiki/Gallery">Mike Bostock website</a>
 - You may also be interested in forking the gwt-d3 repository to see the demo source code
 - Read the <a href="http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api">Javadocs</a>
-- Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
+- Look at the <a href="http://gwtd3.github.io/demo/">demo</a>.
 
 ##API docs
 * [1.2.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.2.0)
