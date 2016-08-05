@@ -1,2 +1,4 @@
 language: java
-
+script:
+- mvn test integration-test -B -P selenium
+after_success: ./deploy.sh

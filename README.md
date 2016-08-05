@@ -2,6 +2,8 @@
 
 [![Travis CI - Build status](https://travis-ci.org/gwtd3/gwt-d3.svg?branch=master)](https://travis-ci.org/gwtd3/gwt-d3)
 [![Cloudbees - Build status](https://gwt-d3.ci.cloudbees.com/buildStatus/icon?job=CI of gwt-d3)](https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/)
+[![Javadocs](http://javadoc.io/badge/com.github.gwtd3/gwt-d3.svg?color=blue&label=javadocs)](http://javadoc.io/doc/com.github.gwtd3/gwt-d3)
+
 
 This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
 It allows GWT developers to use d3.js library in their project.
@@ -12,7 +14,7 @@ Goals of the library:
 - make a bridge between GWT Widget API and d3 
 
 Have a look at the 
-<a href="http://gwt-d3.appspot.com/">demo</a>.
+<a href="http://gwtd3.github.io/demo/">demo</a>.
 
  
 <img src="http://gwtd3.github.io/gwt-d3/images/demo_chorddiagram.png" width="355px">
@@ -73,15 +75,15 @@ Launch your application; the current version of d3.js should be displayed.
 - The best way to learn D3 is to read the <a href="https://github.com/mbostock/d3/wiki/Tutorials">d3.js tutorials</a> 
 - Then you may want to check the examples gallery from <a href="https://github.com/mbostock/d3/wiki/Gallery">Mike Bostock website</a>
 - You may also be interested in forking the gwt-d3 repository to see the demo source code
-- Read the <a href="http://gwtd3.github.io/gwt-d3/apidocs/1.2.0">Javadocs</a>
-- Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
+- Read the <a href="http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api">Javadocs</a>
+- Look at the <a href="http://gwtd3.github.io/demo/">demo</a>.
 
 ##API docs
-* [1.2.0](http://gwtd3.github.io/gwt-d3/apidocs/1.2.0/)
-* [1.1.1](http://gwtd3.github.io/gwt-d3/apidocs/1.1.1/)
-* [1.1.0](http://gwtd3.github.io/gwt-d3/apidocs/1.1.0/)
-* [1.0.1](http://gwtd3.github.io/gwt-d3/apidocs/1.0.1/)
-* [1.0.0](http://gwtd3.github.io/gwt-d3/apidocs/1.0.0/)
+* [1.2.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.2.0)
+* [1.1.1](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.1.1)
+* [1.1.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.1.0)
+* [1.0.1](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.0.1)
+* [1.0.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.0.0)
 
 ##Release notes
 - 1.2.0 (28th of jan 2016) : added Arrays.median/Arrays.mean API, fix some regression to ensure future GWT 2.8.0 compatibility, added Cluster and Tree layouts  

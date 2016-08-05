@@ -33,10 +33,10 @@ import java.net.URL;
 
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.Color;
 
 import com.github.gwtd3.demo.client.assertions.ColorAssert;
@@ -59,32 +59,21 @@ public class AbstractSeleniumTest {
             System.setProperty("webdriver.firefox.profile", "default");
             driver = new FirefoxDriver();
             webAppUrl = "http://127.0.0.1:8888/D3Demo.html?gwt.codesvr=127.0.0.1:9997";
+        } else {
+            driver = new PhantomJSDriver();
+            webAppUrl = "http://127.0.0.1:8080/D3Demo.html";
         }
-        else {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("version", readPropertyOrEnv("SELENIUM_VERSION", "4"));
-            capabilities.setCapability("platform", readPropertyOrEnv("SELENIUM_PLATFORM", "XP"));
-            capabilities.setCapability("browserName", readPropertyOrEnv("SELENIUM_BROWSER", "firefox"));
-            String username = readPropertyOrEnv("SAUCE_USER_NAME", "");
-            String accessKey = readPropertyOrEnv("SAUCE_API_KEY", "");
-            driver = new RemoteWebDriver(
-                    new URL("http://" + username + ":" + accessKey + "@ondemand.saucelabs.com:80/wd/hub"),
-                    capabilities);
-
-            String sessionId = ((RemoteWebDriver) driver).getSessionId().toString();
-            System.out.println("SauceOnDemandSessionID=" + sessionId);
-
-            webAppUrl = "http://hourly.gwt-d3.appspot.com/";
-        }
+        Dimension size = new Dimension(1920, 1080);
+        driver.manage().window().setSize(size);
         driver.get(webAppUrl);
     }
 
     @After
     public void tearDown() throws Exception {
         if (driver != null) {
-        driver.quit();
-        driver = null;
-    }
+            driver.quit();
+            driver = null;
+        }
     }
 
     protected ColorAssert assertThat(final Color color) {
