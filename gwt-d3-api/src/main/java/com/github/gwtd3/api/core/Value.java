@@ -249,7 +249,7 @@ public class Value extends JavaScriptObject {
 		return typeof (this.datum) === "boolean"
 				|| this.datum instanceof Boolean
 				|| (this.datum != null && this.datum
-						.@java.lang.Boolean::booleanValue() != null);
+				                .@java.lang.Boolean::booleanValue()() != null);
     }-*/;
 
     /**
