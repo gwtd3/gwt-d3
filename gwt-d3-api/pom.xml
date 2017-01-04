@@ -33,7 +33,7 @@
 	<parent>
 		<groupId>com.github.gwtd3</groupId>
 		<artifactId>gwt-d3</artifactId>
-		<version>1.2.1-SNAPSHOT</version> 
+		<version>1.3.0-SNAPSHOT</version> 
 	</parent>
 	<artifactId>gwt-d3-api</artifactId>
 	<packaging>jar</packaging>
