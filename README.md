@@ -2,6 +2,8 @@
 
 [![Travis CI - Build status](https://travis-ci.org/gwtd3/gwt-d3.svg?branch=master)](https://travis-ci.org/gwtd3/gwt-d3)
 [![Cloudbees - Build status](https://gwt-d3.ci.cloudbees.com/buildStatus/icon?job=CI of gwt-d3)](https://gwt-d3.ci.cloudbees.com/job/CI%20of%20gwt-d3/)
+[![Javadocs](http://javadoc.io/badge/com.github.gwtd3/gwt-d3.svg?color=blue&label=javadocs)](http://javadoc.io/doc/com.github.gwtd3/gwt-d3)
+
 
 This library provides access to the [d3.js API](http://d3js.org/) to the Java and GWT community.
 It allows GWT developers to use d3.js library in their project.
@@ -12,7 +14,7 @@ Goals of the library:
 - make a bridge between GWT Widget API and d3 
 
 Have a look at the 
-<a href="http://gwt-d3.appspot.com/">demo</a>.
+<a href="http://gwtd3.github.io/demo/">demo</a>.
 
  
 <img src="http://gwtd3.github.io/gwt-d3/images/demo_chorddiagram.png" width="355px">
@@ -37,7 +39,7 @@ add the gwt-d3-api module to your pom.xml:
   <dependency>
     <groupId>com.github.gwtd3</groupId>
     <artifactId>gwt-d3-api</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <scope>provided</scope>
   </dependency>
   ...
@@ -47,8 +49,8 @@ Note: these JARs don't contain any server-side code, so you don't need to packag
 
 **Without Maven**
 
-Download [gwt-d3-js-3.5.3.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.5.3/gwt-d3-js-3.5.3.jar),
-[gwt-d3-api-1.1.1.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.1.1/gwt-d3-api-1.1.1.jar).
+Download [gwt-d3-js-3.5.11.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-js/3.5.11/gwt-d3-js-3.5.11.jar),
+[gwt-d3-api-1.2.0.jar](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.2.0/gwt-d3-api-1.2.0.jar).
 Add the JARs to the project classpath.
 
 Note: these JARs don't contain any server-side code, so you don't need to package them into your webapp.
@@ -73,16 +75,18 @@ Launch your application; the current version of d3.js should be displayed.
 - The best way to learn D3 is to read the <a href="https://github.com/mbostock/d3/wiki/Tutorials">d3.js tutorials</a> 
 - Then you may want to check the examples gallery from <a href="https://github.com/mbostock/d3/wiki/Gallery">Mike Bostock website</a>
 - You may also be interested in forking the gwt-d3 repository to see the demo source code
-- Read the <a href="http://gwtd3.github.io/gwt-d3/apidocs/1.1.1">Javadocs</a>
-- Look at the <a href="http://gwt-d3.appspot.com/">demo</a>.
+- Read the <a href="http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api">Javadocs</a>
+- Look at the <a href="http://gwtd3.github.io/demo/">demo</a>.
 
 ##API docs
-* [1.1.1](http://gwtd3.github.io/gwt-d3/apidocs/1.1.1/)
-* [1.1.0](http://gwtd3.github.io/gwt-d3/apidocs/1.1.0/)
-* [1.0.1](http://gwtd3.github.io/gwt-d3/apidocs/1.0.1/)
-* [1.0.0](http://gwtd3.github.io/gwt-d3/apidocs/1.0.0/)
+* [1.2.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.2.0)
+* [1.1.1](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.1.1)
+* [1.1.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.1.0)
+* [1.0.1](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.0.1)
+* [1.0.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.0.0)
 
 ##Release notes
+- 1.2.0 (28th of jan 2016) : added Arrays.median/Arrays.mean API, fix some regression to ensure future GWT 2.8.0 compatibility, added Cluster and Tree layouts  
 - 1.1.1 (6th of feb 2015) : integrated a bug fix (color brighter() and darker() methods take a decimal rather than an integer argument
 - 1.1.0 (3rd of feb 2015) : made GWT 2.7-compliant, completed SVG Shapes,SVG Controls, and Geometry API + some bug fixes
 - 1.0.1 (7th of dec 2013) : a bug fix release to make gwt-d3 compatible with GWT super dev mode.
@@ -92,7 +96,7 @@ Launch your application; the current version of d3.js should be displayed.
 
 ##Scope and coverage
 
-Currently (3th of dec 2014), version 1.1.1 of gwt-d3 depends on the version 3.5.3 of d3.js codebase.
+Currently (30th of jan 2016), version 1.2.0 of gwt-d3 depends on the version 3.5.11 of d3.js codebase.
 However, not all the API is covered. Please also have a look to the <a href="https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open">issues</a>.
 
 #####CORE
@@ -142,18 +146,18 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 #####LAYOUTS
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
-| Bundle | - | - | planned for 1.2.0
-| Chord | - | - | planned for 1.2.0
-| Cluster | - | - | planned for 1.2.0
-| Force | - | - | planned for 1.2.0
-| Hierarchy | - | - | planned for 1.2.0
-| Histogram | - | - | planned for 1.2.0
-| Pack | - | - | planned for 1.2.0
-| Partition | - | - | planned for 1.2.0
-| Pie | - | - | planned for 1.2.0
-| Stack | - | - | planned for 1.2.0
-| Tree | - | - | planned for 1.2.0
-| Treemap | - | - | planned for 1.2.0
+| Bundle | - | - | planned for 1.3.0
+| Chord | - | - | planned for 1.3.0
+| Cluster | Complete | 1.2.0 | 
+| Force | - | - | planned for 1.3.0
+| Hierarchy | Complete | 1.2.0 | 
+| Histogram | - | - | planned for 1.3.0
+| Pack | - | - | planned for 1.3.0
+| Partition | - | - | planned for 1.3.0
+| Pie | - | - | planned for 1.3.0
+| Stack | - | - | planned for 1.3.0
+| Tree | Complete | 1.2.0 | 
+| Treemap | - | - | planned for 1.3.0
 
 
 #####TIME
@@ -166,9 +170,9 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 #####GEOGRAPHY
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
-| Paths | - | - | planned for 1.3.0 |  
-| Projections | - | - | planned for 1.3.0 | 
-| Streams | - | - | planned for 1.3.0  | 
+| Paths | - | - | planned for 1.4.0 |  
+| Projections | - | - | planned for 1.4.0 | 
+| Streams | - | - | planned for 1.4.0  | 
 
 #####GEOMETRY
 | API | status | version | notes |
@@ -190,6 +194,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 
 | GWT-D3 version | d3.js version | GWT-D3 release date  |
 | -------------: | -------------:| -----:|
+| [1.2.0](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.2.0/)          | 3.5.11        | 2016 01 30  |
 | [1.1.1](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.1.1/)          | 3.5.3        | 2015 02 06  |
 | [1.1.0](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.1.0/)          | 3.5.3        | 2015 02 03  |
 | [1.0.1](http://central.maven.org/maven2/com/github/gwtd3/gwt-d3-api/1.0.1/)          | 3.3.10        | 2013 12 07  |

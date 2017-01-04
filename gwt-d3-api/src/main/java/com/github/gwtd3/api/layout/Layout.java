@@ -29,41 +29,52 @@
 package com.github.gwtd3.api.layout;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.resources.client.impl.ImageResourcePrototype.Bundle;
 
 public class Layout extends JavaScriptObject {
-	protected Layout() {
-		super();
-	}
+    protected Layout() {
+        super();
+    }
 
-	public final native Chord chord() /*-{
+    /**
+     * Creates a new bundle layout with the default settings.
+     * <p>
+     * 
+     * @return the new bundle layout
+     */
+    public final native Bundle bundle() /*-{
+		return this.bundle();
+    }-*/;
+
+    public final native Chord chord() /*-{
 		return this.chord();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Creates a new tree layout with the default settings: the default sort
-	 * order is null; the default children accessor assumes each input data is
-	 * an object with a children array; the default separation function uses one
-	 * node width for siblings, and two node widths for non-siblings; the
-	 * default size is 1×1.
-	 * 
-	 * @return the tree layout object
-	 */
-	public final native Tree tree() /*-{
+    /**
+     * Creates a new tree layout with the default settings: the default sort
+     * order is null; the default children accessor assumes each input data is
+     * an object with a children array; the default separation function uses one
+     * node width for siblings, and two node widths for non-siblings; the
+     * default size is 1×1.
+     *
+     * @return the tree layout object
+     */
+    public final native <T> Tree<T> tree() /*-{
 		return this.tree();
-	}-*/;
+    }-*/;
 
-	/**
-	 * Creates a new cluster layout with the default settings: the default sort
-	 * order is null; the default children accessor assumes each input data is
-	 * an object with a children array; the default separation function uses one
-	 * node width for siblings, and two node widths for non-siblings; the
-	 * default size is 1×1.
-	 * 
-	 * @return the new cluster generator
-	 */
-	public final native Cluster cluster()/*-{
+    /**
+     * Creates a new cluster layout with the default settings: the default sort
+     * order is null; the default children accessor assumes each input data is
+     * an object with a children array; the default separation function uses one
+     * node width for siblings, and two node widths for non-siblings; the
+     * default size is 1×1.
+     *
+     * @return the new cluster generator
+     */
+    public final native <T> Cluster<T> cluster()/*-{
 		return this.cluster();
-	}-*/;
+    }-*/;
 
     /**
      * Constructs a new force-directed layout with the default settings: size
@@ -73,10 +84,10 @@ public class Layout extends JavaScriptObject {
      * alpha cooling parameter is set to 0.1. The general pattern for
      * constructing force-directed layouts is to set all the configuration
      * properties, and then call start():
-     * 
+     *
      * @return the new force layout object
      */
     public final native Force force()/*-{
-	    return this.force();
-	}-*/;
+		return this.force();
+    }-*/;
 }

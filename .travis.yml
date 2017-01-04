@@ -1,3 +1,6 @@
 language: java
 jdk:
  - oraclejdk8
+script:
+- mvn test integration-test -B -P selenium
+after_success: ./deploy.sh

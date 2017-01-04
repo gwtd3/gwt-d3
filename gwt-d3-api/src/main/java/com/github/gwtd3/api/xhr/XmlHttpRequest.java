@@ -32,50 +32,49 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * Overlay type for an XmlHttpRequest error.
- * 
+ *
  * @author <a href="mailto:eric.citaire@gmail.com">Eric Citaire</a>
- * 
+ *
  */
 public class XmlHttpRequest extends JavaScriptObject {
-	protected XmlHttpRequest() {
-		super();
-	}
+    protected XmlHttpRequest() {
+        super();
+    }
 
-	public static enum ResponseType {
-		ARRAYBUFFER, BLOB, JSON, TEXT, DOCUMENT;
+    public static enum ResponseType {
+        ARRAYBUFFER, BLOB, JSON, TEXT, DOCUMENT;
 
-		public static ResponseType fromString(final String s) {
-			if ((s == null) || s.trim().isEmpty()) {
-				return null;
-			}
-			return valueOf(s.toUpperCase());
-		}
-	}
+        public static ResponseType fromString(final String s) {
+            if (s == null || s.trim().isEmpty()) {
+                return null;
+            }
+            return valueOf(s.toUpperCase());
+        }
+    }
 
-	public final native String statusText() /*-{
+    public final native String statusText() /*-{
 		return this.statusText;
-	}-*/;
+    }-*/;
 
-	public final native int status() /*-{
+    public final native int status() /*-{
 		return this.status;
-	}-*/;
+    }-*/;
 
-	public final native String response() /*-{
+    public final native String response() /*-{
 		return this.response;
-	}-*/;
+    }-*/;
 
-	public final native ResponseType responseType() /*-{
+    public final native ResponseType responseType() /*-{
 		return @com.github.gwtd3.api.xhr.XmlHttpRequest.ResponseType::fromString(Ljava/lang/String;)(this.responseType());
 	}-*/;
 
-	public final native XmlHttpRequest responseType(ResponseType type)/*-{
-		if(type==null){
+    public final native XmlHttpRequest responseType(ResponseType type)/*-{
+		if (type == null) {
 			return this.responseType("");
-		}
-		else{
+		} else {
 			var stype = type.@com.github.gwtd3.api.xhr.XmlHttpRequest.ResponseType::name()();
-			stype = stype.@java.lang.String::toLowerCase()();
+			stype = stype.toLowerCase();
 			return this.responseType(stype);
 		}
-	}-*/;
+    }-*/;
 }

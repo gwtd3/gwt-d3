@@ -28,155 +28,165 @@
  */
 package com.github.gwtd3.api.layout;
 
-import com.github.gwtd3.api.D3;
-import com.github.gwtd3.api.Sort;
 import com.github.gwtd3.api.arrays.Array;
-import com.github.gwtd3.api.functions.DatumFunction;
 
 /**
  * Per the <a href="https://github.com/mbostock/d3/wiki/Tree-Layout">d3 API
  * reference</a>, the tree layout produces tidy node-link diagrams of trees
- * using the Reingold–Tilford “tidy” algorithm. Like most other layouts, the
- * object returned by d3.layout.tree is both an object and a function. That
- * is: you can call the layout like any other function, and the layout has
- * additional methods that change its behavior. Like other classes in D3,
- * layouts follow the method chaining pattern where setter methods return the
- * layout itself, allowing multiple setters to be invoked in a concise
- * statement.
- * 
- * @author <a href="mailto:evanshi09@gmail.com">Evan Shi</a>
- * 
+ * using the Reingold–Tilford “tidy” algorithm.
+ *
+ * <p>
+ * Like most other layouts, the object returned by d3.layout.tree is both an object and a function. That is: you can
+ * call the layout like any other function, and the layout has additional methods that change its behavior. Like other
+ * classes in D3, layouts follow the method chaining pattern where setter methods return the layout itself, allowing
+ * multiple setters to be invoked in a concise statement.
+ * <p>
+ *
+ *
  */
-public class Tree extends HierarchicalLayout{
-	protected Tree() {
-		super();
-	}
+public class Tree<T> extends HierarchicalLayout<Tree<T>, T, Tree.Node<T>> {
 
+    /**
+     * A node in the tree layout.
+     *
+     * @param <T>
+     */
+    public static class Node<T>
+            extends HierarchicalLayout.Node<T> {
+        protected Node() {
+        }
 
-	/**
-	 * Sets the available layout size to the specified two-element array of
-	 * numbers representing x and y.
-	 * 
-	 * @param a two-element array of width and height of tree
-	 * @return this tree object
-	 */
-	public final native Tree size(double width, double height) /*-{
+        /**
+         * @return the computed x-coordinate of the node position.
+         */
+        public final native double x()/*-{
+			return this.x;
+        }-*/;
+
+        /**
+         * sets the x coordinate
+         */
+        public final native void x(double x)/*-{
+			this.x = x;
+        }-*/;
+
+        /**
+         * @return the computed y-coordinate of the node position.
+         */
+        public final native double y()/*-{
+			return this.y;
+        }-*/;
+
+        /**
+         * sets the y coordinate
+         */
+        public final native void y(double y)/*-{
+			this.y = y;
+        }-*/;
+    }
+
+    protected Tree() {
+        super();
+    }
+
+    /**
+     * Sets the available layout size. The layout size is specified in x and y, but this is not limited screen
+     * coordinates and may represent an arbitrary coordinate system. For example, to produce a radial layout where the
+     * tree breadth (x) is measured in degrees, and the tree depth (y) is a radius r in pixels, say [360, r].
+     * <p>
+     * The size property is exclusive with {@link #nodeSize()}: setting {@link #size()} sets {@link #nodeSize()} to
+     * null.
+     * <p>
+     *
+     * @param width
+     * @param height
+     * @return this layout for chaining
+     */
+    public final native Tree<T> size(double width, double height) /*-{
 		return this.size([ width, height ]);
     }-*/;
 
-	/**
-	 * Returns the current tree size, which defaults to 1×1. Although the layout
-	 * has a size in x and y, this represents an arbitrary coordinate system.
-	 * For example, to produce a radial layout where the tree breadth (*x*) is
-	 * measured in degrees, and the tree depth (*y*) is a radius r in pixels,
-	 * say [360, r].
-	 * 
-	 * @return a two-element array representing the current size of the tree
-	 */
-	public final native Array<Double> size() /*-{
+    /**
+     * Returns the current layout size, which defaults to 1×1.
+     * <p>
+     * The size property is exclusive with {@link #nodeSize()}: setting {@link #nodeSize()} sets {@link #size()} to
+     * null.
+     * <p>
+     *
+     * @return a two-element array representing the current size of the layout, or null if nodeSize is specified
+     */
+    public final native Array<Double> size() /*-{
 		return this.size();
     }-*/;
 
-	/**
-	 * Sets a fixed size for each node as a two-element array of numbers
-	 * representing x and y.
-	 * 
-	 * @param width
-	 * @param height
-	 * 
-	 * @return this tree layout
-	 */
-	public final native Tree nodeSize(double width, double height) /*-{
-        return this.nodeSize([ width, height ]);
+    /**
+     * Sets a fixed size for each node.
+     * <p>
+     * The nodesize property is exclusive with {@link #size()}: setting {@link #nodeSize()} sets {@link #size()} to
+     * null.
+     * <p>
+     *
+     * @param width
+     * @param height
+     *
+     * @return this layout for chaining
+     */
+    public final native Tree<T> nodeSize(double width, double height) /*-{
+		return this.nodeSize([ width, height ]);
     }-*/;
 
-	/**
-	 * Returns the current node size, which defaults to null, meaning that the
-	 * layout has an overall fixed size, which
-	 * can be retrieved using {@link #size()}.
-	 * 
-	 * @return a two element array representing the current size of nodes in the
-	 * tree
-	 */
-	public final native Array<Double> nodeSize() /*-{
-        return this.nodeSize();
+    /**
+     * Returns the current node size, which defaults to null, meaning that the
+     * layout has an overall fixed size, which can be retrieved using {@link #size()}.
+     * <p>
+     * The nodeSize property is exclusive with {@link #size()}: setting {@link #size()} sets {@link #nodeSize()} to
+     * null.
+     * <p>
+     *
+     * @return a two element array representing the current size of nodes
+     *
+     */
+    public final native Array<Double> nodeSize() /*-{
+		return this.nodeSize();
     }-*/;
 
-	/**
-	 * Sets the sort order of sibling nodes for the layout using the specified
-	 * comparator function. The comparator function is invoked for pairs of
-	 * nodes, being passed the input data for each node. The default comparator
-	 * is null, which disables sorting and uses tree traversal order. Sorting by
-	 * the node's name or key is common and can be done easily using
-	 * {@link D3#ascending()} or {@link D3#descending()}.
-	 * 
-	 * @param {@link Sort} a predefined sorting convention
-	 * @return this tree object
-	 */
-	public final native Tree sort(Sort sort) /*-{
-		return this.sort(sort);
-    }-*/;
-
-	/**
-	 * Uses the specified function to compute separation between neighboring
-	 * nodes. The separation function is passed two neighboring nodes a and b,
-	 * and must return the desired separation between nodes. The nodes are
-	 * typically siblings, though the nodes may also be cousins (or even more
-	 * distant relations) if the layout decides to place such nodes adjacent.
-	 * See <a
-	 * href="https://github.com/mbostock/d3/wiki/Tree-Layout#wiki-separation"
-	 * >wiki</a> for examples.
-	 * 
-	 * @param df a datum function describing how to calculate separation of
-	 * nodes
-	 * @return this tree object
-	 */
-	public final native Tree separation(Sort sort) /*-{
-		return this.separation(sort);
-    }-*/;
-
-	/**
-	 * Sets the specified children accessor function. The default children
-	 * accessor function assumes the input data is an object with a children
-	 * array. The children accessor is first invoked for root node in the
-	 * hierarchy. If the accessor returns null, then the node is assumed to be a
-	 * leaf node at the layout traversal terminates. Otherwise, the accessor
-	 * should return an array of data elements representing the child nodes.
-	 * 
-	 * @param df a datum function describing how to compute children
-	 * @return this tree object
-	 */
-	public final native Tree children(DatumFunction<Array<Node>> df) /*-{
+    /**
+     * Uses the specified function to compute separation between neighboring
+     * nodes.
+     * <p>
+     * The separation function is passed two neighboring nodes a and b, and must return the desired separation between
+     * nodes. The nodes are typically siblings, though the nodes may also be cousins (or even more distant relations) if
+     * the layout decides to place such nodes adjacent.
+     * <p>
+     * The default separation function is:
+     *
+     * <pre>
+     * <code>
+     * function separation(a, b) {
+     *   return a.parent == b.parent ? 1 : 2;
+     * }
+     * </code>
+     * </pre>
+     * <p>
+     * A variation that is more appropriate for radial layouts reduces the separation gap proportionally to the radius:
+     * *
+     *
+     * <pre>
+     * <code>
+     * function separation(a, b) {
+     *   return (a.parent == b.parent ? 1 : 2) / a.depth;
+     * }
+     * </code>
+     * </pre>
+     *
+     *
+     * @return this layout for chaining
+     */
+    public final native Tree<T> separation(SeparationFunction<Tree.Node<T>> separation) /*-{
 		return this
-				.children(function(d) {
-					return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},0);
+				.separation(function(a, b) {
+					return separation.@com.github.gwtd3.api.layout.SeparationFunction::separation(*)(a,b);
 				});
     }-*/;
 
-	/**
-	 * Sets the value accessor to the specified function. The value accessor is
-	 * invoked for each input data element, and must return a number
-	 * representing the numeric value of the node. This value has no effect on
-	 * the tree layout, but is generic functionality provided by hierarchy
-	 * layouts.
-	 * 
-	 * @param df a datum function describing how to access node values
-	 * @return this tree object
-	 */
-	public final native Tree value(DatumFunction<?> df) /*-{
-		return this
-				.value(function(d, i) {
-					return df.@com.github.gwtd3.api.functions.DatumFunction::apply(Lcom/google/gwt/dom/client/Element;Lcom/github/gwtd3/api/core/Value;I)(this,{datum:d},i);
-				});
-    }-*/;
-
-	/**
-	 * Returns the current value accessor which defaults to null, meaning that
-	 * the value attribute is not computed.
-	 * 
-	 * @return the current datum function registered for calculating node values
-	 */
-	public final native DatumFunction<?> value() /*-{
-		return this.value();
-    }-*/;
 }

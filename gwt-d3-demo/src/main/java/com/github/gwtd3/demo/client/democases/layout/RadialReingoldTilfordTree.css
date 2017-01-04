@@ -26,29 +26,18 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.gwtd3.demo.client.testcases;
+ .node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
 
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
+.node {
+  font: 10px sans-serif;
+}
 
-import com.github.gwtd3.demo.client.pageobjects.DemoApplication;
-import com.github.gwtd3.demo.client.pageobjects.TestSuiteScreen;
-
-public class TestCases extends AbstractSeleniumTest {
-
-	@Test
-	public void basic() throws Exception {
-		DemoApplication application = DemoApplication.getInstance(driver);
-		Assertions.assertThat(driver.getTitle()).isEqualTo("GWT-D3 Demo");
-	}
-
-	@Test
-	public void testCasesPass() {
-		DemoApplication application = DemoApplication.getInstance(driver);
-
-		TestSuiteScreen testSuite = application.testCaseButton().click();
-		testSuite.clickRun().waitTestsAreAllDone();
-		Assertions.assertThat(testSuite.unitTestsAreSuccess()).isTrue();
-	}
-
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
 }
