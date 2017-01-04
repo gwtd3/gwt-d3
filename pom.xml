@@ -90,7 +90,7 @@
 		<gwt.version>2.8.0</gwt.version>
 		<java.version>1.8</java.version>
 		<junit.version>4.11</junit.version>
-		<guava.version>20.0-SNAPSHOT</guava.version>
+		<guava.version>20.0</guava.version>
 		<d3.js.version>3.5.11</d3.js.version>
 	</properties>
 
