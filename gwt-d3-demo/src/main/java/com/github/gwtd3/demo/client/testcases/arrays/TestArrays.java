@@ -41,9 +41,9 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 
 /**
  * Test native array functions.
- * 
+ *
  * @author <a href="mailto:schiochetanthoni@gmail.com">Anthony Schiochet</a>
- * 
+ *
  */
 public class TestArrays extends AbstractTestCase {
 
@@ -76,6 +76,7 @@ public class TestArrays extends AbstractTestCase {
     }
 
     private void testCreate() {
+        // since GWT 2.8, at least in dev mode, it's not possible to override Array.toString
         assertToStringIsOverriden(Array.create());
         assertToStringIsOverriden(Array.fromBytes(new byte[] { 0x01, 0x02, 0x03 }));
         assertToStringIsOverriden(Array.fromChars(new char[] { 'a', 'b', 'c' }));
@@ -318,19 +319,19 @@ public class TestArrays extends AbstractTestCase {
     }
 
     private static final native Array<Person> personArray() /*-{
-		var jane = {
-			name : 'Jane',
-			age : 25
-		};
-		var peter = {
-			name : 'Peter',
-			age : 36
-		};
-		var sam = {
-			name : 'Sam',
-			age : 53
-		};
-		return [ jane, peter, sam ];
+        var jane = {
+            name : 'Jane',
+            age : 25
+        };
+        var peter = {
+            name : 'Peter',
+            age : 36
+        };
+        var sam = {
+            name : 'Sam',
+            age : 53
+        };
+        return [ jane, peter, sam ];
     }-*/;
 
 }
@@ -341,18 +342,18 @@ class Person extends JavaScriptObject {
     }
 
     public final native void setName(String name) /*-{
-		this.name = name;
+        this.name = name;
     }-*/;
 
     public final native String getName() /*-{
-		return this.name;
+        return this.name;
     }-*/;
 
     public final native void setAge(int age) /*-{
-		this.age = age;
+        this.age = age;
     }-*/;
 
     public final native int getAge() /*-{
-		return this.age;
+        return this.age;
     }-*/;
 }

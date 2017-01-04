@@ -57,9 +57,9 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public static final native Value create(Object o)/*-{
-		return {
-			datum : o
-		};
+        return {
+            datum : o
+        };
     }-*/;
 
     /**
@@ -72,9 +72,9 @@ public class Value extends JavaScriptObject {
      */
     public static final native Value create(JavaScriptObject object,
             String propertyName)/*-{
-		return {
-			datum : object[propertyName]
-		};
+        return {
+            datum : object[propertyName]
+        };
     }-*/;
 
     /**
@@ -84,8 +84,7 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public final native boolean asBoolean()/*-{
-		return this.datum instanceof Boolean ? this.datum.valueOf()
-				: !!this.datum;
+        return this.datum instanceof Boolean ? this.datum.valueOf() : !!this.datum;
     }-*/;
 
     /**
@@ -95,7 +94,7 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public final native byte asByte()/*-{
-		return ~~this.datum;
+        return ~~this.datum;
     }-*/;
 
     /**
@@ -105,11 +104,11 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public final native char asChar()/*-{
-		return ~~this.datum;
+        return ~~this.datum;
     }-*/;
 
     public final native JsDate asJsDate()/*-{
-		return this.datum instanceof Date ? this.datum : new Date(this.datum);
+        return this.datum instanceof Date ? this.datum : new Date(this.datum);
     }-*/;
 
     /**
@@ -119,7 +118,7 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public final native double asDouble()/*-{
-		return this.datum - 0;
+        return this.datum - 0;
     }-*/;
 
     /**
@@ -129,7 +128,7 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public final native float asFloat()/*-{
-		return this.datum - 0;
+        return this.datum - 0;
     }-*/;
 
     /**
@@ -139,7 +138,7 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public final native int asInt()/*-{
-		return ~~this.datum;
+        return ~~this.datum;
     }-*/;
 
     /**
@@ -159,7 +158,7 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public final native short asShort()/*-{
-		return ~~this.datum;
+        return ~~this.datum;
     }-*/;
 
     /**
@@ -168,7 +167,7 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public final native String asString()/*-{
-		return this.datum == null ? null : '' + this.datum;
+        return this.datum == null ? null : '' + this.datum;
     }-*/;
 
     /**
@@ -178,7 +177,7 @@ public class Value extends JavaScriptObject {
      * @return the coords
      */
     public final native Coords asCoords()/*-{
-		return this.datum;
+        return this.datum;
     }-*/;
 
     /**
@@ -191,7 +190,7 @@ public class Value extends JavaScriptObject {
      * @return the value
      */
     public final native <T> T as()/*-{
-		return this.datum;
+        return this.datum;
     }-*/;
 
     /**
@@ -212,22 +211,22 @@ public class Value extends JavaScriptObject {
      *
      */
     public final native boolean isDefined()/*-{
-		return typeof (this.datum) != "undefined";
+        return typeof (this.datum) != "undefined";
     }-*/;
 
     /**
      * @return true if the value is undefined in the Javascript sense
      */
     public final native boolean isUndefined()/*-{
-		return typeof (this.datum) == "undefined";
+        return typeof (this.datum) == "undefined";
     }-*/;
 
     public final native boolean isNull()/*-{
-		return this.datum === null;
+        return this.datum === null;
     }-*/;
 
     public final native boolean isString()/*-{
-		return (typeof this.datum == 'string' || this.datum instanceof String);
+        return (typeof this.datum == 'string' || this.datum instanceof String);
     }-*/;
 
     // public final native boolean isNumber()/*-{
@@ -238,7 +237,7 @@ public class Value extends JavaScriptObject {
     // }-*/;
 
     public final native boolean isFunction()/*-{
-		return typeof (this.datum) == 'function';
+        return typeof (this.datum) == 'function';
     }-*/;
 
     /**
@@ -246,10 +245,8 @@ public class Value extends JavaScriptObject {
      *         instance.
      */
     public final native boolean isBoolean()/*-{
-		return typeof (this.datum) === "boolean"
-				|| this.datum instanceof Boolean
-				|| (this.datum != null && this.datum
-						.@java.lang.Boolean::booleanValue() != null);
+        return typeof (this.datum) === "boolean" || this.datum instanceof Boolean
+                || (this.datum != null && this.datum.@java.lang.Object::getClass()() == @java.lang.Boolean::TYPE);
     }-*/;
 
     /**
@@ -264,9 +261,9 @@ public class Value extends JavaScriptObject {
      * @return the property value as a value.
      */
     public final native Value getProperty(String propertyName)/*-{
-		return {
-			datum : this.datum[propertyName]
-		};
+        return {
+            datum : this.datum[propertyName]
+        };
     }-*/;
 
     /**
@@ -276,6 +273,6 @@ public class Value extends JavaScriptObject {
      * @return the String returned by a call to typeof
      */
     public final native String typeof()/*-{
-		return typeof this.datum;
+        return typeof this.datum;
     }-*/;
 }
