@@ -6,7 +6,7 @@ before_install:
   - if [ ! -z "$GPG_OWNERTRUST" ]; then echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust; fi
 install:
 - mvn --settings .travis/settings.xml test integration-test -Dgpg.skip -Dmaven.javadoc.skip=true -B -V -P selenium
-after_success: ./deploy_demo_on_github.sh
+after_success: .travis/deploy_demo_on_github.sh
 deploy:
   -
     provider: script
