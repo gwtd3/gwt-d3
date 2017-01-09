@@ -9,3 +9,5 @@ gwt-unitCache/
 d3demo/
 /.DS_Store
 /id_rsa
+.idea/
+**/*.iml
