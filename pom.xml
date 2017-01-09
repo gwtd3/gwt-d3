@@ -1,202 +1,221 @@
-<!--
+<!-- Copyright (c) 2013, Anthony Schiochet and Eric Citaire All rights reserved. Redistribution and use in source and binary 
+    forms, with or without modification, are permitted provided that the following conditions are met: * Redistributions of source 
+    code must retain the above copyright notice, this list of conditions and the following disclaimer. * Redistributions in binary 
+    form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation 
+    and/or other materials provided with the distribution. * The names Anthony Schiochet and Eric Citaire may not be used to 
+    endorse or promote products derived from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED 
+    BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHAEL BOSTOCK 
+    BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+    TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+    AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING 
+    IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+    <groupId>com.github.gwtd3</groupId>
+    <artifactId>gwt-d3</artifactId>
+    <version>1.3.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>gwt-d3 Parent project</name>
+    <description>the GWT wrapper around d3.js</description>
+    <url>https://github.com/gwtd3</url>
 
-    Copyright (c) 2013, Anthony Schiochet and Eric Citaire
-    All rights reserved.
+    <organization>
+        <name>gwt-d3</name>
+        <url>https://github.com/gwtd3</url>
+    </organization>
 
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
+    <developers>
+        <developer>
+            <id>anthonime</id>
+            <name>Anthoni Schiochet</name>
+            <url>https://github.com/anthonime</url>
+            <roles>
+                <role>project lead</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>ericcitaire</id>
+            <name>Eric Citaire</name>
+            <url>https://github.com/ericcitaire</url>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
 
-    * Redistributions of source code must retain the above copyright notice, this
-      list of conditions and the following disclaimer.
+    <!-- TODO: ask contributors if they want to be listed here. -->
+    <contributors>
+    </contributors>
 
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
+    <licenses>
+        <license>
+            <name>BSD-2 based</name>
+            <url>https://github.com/gwtd3/gwt-d3/blob/master/LICENSE</url>
+        </license>
+    </licenses>
 
-    * The names Anthony Schiochet and Eric Citaire may not be used to endorse or promote products
-      derived from this software without specific prior written permission.
+    <modules>
+        <module>gwt-d3-api</module>
+        <module>gwt-d3-demo</module>
+    </modules>
 
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-    DISCLAIMED. IN NO EVENT SHALL MICHAEL BOSTOCK BE LIABLE FOR ANY DIRECT,
-    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
-    OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
-    EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    <properties>
+        <gpg.keyname>gwt-d3</gpg.keyname>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <gwt.version>2.8.0</gwt.version>
+        <java.version>1.8</java.version>
+        <junit.version>4.11</junit.version>
+        <guava.version>20.0</guava.version>
+        <d3.js.version>3.5.11</d3.js.version>
+    </properties>
 
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
-	<groupId>com.github.gwtd3</groupId>
-	<artifactId>gwt-d3</artifactId>
-	<version>1.3.0-SNAPSHOT</version> 
-	<packaging>pom</packaging>
-	<name>gwt-d3 Parent project</name>
-	<description>the GWT wrapper around d3.js</description>
-	<url>https://github.com/gwtd3</url>
+    <!-- this is for the release plugin -->
+    <scm>
+        <url>http://github.com/gwtd3/gwt-d3</url>
+        <connection>scm:git:ssh://github.com/gwtd3/gwt-d3.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/gwtd3/gwt-d3.git</developerConnection>
+        <tag>gwt-d3-1.0.0</tag>
+    </scm>
 
-	<organization>
-		<name>gwt-d3</name>
-		<url>https://github.com/gwtd3</url>
-	</organization>
-
-	<developers>
-		<developer>
-			<id>anthonime</id>
-			<name>Anthoni Schiochet</name>
-			<url>https://github.com/anthonime</url>
-			<roles>
-				<role>project lead</role>
-				<role>developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>ericcitaire</id>
-			<name>Eric Citaire</name>
-			<url>https://github.com/ericcitaire</url>
-			<roles>
-				<role>developer</role>
-			</roles>
-		</developer>
-	</developers>
-
-	<!-- TODO: ask contributors if they want to be listed here. -->
-	<contributors>
-	</contributors>
-
-	<licenses>
-		<license>
-			<name>BSD-2 based</name>
-			<url>https://github.com/gwtd3/gwt-d3/blob/master/LICENSE</url>
-		</license>
-	</licenses>
-
-	<modules>
-		<module>gwt-d3-api</module>
-		<module>gwt-d3-demo</module>
-	</modules>
-
-	<properties>
-		<gpg.keyname>gwt-d3</gpg.keyname>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<gwt.version>2.8.0</gwt.version>
-		<java.version>1.8</java.version>
-		<junit.version>4.11</junit.version>
-		<guava.version>20.0</guava.version>
-		<d3.js.version>3.5.11</d3.js.version>
-	</properties>
-
-	<!-- this is for the release plugin -->
-	<scm>
-		<url>http://github.com/gwtd3/gwt-d3</url>
-		<connection>scm:git:ssh://github.com/gwtd3/gwt-d3.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/gwtd3/gwt-d3.git</developerConnection>
-		<tag>gwt-d3-1.0.0</tag>
-	</scm>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
 
-	<build>
-		<!-- allow deploying on cloudbees via webdav -->
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-webdav-jackrabbit</artifactId>
-				<version>2.4</version>
-			</extension>
-		</extensions>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>2.5.3</version>
-					<configuration>
-						<mavenExecutorId>forked-path</mavenExecutorId>
-						<useReleaseProfile>false</useReleaseProfile>
-						<arguments>-s /private/gwt-d3/settings.xml -Psonatype-oss-release -Dmaven.test.skip=true</arguments>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>gwt-maven-plugin</artifactId>
-										<versionRange>[${gwt.version},)</versionRange>
-										<goals>
-											<goal>i18n</goal>
-											<goal>generateAsync</goal>
-											<goal>resources</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnIncremental>true</runOnIncremental>
-											<runOnConfiguration>true</runOnConfiguration>
-										</execute>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>2.5.1</version>
-					<configuration>
-						<source>${java.version}</source>
-						<target>${java.version}</target>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.mycila</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>2.8</version>
-				<configuration>
-					<header>LICENSE</header>
-					<encoding>UTF-8</encoding>
-					<strictCheck>true</strictCheck>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <!-- allow deploying on cloudbees via webdav -->
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav-jackrabbit</artifactId>
+                <version>2.4</version>
+            </extension>
+        </extensions>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.3</version>
+                    <configuration>
+                        <mavenExecutorId>forked-path</mavenExecutorId>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <arguments>-s /private/gwt-d3/settings.xml -Psonatype-oss-release -Dmaven.test.skip=true</arguments>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>gwt-maven-plugin</artifactId>
+                                        <versionRange>[${gwt.version},)</versionRange>
+                                        <goals>
+                                            <goal>i18n</goal>
+                                            <goal>generateAsync</goal>
+                                            <goal>resources</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute>
+                                            <runOnIncremental>true</runOnIncremental>
+                                            <runOnConfiguration>true</runOnConfiguration>
+                                        </execute>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>2.8</version>
+                <configuration>
+                    <header>LICENSE</header>
+                    <encoding>UTF-8</encoding>
+                    <strictCheck>true</strictCheck>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
