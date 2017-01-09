@@ -1,10 +1,10 @@
 language: java
 jdk:
  - oraclejdk8
-before_script:
+before_install:
   - if [ ! -z "$GPG_SECRET_KEYS" ]; then echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import; fi
   - if [ ! -z "$GPG_OWNERTRUST" ]; then echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust; fi
-script:
+install:
 - mvn --settings .travis/settings.xml test integration-test -Dgpg.skip -Dmaven.javadoc.skip=true -B -V -P selenium
 after_success: ./deploy_demo_on_github.sh
 deploy:
