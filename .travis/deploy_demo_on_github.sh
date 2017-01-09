@@ -86,5 +86,8 @@ git add .
 if git commit -m "Update demo" ; then
   git push
 fi
+cd ../..
+
+rm -rf "${site_repo}"
 
 rm -f "${private_key}"
