@@ -35,4 +35,4 @@ else
     echo "not on a tag -> keep snapshot version in pom.xml"
 fi
 
-mvn --settings .travis/settings.xml clean deploy -Dmaven.javadoc.failOnError=false -B -U -V
+mvn --settings .travis/settings.xml clean deploy -Dmaven.javadoc.failOnError=false -B -U -V -P selenium
