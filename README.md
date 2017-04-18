@@ -1,4 +1,4 @@
-#gwt-d3: the GWT wrapper around d3.js
+# gwt-d3: the GWT wrapper around d3.js
 
 [![Travis CI - Build status](https://travis-ci.org/gwtd3/gwt-d3.svg?branch=master)](https://travis-ci.org/gwtd3/gwt-d3)
 [![Javadocs](http://javadoc.io/badge/com.github.gwtd3/gwt-d3.svg?color=blue&label=javadocs)](http://javadoc.io/doc/com.github.gwtd3/gwt-d3)
@@ -24,7 +24,7 @@ Have a look at the
 &nbsp;
 <img src="http://gwtd3.github.io/gwt-d3/images/demo_brush_transition.png" width="355px"> 
 
-##Getting started
+## Getting started
 
 **1. Configure a project**
 
@@ -69,7 +69,7 @@ Note: these JARs don't contain any server-side code, so you don't need to packag
 
 Launch your application; the current version of d3.js should be displayed.
 
-##Learn D3
+## Learn D3
 
 - The best way to learn D3 is to read the <a href="https://github.com/mbostock/d3/wiki/Tutorials">d3.js tutorials</a> 
 - Then you may want to check the examples gallery from <a href="https://github.com/mbostock/d3/wiki/Gallery">Mike Bostock website</a>
@@ -77,7 +77,7 @@ Launch your application; the current version of d3.js should be displayed.
 - Read the <a href="http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api">Javadocs</a>
 - Look at the <a href="http://gwtd3.github.io/demo/">demo</a>.
 
-##API docs
+## API docs
 * [1.3.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.3.0)
 * [1.2.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.2.0)
 * [1.1.1](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.1.1)
@@ -85,7 +85,7 @@ Launch your application; the current version of d3.js should be displayed.
 * [1.0.1](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.0.1)
 * [1.0.0](http://www.javadoc.io/doc/com.github.gwtd3/gwt-d3-api/1.0.0)
 
-##Release notes
+## Release notes
 - 1.3.0 (9th of jan 2017) : made GWT 2.8-compliant 
 - 1.2.0 (28th of jan 2016) : added Arrays.median/Arrays.mean API, fix some regression to ensure future GWT 2.8.0 compatibility, added Cluster and Tree layouts  
 - 1.1.1 (6th of feb 2015) : integrated a bug fix (color brighter() and darker() methods take a decimal rather than an integer argument
@@ -95,12 +95,12 @@ Launch your application; the current version of d3.js should be displayed.
 
 
 
-##Scope and coverage
+## Scope and coverage
 
 Currently (9th of jan 2017), version 1.3.0 of gwt-d3 depends on the version 3.5.11 of d3.js codebase.
 However, not all the API is covered. Please also have a look to the <a href="https://github.com/gwtd3/gwt-d3/issues?milestone=&page=1&state=open">issues</a>.
 
-#####CORE
+##### CORE
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
 | Selections | Complete | 1.0.0 | |
@@ -115,7 +115,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | Namespaces | - | - | unplanned 
 | Internals | - | - | unplanned
 
-#####SCALES
+##### SCALES
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
 | Linear| Complete | 1.0.0
@@ -128,7 +128,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | identity| Complete | 1.0.0
 | Ordinal| Complete | 1.0.0
 
-#####SVG 
+##### SVG 
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
 | **Shapes** |
@@ -144,7 +144,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | **Axes** | Complete | 1.0.0
 | **Controls** | Complete | 1.1.0
 
-#####LAYOUTS
+##### LAYOUTS
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
 | Bundle | - | - | planned for 1.4.0
@@ -161,21 +161,21 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | Treemap | - | - | planned for 1.4.0
 
 
-#####TIME
+##### TIME
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
 | Time Formatting | Complete | 1.0.0 |
 | Time Scales | Complete | 1.0.0 |
 | Time Intervals | Complete | 1.0.0 |
 
-#####GEOGRAPHY
+##### GEOGRAPHY
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
 | Paths | - | - | planned for 1.5.0 |  
 | Projections | - | - | planned for 1.5.0 | 
 | Streams | - | - | planned for 1.5.0  | 
 
-#####GEOMETRY
+##### GEOMETRY
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
 | Quadtree| Complete | 1.0.0
@@ -183,7 +183,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | Hull | Complete | 1.0.0
 | Voronoi | Partial | 1.1.0 
 
-#####BEHAVIORS
+##### BEHAVIORS
 | API | status | version | notes |
 | -------------: | -------------:| -----:| --- |
 | Drag | Complete | 1.0.0
@@ -191,7 +191,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 
 
 
-##Version mapping
+## Version mapping
 
 | GWT-D3 version | d3.js version | GWT-D3 release date  |
 | -------------: | -------------:| -----:|
@@ -208,7 +208,7 @@ However, not all the API is covered. Please also have a look to the <a href="htt
 | 0.0.12          | 3.1.10         | 2013 06 01 |
 
 
-##Debugging d3.js 
+## Debugging d3.js 
 
 You may be interested in debugging d3.js scripts when using super dev mode. 
 If so, just add to your gwt application module file the following configuration:
@@ -217,7 +217,7 @@ If so, just add to your gwt application module file the following configuration:
   <set-property name="d3.pretty" value="true"/>
 ```
 
-##License
+## License
 
 See [LICENSE](https://github.com/gwtd3/gwt-d3/blob/master/LICENSE) file
 
