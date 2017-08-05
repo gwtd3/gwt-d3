@@ -37,6 +37,7 @@ import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern1;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern2;
 import com.github.gwtd3.demo.client.democases.GeneralUpdatePattern3;
 import com.github.gwtd3.demo.client.democases.LorenzSystem;
+import com.github.gwtd3.demo.client.democases.MobilePatentSuits;
 import com.github.gwtd3.demo.client.democases.behaviors.DragMultiples;
 import com.github.gwtd3.demo.client.democases.behaviors.ZoomDemo;
 import com.github.gwtd3.demo.client.democases.geom.HullDemo;
@@ -117,7 +118,8 @@ public class D3Demo implements EntryPoint {
         buttonContainer.add(new DemoButton("Focus And Context", FocusAndContext.factory()));
         buttonContainer.add(new DemoButton("Chord diagram", ChordDiagram.factory()));
         buttonContainer.add(new DemoButton("Lorenz System", LorenzSystem.factory()));
-
+        buttonContainer.add(new DemoButton("Force-directed Graph", MobilePatentSuits.factory()));
+        
         // TODO no sliders !
         // buttonContainer.add(new DemoButton("Shape Tweening",
         // ShapeTweeningDemo.factory()));
